@@ -10,4 +10,5 @@ spec:
     .git/
     .github/
     .sops.yaml
-    .gitlab-ci.yml    
+    .gitlab-ci.yml
+        
