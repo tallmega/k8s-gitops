@@ -8,5 +8,7 @@ spec:
         paths:
         - path: /api
           backend:
-            serviceName: frontend-svc
-            servicePort: 3000
+            service:
+              name: frontend-svc
+              port:
+                 number: 3000
