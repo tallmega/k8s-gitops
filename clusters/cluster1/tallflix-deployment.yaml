@@ -49,10 +49,10 @@ spec:
          # path: /media/sonarr/config/
       - name: sonarr-configxml-volume
         configMap:
-          name: sonarr-configxml 
+          name: sonarr-configxml
           items:
            - key: sonar-config2.xml
-             path: /config/config2/config2.xml
+             path: config2.xml
       - name: sonarr-tv
         hostPath:
           path: /media/tvshows
