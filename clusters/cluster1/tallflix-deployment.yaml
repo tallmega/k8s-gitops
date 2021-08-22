@@ -46,6 +46,9 @@ spec:
       - name: sonarr-config
         hostPath:
           path: /media/sonarr/config/
+      - name: sonarr-configxml
+        configMap:
+          name: sonarr-configxml 
       - name: sonarr-tv
         hostPath:
           path: /media/tvshows
