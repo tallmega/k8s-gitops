@@ -31,8 +31,8 @@ spec:
         - name: sonarr-config
           mountPath: /config
         - name: sonarr-configxml-volume
-          mountPath: /config/config2/ #config2.xml
-          readOnly: true
+          mountPath: "/config/config2" #config2.xml
+          #readOnly: true
           #subPath: config2.xml
         - name: sonarr-tv
           mountPath: /tv
