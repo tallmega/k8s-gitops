@@ -46,13 +46,13 @@ spec:
       volumes:
       - name: sonarr-config
         hostPath:
-         # path: /media/sonarr/config/
+          path: /media/sonarr/config/
       - name: sonarr-configxml-volume
         configMap:
           name: sonarr-configxml
           items:
-           - key: sonar-config2.xml
-             path: config2.xml
+           - key: sonarr-config2.xml
+             path: /media/sonarr/config2.xml
       - name: sonarr-tv
         hostPath:
           path: /media/tvshows
