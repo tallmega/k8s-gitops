@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sonarr
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: sonarr
+    spec:
+#      nodeSelector:
+#        fileserv: "true"
+      containers:
+      - name: sonarr
+        image: linuxserver/sonarr
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8989
+        env:
+        - name: PGID
+          value: "1001"
+        - name: PUID
+          value: "1001"
+        volumeMounts:
+        - name: sonarr-config
+          mountPath: /config
+        - name: sonarr-tv
+          mountPath: /tv
+        - name: sonarr-tv2
+          mountPath: /tv2
+          mountPropagation: Bidirectional       
+        - name: sonarr-tv3
+          mountPath: /tv3
+          mountPropagation: Bidirectional
+        - name: sonarr-downloads
+          mountPath: /downloads
+      volumes:
+      - name: sonarr-config
+        hostPath:
+          path: /media/sonarr/config/
+      - name: sonarr-tv
+        hostPath:
+          path: /media/tvshows
+      - name: sonarr-tv2
+        hostPath:
+          path: /media/tvshows2
+      - name: sonarr-tv3
+        hostPath:
+          path: /media/tvshows3
+      - name: sonarr-downloads
+        hostPath:
+          path: /media/complete
