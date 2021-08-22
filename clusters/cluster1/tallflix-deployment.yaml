@@ -52,7 +52,8 @@ spec:
           name: sonarr-configxml
           items:
            - key: sonarr-config2.xml
-             path: /media/sonarr/config2.xml
+             path: /media/sonarr/config2/
+             subpath: config2.xml
       - name: sonarr-tv
         hostPath:
           path: /media/tvshows
