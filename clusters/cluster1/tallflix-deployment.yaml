@@ -30,6 +30,8 @@ spec:
         volumeMounts:
         - name: sonarr-config
           mountPath: /config
+        - name: sonarr-configxml
+          mountPath: /config/config2.yaml
         - name: sonarr-tv
           mountPath: /tv
         - name: sonarr-tv2
