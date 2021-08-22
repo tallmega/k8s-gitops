@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
     name: sonarr-configxml
 data:
-  sonarr-config2.xml: |
+  sonarr-config2.xml: |-
     <Config>
       <LogLevel>Info</LogLevel>
       <Port>8989</Port>
