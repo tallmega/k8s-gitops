@@ -13,6 +13,7 @@ spec:
   rules:
 #  - host: sonarr.tallflix.ca
   - http:
+    port: 8989
       paths:
       - path: /
         pathType: Prefix
