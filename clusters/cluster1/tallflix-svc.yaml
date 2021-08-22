@@ -12,5 +12,4 @@ spec:
   - name: sonarr
     port: 8989
     targetPort: 8989
-    nodePort: 8989
-  type: NodePort
+  type: ClusterIP

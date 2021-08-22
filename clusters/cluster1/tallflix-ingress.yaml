@@ -1,23 +1,22 @@
-#apiVersion: networking.k8s.io/v1
-#kind: Ingress
-#metadata:
-#  name: sonarr
+apiVersion: v1
+kind: Service
+metadata:
+  name: sonarr
 #  annotations:
 #    kubernetes.io/tls-acme: "true"
-#spec:
+spec:
 #  tls:
 #  - secretName: sonarr-cert
 #    hosts:
 #    - sonarr.burntsheep.com
 #    - sonaar.burntsheep.com
-#  rules:
+  type: LoadBalancer
+   - loadBalancerIP: 10.10.10.200
 #  - host: sonarr.tallflix.ca
-#  - http:
-#      paths:
-#      - path: /
-#        pathType: Prefix
-#        backend:
-#          service:
-#            name: sonarr
-#            port: 
-#              number: 8989
+  selector:
+    app: sonarr
+  ports:
+   - name: http
+     protocol: TCP
+     port: 8989
+     targetPort: 8989
