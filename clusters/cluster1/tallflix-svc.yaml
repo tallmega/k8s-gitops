@@ -12,6 +12,5 @@ spec:
   - name: sonarr
     port: 8989
     targetPort: 8989
-    nodePort: 30007
+    nodePort: 8989
   type: NodePort
-  
