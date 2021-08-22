@@ -11,7 +11,7 @@ spec:
 #    - sonarr.burntsheep.com
 #    - sonaar.burntsheep.com
   type: LoadBalancer
-   - loadBalancerIP: 10.10.10.200
+    loadBalancerIP: 10.10.10.200
 #  - host: sonarr.tallflix.ca
   selector:
     app: sonarr
