@@ -11,7 +11,7 @@ spec:
 #    - sonarr.burntsheep.com
 #    - sonaar.burntsheep.com
   rules:
-  - host: sonarr.tallflix.ca
+#  - host: sonarr.tallflix.ca
   - http:
       paths:
       - path: /
@@ -20,4 +20,4 @@ spec:
           service:
             name: sonarr
             port: 
-              number: 4506
+              number: 8989

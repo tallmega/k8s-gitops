@@ -25,6 +25,8 @@ spec:
           value: "1001"
         - name: PUID
           value: "1001"
+        - name: TZ
+          value: America\Toronto
         volumeMounts:
         - name: sonarr-config
           mountPath: /config
