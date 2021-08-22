@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
     name: sonarr-configxml
-key:
+data:
   sonarr-config2.xml: |-
     <Config>
       <LogLevel>Info</LogLevel>
