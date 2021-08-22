@@ -11,9 +11,9 @@ spec:
 #    - sonarr.burntsheep.com
 #    - sonaar.burntsheep.com
   type: LoadBalancer
+  selector:
+    app: sonarr
 #  - host: sonarr.tallflix.ca
-#  selector:
-#    app: sonarr
   ports:
    - name: http
      protocol: TCP
