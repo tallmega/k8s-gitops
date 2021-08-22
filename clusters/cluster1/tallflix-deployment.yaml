@@ -50,9 +50,9 @@ spec:
       - name: sonarr-configxml-volume
         configMap:
           name: sonarr-configxml
-          #items:
-          # - key: sonarr-config2.xml
-          #   path: config2.xml
+          items:
+           - key: config2.xml
+             path: config2.xml
       - name: sonarr-tv
         hostPath:
           path: /media/tvshows
