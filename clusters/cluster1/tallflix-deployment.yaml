@@ -32,10 +32,10 @@ spec:
           mountPath: /tv
         - name: sonarr-tv2
           mountPath: /tv2
-          mountPropagation: Bidirectional       
+          #mountPropagation: Bidirectional       
         - name: sonarr-tv3
           mountPath: /tv3
-          mountPropagation: Bidirectional
+          #mountPropagation: Bidirectional
         - name: sonarr-downloads
           mountPath: /downloads
       volumes:
