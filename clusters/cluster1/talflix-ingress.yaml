@@ -14,7 +14,7 @@ spec:
 #  - host: sonarr.burntsheep.com
   - http:
       paths:
-      - path: /
+      - path: /sonartest
         pathType: Prefix
         backend:
           service:
