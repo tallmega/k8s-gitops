@@ -45,7 +45,7 @@ spec:
       volumes:
       - name: sonarr-config
         hostPath:
-          path: /media/sonarr/config/
+         # path: /media/sonarr/config/
       - name: sonarr-configxml
         configMap:
           name: sonarr-configxml 
