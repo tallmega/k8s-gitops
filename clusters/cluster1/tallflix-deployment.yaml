@@ -29,7 +29,7 @@ spec:
           value: America\Toronto
         volumeMounts:
         - name: sonarr-config
-          mountPath: /config/config2.xml
+          mountPath: /config
         - name: sonarr-configxml-volume
           mountPath: /config/config2.xml
           subPath: config2.xml
