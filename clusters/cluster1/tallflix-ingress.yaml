@@ -10,7 +10,7 @@ data:
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
-  name: nginx-ingress-microk8s-controller
+  name: nginx-ingress-microk8s
   namespace: ingress
 spec:
   template:
