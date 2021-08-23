@@ -30,8 +30,8 @@ spec:
         volumeMounts:
         - name: sonarr-config
           mountPath: /config
-        - name: sonarr-configxml-volume
-          mountPath: /config/config2.xml
+        #- name: sonarr-configxml-volume
+          #mountPath: /config/config2.xml
           #subPath: config2.xml
         - name: sonarr-tv
           mountPath: /tv
@@ -47,12 +47,12 @@ spec:
       - name: sonarr-config
         hostPath:
           path: /media/sonarr/config/
-      - name: sonarr-configxml-volume
-        configMap:
-          name: sonarr-configxml
-          items:
-           - key: config2.xml
-             path: config2.xml
+      #- name: sonarr-configxml-volume
+      #  configMap:
+      #    name: sonarr-configxml
+      #    items:
+      #     - key: config2.xml
+      #       path: config2.xml
       - name: sonarr-tv
         hostPath:
           path: /media/tvshows
