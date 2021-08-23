@@ -49,7 +49,7 @@ spec:
           path: /media/sonarr/config/
       - name: sonarr-configxml-volume
         configMap:
-        name: sonarr-configxml
+          name: sonarr-configxml
           items:
            - key: config2.xml
              path: config2.xml
