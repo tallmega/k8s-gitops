@@ -10,12 +10,12 @@ spec:
 #    hosts:
 #    - sonarr.burntsheep.com
 #    - sonaar.burntsheep.com
-##  type: LoadBalancer
-##  selector:
-##    app: sonarr
+  type: LoadBalancer
+  selector:
+    app: sonarr
 #  - host: sonarr.tallflix.ca
-##  ports:
-##   - name: http
-##     protocol: TCP
-##     port: 8989
-##     targetPort: 8989
+  ports:
+   - name: http
+     protocol: TCP
+     port: 8989
+     targetPort: 8989
