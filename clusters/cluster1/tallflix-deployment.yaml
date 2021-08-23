@@ -44,9 +44,9 @@ spec:
         - name: sonarr-downloads
           mountPath: /downloads
       volumes:
-      #- name: sonarr-config
-      #  hostPath:
-      #    path: /media/sonarr/config/
+      - name: sonarr-config
+        hostPath:
+          path: /media/sonarr/config/
       - name: sonarr-configxml-volume
         configMap:
           name: sonarr-configxml
