@@ -28,8 +28,8 @@ spec:
         - name: TZ
           value: America\Toronto
         volumeMounts:
-        #- name: sonarr-config
-        #  mountPath: /config
+        - name: sonarr-config
+          mountPath: /config/config2.xml
         - name: sonarr-configxml-volume
           mountPath: /config/config2.xml
           subPath: config2.xml
