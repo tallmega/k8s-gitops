@@ -4,4 +4,4 @@ metadata:
   name: tcp-services
   namespace: ingress-nginx
 data:
-  12345: "default/sonarr:8989"
+  8989: "default/sonarr:8989"
