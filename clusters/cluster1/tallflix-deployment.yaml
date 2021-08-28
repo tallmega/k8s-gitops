@@ -1,3 +1,4 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -63,5 +64,64 @@ spec:
         hostPath:
           path: /media/tvshows3
       - name: sonarr-downloads
+        hostPath:
+          path: /media/complete
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: radarr
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+        app: radarr
+  template:
+    metadata:
+      labels:
+        app: radarr
+    spec:
+#      nodeSelector:
+#        fileserv: "true"
+      containers:
+      - name: radarr
+        image: linuxserver/radarr
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 7878
+        env:
+        - name: PGID
+          value: "1001"
+        - name: PUID
+          value: "1001"
+        - name: TZ
+          value: America\Toronto
+        volumeMounts:
+        - name: radarr-config
+          mountPath: /config
+        - name: radarr-movies
+          mountPath: /movies
+        - name: radarr-movies2
+          mountPath: /movies2
+          #mountPropagation: Bidirectional       
+        - name: radarr-movies3
+          mountPath: /movies3
+          #mountPropagation: Bidirectional
+        - name: radarr-downloads
+          mountPath: /downloads
+      volumes:
+      - name: radarr-config
+        hostPath:
+          path: /media/radarr/config/
+      - name: radarr-movies
+        hostPath:
+          path: /media/movies
+      - name: radarr-movies2
+        hostPath:
+          path: /media/movies2
+      - name: radarr-movies3
+        hostPath:
+          path: /media/movies3
+      - name: radarr-downloads
         hostPath:
           path: /media/complete
