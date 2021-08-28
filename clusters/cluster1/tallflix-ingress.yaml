@@ -7,7 +7,7 @@ metadata:
 spec:
   tls:
   - hosts:
-    - tallflix.ca
+    - "*.tallflix.ca"
     secretName: tls-secret
   rules:
   - host: "sonarr.tallflix.ca"
