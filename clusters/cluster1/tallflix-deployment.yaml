@@ -125,3 +125,34 @@ spec:
       - name: radarr-downloads
         hostPath:
           path: /media/complete
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ombi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+        app: ombi
+  template:
+    metadata:
+      labels:
+        app: ombi
+    spec:
+#      nodeSelector:
+#        fileserv: "true"
+      containers:
+      - name: ombi
+        image: linuxserver/ombi
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 3579
+        env:
+        - name: TZ
+          value: America\Toronto
+        volumeMounts:
+        - name: ombi-config
+          mountPath: /config
+      volumes:
+      - name: ombi-config

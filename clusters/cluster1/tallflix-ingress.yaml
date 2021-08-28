@@ -30,4 +30,14 @@ spec:
           service:
             name: radarr
             port:
-              number: 7878
+              number: 7878             
+  - host: "www.tallflix.ca"
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: ombi
+            port:
+              number: 3579
