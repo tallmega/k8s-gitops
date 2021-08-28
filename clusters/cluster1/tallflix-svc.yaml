@@ -26,6 +26,6 @@ spec:
     app: radarr
   ports:
   - name: radarr
-    port: 7979
-    targetPort: 7979
+    port: 7878
+    targetPort: 7878
   type: ClusterIP
