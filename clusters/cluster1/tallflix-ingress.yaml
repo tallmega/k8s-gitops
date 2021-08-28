@@ -24,7 +24,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: radarr1
+  name: radarr2
 #  annotations:
 #    kubernetes.io/tls-acme: "true"
 spec:
