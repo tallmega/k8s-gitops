@@ -9,7 +9,7 @@ spec:
   - hosts:
   - tallflix.ca
   secretName: tls-secret
- rules:
+  rules:
   - host: "sonarr.tallflix.ca"
     http:
       paths:
