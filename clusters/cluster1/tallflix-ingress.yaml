@@ -15,25 +15,19 @@ spec:
             port:
               number: 8989
 ---
-apiVersion: v1
-kind: Service
+apiVersion: networking.k8s.io/v1
+kind: Ingress
 metadata:
-  name: radarr1
-#  annotations:
-#    kubernetes.io/tls-acme: "true"
+  name: ingress-service
 spec:
-#  tls:
-#  - secretName: sonarr-cert
-#    hosts:
-#    - sonarr.burntsheep.com
-#    - sonaar.burntsheep.com
-  type: LoadBalancer
-  loadBalancerIP: 10.10.10.201
-  selector:
-    app: radarr
-#  - host: sonarr.tallflix.ca
-  ports:
-   - name: http
-     protocol: TCP
-     port: 7878
-     targetPort: 7878
+ rules:
+  - host: "radarr.tallflix.ca"
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: radarr
+            port:
+              number: 7878
