@@ -13,3 +13,19 @@ spec:
     port: 8989
     targetPort: 8989
   type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: radarr
+  labels:
+    app: radarr
+#    kubernetes.io/name: "radarr"
+spec:
+  selector:
+    app: radarr
+  ports:
+  - name: radarr
+    port: 7979
+    targetPort: 7979
+  type: ClusterIP
