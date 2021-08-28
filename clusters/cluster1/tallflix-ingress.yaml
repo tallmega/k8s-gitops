@@ -4,12 +4,12 @@ metadata:
   name: ingress-service
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
-    kubernetes.io/tls-acme: "true"
+    #kubernetes.io/tls-acme: "true"
 spec:
   tls:
   - hosts:
-    - "*.tallflix.ca"
-    secretName: tls-secret
+    - "sonarr.tallflix.ca"
+    secretName: tls-secret-sonarr
   rules:
   - host: "sonarr.tallflix.ca"
     http:
