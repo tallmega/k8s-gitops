@@ -14,13 +14,6 @@ spec:
             name: sonarr
             port:
               number: 8989
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: ingress-service
-spec:
- rules:
   - host: "radarr.tallflix.ca"
     http:
       paths:
