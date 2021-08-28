@@ -155,6 +155,6 @@ spec:
         - name: ombi-config
           mountPath: /config
       volumes:
-      - name: radarr-config
+      - name: ombi-config
         hostPath:
           path: /media/ombi
