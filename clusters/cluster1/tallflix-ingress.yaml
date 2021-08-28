@@ -24,7 +24,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: radarr2
+  name: radarr1
 #  annotations:
 #    kubernetes.io/tls-acme: "true"
 spec:
@@ -34,7 +34,7 @@ spec:
 #    - sonarr.burntsheep.com
 #    - sonaar.burntsheep.com
   type: LoadBalancer
-  loadBalancerIP: 10.10.10.200
+  loadBalancerIP: 10.10.10.201
   selector:
     app: radarr
 #  - host: sonarr.tallflix.ca
