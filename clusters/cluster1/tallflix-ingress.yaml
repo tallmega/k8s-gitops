@@ -11,6 +11,7 @@ spec:
     - "sonarr.tallflix.ca"
     - "radarr.tallflix.ca"
     - "www.tallflix.ca"
+    - "stats.tallflix.ca"
     secretName: tls-secret 
   rules:
   - host: "sonarr.tallflix.ca"
@@ -43,3 +44,13 @@ spec:
             name: ombi
             port:
               number: 3579
+  - host: "stats.tallflix.ca"
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: tautulli
+            port:
+              number: 8181

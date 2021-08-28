@@ -4,7 +4,6 @@ metadata:
   name: sonarr
   labels:
     app: sonarr
-#    kubernetes.io/name: "sonarr"
 spec:
   selector:
     app: sonarr
@@ -20,7 +19,6 @@ metadata:
   name: radarr
   labels:
     app: radarr
-#    kubernetes.io/name: "radarr"
 spec:
   selector:
     app: radarr
@@ -36,7 +34,6 @@ metadata:
   name: ombi
   labels:
     app: ombi
-#    kubernetes.io/name: "radarr"
 spec:
   selector:
     app: ombi
@@ -44,4 +41,19 @@ spec:
   - name: ombi
     port: 3579
     targetPort: 3579
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tautulli
+  labels:
+    app: tautulli
+spec:
+  selector:
+    app: tautulli
+  ports:
+  - name: tautulli
+    port: 8181
+    targetPort: 8181
   type: ClusterIP
