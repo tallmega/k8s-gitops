@@ -6,4 +6,4 @@ metadata:
   namespace: flux-system
 spec:
   interval: 1h0m0s
-  url: https://github.com/k8s-at-home/charts/blob/master/charts/stable/plex/Chart.yaml
+  url: https://raw.githubusercontent.com/k8s-at-home/charts/master/charts/stable/plex/Chart.yaml
