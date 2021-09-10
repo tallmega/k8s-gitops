@@ -4,8 +4,8 @@ metadata:
   name: plexconfig-pv
 spec:
   #storageClassName: media
-  #capacity:
-    #storage: 1Mi
+  capacity:
+    storage: 500Mi
   accessModes:
     - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
@@ -33,6 +33,8 @@ kind: PersistentVolume
 metadata:
   name: plextranscode-pv
 spec:
+  capacity:
+    storage: 50Gi
   accessModes:
     - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
@@ -53,6 +55,8 @@ kind: PersistentVolume
 metadata:
   name: tvshows-pv
 spec:
+  capacity:
+    storage: 8Ti
   accessModes:
     - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
@@ -73,6 +77,8 @@ kind: PersistentVolume
 metadata:
   name: tvshows2-pv
 spec:
+  capacity:
+    storage: 5Ti
   accessModes:
     - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
@@ -93,6 +99,8 @@ kind: PersistentVolume
 metadata:
   name: tvshows3-pv
 spec:
+  capacity:
+    storage: 17Ti
   accessModes:
     - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
@@ -113,6 +121,8 @@ kind: PersistentVolume
 metadata:
   name: movies-pv
 spec:
+  capacity:
+    storage: 8Ti
   accessModes:
     - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
@@ -133,6 +143,8 @@ kind: PersistentVolume
 metadata:
   name: movies2-pv
 spec:
+  capacity:
+    storage: 5Ti
   accessModes:
     - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
@@ -153,6 +165,8 @@ kind: PersistentVolume
 metadata:
   name: movies3-pv
 spec:
+  capacity:
+    storage: 17Ti
   accessModes:
     - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
@@ -173,6 +187,8 @@ kind: PersistentVolume
 metadata:
   name: music-pv
 spec:
+  capacity:
+    storage: 8Ti
   accessModes:
     - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
