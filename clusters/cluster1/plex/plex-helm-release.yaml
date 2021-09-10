@@ -55,34 +55,34 @@ spec:
         enabled: true
         mountPath: "/transcode"
         existingClaim: plextranscode-pvc
-      tvshows:
-        enabled: true
-        mountPath: "/data/tvshows"
-        existingClaim: tvshows-pvc
-      tvshows2:
-        enabled: true
-        mountPath: "/data/tvshows2"
-        existingClaim: tvshows2-pvc
-      tvshows3:
-        enabled: true
-        mountPath: "/data/tvshows3"
-        existingClaim: tvshows3-pvc
-      movies:
-        enabled: true
-        mountPath: "/data/movies"
-        existingClaim: movies-pvc
-      movies2:
-        enabled: true
-        mountPath: "/data/movies2"
-        existingClaim: movies2-pvc
-      movies3:
-        enabled: true
-        mountPath: "/data/movies3"
-        existingClaim: movies3-pvc
-      music:
-        enabled: true
-        mountPath: "/data/music"
-        existingClaim: music-pvc
+      #tvshows:
+       # enabled: true
+       # mountPath: "/data/tvshows"
+       # existingClaim: tvshows-pvc
+      #tvshows2:
+       # enabled: true
+        #mountPath: "/data/tvshows2"
+        #existingClaim: tvshows2-pvc
+      #tvshows3:
+        #enabled: true
+        #mountPath: "/data/tvshows3"
+        #existingClaim: tvshows3-pvc
+      #movies:
+        #enabled: true
+        #mountPath: "/data/movies"
+        #existingClaim: movies-pvc
+      #movies2:
+        #enabled: true
+        #mountPath: "/data/movies2"
+        #existingClaim: movies2-pvc
+      #movies3:
+        #enabled: true
+        #mountPath: "/data/movies3"
+        #existingClaim: movies3-pvc
+      #music:
+        #enabled: true
+        #mountPath: "/data/music"
+        #existingClaim: music-pvc
     #resources:
       #limits:
         #gpu.intel.com/i915: 1
