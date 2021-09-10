@@ -1,0 +1,97 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: plex
+  namespace: default
+spec:
+  releaseName: plex
+  interval: 5m
+  chart:
+    spec:
+      # renovate: registryUrl=https://k8s-at-home.com/charts/
+      chart: plex
+      version: 6.0.1
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home-charts
+        namespace: flux-system
+      interval: 5m
+  values:
+    image:
+      repository: ghcr.io/k8s-at-home/plex
+      tag: v1.24.2.4973-2b1b51db9
+    env:
+      TZ: "America/Toronto"
+    #podSecurityContext:
+      #runAsUser: 1000
+      #runAsGroup: 1000
+      #fsGroup: 1000
+      #supplementalGroups:
+      #- 44
+      #- 109
+    service:
+      main:
+        type: LoadBalancer
+        loadBalancerIP: 10.10.10.201
+        externalTrafficPolicy: Local
+    ingress:
+      main:
+        enabled: true
+        annotations:
+          kubernetes.io/ingress.class: "nginx"
+          external-dns.alpha.kubernetes.io/target: plex.tallflix.ca
+        hosts:
+        - host: plex.tallflix.ca
+          paths:
+          - path: /
+            pathType: Prefix
+    persistence:
+      config:
+        enabled: true
+        mountPath: "/config"
+        existingClaim: "plexconfig-pvc"
+      transcode:
+        enabled: true
+        mountPath: "/transcode"
+        existingClaim: plextranscode-pvc
+      tvshows:
+        enabled: true
+        mountPath: "/data/tvshows"
+        existingClaim: tvshows-pvc
+      tvshows2:
+        enabled: true
+        mountPath: "/data/tvshows2"
+        existingClaim: tvshows2-pvc
+      tvshows3:
+        enabled: true
+        mountPath: "/data/tvshows3"
+        existingClaim: tvshows3-pvc
+      movies:
+        enabled: true
+        mountPath: "/data/movies"
+        existingClaim: movies-pvc
+      movies2:
+        enabled: true
+        mountPath: "/data/movies2"
+        existingClaim: movies2-pvc
+      movies3:
+        enabled: true
+        mountPath: "/data/movies3"
+        existingClaim: movies3-pvc
+      music:
+        enabled: true
+        mountPath: "/data/music"
+        existingClaim: music-pvc
+    #resources:
+      #limits:
+        #gpu.intel.com/i915: 1
+        #memory: 4900Mi
+      #requests:
+        #gpu.intel.com/i915: 1
+        #cpu: 763m
+        #memory: 1500Mi
+  valuesFrom:
+  - kind: Secret
+    name: "plex-values"
+    optional: false

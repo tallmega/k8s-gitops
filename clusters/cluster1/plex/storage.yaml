@@ -1,0 +1,189 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: plexconfig-pv
+spec:
+  #storageClassName: media
+  #capacity:
+    #storage: 1Mi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: "/media/plex/config"
+  #nfs:
+    #server: 10.2.1.50
+    #path: "/volume1/media"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: plexconfig-pvc
+  namespace: default
+spec:
+  accessModes:
+    - ReadWriteMany
+  #storageClassName: media
+  #resources:
+    #requests:
+      #storage: 1Mi
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: plextranscode-pv
+spec:
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: "/media/plex/transcode"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: plextranscode-pvc
+  namespace: default
+spec:
+  accessModes:
+    - ReadWriteMany
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: tvshows-pv
+spec:
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: "/media/tvshows"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: tvshows-pvc
+  namespace: default
+spec:
+  accessModes:
+    - ReadWriteMany
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: tvshows2-pv
+spec:
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: "/media/tvshows2"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: tvshows2-pvc
+  namespace: default
+spec:
+  accessModes:
+    - ReadWriteMany
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: tvshows3-pv
+spec:
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: "/media/tvshows3"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: tvshows3-pvc
+  namespace: default
+spec:
+  accessModes:
+    - ReadWriteMany
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: movies-pv
+spec:
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: "/media/movies"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: movies-pvc
+  namespace: default
+spec:
+  accessModes:
+    - ReadWriteMany
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: movies2-pv
+spec:
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: "/media/movies2"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: movies2-pvc
+  namespace: default
+spec:
+  accessModes:
+    - ReadWriteMany
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: movies3-pv
+spec:
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: "/media/movies3"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: movies3-pvc
+  namespace: default
+spec:
+  accessModes:
+    - ReadWriteMany
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: music-pv
+spec:
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: "/media/music"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: music-pvc
+  namespace: default
+spec:
+  accessModes:
+    - ReadWriteMany
