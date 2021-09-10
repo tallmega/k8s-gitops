@@ -19,7 +19,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: plexconfig-pvc
-  namespace: default
+  namespace: flux-system
 spec:
   accessModes:
     - ReadWriteMany
@@ -40,3 +40,15 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   hostPath:
     path: "/media/plex/transcode"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: plextranscode-pvc
+  namespace: flux-system
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 50Gi
