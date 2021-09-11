@@ -1,9 +1,9 @@
----
 apiVersion: source.toolkit.fluxcd.io/v1beta1
 kind: HelmRepository
 metadata:
-  name: sealed-secrets
+  name: k8s-at-home-charts
   namespace: flux-system
 spec:
-  interval: 1h0m0s
-  url: https://bitnami-labs.github.io/sealed-secrets
+  interval: 10m0s
+  url: https://k8s-at-home.com/charts/
+  timeout: 3m0s
