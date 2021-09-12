@@ -27,28 +27,3 @@ spec:
   resources:
     requests:
       storage: 500Mi
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: plextranscode-pv
-spec:
-  capacity:
-    storage: 50Gi
-  accessModes:
-    - ReadWriteMany
-  persistentVolumeReclaimPolicy: Retain
-  hostPath:
-    path: "/media/plex/transcode"
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: plextranscode-pvc
-  namespace: default
-spec:
-  accessModes:
-    - ReadWriteMany
-  resources:
-    requests:
-      storage: 50Gi
