@@ -29,7 +29,7 @@ spec:
     service:
       main:
         type: LoadBalancer
-        loadBalancerIP: ${PLEX_LB}
+        loadBalancerIP: 10.10.10.201
         externalTrafficPolicy: Local
     ingress:
       main:
