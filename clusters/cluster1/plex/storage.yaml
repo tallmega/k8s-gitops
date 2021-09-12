@@ -10,7 +10,7 @@ spec:
     - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
   hostPath:
-    path: "/media/plex/config"
+    path: "/media/plex/plexconfigbak"
   #nfs:
     #server: 10.2.1.50
     #path: "/volume1/media"
