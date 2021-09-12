@@ -9,11 +9,11 @@ spec:
   accessModes:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
-  #hostPath:
-    #path: "/media/plexconfigbak"
-  nfs:
-    server: 10.10.10.105
-    path: "/volume1/Plex"
+  hostPath:
+    path: "/media/plexconfigbak"
+  #nfs:
+    #server: 10.10.10.105
+    #path: "/volume1/Plex"
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
