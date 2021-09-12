@@ -1,12 +1,12 @@
----
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: plex
-  namespace: flux-system
+  namespace: default
 spec:
   releaseName: plex
   interval: 5m
+  suspend: false
   chart:
     spec:
       # renovate: registryUrl=https://k8s-at-home.com/charts/
@@ -23,17 +23,13 @@ spec:
       tag: v1.24.2.4973-2b1b51db9
     env:
       TZ: "America/Toronto"
-    #podSecurityContext:
-      #runAsUser: 1000
-      #runAsGroup: 1000
-      #fsGroup: 1000
-      #supplementalGroups:
-      #- 44
-      #- 109
+    envFrom:
+    - secretRef:
+        name: plex-secrets
     service:
       main:
         type: LoadBalancer
-        loadBalancerIP: 10.10.10.201
+        loadBalancerIP: ${PLEX_LB}
         externalTrafficPolicy: Local
     ingress:
       main:
@@ -53,8 +49,8 @@ spec:
         existingClaim: "plexconfig-pvc"
       transcode:
         enabled: true
-        mountPath: "/transcode"
-        existingClaim: plextranscode-pvc
+        type: emptyDir
+        medium: Memory
       #tvshows:
        # enabled: true
        # mountPath: "/data/tvshows"
@@ -91,7 +87,3 @@ spec:
         #gpu.intel.com/i915: 1
         #cpu: 763m
         #memory: 1500Mi
-  valuesFrom:
-  - kind: Secret
-    name: "plex-values"
-    optional: false
