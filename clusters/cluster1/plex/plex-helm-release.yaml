@@ -23,9 +23,9 @@ spec:
       tag: v1.24.2.4973-2b1b51db9
     env:
       TZ: "America/Toronto"
-    envFrom:
-    - secretRef:
-        name: plex-secrets
+    #envFrom:
+    #- secretRef:
+        #name: plex-secrets
     service:
       main:
         type: LoadBalancer
