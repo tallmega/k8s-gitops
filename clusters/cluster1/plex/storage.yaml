@@ -3,7 +3,7 @@ kind: PersistentVolume
 metadata:
   name: plexconfig-pv
 spec:
-  #storageClassName: media
+  storageClassName: mmanual
   capacity:
     storage: 500Mi
   accessModes:
@@ -23,7 +23,7 @@ metadata:
 spec:
   accessModes:
     - ReadWriteMany
-  #storageClassName: media
+  storageClassName: manual
   resources:
     requests:
       storage: 500Mi
