@@ -21,9 +21,9 @@ metadata:
   name: plexconfig-pvc
   namespace: default
 spec:
+  storageClassName: manual
   accessModes:
     - ReadWriteMany
-  storageClassName: manual
   resources:
     requests:
       storage: 500Mi
