@@ -3,11 +3,14 @@ kind: PersistentVolume
 metadata:
   name: plexconfig-pv
 spec:
-  storageClassName: manual
+  storageClassName: synomounted
   capacity:
     storage: 500Mi
   accessModes:
     - ReadWriteOnce
+  claimRef:
+    namespace: default
+    name: plexconfig-pvc
   persistentVolumeReclaimPolicy: Retain
   hostPath:
     path: "/media/plexconfigbak"
@@ -21,9 +24,39 @@ metadata:
   name: plexconfig-pvc
   namespace: default
 spec:
-  storageClassName: manual
+  storageClassName: synomounted
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
       storage: 500Mi
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: tvshows-pv
+spec:
+  storageClassName: thecusmounted
+  capacity:
+    storage: 8Ti
+  claimRef:
+    namespace: default
+    name: tvshows-pvc
+  accessModes:
+    - ReadOnlyMany
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: "/media/tvshows"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: tvshows-pvc
+  namespace: default
+spec:
+  storageClassName: thecusmounted
+  accessModes:
+    - ReadOnlyMany
+  resources:
+    requests:
+      storage: 8Ti
