@@ -23,8 +23,8 @@ spec:
       tag: v1.24.2.4973-2b1b51db9
     env:
       TZ: "America/Toronto"
-      PUID: 1000
-      PGID: 1000
+      #PUID: 1000
+      #PGID: 1000
     #envFrom:
     #- secretRef:
        #name: plex-secrets
