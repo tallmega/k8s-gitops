@@ -57,10 +57,10 @@ spec:
         enabled: true
         type: emptyDir
         medium: Memory
-      #tvshows:
-       # enabled: true
-       # mountPath: "/data/tvshows"
-       # existingClaim: tvshows-pvc
+      media:
+        enabled: true
+        mountPath: "/data/tvshows"
+        existingClaim: tvshows-pvc
       #tvshows2:
        # enabled: true
         #mountPath: "/data/tvshows2"
