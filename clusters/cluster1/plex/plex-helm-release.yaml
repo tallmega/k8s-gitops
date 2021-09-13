@@ -25,9 +25,9 @@ spec:
       TZ: "America/Toronto"
       #PUID: 1000
       #PGID: 1000
-    #envFrom:
-    #- secretRef:
-       #name: plex-secrets
+    envFrom:
+    - secretRef:
+       name: plex-secrets
     podSecurityContext:
       runAsUser: 1000
       runAsGroup: 1000
