@@ -23,9 +23,11 @@ spec:
       tag: v1.24.2.4973-2b1b51db9
     env:
       TZ: "America/Toronto"
+      PUID: 1000
+      GUID: 1000
     #envFrom:
     #- secretRef:
-        #name: plex-secrets
+       #name: plex-secrets
     service:
       main:
         type: LoadBalancer
@@ -42,10 +44,6 @@ spec:
           paths:
           - path: /
             pathType: Prefix
-    podSecurityContext: {}
-      runAsUser: 1000
-      runAsGroup: 1000
-      fsGroup: 1000
     persistence:
       config:
         enabled: true
