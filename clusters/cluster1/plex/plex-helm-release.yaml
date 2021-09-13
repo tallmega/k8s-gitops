@@ -27,7 +27,7 @@ spec:
       #PGID: 1000
     envFrom:
     - secretRef:
-       name: plex-secrets
+       name: plex-secret
     podSecurityContext:
       runAsUser: 1000
       runAsGroup: 1000
