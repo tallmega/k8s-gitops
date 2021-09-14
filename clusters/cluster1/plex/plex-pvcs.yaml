@@ -1,0 +1,105 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: plexconfig-pvc
+  namespace: default
+spec:
+  storageClassName: synomounted
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 500Mi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: tvshows-pvc
+  namespace: default
+spec:
+  storageClassName: synomounted
+  accessModes:
+    - ReadOnlyMany
+  resources:
+    requests:
+      storage: 8Ti
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: tvshows2-pvc
+  namespace: default
+spec:
+  storageClassName: thecusmounted
+  accessModes:
+    - ReadOnlyMany
+  resources:
+    requests:
+      storage: 5Ti
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: tvshows3-pvc
+  namespace: default
+spec:
+  storageClassName: nodelocal
+  accessModes:
+    - ReadOnlyMany
+  resources:
+    requests:
+      storage: 17Ti
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: movies-pvc
+  namespace: default
+spec:
+  storageClassName: synomounted
+  accessModes:
+    - ReadOnlyMany
+  resources:
+    requests:
+      storage: 8Ti
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: movies2-pvc
+  namespace: default
+spec:
+  storageClassName: thecusmounted
+  accessModes:
+    - ReadOnlyMany
+  resources:
+    requests:
+      storage: 5Ti
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: movies3-pvc
+  namespace: default
+spec:
+  storageClassName: nodelocal
+  accessModes:
+    - ReadOnlyMany
+  resources:
+    requests:
+      storage: 17T
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: music-pvc
+  namespace: default
+spec:
+  storageClassName: synomounted
+  accessModes:
+    - ReadOnlyMany
+  resources:
+    requests:
+      storage: 8Ti
