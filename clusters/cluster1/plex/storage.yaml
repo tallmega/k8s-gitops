@@ -60,3 +60,31 @@ spec:
   resources:
     requests:
       storage: 8Ti
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: tvshows2-pv
+spec:
+  storageClassName: synomounted
+  capacity:
+    storage: 5Ti
+  accessModes:
+    - ReadOnlyMany
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: "/media/tvshows2"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: tvshows2-pvc
+  namespace: default
+spec:
+  storageClassName: synomounted
+  accessModes:
+    - ReadOnlyMany
+  resources:
+    requests:
+      storage: 5Ti
+---

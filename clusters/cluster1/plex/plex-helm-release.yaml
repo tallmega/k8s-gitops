@@ -61,10 +61,8 @@ spec:
         enabled: true
         mountPath: "/data/tvshows"
         existingClaim: tvshows-pvc
-      #tvshows2:
-       # enabled: true
-        #mountPath: "/data/tvshows2"
-        #existingClaim: tvshows2-pvc
+        mountPath: "/data/tvshows2"
+        existingClaim: tvshows2-pvc
       #tvshows3:
         #enabled: true
         #mountPath: "/data/tvshows3"
