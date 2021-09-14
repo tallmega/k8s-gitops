@@ -37,17 +37,17 @@ spec:
         type: LoadBalancer
         loadBalancerIP: 10.10.10.201
         externalTrafficPolicy: Local
-    ingress:
-      main:
-        enabled: true
-        annotations:
-          kubernetes.io/ingress.class: "nginx"
-          external-dns.alpha.kubernetes.io/target: plex.tallflix.ca
-        hosts:
-        - host: plex.tallflix.ca
-          paths:
-          - path: /
-            pathType: Prefix
+    #ingress:
+      #main:
+        #enabled: true
+        #annotations:
+          #kubernetes.io/ingress.class: "nginx"
+          #external-dns.alpha.kubernetes.io/target: plex.tallflix.ca
+        #hosts:
+        #- host: plex.tallflix.ca
+          #paths:
+          #- path: /
+            #pathType: Prefix
     persistence:
       config:
         enabled: true
