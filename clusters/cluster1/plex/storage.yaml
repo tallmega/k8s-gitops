@@ -36,7 +36,7 @@ kind: PersistentVolume
 metadata:
   name: tvshows-pv
 spec:
-  storageClassName: thecusmounted
+  storageClassName: synomounted
   capacity:
     storage: 8Ti
   claimRef:
@@ -54,7 +54,7 @@ metadata:
   name: tvshows-pvc
   namespace: default
 spec:
-  storageClassName: thecusmounted
+  storageClassName: synomounted
   accessModes:
     - ReadOnlyMany
   resources:
@@ -66,7 +66,7 @@ kind: PersistentVolume
 metadata:
   name: tvshows2-pv
 spec:
-  storageClassName: synomounted
+  storageClassName: thecusmounted
   capacity:
     storage: 5Ti
   accessModes:
@@ -81,10 +81,36 @@ metadata:
   name: tvshows2-pvc
   namespace: default
 spec:
-  storageClassName: synomounted
+  storageClassName: thecusmounted
   accessModes:
     - ReadOnlyMany
   resources:
     requests:
       storage: 5Ti
 ---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: tvshows3-pv
+spec:
+  storageClassName: nodelocal
+  capacity:
+    storage: 17Ti
+  accessModes:
+    - ReadOnlyMany
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: "/media/tvshows3"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: tvshows3-pvc
+  namespace: default
+spec:
+  storageClassName: nodelocal
+  accessModes:
+    - ReadOnlyMany
+  resources:
+    requests:
+      storage: 17Ti
