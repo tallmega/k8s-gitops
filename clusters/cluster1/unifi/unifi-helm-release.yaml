@@ -20,7 +20,7 @@ spec:
     image:
       repository: jacobalberty/unifi
       #repository: linuxserver/unifi-controller
-      tag: version-6.2.26
+      tag: v6.2.26
       pullPolicy: IfNotPresent
 
     env:
