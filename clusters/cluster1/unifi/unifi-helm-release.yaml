@@ -18,8 +18,8 @@ spec:
       interval: 5m
   values:
     image:
-      #repository: jacobalberty/unifi
-      repository: linuxserver/unifi-controller
+      repository: jacobalberty/unifi
+      #repository: linuxserver/unifi-controller
       tag: version-6.2.26
       pullPolicy: IfNotPresent
 
