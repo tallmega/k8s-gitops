@@ -28,8 +28,8 @@ spec:
 
     service:
       main:
-        #type: LoadBalancer
-        #loadBalancerIP: 10.10.10.202
+        type: LoadBalancer
+        loadBalancerIP: 10.10.10.202
         #externalTrafficPolicy: Local
         ports:
           devicecomm:
@@ -45,8 +45,8 @@ spec:
             targetPort: 6789
             protocol: TCP
       mainudp:
-        #type: LoadBalancer
-        #loadBalancerIP: 10.10.10.202
+        type: LoadBalancer
+        loadBalancerIP: 10.10.10.202
         #externalTrafficPolicy: Local
         ports:
           stun:
