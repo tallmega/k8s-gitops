@@ -43,9 +43,9 @@ spec:
           paths:
           - path: /
             pathType: Prefix
-        tls:
-        - hosts:
-          - hass.tallflix.ca
+        #tls:
+        #- hosts:
+        #  - hass.tallflix.ca
         #- secretName: nathanpawelek-com-tls
 
     persistence:
