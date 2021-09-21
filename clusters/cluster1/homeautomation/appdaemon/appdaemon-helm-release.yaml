@@ -22,22 +22,22 @@ spec:
       tag: 4.0.8
       pullPolicy: IfNotPresent
     command: ['sh', '-c', 'apk add --update --no-cache g++ gcc libxslt-dev && pip install lxml && pip install numpy']
-env:
-  TZ: America/Toronto
-  HA_URL: "http://10.10.10.203:8123"
-  DASH_URL: "http://10.10.10.203:5050"
-envFrom:
-- secretRef:
-  name: appdaemon-secret
+    env:
+      TZ: America/Toronto
+      HA_URL: "http://10.10.10.203:8123"
+      DASH_URL: "http://10.10.10.203:5050"
+    envFrom:
+    - secretRef:
+      name: appdaemon-secret
 
-service:
-  main:
-    ports:
-      http:
-        port: 5050
-ingress:
-  main:
-    enabled: false
+    service:
+      main:
+        ports:
+          http:
+            port: 5050
+    ingress:
+      main:
+        enabled: false
 
 # -- Enable devices to be discoverable
 # hostNetwork: true
@@ -49,8 +49,8 @@ ingress:
   # -- (bool) Privileged securityContext may be required if USB devics are accessed directly through the host machine
   #privileged:  # true
 
-persistence:
-  config:
-    enabled: true
-    existingClaim: appdaemon-config
-  # -- Configure a hostPathMount to mount a USB device in the container.
+    persistence:
+      config:
+        enabled: true
+        existingClaim: appdaemon-config
+      # -- Configure a hostPathMount to mount a USB device in the container.
