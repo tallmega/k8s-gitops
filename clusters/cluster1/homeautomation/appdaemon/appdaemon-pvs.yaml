@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: appdaemonconfig-pv
+spec:
+  storageClassName: synomounted
+  capacity:
+    storage: 500Mi
+  accessModes:
+    - ReadWriteOnce
+  claimRef:
+    namespace: default
+    name: appdaemonconfig-pvc
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: "/media/appdaemon"

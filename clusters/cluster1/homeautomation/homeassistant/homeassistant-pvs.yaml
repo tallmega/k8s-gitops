@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: homeassistantconfig-pv
+spec:
+  storageClassName: synomounted
+  capacity:
+    storage: 500Mi
+  accessModes:
+    - ReadWriteOnce
+  claimRef:
+    namespace: default
+    name: homeassistantconfig-pvc
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: "/media/homeassistant"
