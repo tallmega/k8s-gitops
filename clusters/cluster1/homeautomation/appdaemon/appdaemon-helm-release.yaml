@@ -26,9 +26,9 @@ spec:
       TZ: America/Toronto
       HA_URL: http://10.10.10.203:8123
       DASH_URL: http://10.10.10.200:5050
-    #envFrom:
-    #- secretRef:
-    #  name: appdaemon-secret
+    envFrom:
+    - secretRef:
+       name: appdaemon-secret
     service:
       main:
         ports:
