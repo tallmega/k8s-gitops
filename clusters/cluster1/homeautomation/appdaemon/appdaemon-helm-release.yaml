@@ -21,11 +21,12 @@ spec:
       repository: acockburn/appdaemon
       tag: 4.0.8
       pullPolicy: IfNotPresent
-    #command: ['sh', '-c', 'apk add --update --no-cache g++ gcc libxslt-dev && pip install lxml && pip install numpy']
+    #command: ['sh', '-c', 'apk add --update --no-cache g++ gcc libxslt-dev && pip install lxml']
+    # && pip install numpy
     env:
       TZ: America/Toronto
       HA_URL: http://10.10.10.203:8123
-      DASH_URL: http://10.10.10.200:5050
+      #DASH_URL: http://10.10.10.200:5050
     envFrom:
     - secretRef:
        name: appdaemon-secret
