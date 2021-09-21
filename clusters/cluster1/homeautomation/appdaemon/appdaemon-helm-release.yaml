@@ -29,31 +29,7 @@ spec:
     envFrom:
     - secretRef:
        name: appdaemon-secret
-    service:
-      main:
-        ports:
-          http:
-            port: 5050      
-    ingress:
-      main:
-        enabled: false
-
-# -- Enable devices to be discoverable
-# hostNetwork: true
-
-# -- When hostNetwork is true set dnsPolicy to ClusterFirstWithHostNet
-# dnsPolicy: ClusterFirstWithHostNet
-
-    securityContext:
-    # -- (bool) Privileged securityContext may be required if USB devics are accessed directly through the host machine
-      privileged: true
-
-    persistence:
-      config:
-        enabled: true
-        existingClaim: appdaemonconfig-pvc
-      # -- Configure a hostPathMount to mount a USB device in the container.
-
+    
     probes:
     # -- Liveness probe configuration
     # @default -- See below
@@ -103,3 +79,30 @@ spec:
         ## This means it has a maximum of 5*30=150 seconds to start up before it fails
         periodSeconds: 5
         failureThreshold: 30
+        
+    service:
+      main:
+        ports:
+          http:
+            port: 5050      
+    ingress:
+      main:
+        enabled: false
+
+# -- Enable devices to be discoverable
+# hostNetwork: true
+
+# -- When hostNetwork is true set dnsPolicy to ClusterFirstWithHostNet
+# dnsPolicy: ClusterFirstWithHostNet
+
+    securityContext:
+    # -- (bool) Privileged securityContext may be required if USB devics are accessed directly through the host machine
+      privileged: true
+
+    persistence:
+      config:
+        enabled: true
+        existingClaim: appdaemonconfig-pvc
+      # -- Configure a hostPathMount to mount a USB device in the container.
+
+    
