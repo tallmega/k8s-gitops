@@ -24,19 +24,16 @@ spec:
     #command: ['sh', '-c', 'apk add --update --no-cache g++ gcc libxslt-dev && pip install lxml && pip install numpy']
     env:
       TZ: America/Toronto
-      #HA_URL: "http://10.10.10.203:8123"
-      #DASH_URL: "http://10.10.10.200:5050"
+      HA_URL: http://10.10.10.203:8123
+      DASH_URL: http://10.10.10.200:5050
     #envFrom:
     #- secretRef:
     #  name: appdaemon-secret
     service:
       main:
-        #enabled: true
-        #type: ClusterIP
         ports:
           http:
-            port: 5050
-            #protocol: HTTP
+            port: 5050      
     ingress:
       main:
         enabled: false
