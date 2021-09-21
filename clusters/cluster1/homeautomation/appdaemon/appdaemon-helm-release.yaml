@@ -44,9 +44,9 @@ spec:
 # -- When hostNetwork is true set dnsPolicy to ClusterFirstWithHostNet
 # dnsPolicy: ClusterFirstWithHostNet
 
-#securityContext:
-  # -- (bool) Privileged securityContext may be required if USB devics are accessed directly through the host machine
-  #privileged:  # true
+    securityContext:
+    # -- (bool) Privileged securityContext may be required if USB devics are accessed directly through the host machine
+      privileged: true
 
     persistence:
       config:
