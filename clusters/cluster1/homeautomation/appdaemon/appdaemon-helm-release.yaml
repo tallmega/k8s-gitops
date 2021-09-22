@@ -7,7 +7,7 @@ metadata:
 spec:
   interval: 5m
   chart:
-     spec:
+    spec:
       # renovate: registryUrl=https://k8s-at-home.com/charts/
       chart: appdaemon
       version: 8.0.1
@@ -21,21 +21,22 @@ spec:
       repository: acockburn/appdaemon
       tag: 4.0.8
       pullPolicy: IfNotPresent
-    
+
     #command: ['sh', '-c', 'apk add --update --no-cache g++ gcc libxslt-dev && pip install lxml']
     # && pip install numpy
-    
+
     env:
       TZ: America/Toronto
       HA_URL: http://10.10.10.203:8123
-      DASH_URL: http://0.0.0.0:5050 
+      DASH_URL: http://0.0.0.0:5050
+
     envFrom:
-    - secretRef:
-       name: appdaemon-secret
-    
+      - secretRef:
+          name: appdaemon-secret
+
     probes:
-    # -- Liveness probe configuration
-    # @default -- See below
+      # -- Liveness probe configuration
+      # @default -- See below
       liveness:
         # -- Enable the liveness probe
         enabled: true
@@ -98,7 +99,7 @@ spec:
 
     #securityContext:
     # -- (bool) Privileged securityContext may be required if USB devics are accessed directly through the host machine
-      # privileged: true
+    # privileged: true
     persistence:
       config:
         enabled: true
