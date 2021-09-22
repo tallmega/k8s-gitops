@@ -54,3 +54,14 @@ spec:
             name: tautulli
             port:
               number: 8181
+  - host: "appdaemon.tallflix.ca"
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: appdaemon
+            port:
+              number: 5050
+        
