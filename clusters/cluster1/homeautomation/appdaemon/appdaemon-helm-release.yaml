@@ -31,8 +31,8 @@ spec:
       DASH_URL: http://0.0.0.0:5050
 
     envFrom:
-      - secretRef:
-          name: appdaemon-secret
+    - secretRef:
+       name: appdaemon-secret
 
     probes:
       # -- Liveness probe configuration
@@ -86,8 +86,7 @@ spec:
         ports:
           http:
             port: 5050
-            targetPort: 5050
-            protocol: TCP
+
     ingress:
       main:
         enabled: false
