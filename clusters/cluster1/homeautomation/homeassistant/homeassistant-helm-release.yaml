@@ -22,9 +22,6 @@ spec:
       tag: 2021.9.7
     env:
       TZ: America/Toronto
-    #envFrom:
-    #- secretRef:
-    #    name: home-assistant-env-secrets
     service:
       main:
         enabled: true
@@ -60,10 +57,3 @@ spec:
       config:
         enabled: true
         existingClaim: homeassistantconfig-pvc
-
-    
-  #valuesFrom:
-  #- kind: Secret
-  #  name: home-assistant-helm-values
-  #  valuesKey: values.yaml
-  #  optional: false
