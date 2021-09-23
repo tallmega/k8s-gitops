@@ -12,6 +12,7 @@ spec:
     - "radarr.tallflix.ca"
     - "www.tallflix.ca"
     - "stats.tallflix.ca"
+    - "hass.tallflix.ca"
     secretName: tls-secret 
   rules:
   - host: "sonarr.tallflix.ca"
@@ -64,4 +65,14 @@ spec:
             name: appdaemon
             port:
               number: 5050
+  - host: "hass.tallflix.ca"
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: appdaemon
+            port:
+              number: 8123
         
