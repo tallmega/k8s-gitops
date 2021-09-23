@@ -39,15 +39,14 @@ spec:
     ingress:
       main:
         enabled: false
-        #annotations:
-        #  nginx.org/websocket-services: home-assistant
-        #hosts:
-        #- host: hass.tallflix.ca
-        #  paths:
-        #  - path: /
-        #    pathType: Prefix
-        #    targetPort: 
-          
+        annotations:
+          nginx.org/websocket-services: home-assistant
+        hosts:
+        - host: hass.tallflix.ca
+          paths:
+          - path: /
+            pathType: Prefix
+                  
         #tls:
         #- hosts:
         #  - hass.tallflix.ca
