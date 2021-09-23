@@ -52,9 +52,9 @@ spec:
                 port:
                   number: 8123
                   
-        #tls:
-        #- hosts:
-        #  - hass.tallflix.ca
+        tls:
+        - hosts:
+          - hass.tallflix.ca
 
     persistence:
       config:
