@@ -51,10 +51,10 @@ spec:
                 name: home-assistant
                 port:
                   number: 8123
-                  
         tls:
         - hosts:
           - hass.tallflix.ca
+          secretName: tls-secret
 
     persistence:
       config:
