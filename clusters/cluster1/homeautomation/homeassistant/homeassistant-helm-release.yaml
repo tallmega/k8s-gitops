@@ -32,7 +32,10 @@ spec:
         loadBalancerIP: 10.10.10.203
         externalTrafficPolicy: Local
     securityContext:
-      privileged: false
+      privileged: true
+    # -- Enable devices to be discoverable
+    hostNetwork: true
+    
     ingress:
       main:
         enabled: true
