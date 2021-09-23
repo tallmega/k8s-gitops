@@ -65,14 +65,14 @@ spec:
             name: appdaemon
             port:
               number: 5050
-  - host: "hass.tallflix.ca"
-    http:
-      paths:
-      - pathType: Prefix
-        path: "/"
-        backend:
-          service:
-            name: home-assistant
-            port:
-              number: 8123
+#  - host: "hass.tallflix.ca"
+#    http:
+#      paths:
+#      - pathType: Prefix
+#        path: "/"
+#        backend:
+#          service:
+#            name: home-assistant
+#            port:
+#              number: 8123
         

@@ -38,7 +38,7 @@ spec:
     
     ingress:
       main:
-        enabled: false
+        enabled: true
         annotations:
           nginx.org/websocket-services: home-assistant
         hosts:
@@ -46,6 +46,11 @@ spec:
           paths:
           - path: /
             pathType: Prefix
+            backend:
+              service:
+                name: home-assistant
+                port:
+                  number: 8123
                   
         #tls:
         #- hosts:
