@@ -62,7 +62,7 @@ spec:
       transcode:
         enabled: true
         type: emptyDir
-        medium: Memory
+        #medium: Memory
       media:
         enabled: true
         mountPath: "/data/tvshows"
