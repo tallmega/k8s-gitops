@@ -18,7 +18,7 @@ spec:
       interval: 5m
   values:
     image:
-      repository: ghcr.io/tallmega/appdaemon-dependencies
+      repository: https://ghcr.io/tallmega/appdaemon-dependencies
       tag: v1
       pullPolicy: Always
 
