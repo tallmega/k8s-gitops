@@ -20,7 +20,7 @@ spec:
     image:
       repository: ghcr.io/tallmega/appdaemon-dependencies
       tag: 1.0.0
-      command: [ "./dockerStart.sh"]
+    command: [ "./dockerStart.sh"]
     env:
       TZ: America/Toronto
       HA_URL: http://10.10.10.203:8123
