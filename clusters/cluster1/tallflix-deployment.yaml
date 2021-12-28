@@ -19,7 +19,7 @@ spec:
       containers:
       - name: sonarr
         image: linuxserver/sonarr
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8989
         env:
@@ -79,7 +79,7 @@ spec:
       containers:
       - name: radarr
         image: linuxserver/radarr
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 7878
         env:
@@ -139,7 +139,7 @@ spec:
       containers:
       - name: ombi
         image: linuxserver/ombi
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 3579
         env:
@@ -171,7 +171,7 @@ spec:
       containers:
       - name: tautulli
         image: linuxserver/tautulli
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8181
         env:
