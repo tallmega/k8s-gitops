@@ -17,11 +17,10 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
-    image:
-      repository: jacobalberty/unifi
-      #repository: linuxserver/unifi-controller
-      tag: v6.5.54
-      pullPolicy: IfNotPresent
+    #image:
+    #  repository: jacobalberty/unifi
+    #  tag: v6.5.54
+    #  pullPolicy: IfNotPresent
 
     env:
       TZ: "America/Toronto"

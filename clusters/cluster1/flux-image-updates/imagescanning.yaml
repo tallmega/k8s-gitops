@@ -33,3 +33,4 @@ metadata:
 spec:
   image: linuxserver/tautulli
   interval: 30m0s
+---
