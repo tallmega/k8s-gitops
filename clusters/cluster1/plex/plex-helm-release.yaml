@@ -9,7 +9,6 @@ spec:
   suspend: false
   chart:
     spec:
-      # renovate: registryUrl=https://k8s-at-home.com/charts/
       chart: plex
       #version: 6.0.1
       sourceRef:
