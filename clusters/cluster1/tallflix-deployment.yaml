@@ -18,7 +18,7 @@ spec:
 #        fileserv: "true"
       containers:
       - name: sonarr
-        image: linuxserver/sonarr
+        image: linuxserver/sonarr:3.0.6 # {"$imagepolicy": "flux-system:sonarr"}
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8989
@@ -78,7 +78,7 @@ spec:
 #        fileserv: "true"
       containers:
       - name: radarr
-        image: linuxserver/radarr
+        image: linuxserver/radarr:3.2.0 # {"$imagepolicy": "flux-system:radarr"}
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 7878
@@ -138,7 +138,7 @@ spec:
 #        fileserv: "true"
       containers:
       - name: ombi
-        image: linuxserver/ombi
+        image: linuxserver/ombi:4.7.10 # {"$imagepolicy": "flux-system:ombi"}
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 3579
@@ -170,7 +170,7 @@ spec:
     spec:
       containers:
       - name: tautulli
-        image: linuxserver/tautulli
+        image: linuxserver/tautulli:2021.12.16 # {"$imagepolicy": "flux-system:tautulli"}
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8181
