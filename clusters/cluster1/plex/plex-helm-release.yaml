@@ -24,6 +24,8 @@ spec:
       pullPolicy: IfNotPresent
     env:
       TZ: "America/Toronto"
+      ADVERTISE_IP: http://10.10.10.200:32400/,https://tallflix.ca:32400/
+      ALLOWED_NETWORKS: 10.10.10.0/24
       #PUID: 1000
       #PGID: 1000
     envFrom:
@@ -33,6 +35,27 @@ spec:
       runAsUser: 1000
       runAsGroup: 1000
       fsGroup: 1000
+      # # Hardware acceleration using an Intel iGPU w/ QuickSync
+      # # These IDs below should be matched to your `video` and `render` group on the host
+      # # To obtain those IDs run the following grep statement on the host:
+      # # $ cat /etc/group | grep "video\|render"
+      # # video:x:44:
+      # # render:x:109:
+      # supplementalGroups:
+      # - 44
+      # - 109  
+    #resources: {}
+      # requests:
+      #   # Hardware acceleration using an Intel iGPU w/ QuickSync and
+      #   # using intel-gpu-plugin (https://github.com/intel/intel-device-plugins-for-kubernetes)
+      #   gpu.intel.com/i915: 1
+      #   cpu: 200m
+      #   memory: 256Mi
+      # limits:
+      #   # Hardware acceleration using an Intel iGPU w/ QuickSync and
+      #   # using intel-gpu-plugin (https://github.com/intel/intel-device-plugins-for-kubernetes)
+      #   gpu.intel.com/i915: 1
+      #   memory: 4096Mi    
     service:
       main:
         type: LoadBalancer
@@ -91,11 +114,3 @@ spec:
         enabled: true
         mountPath: "/data/music"
         existingClaim: music-pvc
-    #resources:
-      #limits:
-        #gpu.intel.com/i915: 1
-        #memory: 4900Mi
-      #requests:
-        #gpu.intel.com/i915: 1
-        #cpu: 763m
-        #memory: 1500Mi
