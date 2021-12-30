@@ -1,188 +1,191 @@
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: sonarr
+  namespace: default
 spec:
   replicas: 1
   selector:
     matchLabels:
-        app: sonarr
+      app: sonarr
   template:
     metadata:
       labels:
         app: sonarr
     spec:
-#      nodeSelector:
-#        fileserv: "true"
+      #      nodeSelector:
+      #        fileserv: "true"
       containers:
-      - name: sonarr
-        image: linuxserver/sonarr
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 8989
-        env:
-        - name: PGID
-          value: "1001"
-        - name: PUID
-          value: "1001"
-        - name: TZ
-          value: America\Toronto
-        volumeMounts:
-        - name: sonarr-config
-          mountPath: /config
-        - name: sonarr-tv
-          mountPath: /tv
-        - name: sonarr-tv2
-          mountPath: /tv2
-          #mountPropagation: Bidirectional       
-        - name: sonarr-tv3
-          mountPath: /tv3
-          #mountPropagation: Bidirectional
-        - name: sonarr-downloads
-          mountPath: /downloads
+        - name: sonarr
+          image: linuxserver/sonarr:3.0.6 # {"$imagepolicy": "flux-system:sonarr"}
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8989
+          env:
+            - name: PGID
+              value: "1001"
+            - name: PUID
+              value: "1001"
+            - name: TZ
+              value: America\Toronto
+          volumeMounts:
+            - name: sonarr-config
+              mountPath: /config
+            - name: sonarr-tv
+              mountPath: /tv
+            - name: sonarr-tv2
+              mountPath: /tv2
+              #mountPropagation: Bidirectional       
+            - name: sonarr-tv3
+              mountPath: /tv3
+              #mountPropagation: Bidirectional
+            - name: sonarr-downloads
+              mountPath: /downloads
       volumes:
-      - name: sonarr-config
-        hostPath:
-          path: /media/sonarr/config/
-      - name: sonarr-tv
-        hostPath:
-          path: /media/tvshows
-      - name: sonarr-tv2
-        hostPath:
-          path: /media/tvshows2
-      - name: sonarr-tv3
-        hostPath:
-          path: /media/tvshows3
-      - name: sonarr-downloads
-        hostPath:
-          path: /media/complete
+        - name: sonarr-config
+          hostPath:
+            path: /media/sonarr/config/
+        - name: sonarr-tv
+          hostPath:
+            path: /media/tvshows
+        - name: sonarr-tv2
+          hostPath:
+            path: /media/tvshows2
+        - name: sonarr-tv3
+          hostPath:
+            path: /media/tvshows3
+        - name: sonarr-downloads
+          hostPath:
+            path: /media/complete
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: radarr
+  namespace: default
 spec:
   replicas: 1
   selector:
     matchLabels:
-        app: radarr
+      app: radarr
   template:
     metadata:
       labels:
         app: radarr
     spec:
-#      nodeSelector:
-#        fileserv: "true"
+      #      nodeSelector:
+      #        fileserv: "true"
       containers:
-      - name: radarr
-        image: linuxserver/radarr
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 7878
-        env:
-        - name: PGID
-          value: "1001"
-        - name: PUID
-          value: "1001"
-        - name: TZ
-          value: America\Toronto
-        volumeMounts:
-        - name: radarr-config
-          mountPath: /config
-        - name: radarr-movies
-          mountPath: /movies
-        - name: radarr-movies2
-          mountPath: /movies2
-          #mountPropagation: Bidirectional       
-        - name: radarr-movies3
-          mountPath: /movies3
-          #mountPropagation: Bidirectional
-        - name: radarr-downloads
-          mountPath: /downloads
+        - name: radarr
+          image: linuxserver/radarr:3.2.2 # {"$imagepolicy": "flux-system:radarr"}
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 7878
+          env:
+            - name: PGID
+              value: "1001"
+            - name: PUID
+              value: "1001"
+            - name: TZ
+              value: America\Toronto
+          volumeMounts:
+            - name: radarr-config
+              mountPath: /config
+            - name: radarr-movies
+              mountPath: /movies
+            - name: radarr-movies2
+              mountPath: /movies2
+              #mountPropagation: Bidirectional       
+            - name: radarr-movies3
+              mountPath: /movies3
+              #mountPropagation: Bidirectional
+            - name: radarr-downloads
+              mountPath: /downloads
       volumes:
-      - name: radarr-config
-        hostPath:
-          path: /media/radarr/config/
-      - name: radarr-movies
-        hostPath:
-          path: /media/movies
-      - name: radarr-movies2
-        hostPath:
-          path: /media/movies2
-      - name: radarr-movies3
-        hostPath:
-          path: /media/movies3
-      - name: radarr-downloads
-        hostPath:
-          path: /media/complete
+        - name: radarr-config
+          hostPath:
+            path: /media/radarr/config/
+        - name: radarr-movies
+          hostPath:
+            path: /media/movies
+        - name: radarr-movies2
+          hostPath:
+            path: /media/movies2
+        - name: radarr-movies3
+          hostPath:
+            path: /media/movies3
+        - name: radarr-downloads
+          hostPath:
+            path: /media/complete
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: ombi
+  namespace: default
 spec:
   replicas: 1
   selector:
     matchLabels:
-        app: ombi
+      app: ombi
   template:
     metadata:
       labels:
         app: ombi
     spec:
-#      nodeSelector:
-#        fileserv: "true"
+      #      nodeSelector:
+      #        fileserv: "true"
       containers:
-      - name: ombi
-        image: linuxserver/ombi
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 3579
-        env:
-        - name: TZ
-          value: America\Toronto
-        volumeMounts:
-        - name: ombi-config
-          mountPath: /config
+        - name: ombi
+          image: linuxserver/ombi:4.7.10 # {"$imagepolicy": "flux-system:ombi"}
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3579
+          env:
+            - name: TZ
+              value: America\Toronto
+          volumeMounts:
+            - name: ombi-config
+              mountPath: /config
       volumes:
-      - name: ombi-config
-        hostPath:
-          path: /media/ombi
+        - name: ombi-config
+          hostPath:
+            path: /media/ombi
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: tautulli
+  namespace: default
 spec:
   replicas: 1
   selector:
     matchLabels:
-        app: tautulli
+      app: tautulli
   template:
     metadata:
       labels:
         app: tautulli
     spec:
       containers:
-      - name: tautulli
-        image: linuxserver/tautulli
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 8181
-        env:
-        - name: TZ
-          value: America\Toronto
-        volumeMounts:
-        - name: tautulli-config
-          mountPath: /config
-        - name: tautulli-logs
-          mountPath: /logs
-          readOnly: true
+        - name: tautulli
+          image: linuxserver/tautulli:2021.12.16 # {"$imagepolicy": "flux-system:tautulli"}
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8181
+          env:
+            - name: TZ
+              value: America\Toronto
+          volumeMounts:
+            - name: tautulli-config
+              mountPath: /config
+            - name: tautulli-logs
+              mountPath: /logs
+              readOnly: true
       volumes:
-      - name: tautulli-config
-        hostPath:
-          path: /media/tautulli
-      - name: tautulli-logs
-        hostPath:
-          path: "/media/plex/config/Library/Application Support/Plex Media Server/Logs"
+        - name: tautulli-config
+          hostPath:
+            path: /media/tautulli
+        - name: tautulli-logs
+          hostPath:
+            path: "/media/plex/config/Library/Application Support/Plex Media Server/Logs"

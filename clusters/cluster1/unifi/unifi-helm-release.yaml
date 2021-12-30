@@ -8,20 +8,18 @@ spec:
   interval: 5m
   chart:
     spec:
-      # renovate: registryUrl=https://k8s-at-home.com/charts/
       chart: unifi
-      version: 4.4.0
+      #version: 4.4.0
       sourceRef:
         kind: HelmRepository
         name: k8s-at-home-charts
         namespace: flux-system
       interval: 5m
   values:
-    image:
-      repository: jacobalberty/unifi
-      #repository: linuxserver/unifi-controller
-      tag: v6.5.54
-      pullPolicy: IfNotPresent
+    #image:
+    #  repository: jacobalberty/unifi
+    #  tag: v6.5.54
+    #  pullPolicy: IfNotPresent
 
     env:
       TZ: "America/Toronto"

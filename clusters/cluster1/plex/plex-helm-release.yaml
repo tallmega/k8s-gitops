@@ -9,19 +9,18 @@ spec:
   suspend: false
   chart:
     spec:
-      # renovate: registryUrl=https://k8s-at-home.com/charts/
       chart: plex
-      version: 6.0.1
+      #version: 6.0.1
       sourceRef:
         kind: HelmRepository
         name: k8s-at-home-charts
         namespace: flux-system
       interval: 5m
   values:
-    image:
-      repository: ghcr.io/k8s-at-home/plex
-      tag: v1.24.2.4973-2b1b51db9
-      pullPolicy: IfNotPresent
+    #image:
+      #repository: ghcr.io/k8s-at-home/plex 
+      #tag: v1.24.2.4973-2b1b51db9 
+      #pullPolicy: IfNotPresent
     env:
       TZ: "America/Toronto"
       ADVERTISE_IP: http://10.10.10.200:32400/,https://tallflix.ca:32400/
