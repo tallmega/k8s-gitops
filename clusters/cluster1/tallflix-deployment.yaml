@@ -189,3 +189,47 @@ spec:
         - name: tautulli-logs
           hostPath:
             path: "/media/plex/config/Library/Application Support/Plex Media Server/Logs"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sabnzbd
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sabnzbd
+  template:
+    metadata:
+      labels:
+        app: sabnzbd
+    spec:
+      #      nodeSelector:
+      #        fileserv: "true"
+      containers:
+        - name: sabnzbd
+          image: linuxserver/sabnzbd:3.4.2 # {"$imagepolicy": "flux-system:sabnzbd"}
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          env:
+            - name: TZ
+              value: America\Toronto
+          volumeMounts:
+            - name: sabnzbd-config
+              mountPath: /config
+            - name: sabnzbd-downloads
+              mountPath: /downloads
+            - name: sabnzbd-incomplete-downloads
+              mountPath: /incomplete-downloads
+      volumes:
+        - name: sabnzbd-config
+          hostPath:
+            path: /media/sabnzbd/config/
+        - name: sabnzbd-downloads
+          hostPath:
+            path: /media/downloads
+        - name: sabnzbd-incomplete-downloads
+          hostPath:
+            path: /media/incomplete-downloads
