@@ -214,6 +214,10 @@ spec:
           ports:
             - containerPort: 8080
           env:
+            - name: PGID
+              value: "1001"
+            - name: PUID
+              value: "1001"
             - name: TZ
               value: America\Toronto
           volumeMounts:
