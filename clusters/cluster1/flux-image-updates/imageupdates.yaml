@@ -46,4 +46,15 @@ spec:
     semver:
       range: '>= 2.8.0'
 ---
-
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImagePolicy
+metadata:
+  name: sabnzbd
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: sabnzbd
+  policy:
+    semver:
+      range: '>= 3.0.0'
+---
