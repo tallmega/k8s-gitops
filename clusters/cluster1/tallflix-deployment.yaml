@@ -221,8 +221,8 @@ spec:
               mountPath: /config
             - name: sabnzbd-complete
               mountPath: /complete
-            - name: sabnzbd-incomplete-downloads
-              mountPath: /incomplete-downloads
+            - name: sabnzbd-incomplete
+              mountPath: /incomplete
       volumes:
         - name: sabnzbd-config
           hostPath:
@@ -230,6 +230,6 @@ spec:
         - name: sabnzbd-complete
           hostPath:
             path: /media/complete
-        - name: sabnzbd-incomplete-downloads
+        - name: sabnzbd-incomplete
           hostPath:
-            path: /media/incomplete-downloads
+            path: /media/incomplete
