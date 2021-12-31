@@ -219,17 +219,17 @@ spec:
           volumeMounts:
             - name: sabnzbd-config
               mountPath: /config
-            - name: sabnzbd-downloads
-              mountPath: /downloads
+            - name: sabnzbd-complete
+              mountPath: /complete
             - name: sabnzbd-incomplete-downloads
               mountPath: /incomplete-downloads
       volumes:
         - name: sabnzbd-config
           hostPath:
             path: /media/sabnzbd/config/
-        - name: sabnzbd-downloads
+        - name: sabnzbd-complete
           hostPath:
-            path: /media/downloads
+            path: /media/complete
         - name: sabnzbd-incomplete-downloads
           hostPath:
             path: /media/incomplete-downloads
