@@ -149,11 +149,11 @@ spec:
           volumeMounts:
             - name: ombi-config-storage
               mountPath: /config
-              #existingClaim: ombi-config-pvc
-      volumes:
-        - name: ombi-config-storage
-          persistantVolumeClaim: 
-            claimName: ombi-config-pvc
+              existingClaim: ombi-config-pvc
+      #volumes:
+      #  - name: ombi-config-storage
+      #    persistantVolumeClaim: 
+      #      claimName: ombi-config-pvc
           #hostPath:
           #    path: /media/ombi
 ---
