@@ -1,0 +1,16 @@
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: auth-nginx
+  namespace: longhorn-system
+spec:
+  encryptedData:
+    auth: AgCX+QJrWwKDPgiWmFJH9ftQihd3DpXsZq1Z/f7t6gylqnEBUxLSKRdRIW/YYTAyc5nw17MM5KCRRHwYOoFHVMwKQiCfapgkVNwiA1/qRYuFMdZc7iiCNHoPjFrhjHG+FphfvdBTp8FZg7jUQ7MuQOy2w6GbahMyboW9vGoNvzUeUysvC2MxvS4j8wtKz2mPwO/GWSr0W8gaT63a9duYpt1paMMxlVNTbgIqRXBQjfYxMcj01QXafwtNnhd1qJUFS14kWZDfhE1sQ05siy+hYuPrh0J5axRJtxMxWCQkY+omNOB66o2BiqDW3vAhBn+4KrrBbApOPtuDNy+LG++irV4wRyi3YGLSARXRBXKp+PUNFUBRDU6uOrigly/3RsdiUljdg+IiTtRTuWybUrcepeHfw3eESm21lvjXPHUVkkRLRwomNvlelT84PFd+5CZpkcl8rqF+Fe94gaNe2YS6qR8iG6b2qUfinIGD9yOmU91M6dke7krbz7Y9fJfpDl3Yhy8nClJRxNnJcxoffo9N45PjyI2zmtvACpqR5b8TbiOKEQmXPqWWgCmWJ2wtLXmRjcIh3UQKhawmNLfM7A/imKGKOXe4ftK/bArVoQaez2c9srXanpkECtLehM6QzX3dBQcYRY0s/7qY8H6wq9VHvQemC5f71dFhrgS2o560kiZrL0l/6W3jh1duvS32cgL//BJx48ZKWo8BfjW/BgtCS5jaGGYuEKRYty3DiujGXEe+GOeI61/ZkhcBy9cK
+  template:
+    data: null
+    metadata:
+      creationTimestamp: null
+      name: auth-nginx
+      namespace: longhorn-system
+    type: Opaque
