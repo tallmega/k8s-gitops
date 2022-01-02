@@ -151,8 +151,11 @@ spec:
               mountPath: /config
       volumes:
         - name: ombi-config
-          hostPath:
-            path: /media/ombi
+          persistentVolumeClaim:
+            claimName: ombi-config
+      # - name: ombi-config
+      #    hostPath:
+      #      path: /media/ombi
 ---
 apiVersion: apps/v1
 kind: Deployment
