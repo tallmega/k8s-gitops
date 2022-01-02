@@ -150,10 +150,10 @@ spec:
             - name: ombi-config
               mountPath: /config
               existingClaim: ombi-config
-      #volumes:
-      #  - name: ombi-config
-      #    persistentVolumeClaim:
-      #      claimName: ombi-config
+      volumes:
+        - name: ombi-config
+          persistentVolumeClaim:
+            claimName: ombi-config
       # - name: ombi-config
       #    hostPath:
       #      path: /media/ombi
