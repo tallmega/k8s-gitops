@@ -18,8 +18,11 @@ spec:
   values:
     persistence:
       defaultClassReplicaCount: 2
+    csi:
+      kubeletRootDir: /var/lib/kubelet
     defaultSettings:
       #backupTarget: s3://longhorn@minio/backups
       #backupTargetCredentialSecret: longhorn-backup
       defaultReplicaCount: 2
       defaultLonghornStaticStorageClass: longhorn
+      
