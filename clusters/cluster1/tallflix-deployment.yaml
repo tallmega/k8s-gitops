@@ -42,9 +42,9 @@ spec:
             - name: sonarr-downloads
               mountPath: /downloads
       volumes:
-        - name: sonarr-config
-          persistentVolumeClaim:
-            claimName: sonarr-config
+        - #name: sonarr-config
+          #persistentVolumeClaim:
+          #  claimName: sonarr-config
           #hostPath:
          #   path: /media/sonarr/config/
         - name: sonarr-tv
