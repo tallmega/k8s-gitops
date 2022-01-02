@@ -4,6 +4,8 @@ metadata:
   name: longhorn-ingress
   namespace: longhorn-system
   annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    #kubernetes.io/tls-acme: "true"
     # type of authentication
    # nginx.ingress.kubernetes.io/auth-type: basic
     # prevent the controller from redirecting (308) to HTTPS
@@ -17,14 +19,8 @@ metadata:
 spec:
   tls:
   - hosts:
-    - "sonarr.tallflix.ca"
-    - "radarr.tallflix.ca"
-    - "www.tallflix.ca"
-    - "stats.tallflix.ca"
-    - "hass.tallflix.ca"
-    - "sab.tallflix.ca"
     - "longhorn.tallflix.ca"
-    secretName: tls-secret 
+    secretName: tls-secret
   rules:
   - host: longhorn.tallflix.ca
     http:
