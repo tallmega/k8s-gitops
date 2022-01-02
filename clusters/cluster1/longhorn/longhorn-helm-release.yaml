@@ -22,23 +22,4 @@ spec:
       #backupTarget: s3://longhorn@minio/backups
       #backupTargetCredentialSecret: longhorn-backup
       defaultReplicaCount: 2
-      #defaultLonghornStaticStorageClass: longhorn
-    ingress:
-      main:
-        enabled: true
-        annotations:
-          nginx.org/websocket-services: longhorn
-        hosts:
-        - host: longhorn.tallflix.ca
-          paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: longhorn
-                port:
-                  number: 80
-        tls:
-        - hosts:
-          - longhorn.tallflix.ca
-          secretName: tls-secret
+      defaultLonghornStaticStorageClass: longhorn
