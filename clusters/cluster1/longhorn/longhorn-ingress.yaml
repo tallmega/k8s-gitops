@@ -15,13 +15,8 @@ metadata:
     # custom max body size for file uploading like backing image uploading
     nginx.ingress.kubernetes.io/proxy-body-size: 10000m
 spec:
-  tls:
-  - hosts:
-    - "longhorn.tallflix.ca"
-    secretName: default/tls-secret 
   rules:
-  - host: "longhorn.tallflix.ca"
-    http:
+  - http:
       paths:
       - pathType: Prefix
         path: "/"
