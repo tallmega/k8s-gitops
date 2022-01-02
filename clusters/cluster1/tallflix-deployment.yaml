@@ -152,10 +152,7 @@ spec:
               #existingClaim: ombi-config-pvc
       volumes:
         - name: ombi-config
-          #persistentVolumeClaim:
-          #  claimName: ombi-config-pvc
-      # - name: ombi-config
-            hostPath:
+          hostPath:
               path: /media/ombi
 ---
 apiVersion: apps/v1
