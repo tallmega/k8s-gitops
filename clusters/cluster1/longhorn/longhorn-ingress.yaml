@@ -17,10 +17,10 @@ metadata:
 spec:
   tls:
   - hosts:
-    - longhorn.tallflix.ca
+    - "longhorn.tallflix.ca"
     secretName: tls-secret 
   rules:
-  - host: longhorn.tallflix.ca
+  - host: "longhorn.tallflix.ca"
     http:
       paths:
       - pathType: Prefix
