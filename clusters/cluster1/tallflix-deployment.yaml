@@ -43,10 +43,10 @@ spec:
               mountPath: /downloads
       volumes:
         - name: sonarr-config
-          #persistentVolumeClaim:
-          #  claimName: sonarr-config
-          hostPath:
-            path: /media/sonarr/config/
+          persistentVolumeClaim:
+            claimName: sonarr-config-pvc
+          #hostPath:
+           # path: /media/sonarr/config/
         - name: sonarr-tv
           hostPath:
             path: /media/tvshows
