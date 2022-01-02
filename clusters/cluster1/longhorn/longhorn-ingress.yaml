@@ -17,6 +17,7 @@ metadata:
 spec:
   rules:
   - http:
+    - host: longhorn.tallflix.ca
       paths:
       - pathType: Prefix
         path: "/"
