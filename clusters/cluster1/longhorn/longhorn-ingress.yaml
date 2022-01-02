@@ -15,6 +15,16 @@ metadata:
     # custom max body size for file uploading like backing image uploading
    # nginx.ingress.kubernetes.io/proxy-body-size: 10000m
 spec:
+  tls:
+  - hosts:
+    - "sonarr.tallflix.ca"
+    - "radarr.tallflix.ca"
+    - "www.tallflix.ca"
+    - "stats.tallflix.ca"
+    - "hass.tallflix.ca"
+    - "sab.tallflix.ca"
+    - "longhorn.tallflix.ca"
+    secretName: tls-secret 
   rules:
   - host: longhorn.tallflix.ca
     http:
