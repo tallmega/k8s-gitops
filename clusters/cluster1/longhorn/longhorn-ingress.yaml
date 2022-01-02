@@ -26,3 +26,7 @@ spec:
             name: longhorn-frontend
             port:
               number: 80
+  tls:
+   - hosts:
+     - longhorn.tallflix.ca
+     secretName: tls-secret
