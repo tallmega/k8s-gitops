@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ombi1
+  name: ombi
   namespace: default
 spec:
   replicas: 1
@@ -17,7 +17,7 @@ spec:
       #      nodeSelector:
       #        fileserv: "true"
       containers:
-        - name: ombi1
+        - name: ombi
           image: linuxserver/ombi:4.7.10 # {"$imagepolicy": "flux-system:ombi"}
           imagePullPolicy: IfNotPresent
           ports:
