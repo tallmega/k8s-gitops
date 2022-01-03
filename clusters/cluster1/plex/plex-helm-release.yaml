@@ -100,7 +100,7 @@ spec:
       media4:
         enabled: true
         mountPath: "/data/movies"
-        existingClaim: movies-pvc
+        existingClaim: movies-pvc1
       media5:
         enabled: true
         mountPath: "/data/movies2"
