@@ -34,7 +34,7 @@ spec:
               mountPath: /config
             - name: radarr-movies
               mountPath: /movies
-            - name: radarr-movies2
+            - name: radarr-movies2-nfs
               mountPath: /movies2
               #mountPropagation: Bidirectional       
             - name: radarr-movies3
@@ -49,7 +49,7 @@ spec:
         - name: radarr-movies
           hostPath:
             path: /media/movies
-        - name: radarr-movies2
+        - name: radarr-movies2-nfs
           persistentVolumeClaim:
             claimName: movies2-pvc
         - name: radarr-movies3
