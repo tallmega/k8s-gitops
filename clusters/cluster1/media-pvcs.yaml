@@ -1,13 +1,13 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: tvshows-pvc
+  name: tvshows-pvc1
   namespace: default
 spec:
   accessModes:
     - ReadWriteMany
   storageClassName: syno-nfs
-  volumeName: tvshows-pv-nfs
+  volumeName: tvshows-pv
   resources:
     requests:
       storage: 8Gi
@@ -15,7 +15,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: tvshows2-pvc1
+  name: tvshows2-pvc
   namespace: default
 spec:
   accessModes:
