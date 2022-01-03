@@ -33,7 +33,7 @@ spec:
               mountPath: /config
             - name: sonarr-tv
               mountPath: /tv
-            - name: sonarr-tv2
+            - name: sonarr-tv2-nfs
               mountPath: /tv2
               #mountPropagation: Bidirectional       
             - name: sonarr-tv3
@@ -50,7 +50,7 @@ spec:
         #- name: sonarr-tv
         #  hostPath:
         #    path: /media/tvshows
-        - name: sonarr-tv2
+        - name: sonarr-tv2-nfs
           persistentVolumeClaim:
             claimName: tvshows2-pvc
         #- name: sonarr-tv3
