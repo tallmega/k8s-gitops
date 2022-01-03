@@ -19,7 +19,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: tvshows2-pv1
+  name: tvshows2-pv
 spec:
   storageClassName: thecus-nfs
   capacity:
@@ -37,7 +37,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: tvshows3-pv1
+  name: tvshows3-pv
 spec:
   storageClassName: ubuntu-nfs
   capacity:
@@ -92,7 +92,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: movies3-pv1
+  name: movies3-pv
 spec:
   storageClassName: ubuntu-nfs
   capacity:
