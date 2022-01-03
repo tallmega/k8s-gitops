@@ -117,7 +117,7 @@ spec:
   capacity:
     storage: 8Ti
   accessModes:
-    - ReadOnlyMany
+    - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
   mountOptions:
     - hard
