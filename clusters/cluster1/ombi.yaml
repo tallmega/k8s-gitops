@@ -41,28 +41,45 @@ metadata:
 spec:
   accessModes:
     - ReadWriteOnce
-  storageClassName: longhorn
+#  storageClassName: longhorn
   volumeName: ombi-config-pv
   resources:
     requests:
       storage: 1Gi
 ---
+#apiVersion: v1
+#kind: PersistentVolume
+#metadata:
+#  name: ombi-config-pv
+#spec:
+#  capacity:
+#    storage: 1Gi
+#  volumeMode: Filesystem
+#  accessModes:
+#    - ReadWriteOnce
+#  persistentVolumeReclaimPolicy: Retain
+#  storageClassName: longhorn
+#  csi:
+#    driver: driver.longhorn.io
+#    fsType: ext4
+#    volumeAttributes:
+#      numberOfReplicas: '2'
+#      staleReplicaTimeout: '2880'
+#    volumeHandle: ombi-config-volume
 apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: ombi-config-pv
 spec:
+  storageClassName: synomounted
   capacity:
-    storage: 1Gi
-  volumeMode: Filesystem
+    storage: 8Ti
+  claimRef:
+    namespace: default
+    name: ombi-config-pv
   accessModes:
-    - ReadWriteOnce
+    - ReadOnlyMany
   persistentVolumeReclaimPolicy: Retain
-  storageClassName: longhorn
-  csi:
-    driver: driver.longhorn.io
-    fsType: ext4
-    volumeAttributes:
-      numberOfReplicas: '2'
-      staleReplicaTimeout: '2880'
-    volumeHandle: ombi-config-volume
+  hostPath:
+    path: "/media/ombi/config/"
+---
