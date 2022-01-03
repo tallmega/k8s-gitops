@@ -66,14 +66,18 @@ kind: PersistentVolume
 metadata:
   name: movies2-pv
 spec:
-  storageClassName: thecusmounted
+  storageClassName: thecus-nfs
   capacity:
     storage: 5Ti
   accessModes:
-    - ReadOnlyMany
+    - ReadWriteMany
+  mountOptions:
+    - hard
+    - nfsvers=4.1
   persistentVolumeReclaimPolicy: Retain
-  hostPath:
-    path: "/media/movies2"
+  nfs:
+    server: 10.10.10.100
+    path: "/movies"
 ---
 apiVersion: v1
 kind: PersistentVolume

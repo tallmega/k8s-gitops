@@ -50,8 +50,8 @@ spec:
           hostPath:
             path: /media/movies
         - name: radarr-movies2
-          hostPath:
-            path: /media/movies2
+          persistentVolumeClaim:
+            claimName: movies2-pvc
         - name: radarr-movies3
           hostPath:
             path: /media/movies3
@@ -59,16 +59,3 @@ spec:
           hostPath:
             path: /media/complete
 ---
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: tvshows2-pvc
-  namespace: default
-spec:
-  accessModes:
-    - ReadWriteMany
-  storageClassName: thecus-nfs
-  volumeName: tvshows2-pv
-  resources:
-    requests:
-      storage: 1Gi

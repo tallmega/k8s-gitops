@@ -25,18 +25,18 @@ spec:
     requests:
       storage: 8Ti
 ---
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: tvshows2-pvc
-  namespace: default
-spec:
-  storageClassName: thecusmounted
-  accessModes:
-    - ReadOnlyMany
-  resources:
-    requests:
-      storage: 5Ti
+#apiVersion: v1
+#kind: PersistentVolumeClaim
+#metadata:
+#  name: tvshows2-pvc
+#  namespace: default
+#spec:
+#  storageClassName: thecusmounted
+#  accessModes:
+#    - ReadOnlyMany
+#  resources:
+#    requests:
+#      storage: 5Ti
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
