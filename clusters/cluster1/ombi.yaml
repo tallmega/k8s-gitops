@@ -42,7 +42,7 @@ spec:
   accessModes:
     - ReadWriteOnce
 #  storageClassName: longhorn
-  volumeName: ombi-config-pv
+  volumeName: ombi-config-pv1
   resources:
     requests:
       storage: 1Gi
@@ -69,7 +69,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: ombi-config-pv
+  name: ombi-config-pv1
 spec:
   storageClassName: synomounted
   capacity:
