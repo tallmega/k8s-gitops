@@ -20,14 +20,18 @@ kind: PersistentVolume
 metadata:
   name: tvshows2-pv
 spec:
-  storageClassName: thecusmounted
+  storageClassName: thecus-nfs
   capacity:
     storage: 5Ti
   accessModes:
-    - ReadOnlyMany
+    - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
-  hostPath:
-    path: "/media/tvshows2"
+  mountOptions:
+    - hard
+    - nfsvers=4.1
+  nfs:
+    server: 10.10.10.100
+    path: "/tvshows"
 ---
 apiVersion: v1
 kind: PersistentVolume
