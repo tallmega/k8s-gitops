@@ -3,17 +3,18 @@ kind: PersistentVolume
 metadata:
   name: tvshows-pv
 spec:
-  storageClassName: synomounted
+  storageClassName: syno-nfs
   capacity:
     storage: 8Ti
-  claimRef:
-    namespace: default
-    name: tvshows-pvc
   accessModes:
-    - ReadOnlyMany
+    - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
-  hostPath:
-    path: "/media/tvshows"
+  mountOptions:
+    - hard
+    - nfsvers=4
+  nfs:
+    server: 10.10.10.105
+    path: "/volume1/tvshows"
 ---
 apiVersion: v1
 kind: PersistentVolume
@@ -52,14 +53,18 @@ kind: PersistentVolume
 metadata:
   name: movies-pv
 spec:
-  storageClassName: synomounted
+  storageClassName: syno-nfs
   capacity:
     storage: 8Ti
   accessModes:
-    - ReadOnlyMany
+    - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
-  hostPath:
-    path: "/media/movies"
+  mountOptions:
+    - hard
+    - nfsvers=4
+  nfs:
+    server: 10.10.10.105
+    path: "/volume1/movies"
 ---
 apiVersion: v1
 kind: PersistentVolume

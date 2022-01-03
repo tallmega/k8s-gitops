@@ -31,7 +31,7 @@ spec:
           volumeMounts:
             - name: sonarr-config
               mountPath: /config
-            - name: sonarr-tv
+            - name: sonarr-tv-nfs
               mountPath: /tv
             - name: sonarr-tv2-nfs
               mountPath: /tv2
@@ -47,9 +47,9 @@ spec:
           #  claimName: sonarr-config-pvc
           hostPath:
             path: /media/sonarr/config/
-        #- name: sonarr-tv
-        #  hostPath:
-        #    path: /media/tvshows
+        - name: sonarr-tv-nfs
+          persistentVolumeClaim:
+            claimName: tvshows-pvc
         - name: sonarr-tv2-nfs
           persistentVolumeClaim:
             claimName: tvshows2-pvc

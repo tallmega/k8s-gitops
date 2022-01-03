@@ -12,18 +12,18 @@ spec:
     requests:
       storage: 500Mi
 ---
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: tvshows-pvc
-  namespace: default
-spec:
-  storageClassName: synomounted
-  accessModes:
-    - ReadOnlyMany
-  resources:
-    requests:
-      storage: 8Ti
+#apiVersion: v1
+#kind: PersistentVolumeClaim
+#metadata:
+#  name: tvshows-pvc
+#  namespace: default
+#spec:
+#  storageClassName: synomounted
+#  accessModes:
+#    - ReadOnlyMany
+#  resources:
+#    requests:
+#      storage: 8Ti
 ---
 #apiVersion: v1
 #kind: PersistentVolumeClaim
@@ -52,18 +52,18 @@ spec:
       storage: 17Ti
 
 ---
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: movies-pvc
-  namespace: default
-spec:
-  storageClassName: synomounted
-  accessModes:
-    - ReadOnlyMany
-  resources:
-    requests:
-      storage: 8Ti
+#apiVersion: v1
+#kind: PersistentVolumeClaim
+#metadata:
+#  name: movies-pvc
+#  namespace: default
+#spec:
+#  storageClassName: synomounted
+#  accessModes:
+#    - ReadOnlyMany
+#  resources:
+#    requests:
+#      storage: 8Ti
 ---
 #apiVersion: v1
 #kind: PersistentVolumeClaim
