@@ -48,7 +48,7 @@ spec:
             path: /media/radarr/config/
         - name: radarr-movies-nfs
           persistentVolumeClaim:
-            claimName: movies-pvc1
+            claimName: movies-pvc2
         - name: radarr-movies2-nfs
           persistentVolumeClaim:
             claimName: movies2-pvc

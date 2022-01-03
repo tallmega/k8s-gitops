@@ -49,7 +49,7 @@ spec:
             path: /media/sonarr/config/
         - name: sonarr-tv-nfs
           persistentVolumeClaim:
-            claimName: tvshows-pvc1
+            claimName: tvshows-pvc2
         - name: sonarr-tv2-nfs
           persistentVolumeClaim:
             claimName: tvshows2-pvc
