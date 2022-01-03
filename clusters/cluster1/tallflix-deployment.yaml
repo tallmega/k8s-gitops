@@ -36,7 +36,7 @@ spec:
             - name: sonarr-tv2-nfs
               mountPath: /tv2
               #mountPropagation: Bidirectional       
-            - name: sonarr-tv3
+            - name: sonarr-tv3-nfs
               mountPath: /tv3
               #mountPropagation: Bidirectional
             - name: sonarr-downloads
@@ -53,7 +53,7 @@ spec:
         - name: sonarr-tv2-nfs
           persistentVolumeClaim:
             claimName: tvshows2-pvc1
-        - name: sonarr-tv3
+        - name: sonarr-tv3-nfs
           persistentVolumeClaim:
             claimName: tvshows3-pvc1
         - name: sonarr-downloads
