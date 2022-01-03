@@ -140,7 +140,7 @@ spec:
         - name: sabnzbd-config
           hostPath:
             path: /media/sabnzbd/config/
-        - name: sabnzbd--downloads-complete
+        - name: sabnzbd-downloads-complete
           persistentVolumeClaim:
             claimName: downloads-complete-pvc
         - name: sabnzbd-downloads-incomplete
