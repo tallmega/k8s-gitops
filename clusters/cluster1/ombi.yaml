@@ -32,8 +32,8 @@ spec:
         - name: ombi-config
           persistantVolumeClaim: 
             claimName: ombi-config-pvc
-          hostPath:
-              path: /media/ombi
+          #hostPath:
+          #    path: /media/ombi
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
