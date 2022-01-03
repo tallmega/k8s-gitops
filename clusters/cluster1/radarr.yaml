@@ -54,7 +54,7 @@ spec:
             claimName: movies2-pvc
         - name: radarr-movies3-nfs
           persistentVolumeClaim:
-            claimName: movies3-pvc1
+            claimName: movies3-pvc
         - name: radarr-downloads
           hostPath:
             path: /media/complete

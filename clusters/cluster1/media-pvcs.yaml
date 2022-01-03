@@ -71,7 +71,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: movies3-pvc1
+  name: movies3-pvc
   namespace: default
 spec:
   accessModes:

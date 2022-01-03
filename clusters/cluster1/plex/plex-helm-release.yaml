@@ -108,7 +108,7 @@ spec:
       media6:
         enabled: true
         mountPath: "/data/movies3"
-        existingClaim: movies3-pvc1
+        existingClaim: movies3-pvc
       media7:
         enabled: true
         mountPath: "/data/music"
