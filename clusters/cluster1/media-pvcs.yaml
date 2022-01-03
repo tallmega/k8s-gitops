@@ -15,13 +15,13 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: tvshows2-pvc
+  name: tvshows2-pvc1
   namespace: default
 spec:
   accessModes:
     - ReadWriteMany
   storageClassName: thecus-nfs
-  volumeName: tvshows2-pv
+  volumeName: tvshows2-pv1
   resources:
     requests:
       storage: 5Gi
