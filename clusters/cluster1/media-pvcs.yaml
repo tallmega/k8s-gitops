@@ -95,3 +95,31 @@ spec:
   resources:
     requests:
       storage: 8Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: downloads-complete-pvc
+  namespace: default
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: syno-nfs
+  volumeName: downloads-complete-pv
+  resources:
+    requests:
+      storage: 8Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: downloads-incomplete-pvc
+  namespace: default
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: syno-nfs
+  volumeName: downloads-incomplete-pv
+  resources:
+    requests:
+      storage: 8Gi

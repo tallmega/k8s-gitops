@@ -40,7 +40,7 @@ spec:
             - name: radarr-movies3-nfs
               mountPath: /movies3
               #mountPropagation: Bidirectional
-            - name: radarr-downloads
+            - name: radarr-downloads-complete
               mountPath: /downloads
       volumes:
         - name: radarr-config
@@ -55,7 +55,6 @@ spec:
         - name: radarr-movies3-nfs
           persistentVolumeClaim:
             claimName: movies3-pvc
-        - name: radarr-downloads
-          hostPath:
-            path: /media/complete
----
+        - name: radarr-downloads-complete
+          persistentVolumeClaim:
+            claimName: downloads-complete-pvc

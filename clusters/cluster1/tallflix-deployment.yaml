@@ -39,7 +39,7 @@ spec:
             - name: sonarr-tv3-nfs
               mountPath: /tv3
               #mountPropagation: Bidirectional
-            - name: sonarr-downloads
+            - name: sonarr-downloads-complete
               mountPath: /downloads
       volumes:
         - name: sonarr-config
@@ -56,9 +56,9 @@ spec:
         - name: sonarr-tv3-nfs
           persistentVolumeClaim:
             claimName: tvshows3-pvc
-        - name: sonarr-downloads
-          hostPath:
-            path: /media/complete
+        - name: sonarr-downloads-complete
+          persistentVolumeClaim:
+            claimName: downloads-complete-pvc
 
 ---
 apiVersion: apps/v1
@@ -132,17 +132,17 @@ spec:
           volumeMounts:
             - name: sabnzbd-config
               mountPath: /config
-            - name: sabnzbd-complete
+            - name: sabnzbd-downloads-complete
               mountPath: /complete
-            - name: sabnzbd-incomplete
+            - name: sabnzbd-downloads-incomplete
               mountPath: /incomplete
       volumes:
         - name: sabnzbd-config
           hostPath:
             path: /media/sabnzbd/config/
-        - name: sabnzbd-complete
-          hostPath:
-            path: /media/complete
-        - name: sabnzbd-incomplete
-          hostPath:
-            path: /media/incomplete
+        - name: sabnzbd--downloads-complete
+          persistentVolumeClaim:
+            claimName: downloads-complete-pvc
+        - name: sabnzbd-downloads-incomplete
+          persistentVolumeClaim:
+            claimName: downloads-incomplete-pvc
