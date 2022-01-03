@@ -96,7 +96,7 @@ spec:
       media3:
         enabled: true
         mountPath: "/data/tvshows3"
-        existingClaim: tvshows3-pvc
+        existingClaim: tvshows3-pvc1
       media4:
         enabled: true
         mountPath: "/data/movies"
@@ -108,8 +108,8 @@ spec:
       media6:
         enabled: true
         mountPath: "/data/movies3"
-        existingClaim: movies3-pvc
+        existingClaim: movies3-pvc1
       media7:
         enabled: true
         mountPath: "/data/music"
-        existingClaim: music-pvc
+        existingClaim: music-pvc1

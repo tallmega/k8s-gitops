@@ -53,8 +53,8 @@ spec:
           persistentVolumeClaim:
             claimName: movies2-pvc
         - name: radarr-movies3
-          hostPath:
-            path: /media/movies3
+          persistentVolumeClaim:
+            claimName: movies3-pvc1
         - name: radarr-downloads
           hostPath:
             path: /media/complete

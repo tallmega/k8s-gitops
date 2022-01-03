@@ -29,6 +29,20 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
+  name: tvshows3-pvc1
+  namespace: default
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: ubuntu-nfs
+  volumeName: tvshows3-pv1
+  resources:
+    requests:
+      storage: 17Ti
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
   name: movies-pvc1
   namespace: default
 spec:
@@ -54,3 +68,30 @@ spec:
     requests:
       storage: 5Gi
 ---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: movies3-pvc1
+  namespace: default
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: ubuntu-nfs
+  volumeName: movies3-pv1
+  resources:
+    requests:
+      storage: 17Ti
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: music-pvc1
+  namespace: default
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: syno-nfs
+  volumeName: music-pv1
+  resources:
+    requests:
+      storage: 8Gi
