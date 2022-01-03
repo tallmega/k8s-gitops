@@ -26,10 +26,10 @@ spec:
             - name: TZ
               value: America\Toronto
           volumeMounts:
-            - name: ombi-config
+            - name: ombi-config1
               mountPath: /config
       volumes:
-        - name: ombi-config
+        - name: ombi-config1
           persistantVolumeClaim: 
             claimName: ombi-config-pvc
 ---
