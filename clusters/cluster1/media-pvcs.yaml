@@ -35,7 +35,7 @@ spec:
   accessModes:
     - ReadWriteMany
   storageClassName: syno-nfs
-  volumeName: movies-pv-nfs
+  volumeName: movies-pv
   resources:
     requests:
       storage: 8Gi
