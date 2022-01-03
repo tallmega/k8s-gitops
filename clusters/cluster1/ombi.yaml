@@ -1,0 +1,48 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ombi
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ombi
+  template:
+    metadata:
+      labels:
+        app: ombi
+    spec:
+      #      nodeSelector:
+      #        fileserv: "true"
+      containers:
+        - name: ombi
+          image: linuxserver/ombi:4.7.10 # {"$imagepolicy": "flux-system:ombi"}
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3579
+          env:
+            - name: TZ
+              value: America\Toronto
+          volumeMounts:
+            - name: ombi-config
+              mountPath: /config
+      volumes:
+        - name: ombi-config
+          persistantVolumeClaim: 
+            claimName: ombi-config-pvc
+          hostPath:
+              path: /media/ombi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ombi-config-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: longhorn
+  resources:
+    requests:
+      storage: 1Gi
