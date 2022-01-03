@@ -29,7 +29,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: tvshows3-pvc1
+  name: tvshows3-pvc
   namespace: default
 spec:
   accessModes:
