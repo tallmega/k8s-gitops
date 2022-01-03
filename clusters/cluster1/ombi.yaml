@@ -26,27 +26,27 @@ spec:
             - name: TZ
               value: America\Toronto
           volumeMounts:
-            - name: ombi-config1
+            - name: ombi-config
               mountPath: /config
       volumes:
-        - name: ombi-config1
-          persistantVolumeClaim: 
-            claimName: ombi-config-pvc1
+        - name: ombi-config
+          hostPath:
+            path: /media/ombi/config/
 ---
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: ombi-config-pvc1
-  namespace: default
-spec:
-  accessModes:
-    - ReadWriteOnce
+#apiVersion: v1
+#kind: PersistentVolumeClaim
+#metadata:
+#  name: ombi-config-pvc1
+#  namespace: default
+#spec:
+#  accessModes:
+#    - ReadWriteOnce
 #  storageClassName: longhorn
-  volumeName: ombi-config-pv1
-  resources:
-    requests:
-      storage: 1Gi
----
+  #volumeName: ombi-config-pv1
+  #resources:
+  #  requests:
+  #    storage: 1Gi
+#---
 #apiVersion: v1
 #kind: PersistentVolume
 #metadata:
@@ -66,20 +66,20 @@ spec:
 #      numberOfReplicas: '2'
 #      staleReplicaTimeout: '2880'
 #    volumeHandle: ombi-config-volume
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: ombi-config-pv1
-spec:
-  storageClassName: synomounted
-  capacity:
-    storage: 8Ti
-  claimRef:
-    namespace: default
-    name: ombi-config-pv
-  accessModes:
-    - ReadOnlyMany
-  persistentVolumeReclaimPolicy: Retain
-  hostPath:
-    path: "/media/ombi/config/"
+#apiVersion: v1
+#kind: PersistentVolume
+#metadata:
+#  name: ombi-config-pv1
+#spec:
+  #storageClassName: synomounted
+  ##capacity:
+  #  storage: 8Ti
+  #claimRef:
+  #  namespace: default
+  #  name: ombi-config-pv1
+  #accessModes:
+  #  - ReadOnlyMany
+  #persistentVolumeReclaimPolicy: Retain
+  #hostPath:
+ #   path: "/media/ombi/config/"
 ---
