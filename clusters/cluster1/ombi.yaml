@@ -31,12 +31,12 @@ spec:
       volumes:
         - name: ombi-config1
           persistantVolumeClaim: 
-            claimName: ombi-config-pvc
+            claimName: ombi-config-pvc1
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: ombi-config-pvc
+  name: ombi-config-pvc1
   namespace: default
 spec:
   accessModes:
