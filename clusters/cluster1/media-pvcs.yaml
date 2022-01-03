@@ -15,7 +15,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: tvshows2-pvc
+  name: tvshows2-pvc1
   namespace: default
 spec:
   accessModes:
@@ -29,7 +29,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: movies-pvc
+  name: movies-pvc1
   namespace: default
 spec:
   accessModes:
