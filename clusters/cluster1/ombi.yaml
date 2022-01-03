@@ -31,7 +31,7 @@ spec:
       volumes:
         - name: ombi-config
           hostPath:
-            path: /media/ombi/config/
+            path: /media/ombi
 ---
 #apiVersion: v1
 #kind: PersistentVolumeClaim
