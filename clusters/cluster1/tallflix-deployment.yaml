@@ -52,10 +52,10 @@ spec:
             claimName: tvshows-pvc1
         - name: sonarr-tv2-nfs
           persistentVolumeClaim:
-            claimName: tvshows2-pvc1
+            claimName: tvshows2-pvc
         - name: sonarr-tv3-nfs
           persistentVolumeClaim:
-            claimName: tvshows3-pvc1
+            claimName: tvshows3-pvc
         - name: sonarr-downloads
           hostPath:
             path: /media/complete
