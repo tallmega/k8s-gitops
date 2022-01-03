@@ -52,13 +52,13 @@ spec:
             claimName: tvshows-pvc1
         - name: sonarr-tv2-nfs
           persistentVolumeClaim:
-            claimName: tvshows2-pvc
-        #- name: sonarr-tv3
-        #  hostPath:
-        #    path: /media/tvshows3
-        #- name: sonarr-downloads
-        #  hostPath:
-        #    path: /media/complete
+            claimName: tvshows2-pvc1
+        - name: sonarr-tv3
+          hostPath:
+            path: /media/tvshows3
+        - name: sonarr-downloads
+          hostPath:
+            path: /media/complete
 
 ---
 apiVersion: apps/v1
