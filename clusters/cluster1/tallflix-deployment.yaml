@@ -50,9 +50,9 @@ spec:
         #- name: sonarr-tv
         #  hostPath:
         #    path: /media/tvshows
-        #- name: sonarr-tv2
-        #  hostPath:
-        #    path: /media/tvshows2
+        - name: sonarr-tv2
+          persistentVolumeClaim:
+            claimName: tvshows2-pvc
         #- name: sonarr-tv3
         #  hostPath:
         #    path: /media/tvshows3

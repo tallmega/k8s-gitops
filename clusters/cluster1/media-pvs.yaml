@@ -18,7 +18,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: tvshows2-pv2
+  name: tvshows2-pv
 spec:
   storageClassName: thecus-nfs
   capacity:
@@ -64,7 +64,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: movies2-pv2
+  name: movies2-pv
 spec:
   storageClassName: thecus-nfs
   capacity:
