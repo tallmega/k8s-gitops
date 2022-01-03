@@ -32,7 +32,7 @@ spec:
           volumeMounts:
             - name: radarr-config
               mountPath: /config
-            - name: radarr-movies
+            - name: radarr-movies-nfs
               mountPath: /movies
             - name: radarr-movies2-nfs
               mountPath: /movies2
@@ -46,7 +46,7 @@ spec:
         - name: radarr-config
           hostPath:
             path: /media/radarr/config/
-        - name: radarr-movies
+        - name: radarr-movies-nfs
           persistentVolumeClaim:
             claimName: movies-pvc
         - name: radarr-movies2-nfs
