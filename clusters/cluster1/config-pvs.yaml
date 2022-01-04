@@ -32,7 +32,7 @@ spec:
     - nfsvers=4
   nfs:
     server: 10.10.10.105
-    path: "/volume1/K8sConfig/unifi/config"
+    path: "/volume1/K8sConfig/unifi"
 ---
 apiVersion: v1
 kind: PersistentVolume
