@@ -80,7 +80,7 @@ spec:
       config:
         enabled: true
         mountPath: "/config"
-        existingClaim: "plexconfig-pvc1"
+        existingClaim: "plexconfig-pvc2"
       transcode:
         enabled: true
         type: emptyDir
