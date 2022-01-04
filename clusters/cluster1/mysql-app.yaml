@@ -4,10 +4,6 @@ metadata:
   name: my-mysql
   namespace: default
 spec:
-  selector:
-    matchLabels:
-      app: example
-      tier: mysql
   strategy:
     type: Recreate
   template:
