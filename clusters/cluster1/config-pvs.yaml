@@ -37,7 +37,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: appdaemonconfig-pv1
+  name: appdaemonconfig-pv2
 spec:
   storageClassName: syno-nfs
   capacity:
@@ -50,12 +50,12 @@ spec:
     - nfsvers=4
   nfs:
     server: 10.10.10.105
-    path: "/volume1/K8sConfig/appdaemon/config"
+    path: "/volume1/K8sConfig/appdaemon"
 ---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: homeasssistantconfig-pv1
+  name: homeasssistantconfig-pv2
 spec:
   storageClassName: syno-nfs
   capacity:
@@ -68,4 +68,4 @@ spec:
     - nfsvers=4
   nfs:
     server: 10.10.10.105
-    path: "/volume1/K8sConfig/homeassistant/config"
+    path: "/volume1/K8sConfig/homeassistant"

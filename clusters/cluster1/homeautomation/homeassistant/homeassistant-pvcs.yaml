@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: homeassistantconfig-pvc1
+  name: homeassistantconfig-pvc2
   namespace: default
 spec:
   accessModes:
@@ -11,4 +11,4 @@ spec:
     requests:
       storage: 1Gi
   storageClassName: syno-nfs
-  volumeName: homeassistantconfig-pv1
+  volumeName: homeassistantconfig-pv2
