@@ -27,7 +27,7 @@ spec:
               value: America\Toronto
           volumeMounts:
             - name: ombi-config
-              mountPath: /
+              mountPath: /config
       volumes:
         - name: ombi-config
           persistentVolumeClaim:
