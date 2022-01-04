@@ -55,7 +55,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: homeasssistantconfig-pv2
+  name: homeassistantconfig-pv2
 spec:
   storageClassName: syno-nfs
   capacity:
