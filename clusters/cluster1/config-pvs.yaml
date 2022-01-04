@@ -1,0 +1,71 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: plexconfig-pv1
+spec:
+  storageClassName: syno-nfs
+  capacity:
+    storage: 500Mi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  mountOptions:
+    - hard
+    - nfsvers=4
+  nfs:
+    server: 10.10.10.105
+    path: "/volume1/K8sConfig/plex/config"
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: unificonfig-pv1
+spec:
+  storageClassName: syno-nfs
+  capacity:
+    storage: 500Mi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  mountOptions:
+    - hard
+    - nfsvers=4
+  nfs:
+    server: 10.10.10.105
+    path: "/volume1/K8sConfig/unifi/config"
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: appdaemonconfig-pv1
+spec:
+  storageClassName: syno-nfs
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  mountOptions:
+    - hard
+    - nfsvers=4
+  nfs:
+    server: 10.10.10.105
+    path: "/volume1/K8sConfig/appdaemon/config"
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: homeasssistantconfig-pv1
+spec:
+  storageClassName: syno-nfs
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  mountOptions:
+    - hard
+    - nfsvers=4
+  nfs:
+    server: 10.10.10.105
+    path: "/volume1/K8sConfig/homeassistant/config"
