@@ -41,6 +41,7 @@ metadata:
 spec:
   accessModes:
     - ReadWriteOnce
+  storageClassName: longhorn-retain
   volumeName: ombi-config-pv1
   resources:
     requests:
@@ -56,6 +57,7 @@ spec:
   volumeMode: Filesystem
   accessModes:
     - ReadWriteOnce
+  storageClassName: longhorn-retain
   persistentVolumeReclaimPolicy: Retain
   csi:
     driver: driver.longhorn.io
