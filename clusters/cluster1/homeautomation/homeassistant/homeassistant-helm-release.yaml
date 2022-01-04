@@ -55,4 +55,4 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: homeassistantconfig-pvc1
+        existingClaim: homeassistantconfig-pvc2
