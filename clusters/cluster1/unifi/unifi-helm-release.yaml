@@ -62,4 +62,4 @@ spec:
     persistence:
       data:
         enabled: true
-        existingClaim: unificonfig-pvc1
+        existingClaim: unificonfig-pvc2
