@@ -4,6 +4,9 @@ metadata:
   name: my-mysql
   namespace: default
 spec:
+  selector:
+    matchLabels:
+      app: example
   strategy:
     type: Recreate
   template:
