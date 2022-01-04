@@ -64,6 +64,7 @@ spec:
     volumeAttributes:
       numberOfReplicas: '2'
       staleReplicaTimeout: '2880'
+    volumeHandle: ombi-config-volume
 #apiVersion: v1
 #kind: PersistentVolume
 #metadata:
