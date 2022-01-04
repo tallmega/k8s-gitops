@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: appdaemonconfig-pvc1
+  name: appdaemonconfig-pvc2
   namespace: default
 spec:
   accessModes:
@@ -11,4 +11,4 @@ spec:
     requests:
       storage: 1Gi
   storageClassName: syno-nfs
-  volumeName: appdaemonconfig-pv1
+  volumeName: appdaemonconfig-pv2
