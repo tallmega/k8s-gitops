@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ombi
+  name: ombi-longhorn
   namespace: default
 spec:
   replicas: 1
@@ -30,22 +30,20 @@ spec:
               mountPath: /config
       volumes:
         - name: ombi-config
-          hostPath:
-            path: /media/ombi
+          persistentVolumeClaim:
+            claimName: ombi-config-pvc
 ---
-#apiVersion: v1
-#kind: PersistentVolumeClaim
-#metadata:
-#  name: ombi-config-pvc1
-#  namespace: default
-#spec:
-#  accessModes:
-#    - ReadWriteOnce
-#  storageClassName: longhorn
-  #volumeName: ombi-config-pv1
-  #resources:
-  #  requests:
-  #    storage: 1Gi
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ombi-config-pvc
+  namespace: default
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
 #---
 #apiVersion: v1
 #kind: PersistentVolume
