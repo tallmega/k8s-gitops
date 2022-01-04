@@ -57,14 +57,13 @@ spec:
   accessModes:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
-  storageClassName: longhorn
   csi:
     driver: driver.longhorn.io
     fsType: ext4
     volumeAttributes:
       numberOfReplicas: '2'
       staleReplicaTimeout: '2880'
-    volumeHandle: ombi-config-volume
+    volumeHandle: ombi-config-volume1
 #apiVersion: v1
 #kind: PersistentVolume
 #metadata:
