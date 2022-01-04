@@ -19,7 +19,7 @@ spec:
     persistence:
       defaultClassReplicaCount: 2
     csi:
-      kubeletRootDir: /var/lib/kubelet
+      kubeletRootDir: /var/snap/microk8s/common/var/lib/
     defaultSettings:
       #backupTarget: s3://longhorn@minio/backups
       #backupTargetCredentialSecret: longhorn-backup
