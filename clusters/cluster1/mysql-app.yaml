@@ -11,6 +11,8 @@ spec:
     type: Recreate
   template:
     metadata:
+      labels:
+          app: example
     spec:
       containers:
       - image: mysql:5.6
