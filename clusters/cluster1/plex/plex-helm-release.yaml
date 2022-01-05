@@ -77,7 +77,7 @@ spec:
           #- path: /
             #pathType: Prefix
     persistence:
-      config:
+      config1:
         enabled: true
         mountPath: "/config"
         existingClaim: "plex-config-pvc"
