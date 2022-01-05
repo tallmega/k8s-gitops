@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tautulli
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tautulli
+  template:
+    metadata:
+      labels:
+        app: tautulli
+    spec:
+      containers:
+        - name: tautulli
+          image: linuxserver/tautulli:2021.12.16 # {"$imagepolicy": "flux-system:tautulli"}
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8181
+          env:
+            - name: TZ
+              value: America\Toronto
+          volumeMounts:
+            - name: tautulli-config
+              mountPath: /config
+            - name: tautulli-logs
+              mountPath: /logs
+              readOnly: true
+      volumes:
+        - name: tautulli-config
+          hostPath:
+            path: /media/tautulli
+        - name: tautulli-logs
+          hostPath:
+            path: "/media/plex/config/Library/Application Support/Plex Media Server/Logs"
+---
