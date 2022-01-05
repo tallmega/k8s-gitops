@@ -17,10 +17,10 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
-    image:
-      repository: ghcr.io/k8s-at-home/plex 
-      tag: v1.24.2.4973-2b1b51db9 
-      pullPolicy: IfNotPresent
+    #image:
+      #repository: ghcr.io/k8s-at-home/plex 
+      #tag: v1.24.2.4973-2b1b51db9 
+      #pullPolicy: IfNotPresent
     env:
       TZ: "America/Toronto"
       ADVERTISE_IP: http://10.10.10.201:32400/,https://tallflix.ca:32400/
