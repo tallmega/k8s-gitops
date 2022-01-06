@@ -13,8 +13,6 @@ spec:
       labels:
         app: radarr
     spec:
-      #      nodeSelector:
-      #        fileserv: "true"
       containers:
         - name: radarr
           image: linuxserver/radarr:3.2.2 # {"$imagepolicy": "flux-system:radarr"}
@@ -43,8 +41,8 @@ spec:
               mountPath: /downloads
       volumes:
         - name: radarr-config
-          hostPath:
-            path: /media/radarr/config/
+          persistentVolumeClaim:
+            claimName: radarr-config-pvc
         - name: radarr-movies-nfs
           persistentVolumeClaim:
             claimName: movies-pvc
