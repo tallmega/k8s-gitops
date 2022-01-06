@@ -27,7 +27,7 @@ spec:
             - name: TZ
               value: America\Toronto
           volumeMounts:
-            - name: sonarr-config
+            - name: sonarr-config1
               mountPath: /config
             - name: sonarr-tv-nfs
               mountPath: /tv
@@ -40,7 +40,7 @@ spec:
             - name: sonarr-downloads-complete
               mountPath: /downloads
       volumes:
-        - name: sonarr-config
+        - name: sonarr-config1
           persistentVolumeClaim:
             claimName: sonarr-config-pvc
         - name: sonarr-tv-nfs
