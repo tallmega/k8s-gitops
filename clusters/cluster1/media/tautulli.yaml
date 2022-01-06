@@ -23,16 +23,10 @@ spec:
             - name: TZ
               value: America\Toronto
           volumeMounts:
-            - name: tautulli-config
+            - name: tautulli-config1
               mountPath: /config
-            - name: tautulli-logs
-              mountPath: /logs
-              readOnly: true
       volumes:
-        - name: tautulli-config
-          hostPath:
-            path: /media/tautulli
-        - name: tautulli-logs
-          hostPath:
-            path: "/media/plex/config/Library/Application Support/Plex Media Server/Logs"
+        - name: tautulli-config1
+          persistentVolumeClaim:
+            claimName: tautulli-config-pvc
 ---
