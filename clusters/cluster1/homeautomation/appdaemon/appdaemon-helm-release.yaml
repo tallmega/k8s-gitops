@@ -48,5 +48,5 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: appdaemonconfig-pvc2
+        existingClaim: appdaemon-config-pvc
       # -- Configure a hostPathMount to mount a USB device in the container.

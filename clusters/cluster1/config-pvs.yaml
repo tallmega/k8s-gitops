@@ -15,39 +15,3 @@ spec:
   nfs:
     server: 10.10.10.105
     path: "/volume1/K8sConfig/unifi"
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: appdaemonconfig-pv2
-spec:
-  storageClassName: syno-nfs
-  capacity:
-    storage: 1Gi
-  accessModes:
-    - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Retain
-  mountOptions:
-    - hard
-    - nfsvers=4
-  nfs:
-    server: 10.10.10.105
-    path: "/volume1/K8sConfig/appdaemon"
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: homeassistantconfig-pv2
-spec:
-  storageClassName: syno-nfs
-  capacity:
-    storage: 1Gi
-  accessModes:
-    - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Retain
-  mountOptions:
-    - hard
-    - nfsvers=4
-  nfs:
-    server: 10.10.10.105
-    path: "/volume1/K8sConfig/homeassistant"
