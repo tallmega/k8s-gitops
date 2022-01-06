@@ -17,8 +17,8 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
-    #image:
-      #repository: ghcr.io/k8s-at-home/plex 
+    image:
+      repository: ghcr.io/k8s-at-home/plex 
       #tag: v1.24.2.4973-2b1b51db9 
       #pullPolicy: IfNotPresent
     env:
@@ -31,9 +31,9 @@ spec:
     - secretRef:
        name: plex-secret
     podSecurityContext:
-      runAsUser: 1000
-      runAsGroup: 1000
-      fsGroup: 1000
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
       fsGroupChangePolicy: "OnRootMismatch"
       # # Hardware acceleration using an Intel iGPU w/ QuickSync
       # # These IDs below should be matched to your `video` and `render` group on the host
