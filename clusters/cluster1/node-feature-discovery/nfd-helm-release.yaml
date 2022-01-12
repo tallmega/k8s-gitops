@@ -11,6 +11,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: nfd
+        namespace: flux-system
   interval: 10m0s
   releaseName: node-feature-discovery
-  #targetNamespace: node-feature-discovery
+  targetNamespace: node-feature-discovery

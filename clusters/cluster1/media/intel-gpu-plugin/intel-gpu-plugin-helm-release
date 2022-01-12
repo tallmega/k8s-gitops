@@ -3,7 +3,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: intel-gpu-plugin
-  namespace: flux-system
+  namespace: intel-gpu-plugin
 spec:
   chart:
     spec:
@@ -13,5 +13,3 @@ spec:
         name: k8s-at-home-charts
         namespace: flux-system
   interval: 10m0s
-  releaseName: intel-gpu-plugin
-  targetNamespace: intel-gpu-plugin
