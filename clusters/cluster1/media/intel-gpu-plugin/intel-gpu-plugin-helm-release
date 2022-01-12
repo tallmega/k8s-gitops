@@ -10,9 +10,7 @@ spec:
       chart: intel-gpu-plugin
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home-charts
-        namespace: flux-system
-      interval: 5m
+        name: k8s-at-home
   interval: 10m0s
   releaseName: intel-gpu-plugin
-  targetNamespace: default
+  targetNamespace: intel-gpu-plugin
