@@ -7,6 +7,9 @@ metadata:
 spec:
   releaseName: intel-gpu-plugin
   interval: 10m0s
+  values:
+    nodeSelector:
+      feature.node.kubernetes.io/pci-0300_8086.present: "true"
   chart:
     spec:
       chart: intel-gpu-plugin
