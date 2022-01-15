@@ -32,7 +32,6 @@ spec:
         default: false
         ingressClassByName: true
         controllerValue: "k8s.io/internal-nginx"
-
       service:
         loadBalancerIP: "10.10.10.65"
         externalTrafficPolicy: Local
