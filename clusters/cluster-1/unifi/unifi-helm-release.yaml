@@ -26,7 +26,7 @@ spec:
 
     service:
       main:
-        #type: LoadBalancer
+        type: LoadBalancer
         loadBalancerIP: 10.10.10.62
         #externalTrafficPolicy: Local
         ports:
@@ -43,7 +43,7 @@ spec:
             targetPort: 6789
             protocol: TCP
       mainudp:
-        #type: LoadBalancer
+        type: LoadBalancer
         loadBalancerIP: 10.10.10.62
         #externalTrafficPolicy: Local
         ports:
