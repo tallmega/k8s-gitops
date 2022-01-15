@@ -1,0 +1,60 @@
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImagePolicy
+metadata:
+  name: sonarr
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: sonarr
+  policy:
+    semver:
+      range: '>= 3.0.0'
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImagePolicy
+metadata:
+  name: radarr
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: radarr
+  policy:
+    semver:
+      range: '>= 3.0.0'
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImagePolicy
+metadata:
+  name: ombi
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: ombi
+  policy:
+    semver:
+      range: '>= 4.0.0'
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImagePolicy
+metadata:
+  name: tautulli
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: tautulli
+  policy:
+    semver:
+      range: '>= 2.8.0'
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImagePolicy
+metadata:
+  name: sabnzbd
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: sabnzbd
+  policy:
+    semver:
+      range: '>= 3.0.0'
+---
