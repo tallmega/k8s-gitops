@@ -10,7 +10,7 @@ spec:
       chart: cert-manager
       sourceRef:
         kind: HelmRepository
-        name: jetstack-charts
+        name: jetstack
   install:
     crds: Create
   interval: 10m0s
