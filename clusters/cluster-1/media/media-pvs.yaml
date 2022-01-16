@@ -88,7 +88,6 @@ spec:
     server: 10.10.10.100
     path: "/movies"
 ---
----
 apiVersion: v1
 kind: PersistentVolume
 metadata:

@@ -29,4 +29,3 @@ spec:
         - name: tautulli-config1
           persistentVolumeClaim:
             claimName: tautulli-config-pvc
----
