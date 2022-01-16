@@ -41,20 +41,20 @@ spec:
       # $ cat /etc/group | grep "video\|render"
       # video:x:44:
       # render:x:109:
-      supplementalGroups:
-       - 44
-       - 109  
-    resources: 
-      requests:
+      #supplementalGroups:
+       #- 44
+       #- 109  
+    #resources: 
+      #requests:
       # Hardware acceleration using an Intel iGPU w/ QuickSync and
       # using intel-gpu-plugin (https://github.com/intel/intel-device-plugins-for-kubernetes)
-         gpu.intel.com/i915: 1
+         #gpu.intel.com/i915: 1
          #cpu: 200m
          #memory: 256Mi
-      limits:
+      #limits:
       #   # Hardware acceleration using an Intel iGPU w/ QuickSync and
       #   # using intel-gpu-plugin (https://github.com/intel/intel-device-plugins-for-kubernetes)
-         gpu.intel.com/i915: 1
+         #gpu.intel.com/i915: 1
          #memory: 4096Mi    
     service:
       main:
