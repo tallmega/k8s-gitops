@@ -35,18 +35,7 @@ spec:
             port: 5050
     ingress:
       main:
-        enabled: true
-        ingressClassName: internal-nginx
-        hosts:
-        - host: appdaemon.tallflix.ca
-          paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: appdaemon
-                port:
-                  number: 5050
+        enabled: false
     # -- Enable devices to be discoverable
     # hostNetwork: true
 

@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: ingress-service
+  name: media-ingress
   namespace: default
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
@@ -58,16 +58,6 @@ spec:
             name: tautulli
             port:
               number: 8181
-  - host: "appdaemon.tallflix.ca"
-    http:
-      paths:
-      - pathType: Prefix
-        path: "/"
-        backend:
-          service:
-            name: appdaemon
-            port:
-              number: 5050
   - host: "sab.tallflix.ca"
     http:
       paths:
