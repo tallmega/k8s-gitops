@@ -22,7 +22,7 @@ spec:
   #  - "longhorn.tallflix.ca"
   #  secretName: tls-secret
   rules:
-  - host: longhorn2.tallflix.ca
+  - host: longhorn.tallflix.ca
     http:
       paths:
       - pathType: Prefix
