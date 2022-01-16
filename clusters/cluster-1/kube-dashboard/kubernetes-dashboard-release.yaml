@@ -27,5 +27,5 @@ spec:
       ingressClassName: internal-nginx
       hosts:
         - kubernetes-dashboard.tallflix.ca
-      annotations:
-        kubernetes.io/ingress.class: internal-nginx
+      #annotations:
+      #  kubernetes.io/ingress.class: internal-nginx
