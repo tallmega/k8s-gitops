@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sabnzbd
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sabnzbd
+  template:
+    metadata:
+      labels:
+        app: sabnzbd
+    spec:
+      containers:
+        - name: sabnzbd
+          image: linuxserver/sabnzbd:3.5.0 # {"$imagepolicy": "flux-system:sabnzbd"}
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          env:
+            - name: PGID
+              value: "1001"
+            - name: PUID
+              value: "1001"
+            - name: TZ
+              value: America\Toronto
+          volumeMounts:
+            - name: sabnzbd-config
+              mountPath: /config
+            - name: sabnzbd-downloads-complete
+              mountPath: /complete
+            - name: sabnzbd-downloads-incomplete
+              mountPath: /incomplete
+      volumes:
+        - name: sabnzbd-config
+          persistentVolumeClaim:
+            claimName: sabnzbd-config-pvc
+        - name: sabnzbd-downloads-complete
+          persistentVolumeClaim:
+            claimName: downloads-complete-pvc
+        - name: sabnzbd-downloads-incomplete
+          persistentVolumeClaim:
+            claimName: downloads-incomplete-pvc
