@@ -35,6 +35,7 @@ spec:
     ingress:
       main:
         enabled: true
+        ingressClassName: nginx
         annotations:
           nginx.org/websocket-services: home-assistant
         hosts:
