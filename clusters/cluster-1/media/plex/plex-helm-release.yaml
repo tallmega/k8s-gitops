@@ -23,7 +23,7 @@ spec:
       #pullPolicy: IfNotPresent
     env:
       TZ: "America/Toronto"
-      #ADVERTISE_IP: http://10.10.10.62:32400,https://10.10.10.61:32400/,https://tallflix.ca:32400/,http://tallflix.ca:32400/
+      ADVERTISE_IP: http://10.10.10.62:32400,https://10.10.10.61:32400/,https://tallflix.ca:32400/,http://tallflix.ca:32400/
       ALLOWED_NETWORKS: 10.10.10.0/24
       #PUID: 1000
       #PGID: 1000
@@ -44,17 +44,17 @@ spec:
       supplementalGroups:
        - 44
        - 109  
-    resources: 
-      requests:
+    #resources: 
+      #requests:
       # Hardware acceleration using an Intel iGPU w/ QuickSync and
       # using intel-gpu-plugin (https://github.com/intel/intel-device-plugins-for-kubernetes)
-         gpu.intel.com/i915: 1
+         #gpu.intel.com/i915: 1
          #cpu: 200m
          #memory: 256Mi
-      limits:
+      #limits:
       #   # Hardware acceleration using an Intel iGPU w/ QuickSync and
       #   # using intel-gpu-plugin (https://github.com/intel/intel-device-plugins-for-kubernetes)
-         gpu.intel.com/i915: 1
+         #gpu.intel.com/i915: 1
          #memory: 4096Mi    
     service:
       main:
