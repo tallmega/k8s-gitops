@@ -16,14 +16,7 @@ spec:
   targetNamespace: default
   
   values:
-    metricsScraper:
-      ## Whether to enable dashboard-metrics-scraper
-      enabled: false
-      image:
-        repository: kubernetesui/metrics-scraper
-        tag: v1.0.7
-      resources: {}
-    extraArgs:
+        extraArgs:
       - --enable-skip-login
       - --enable-insecure-login
 
