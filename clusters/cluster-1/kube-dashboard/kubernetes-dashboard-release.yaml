@@ -21,6 +21,9 @@ spec:
       - --enable-insecure-login
 
     protocolHttp: true
+    
+    metrics-server:
+      enabled: true
 
     ingress:
       enabled: true
