@@ -14,12 +14,18 @@ spec:
   interval: 10m0s
   releaseName: kubernetes-dashboard
   targetNamespace: default
-
+  
   values:
+    metricsScraper:
+      ## Whether to enable dashboard-metrics-scraper
+      enabled: false
+      image:
+        repository: kubernetesui/metrics-scraper
+        tag: v1.0.7
+      resources: {}
     extraArgs:
       - --enable-skip-login
       - --enable-insecure-login
-      - --metrics-provider=sidecar
 
     protocolHttp: true
 
