@@ -16,4 +16,6 @@ spec:
   targetNamespace: kube-system
 
   values:
+    args:
+      - --kubelet-insecure-tls
     replicas: 2
