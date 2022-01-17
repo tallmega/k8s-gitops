@@ -19,6 +19,7 @@ spec:
     extraArgs:
       - --enable-skip-login
       - --enable-insecure-login
+      - --metrics-provider=sidecar
 
     protocolHttp: true
 
