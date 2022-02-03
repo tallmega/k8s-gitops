@@ -23,4 +23,5 @@ spec:
       #backupTargetCredentialSecret: longhorn-backup
       defaultReplicaCount: 2
       defaultLonghornStaticStorageClass: longhorn
-      
+    env:
+      TZ: America/Toronto      
