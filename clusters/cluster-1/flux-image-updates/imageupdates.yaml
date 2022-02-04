@@ -83,3 +83,15 @@ spec:
   policy:
     alphabetical:
       order: asc
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImagePolicy
+metadata:
+  name: unifi
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: unifi
+  policy:
+    semver:
+      range: '>= 5.12.0'

@@ -60,3 +60,12 @@ metadata:
 spec:
   image: ghcr.io/k8s-at-home/plex
   interval: 30m0s
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImageRepository
+metadata:
+  name: unifi
+  namespace: flux-system
+spec:
+  image: jacobalberty/unifi
+  interval: 30m0s
