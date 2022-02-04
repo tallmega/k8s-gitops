@@ -18,13 +18,13 @@ spec:
       interval: 5m
   values:
     image:
-      repository: ghcr.io/k8s-at-home/plex 
-      tag: v1.25.3.5409-f11334058 # {"$imagepolicy": "flux-system:plex:tag"}
+      repository: ghcr.io/k8s-at-home/plex
+      tag: v1.25.4.5487-648a8f9f9 # {"$imagepolicy": "flux-system:plex:tag"}
     env:
       TZ: "America/Toronto"
     envFrom:
-    - secretRef:
-       name: plex-secret
+      - secretRef:
+          name: plex-secret
     podSecurityContext:
       runAsUser: 568
       runAsGroup: 568
@@ -37,20 +37,20 @@ spec:
       # video:x:44:
       # render:x:109:
       supplementalGroups:
-       - 44
-       - 109  
-    resources: 
+        - 44
+        - 109
+    resources:
       requests:
-      # Hardware acceleration using an Intel iGPU w/ QuickSync and
-      # using intel-gpu-plugin (https://github.com/intel/intel-device-plugins-for-kubernetes)
-         gpu.intel.com/i915: 1
-         cpu: 200m
-         memory: 256Mi
+        # Hardware acceleration using an Intel iGPU w/ QuickSync and
+        # using intel-gpu-plugin (https://github.com/intel/intel-device-plugins-for-kubernetes)
+        gpu.intel.com/i915: 1
+        cpu: 200m
+        memory: 256Mi
       limits:
-      #   # Hardware acceleration using an Intel iGPU w/ QuickSync and
-      #   # using intel-gpu-plugin (https://github.com/intel/intel-device-plugins-for-kubernetes)
-         gpu.intel.com/i915: 1
-         memory: 4096Mi    
+        #   # Hardware acceleration using an Intel iGPU w/ QuickSync and
+        #   # using intel-gpu-plugin (https://github.com/intel/intel-device-plugins-for-kubernetes)
+        gpu.intel.com/i915: 1
+        memory: 4096Mi
     service:
       main:
         type: LoadBalancer
@@ -64,7 +64,6 @@ spec:
     ingress:
       main:
         enabled: false
-
     persistence:
       config:
         enabled: true
