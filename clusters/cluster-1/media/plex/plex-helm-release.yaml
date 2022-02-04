@@ -19,14 +19,9 @@ spec:
   values:
     image:
       repository: ghcr.io/k8s-at-home/plex 
-      tag: v1.25.3.5409-f11334058
-      #pullPolicy: IfNotPresent
+      tag: v1.25.3.5409-f11334058 # {"$imagepolicy": "flux-system:plex:tag"}
     env:
       TZ: "America/Toronto"
-      #ADVERTISE_IP: http://10.10.10.62:32400,https://10.10.10.61:32400/,https://tallflix.ca:32400/,http://tallflix.ca:32400/
-      #ALLOWED_NETWORKS: 10.10.10.0/24
-      #PUID: 1000
-      #PGID: 1000
     envFrom:
     - secretRef:
        name: plex-secret
