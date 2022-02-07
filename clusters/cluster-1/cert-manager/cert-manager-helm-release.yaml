@@ -16,7 +16,6 @@ spec:
     crds: Create
   interval: 10m0s
   releaseName: cert-manager
-  release-namespace: flux-system
   upgrade:
     crds: CreateReplace
 
