@@ -4,6 +4,7 @@ kind: HelmRelease
 metadata:
   name: cert-manager
   namespace: flux-system
+  
 spec:
   chart:
     spec:
@@ -15,8 +16,9 @@ spec:
     crds: Create
   interval: 10m0s
   releaseName: cert-manager
+  release-namespace: flux-system
   upgrade:
     crds: CreateReplace
 
-  values:
-    installCRDs: true
+#  values:
+ #   installCRDs: true
