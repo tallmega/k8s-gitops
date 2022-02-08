@@ -24,7 +24,7 @@ spec:
       main:
         type: LoadBalancer
         loadBalancerIP: 10.10.10.62
-        externalTrafficPolicy: Local
+        #externalTrafficPolicy: Local
         ports:
           devicecomm:
             port: 8080
@@ -41,7 +41,7 @@ spec:
       mainudp:
         type: LoadBalancer
         loadBalancerIP: 10.10.10.62
-        externalTrafficPolicy: Local
+        #externalTrafficPolicy: Local
         ports:
           stun:
             port: 3478
