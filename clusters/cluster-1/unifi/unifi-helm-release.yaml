@@ -21,16 +21,10 @@ spec:
     env:
       TZ: "America/Toronto"
     service:
-      # main:
-      #   type: LoadBalancer
-      #   loadBalancerIP: 10.10.10.62
-      #   #externalTrafficPolicy: Local
-      #   ports:
-      #     
-      udp:
-        enabled: true
+      tcp:
         type: LoadBalancer
         loadBalancerIP: 10.10.10.62
+        #externalTrafficPolicy: Local
         ports:
           devicecomm:
             port: 8080
@@ -43,7 +37,12 @@ spec:
           mobilethroughputtest:
             port: 6789
             targetPort: 6789
-            protocol: TCP
+            protocol: TCP   
+      udp:
+        enabled: true
+        type: LoadBalancer
+        loadBalancerIP: 10.10.10.62
+        ports:
           stun:
             enabled: true
             port: 3478
