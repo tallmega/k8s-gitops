@@ -17,7 +17,7 @@ spec:
   values:
     image:
       repository: homeassistant/home-assistant # {"$imagepolicy": "flux-system:homeassistant:name"}
-      tag: 2022.2.3 # {"$imagepolicy": "flux-system:homeassistant:tag"}
+      tag: 2022.2.5 # {"$imagepolicy": "flux-system:homeassistant:tag"}
     env:
       TZ: America/Toronto
     service:
@@ -37,19 +37,19 @@ spec:
         annotations:
           nginx.org/websocket-services: home-assistant
         hosts:
-          - host: hass.tallflix.ca
-            paths:
-              - path: /
-                pathType: Prefix
-                backend:
-                  service:
-                    name: home-assistant
-                    port:
-                      number: 8123
+        - host: hass.tallflix.ca
+          paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: home-assistant
+                port:
+                  number: 8123
         tls:
-          - hosts:
-              - hass.tallflix.ca
-            secretName: tls-secret
+        - hosts:
+          - hass.tallflix.ca
+          secretName: tls-secret
     persistence:
       config:
         enabled: true

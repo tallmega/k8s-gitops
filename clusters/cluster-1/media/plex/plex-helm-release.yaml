@@ -19,12 +19,12 @@ spec:
   values:
     image:
       repository: ghcr.io/k8s-at-home/plex
-      tag: v1.25.4.5487-648a8f9f9 # {"$imagepolicy": "flux-system:plex:tag"}
+      tag: v1.25.5.5492-12f6b8c83 # {"$imagepolicy": "flux-system:plex:tag"}
     env:
       TZ: "America/Toronto"
     envFrom:
-      - secretRef:
-          name: plex-secret
+    - secretRef:
+        name: plex-secret
     podSecurityContext:
       runAsUser: 568
       runAsGroup: 568
@@ -37,8 +37,8 @@ spec:
       # video:x:44:
       # render:x:109:
       supplementalGroups:
-        - 44
-        - 109
+      - 44
+      - 109
     resources:
       requests:
         # Hardware acceleration using an Intel iGPU w/ QuickSync and
