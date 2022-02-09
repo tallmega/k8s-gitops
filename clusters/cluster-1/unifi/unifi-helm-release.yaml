@@ -22,6 +22,7 @@ spec:
       TZ: "America/Toronto"
     service:
       tcp:
+        enabled: true
         type: LoadBalancer
         loadBalancerIP: 10.10.10.62
         #externalTrafficPolicy: Local
