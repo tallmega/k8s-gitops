@@ -25,36 +25,33 @@ spec:
         enabled: true
         type: LoadBalancer
         loadBalancerIP: 10.10.10.62
-        externalTrafficPolicy: Local
-         ports:
-           devicecomm:
-             port: 8080
-             targetPort: 8080
-             protocol: TCP
-           webadmin:
-             port: 8443
-             targetPort: 8443
-             protocol: TCP
-           mobilethroughputtest:
-             port: 6789
-             targetPort: 6789
-             protocol: TCP   
-      udp:
+        #externalTrafficPolicy: Local
+        ports:
+          devicecomm:
+            port: 8080
+            targetPort: 8080
+            protocol: TCP
+          webadmin:
+            port: 8443
+            targetPort: 8443
+            protocol: TCP
+          mobilethroughputtest:
+            port: 6789
+            targetPort: 6789
+            protocol: TCP
+      mainudp:
         enabled: true
         type: LoadBalancer
         #loadBalancerIP: 10.10.10.62
+        #externalTrafficPolicy: Local
         ports:
           stun:
-            enabled: true
             port: 3478
-            protocol: UDP
-          syslog:
-            enabled: true
-            port: 5514
+            targetPort: 3478
             protocol: UDP
           discovery:
-            enabled: true
             port: 10001
+            targetPort: 10001
             protocol: UDP
     ingress:
       main:
