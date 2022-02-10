@@ -39,20 +39,20 @@ spec:
             port: 6789
             targetPort: 6789
             protocol: TCP
-      mainudp:
-        enabled: true
-        type: LoadBalancer
-        #loadBalancerIP: 10.10.10.62
-        #externalTrafficPolicy: Local
-        ports:
-          stun:
-            port: 3478
-            targetPort: 3478
-            protocol: UDP
-          discovery:
-            port: 10001
-            targetPort: 10001
-            protocol: UDP
+      # mainudp:
+      #   enabled: true
+      #   type: LoadBalancer
+      #   #loadBalancerIP: 10.10.10.62
+      #   #externalTrafficPolicy: Local
+      #   ports:
+      #     stun:
+      #       port: 3478
+      #       targetPort: 3478
+      #       protocol: UDP
+      #     discovery:
+      #       port: 10001
+      #       targetPort: 10001
+      #       protocol: UDP
     ingress:
       main:
         enabled: false
