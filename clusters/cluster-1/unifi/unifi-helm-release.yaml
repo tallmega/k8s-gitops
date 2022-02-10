@@ -42,7 +42,7 @@ spec:
       udp:
         enabled: true
         type: LoadBalancer
-        loadBalancerIP: 10.10.10.62
+        #loadBalancerIP: 10.10.10.62
         ports:
           stun:
             enabled: true
