@@ -22,7 +22,7 @@ spec:
       TZ: "America/Toronto"
     service:
       main:
-        enabled: true
+        enabled: false
         type: LoadBalancer
         loadBalancerIP: 10.10.10.62
         #externalTrafficPolicy: Local
@@ -42,7 +42,7 @@ spec:
       mainudp:
         enabled: true
         type: LoadBalancer
-        #loadBalancerIP: 10.10.10.62
+        loadBalancerIP: 10.10.10.62
         #externalTrafficPolicy: Local
         ports:
           stun:
