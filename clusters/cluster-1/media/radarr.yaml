@@ -14,44 +14,44 @@ spec:
         app: radarr
     spec:
       containers:
-        - name: radarr
-          image: linuxserver/radarr:4.0.4 # {"$imagepolicy": "flux-system:radarr"}
-          imagePullPolicy: IfNotPresent
-          ports:
-            - containerPort: 7878
-          env:
-            - name: PGID
-              value: "1001"
-            - name: PUID
-              value: "1001"
-            - name: TZ
-              value: America\Toronto
-          volumeMounts:
-            - name: radarr-config1
-              mountPath: /config
-            - name: radarr-movies-nfs
-              mountPath: /movies
-            - name: radarr-movies2-nfs
-              mountPath: /movies2
-              #mountPropagation: Bidirectional       
-            - name: radarr-movies3-nfs
-              mountPath: /movies3
-              #mountPropagation: Bidirectional
-            - name: radarr-downloads-complete
-              mountPath: /downloads
-      volumes:
+      - name: radarr
+        image: linuxserver/radarr:4.0.5 # {"$imagepolicy": "flux-system:radarr"}
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 7878
+        env:
+        - name: PGID
+          value: "1001"
+        - name: PUID
+          value: "1001"
+        - name: TZ
+          value: America\Toronto
+        volumeMounts:
         - name: radarr-config1
-          persistentVolumeClaim:
-            claimName: radarr-config-pvc
+          mountPath: /config
         - name: radarr-movies-nfs
-          persistentVolumeClaim:
-            claimName: movies-pvc
+          mountPath: /movies
         - name: radarr-movies2-nfs
-          persistentVolumeClaim:
-            claimName: movies2-pvc
+          mountPath: /movies2
+          #mountPropagation: Bidirectional       
         - name: radarr-movies3-nfs
-          persistentVolumeClaim:
-            claimName: movies3-pvc
+          mountPath: /movies3
+          #mountPropagation: Bidirectional
         - name: radarr-downloads-complete
-          persistentVolumeClaim:
-            claimName: downloads-complete-pvc
+          mountPath: /downloads
+      volumes:
+      - name: radarr-config1
+        persistentVolumeClaim:
+          claimName: radarr-config-pvc
+      - name: radarr-movies-nfs
+        persistentVolumeClaim:
+          claimName: movies-pvc
+      - name: radarr-movies2-nfs
+        persistentVolumeClaim:
+          claimName: movies2-pvc
+      - name: radarr-movies3-nfs
+        persistentVolumeClaim:
+          claimName: movies3-pvc
+      - name: radarr-downloads-complete
+        persistentVolumeClaim:
+          claimName: downloads-complete-pvc
