@@ -49,8 +49,8 @@ spec:
     - hard
     - nfsvers=4
   nfs:
-    server: 10.10.10.200
-    path: "/media/tvshows3"
+    server: 10.10.10.110
+    path: "/volume1/tvshows"
 ---
 apiVersion: v1
 kind: PersistentVolume
@@ -103,8 +103,8 @@ spec:
     - hard
     - nfsvers=4
   nfs:
-    server: 10.10.10.200
-    path: "/media/movies3"
+    server: 10.10.10.110
+    path: "/volume1/movies"
 ---
 apiVersion: v1
 kind: PersistentVolume

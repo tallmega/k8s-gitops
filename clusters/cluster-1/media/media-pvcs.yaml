@@ -34,7 +34,7 @@ metadata:
 spec:
   accessModes:
     - ReadWriteMany
-  storageClassName: ubuntu-nfs
+  storageClassName: syno-nfs
   volumeName: tvshows3-pv
   resources:
     requests:
@@ -76,7 +76,7 @@ metadata:
 spec:
   accessModes:
     - ReadWriteMany
-  storageClassName: ubuntu-nfs
+  storageClassName: syno-nfs
   volumeName: movies3-pv
   resources:
     requests:
