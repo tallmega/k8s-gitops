@@ -35,7 +35,7 @@ spec:
   accessModes:
     - ReadWriteMany
   storageClassName: syno-nfs
-  volumeName: tvshows4-pv
+  volumeName: tvshows3-pv
   resources:
     requests:
       storage: 17Ti
@@ -77,7 +77,7 @@ spec:
   accessModes:
     - ReadWriteMany
   storageClassName: syno-nfs
-  volumeName: movies4-pv
+  volumeName: movies3-pv
   resources:
     requests:
       storage: 17Ti
