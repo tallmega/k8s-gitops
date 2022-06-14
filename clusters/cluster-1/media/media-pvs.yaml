@@ -37,7 +37,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: tvshows5-pv
+  name: tvshows3-pv
 spec:
   storageClassName: syno-nfs
   capacity:
@@ -91,7 +91,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: movies5-pv
+  name: movies3-pv
 spec:
   storageClassName: syno-nfs
   capacity:

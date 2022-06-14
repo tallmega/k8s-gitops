@@ -29,13 +29,13 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: tvshows5-pvc
+  name: tvshows3-pvc
   namespace: default
 spec:
   accessModes:
     - ReadWriteMany
   storageClassName: syno-nfs
-  volumeName: tvshows5-pv
+  volumeName: tvshows3-pv
   resources:
     requests:
       storage: 17Ti
@@ -71,13 +71,13 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: movies5-pvc
+  name: movies3-pvc
   namespace: default
 spec:
   accessModes:
     - ReadWriteMany
   storageClassName: syno-nfs
-  volumeName: movies5-pv
+  volumeName: movies3-pv
   resources:
     requests:
       storage: 17Ti
