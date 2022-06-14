@@ -37,9 +37,9 @@ spec:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: tvshows3-pv
+  name: tvshows4-pv
 spec:
-  storageClassName: ubuntu-nfs
+  storageClassName: syno-nfs
   capacity:
     storage: 17Ti
   accessModes:
@@ -91,9 +91,9 @@ spec:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: movies3-pv
+  name: movies4-pv
 spec:
-  storageClassName: ubuntu-nfs
+  storageClassName: syno-nfs
   capacity:
     storage: 17Ti
   accessModes:
