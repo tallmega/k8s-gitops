@@ -29,10 +29,10 @@ spec:
         volumeMounts:
         - name: radarr-config1
           mountPath: /config
-        - name: radarr-movies-nfs
-          mountPath: /movies
-        - name: radarr-movies2-nfs
-          mountPath: /movies2
+        #- name: radarr-movies-nfs
+        #  mountPath: /movies
+        #- name: radarr-movies2-nfs
+        #  mountPath: /movies2
           #mountPropagation: Bidirectional       
         - name: radarr-movies3-nfs
           mountPath: /movies3
@@ -43,12 +43,12 @@ spec:
       - name: radarr-config1
         persistentVolumeClaim:
           claimName: radarr-config-pvc
-      - name: radarr-movies-nfs
-        persistentVolumeClaim:
-          claimName: movies-pvc
-      - name: radarr-movies2-nfs
-        persistentVolumeClaim:
-          claimName: movies2-pvc
+      #- name: radarr-movies-nfs
+      #  persistentVolumeClaim:
+      #    claimName: movies-pvc
+      #- name: radarr-movies2-nfs
+      #  persistentVolumeClaim:
+      #    claimName: movies2-pvc
       - name: radarr-movies3-nfs
         persistentVolumeClaim:
           claimName: movies3-pvc
