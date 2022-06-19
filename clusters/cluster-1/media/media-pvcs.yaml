@@ -40,33 +40,33 @@ spec:
     requests:
       storage: 17Ti
 ---
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: movies-pvc
-  namespace: default
-spec:
-  accessModes:
-    - ReadWriteMany
-  storageClassName: syno-nfs
-  volumeName: movies-pv
-  resources:
-    requests:
-      storage: 8Gi
+#apiVersion: v1
+#kind: PersistentVolumeClaim
+#metadata:
+#  name: movies-pvc
+#  namespace: default
+#spec:
+#  accessModes:
+#    - ReadWriteMany
+#  storageClassName: syno-nfs
+#  volumeName: movies-pv
+#  resources:
+#    requests:
+#      storage: 8Gi
 ---
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: movies2-pvc
-  namespace: default
-spec:
-  accessModes:
-    - ReadWriteMany
-  storageClassName: thecus-nfs
-  volumeName: movies2-pv
-  resources:
-    requests:
-      storage: 5Gi
+#apiVersion: v1
+#kind: PersistentVolumeClaim
+#metadata:
+#  name: movies2-pvc
+#  namespace: default
+#spec:
+#  accessModes:
+#    - ReadWriteMany
+#  storageClassName: thecus-nfs
+#  volumeName: movies2-pv
+#  resources:
+#    requests:
+#      storage: 5Gi
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
