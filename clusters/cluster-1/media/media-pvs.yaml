@@ -16,23 +16,23 @@ spec:
     server: 10.10.10.105
     path: "/volume1/tvshows"
 ---
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: tvshows2-pv
-spec:
-  storageClassName: thecus-nfs
-  capacity:
-    storage: 5Ti
-  accessModes:
-    - ReadWriteMany
-  persistentVolumeReclaimPolicy: Retain
-  mountOptions:
-    - hard
-    - nfsvers=4
-  nfs:
-    server: 10.10.10.100
-    path: "/tvshows"
+#apiVersion: v1
+#kind: PersistentVolume
+#metadata:
+#  name: tvshows2-pv
+#spec:
+#  storageClassName: thecus-nfs
+#  capacity:
+#    storage: 5Ti
+#  accessModes:
+#    - ReadWriteMany
+#  persistentVolumeReclaimPolicy: Retain
+#  mountOptions:
+#    - hard
+#    - nfsvers=4
+#  nfs:
+#    server: 10.10.10.100
+#    path: "/tvshows"
 ---
 apiVersion: v1
 kind: PersistentVolume
