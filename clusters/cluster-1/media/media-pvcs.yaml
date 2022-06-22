@@ -12,19 +12,19 @@ spec:
     requests:
       storage: 8Gi
 ---
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: tvshows2-pvc
-  namespace: default
-spec:
-  accessModes:
-    - ReadWriteMany
-  storageClassName: thecus-nfs
-  volumeName: tvshows2-pv
-  resources:
-    requests:
-      storage: 5Gi
+#apiVersion: v1
+#kind: PersistentVolumeClaim
+#metadata:
+#  name: tvshows2-pvc
+#  namespace: default
+#spec:
+#  accessModes:
+#    - ReadWriteMany
+#  storageClassName: thecus-nfs
+#  volumeName: tvshows2-pv
+#  resources:
+#    requests:
+#      storage: 5Gi
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
