@@ -31,8 +31,8 @@ spec:
           mountPath: /config
         - name: sonarr-tv-nfs
           mountPath: /tv
-        - name: sonarr-tv2-nfs
-          mountPath: /tv2
+        #- name: sonarr-tv2-nfs
+          #mountPath: /tv2
           #mountPropagation: Bidirectional       
         - name: sonarr-tv3-nfs
           mountPath: /tv3
