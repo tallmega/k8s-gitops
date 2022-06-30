@@ -16,24 +16,6 @@ spec:
     server: 10.10.10.105
     path: "/volume1/tvshows"
 ---
-#apiVersion: v1
-#kind: PersistentVolume
-#metadata:
-#  name: tvshows2-pv
-#spec:
-#  storageClassName: thecus-nfs
-#  capacity:
-#    storage: 5Ti
-#  accessModes:
-#    - ReadWriteMany
-#  persistentVolumeReclaimPolicy: Retain
-#  mountOptions:
-#    - hard
-#    - nfsvers=4
-#  nfs:
-#    server: 10.10.10.100
-#    path: "/tvshows"
----
 apiVersion: v1
 kind: PersistentVolume
 metadata:
@@ -51,42 +33,6 @@ spec:
   nfs:
     server: 10.10.10.110
     path: "/volume1/tvshows"
----
-#apiVersion: v1
-#kind: PersistentVolume
-#metadata:
-#  name: movies-pv
-#spec:
-#  storageClassName: syno-nfs
-#  capacity:
-#    storage: 8Ti
-#  accessModes:
-#    - ReadWriteMany
-#  persistentVolumeReclaimPolicy: Retain
-#  mountOptions:
-#    - hard
-#    - nfsvers=4
-#  nfs:
-#    server: 10.10.10.105
-#    path: "/volume1/movies"
----
-#apiVersion: v1
-#kind: PersistentVolume
-#metadata:
-#  name: movies2-pv
-#spec:
-#  storageClassName: thecus-nfs
-#  capacity:
-#    storage: 5Ti
-#  accessModes:
-#    - ReadWriteMany
-#  mountOptions:
-#    - hard
-#    - nfsvers=4
-#  persistentVolumeReclaimPolicy: Retain
-#  nfs:
-#    server: 10.10.10.100
-#    path: "/movies"
 ---
 apiVersion: v1
 kind: PersistentVolume
