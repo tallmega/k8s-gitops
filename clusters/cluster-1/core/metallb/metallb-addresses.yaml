@@ -5,11 +5,11 @@ metadata:
   namespace: flux-system
 spec:
   addresses:
- # - 10.10.10.60-10.10.10.70
   - 10.10.10.60/32
   - 10.10.10.61/32
   - 10.10.10.62/32
   - 10.10.10.63/32
+  - 10.10.10.64/32
   - 10.10.10.65/32
 ---
 apiVersion: metallb.io/v1beta1
