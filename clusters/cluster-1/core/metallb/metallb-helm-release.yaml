@@ -18,10 +18,10 @@ spec:
   targetNamespace: flux-system
   upgrade:
     crds: CreateReplace
-  values:
-    configInline:
-      address-pools:
-      - addresses:
-        - 10.10.10.60-10.10.10.70
-        name: default
-        protocol: layer2
+  #values:
+    #configInline:
+      #address-pools:
+      #- addresses:
+      #  - 10.10.10.60-10.10.10.70
+      #  name: default
+      #  protocol: layer2
