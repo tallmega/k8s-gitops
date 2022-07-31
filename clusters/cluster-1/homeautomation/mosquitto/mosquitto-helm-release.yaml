@@ -9,7 +9,7 @@ spec:
       chart: mosquitto
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home
+        name: k8s-at-home-charts
   interval: 10m0s
   releaseName: mosquitto
   targetNamespace: default
