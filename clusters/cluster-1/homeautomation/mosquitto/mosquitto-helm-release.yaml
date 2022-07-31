@@ -24,7 +24,7 @@ spec:
     persistence:
       data:
         enabled: true
-        existingClaim: mosquuitto-data-pvc
+        existingClaim: mosquitto-data-pvc
       configinc:
         enabled: true
-        existingClaim: mosquuitto-config-pvc
+        existingClaim: mosquitto-config-pvc
