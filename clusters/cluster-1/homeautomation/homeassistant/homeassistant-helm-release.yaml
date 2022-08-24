@@ -5,7 +5,7 @@ metadata:
   namespace: default
 spec:
   interval: 5m
-  releaseName: homeassistant
+  releaseName: home-assistant
   targetNamespace: default
   chart:
     spec:
