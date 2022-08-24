@@ -16,7 +16,7 @@ spec:
   targetNamespace: default
   values:
     image: 
-      repository: ghcr.io/k8s-at-home/frigate
+      repository: blakeblackshear/frigate:latest
     ingress:
       enabled: false
 
