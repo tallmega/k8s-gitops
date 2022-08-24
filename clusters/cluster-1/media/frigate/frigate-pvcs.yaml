@@ -5,7 +5,7 @@ metadata:
   name: frigate-recording-pvc
   namespace: default
 spec:
-  storageClassName: nfs
+  storageClassName: syno-nfs
   accessModes:
     - ReadWriteMany
   volumeName: frigate-recording-pv
