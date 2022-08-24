@@ -6,7 +6,7 @@ metadata:
 spec:
   chart:
     spec:
-      chart: frigate
+      chart: blakeshome/frigate
       sourceRef:
         kind: HelmRepository
         name: blakeshome
