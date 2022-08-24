@@ -35,7 +35,7 @@ spec:
       limits:
         gpu.intel.com/i915: 1
         
-      extraVolumes:
+    extraVolumes:
       - name: frigate-data
         persistentVolumeClaim:
           claimName: frigate-data-pvc
@@ -54,11 +54,6 @@ spec:
       - mountPath: /media/frigate/recordings
         name: frigate-recording
 
-   # nodeSelector:
-   #   feature.node.kubernetes.io/cpu-cpuid.AVX512BW: "true"
-
-
-    
     config: |
       mqtt:
         host: 10.10.10.64
@@ -89,3 +84,24 @@ spec:
         bounding_box: true
 
       cameras:
+        doorbell:
+          ffmpeg:
+            inputs:
+              - path: rtsp://admin:{DOORBELL_RTSP_PASSWORD}@10.10.10.228:554/Streaming/channels/101
+                roles:
+                  - detect
+              - path: rtsp://admin:{DOORBELL_RTSP_PASSWORD}@10.10.10.228:554/Streaming/channels/102
+                roles:
+                  - record
+                  - rtmp
+                  - detect    
+        wyze1:
+          ffmpeg:
+            inputs:
+              - path: rtsp://wyzecam1:{WYZE1_RTSP_PASSWORD}@10.10.10.215:554/Streaming/channels/101
+                roles:
+                  - detect
+              - path: rtsp://wyzecam1:{WYZE1_RTSP_PASSWORD}@10.10.10.215:554/Streaming/channels/102
+                roles:
+                  - record
+                  - rtmp
