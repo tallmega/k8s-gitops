@@ -99,21 +99,7 @@ spec:
                 roles:
                   - record
                   - rtmp
-          detect:
-            width: 2048
-            height: 1536
-            fps: 6
-
-          record:
-            enabled: true
-            retain:
-              days: 3
-          objects:
-            track:
-              - person
-              - car
-              - cat
-              - dog
+                  - detect    
         wyze1:
           ffmpeg:
             inputs:
@@ -124,13 +110,3 @@ spec:
                 roles:
                   - record
                   - rtmp
-          record:
-            enabled: true
-            retain:
-              days: 3
-
-          detect:
-            width: 1920
-            height: 1080
-            fps: 10
-
