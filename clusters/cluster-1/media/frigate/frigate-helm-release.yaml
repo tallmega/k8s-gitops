@@ -93,8 +93,7 @@ spec:
               - path: rtsp://admin:{DOORBELL_RTSP_PASSWORD}@10.10.10.228:554/Streaming/channels/102
                 roles:
                   - record
-                  - rtmp
-                  - detect    
+                  - rtmp  
         wyze1:
           ffmpeg:
             inputs:
