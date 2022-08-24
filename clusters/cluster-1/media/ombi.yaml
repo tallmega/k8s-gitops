@@ -28,5 +28,4 @@ spec:
       volumes:
       - name: ombi-config
         persistentVolumeClaim:
-
           claimName: ombi-config-pvc

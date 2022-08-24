@@ -1,0 +1,138 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: frigate
+  namespace: flux-system
+spec:
+  chart:
+    spec:
+      chart: frigate
+      sourceRef:
+        kind: HelmRepository
+        name: blakeblackshear
+  interval: 1h0m0s
+  releaseName: frigate
+  targetNamespace: default
+  values:
+
+    ingress:
+      enabled: false
+
+    service:
+      type: LoadBalancer
+      loadBalancerIP: 10.10.10.64
+
+    extraVolumes:
+      - name: frigate-data
+        persistentVolumeClaim:
+          claimName: frigate-data-pvc
+      - name: frigate-config
+        persistentVolumeClaim:
+          claimName: frigate-config-pvc
+      - name: frigate-recording
+        persistentVolumeClaim:
+          claimName: frigate-recording-pvc
+
+    extraVolumeMounts:
+      - mountPath: /config
+        name: frigate-config
+      - mountPath: /media/frigate
+        name: frigate-data
+      - mountPath: /media/frigate/recordings
+        name: frigate-recording
+
+    resources:
+      requests:
+        gpu.intel.com/i915: 1
+      limits:
+        gpu.intel.com/i915: 1
+
+    podSecurityContext:
+      supplementalGroups:
+      - 44
+      - 109
+
+    nodeSelector:
+      feature.node.kubernetes.io/cpu-cpuid.AVX512BW: "true"
+
+    env:
+      TZ: "Canada/Eastern"
+
+    envFromSecrets:
+    - frigate-secret
+
+    config: |
+      mqtt:
+        host: 10.10.10.64
+        port: 1883
+        topic_prefix: frigate
+        client_id: frigate
+        stats_interval: 60
+
+      detectors:
+        # coral:
+        #   type: edgetpu
+        #   device: usb
+        cpu1:
+          type: cpu
+
+      ffmpeg:
+        hwaccel_args:
+          - -hwaccel
+          - qsv
+          - -qsv_device
+          - /dev/dri/renderD128
+
+      record:
+        enabled: true
+
+      snapshots:
+        enabled: true
+        bounding_box: true
+
+      cameras:
+        doorbell:
+          ffmpeg:
+            inputs:
+              - path: rtsp://admin:{DOORBELL_RTSP_PASSWORD}@10.10.10.228:554/Streaming/channels/101
+                roles:
+                  - detect
+              - path: rtsp://admin:{DOORBELL_RTSP_PASSWORD}@10.10.10.228:554/Streaming/channels/102
+                roles:
+                  - record
+                  - rtmp
+          detect:
+            width: 2048
+            height: 1536
+            fps: 6
+
+          record:
+            enabled: true
+            retain:
+              days: 3
+          objects:
+            track:
+              - person
+              - car
+              - cat
+              - dog
+        wyze1:
+          ffmpeg:
+            inputs:
+              - path: rtsp://wyzecam1:{WYZE1_RTSP_PASSWORD}@10.10.10.215:554/Streaming/channels/101
+                roles:
+                  - detect
+              - path: rtsp://wyzecam1:{WYZE1_RTSP_PASSWORD}@10.10.10.215:554/Streaming/channels/102
+                roles:
+                  - record
+                  - rtmp
+          record:
+            enabled: true
+            retain:
+              days: 3
+
+          detect:
+            width: 1920
+            height: 1080
+            fps: 10
