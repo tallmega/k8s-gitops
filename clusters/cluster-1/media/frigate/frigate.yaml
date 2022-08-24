@@ -22,7 +22,7 @@ spec:
 
     service:
       type: LoadBalancer
-      loadBalancerIP: 10.10.10.64
+      loadBalancerIP: 10.10.10.66
 
     extraVolumes:
       - name: frigate-data
