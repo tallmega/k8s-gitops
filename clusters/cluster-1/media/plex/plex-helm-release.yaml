@@ -19,7 +19,7 @@ spec:
   values:
     image:
       repository: ghcr.io/k8s-at-home/plex
-      tag: v1.27.2.5929-a806c5905 # {"$imagepolicy": "flux-system:plex:tag"}
+      tag: v1.28.1.6104-788f82488 # {"$imagepolicy": "flux-system:plex:tag"}
     env:
       TZ: "America/Toronto"
     envFrom:

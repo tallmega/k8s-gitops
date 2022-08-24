@@ -17,7 +17,7 @@ spec:
   values:
     image:
       repository: jacobalberty/unifi
-      tag: v7.1.68 # {"$imagepolicy": "flux-system:unifi:tag"}
+      tag: v7.2.92 # {"$imagepolicy": "flux-system:unifi:tag"}
     env:
       TZ: "America/Toronto"
     service:
