@@ -15,6 +15,8 @@ spec:
   releaseName: frigate
   targetNamespace: default
   values:
+    image: 
+      repository: ghcr.io/k8s-at-home/frigate
     ingress:
       enabled: false
 
