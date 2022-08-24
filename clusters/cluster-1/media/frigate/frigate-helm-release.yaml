@@ -38,7 +38,7 @@ spec:
       extraVolumes:
       - name: frigate-data
         persistentVolumeClaim:
-          claimName: 
+          claimName: frigate-data-pvc
       - name: frigate-config
         persistentVolumeClaim:
           claimName: frigate-config-pvc
