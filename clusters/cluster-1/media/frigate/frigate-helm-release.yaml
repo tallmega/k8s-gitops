@@ -16,7 +16,7 @@ spec:
   targetNamespace: default
   values:
     image: 
-      repository: blakeblackshear/frigate:latest
+      repository: blakeblackshear/frigate:stable-amd64
     ingress:
       enabled: false
 
