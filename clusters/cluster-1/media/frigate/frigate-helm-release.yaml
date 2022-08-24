@@ -59,7 +59,7 @@ spec:
 
 
     
-    config:
+    config: |
       mqtt:
         host: 10.10.10.64
         port: 1883
