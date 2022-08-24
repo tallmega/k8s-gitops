@@ -54,8 +54,8 @@ spec:
       - 44
       - 109
 
-    nodeSelector:
-      feature.node.kubernetes.io/cpu-cpuid.AVX512BW: "true"
+   # nodeSelector:
+   #   feature.node.kubernetes.io/cpu-cpuid.AVX512BW: "true"
 
     env:
       TZ: "Canada/Eastern"
