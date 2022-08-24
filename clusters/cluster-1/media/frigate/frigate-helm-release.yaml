@@ -23,12 +23,12 @@ spec:
       loadBalancerIP: 10.10.10.66
     env:
       TZ: America/Toronto
-    envFromSecrets:
-    - frigate-secret
-    podSecurityContext:
-      supplementalGroups:
-      - 44
-      - 109
+    #envFromSecrets:
+    #- frigate-secret
+    #podSecurityContext:
+    #  supplementalGroups:
+    #  - 44
+    #  - 109
     resources:
       requests:
         gpu.intel.com/i915: 1
@@ -70,82 +70,3 @@ spec:
 
 
 
-    
-    configmap:
-      config:
-        enabled: true
-        data:
-          config.yml: |
-            mqtt:
-              host: 10.10.10.64
-              port: 1883
-              topic_prefix: frigate
-              client_id: frigate
-              stats_interval: 60
-
-            detectors:
-              # coral:
-              #   type: edgetpu
-              #   device: usb
-              cpu1:
-                type: cpu
-
-            ffmpeg:
-              hwaccel_args:
-                - -hwaccel
-                - qsv
-                - -qsv_device
-                - /dev/dri/renderD128
-
-            record:
-              enabled: true
-
-            snapshots:
-              enabled: true
-              bounding_box: true
-
-            cameras:
-              doorbell:
-                ffmpeg:
-                  inputs:
-                    - path: rtsp://admin:{DOORBELL_RTSP_PASSWORD}@10.10.10.228:554/Streaming/channels/101
-                      roles:
-                        - detect
-                    - path: rtsp://admin:{DOORBELL_RTSP_PASSWORD}@10.10.10.228:554/Streaming/channels/102
-                      roles:
-                        - record
-                        - rtmp
-                detect:
-                  width: 2048
-                  height: 1536
-                  fps: 6
-
-                record:
-                  enabled: true
-                  retain:
-                    days: 3
-                objects:
-                  track:
-                    - person
-                    - car
-                    - cat
-                    - dog
-              wyze1:
-                ffmpeg:
-                  inputs:
-                    - path: rtsp://wyzecam1:{WYZE1_RTSP_PASSWORD}@10.10.10.215:554/Streaming/channels/101
-                      roles:
-                        - detect
-                    - path: rtsp://wyzecam1:{WYZE1_RTSP_PASSWORD}@10.10.10.215:554/Streaming/channels/102
-                      roles:
-                        - record
-                        - rtmp
-                record:
-                  enabled: true
-                  retain:
-                    days: 3
-
-                detect:
-                  width: 1920
-                  height: 1080
-                  fps: 10
