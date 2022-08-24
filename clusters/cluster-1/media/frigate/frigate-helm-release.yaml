@@ -29,11 +29,11 @@ spec:
       supplementalGroups:
       - 44
       - 109
-    resources:
-      requests:
-        gpu.intel.com/i915: 1
-      limits:
-        gpu.intel.com/i915: 1
+    #resources:
+      #requests:
+        #gpu.intel.com/i915: 1
+      #limits:
+        #gpu.intel.com/i915: 1
         
     #extraVolumes:
     #  - name: frigate-data
