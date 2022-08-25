@@ -156,13 +156,13 @@ spec:
       snapshots:
         # Optional: Enable writing jpg snapshot to /media/frigate/clips (default: shown below)
         # This value can be set via MQTT and will be updated in startup based on retained value
-        enabled: False
+        enabled: True
         # Optional: save a clean PNG copy of the snapshot image (default: shown below)
         clean_copy: True
         # Optional: print a timestamp on the snapshots (default: shown below)
-        timestamp: False
+        timestamp: True
         # Optional: draw bounding box on the snapshots (default: shown below)
-        bounding_box: true
+        bounding_box: True
         # Optional: crop the snapshot (default: shown below)
         crop: False
         # Optional: height to resize the snapshot to (default: original size)
