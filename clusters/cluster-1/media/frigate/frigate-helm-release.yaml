@@ -20,7 +20,7 @@ spec:
 
     service:
       type: LoadBalancer
-      loadBalancerIP: 10.10.10.66
+      loadBalancerIP: 10.10.10.64
     env:
       TZ: America/Toronto
     envFromSecrets:
