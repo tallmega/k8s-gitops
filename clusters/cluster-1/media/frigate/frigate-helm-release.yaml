@@ -11,7 +11,7 @@ spec:
         kind: HelmRepository
         name: blakeblackshear
         namespace: flux-system
-  interval: 5m0s
+  interval: 10m0s
   releaseName: frigate
   targetNamespace: default
   values:
