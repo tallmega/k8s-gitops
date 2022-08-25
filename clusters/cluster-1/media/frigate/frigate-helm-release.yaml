@@ -197,7 +197,7 @@ spec:
             filters:
               person:
                 min_area: 20000
-        wyze1:
+        kid1:
           ffmpeg:
             inputs:
               - path: rtsp://wyzecam1:{FRIGATE_WYZE1_RTSP_PASSWORD}@10.10.10.215:554/live
@@ -207,3 +207,15 @@ spec:
             width: 1920
             height: 1080
             fps: 5
+
+        kid2:
+          ffmpeg:
+            inputs:
+              - path: rtsp://wyzecam1:{FRIGATE_WYZE1_RTSP_PASSWORD}@10.10.10.187:554/live
+                roles:
+                  - detect
+          detect:
+            width: 1920
+            height: 1080
+            fps: 5
+        
