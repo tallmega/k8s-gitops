@@ -92,6 +92,10 @@ spec:
                   - detect
                   - rtmp  
                   - record
+          detect:
+            width: 2048
+            height: 1536
+            fps: 30
 
         wyze1:
           ffmpeg:
