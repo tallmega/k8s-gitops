@@ -11,7 +11,7 @@ spec:
         kind: HelmRepository
         name: blakeblackshear
         namespace: flux-system
-  interval: 10m0s
+  interval: 5m0s
   releaseName: frigate
   targetNamespace: default
   values:
@@ -90,17 +90,18 @@ spec:
               - path: rtsp://admin:{DOORBELL_RTSP_PASSWORD}@10.10.10.228:554/Streaming/channels/101
                 roles:
                   - detect
+                  - rtmp  
               - path: rtsp://admin:{DOORBELL_RTSP_PASSWORD}@10.10.10.228:554/Streaming/channels/102
                 roles:
                   - record
-                  - rtmp  
+
         wyze1:
           ffmpeg:
             inputs:
               - path: rtsp://wyzecam1:{WYZE1_RTSP_PASSWORD}@10.10.10.215:554/Streaming/channels/101
                 roles:
                   - detect
+                  - rtmp
               - path: rtsp://wyzecam1:{WYZE1_RTSP_PASSWORD}@10.10.10.215:554/Streaming/channels/102
                 roles:
                   - record
-                  - rtmp
