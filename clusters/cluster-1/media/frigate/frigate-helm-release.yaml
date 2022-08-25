@@ -196,7 +196,7 @@ spec:
               - dog
             filters:
               person:
-              min_area > 20000
+                min_area: 20000
         wyze1:
           ffmpeg:
             inputs:
