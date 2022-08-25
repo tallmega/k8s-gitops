@@ -93,9 +93,24 @@ spec:
                   - rtmp  
                   - record
           detect:
+            width: 768
+            height: 1024
+            fps: 30
+          record:
+            enabled: true
+            retain:
+              days: 3
             width: 1536
             height: 2048
             fps: 30
+          objects:
+            track:
+              - person
+              - cat
+              - dog
+            filters:
+              person:
+              min_size > 20000
 
         wyze1:
           ffmpeg:
@@ -109,3 +124,4 @@ spec:
             width: 1920
             height: 1080
             fps: 15
+          rec
