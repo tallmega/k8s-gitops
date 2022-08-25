@@ -206,4 +206,4 @@ spec:
           detect:
             width: 1920
             height: 1080
-            fps: 15
+            fps: 5
