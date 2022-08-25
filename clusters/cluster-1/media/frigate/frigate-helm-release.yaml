@@ -200,7 +200,7 @@ spec:
         kid1:
           ffmpeg:
             inputs:
-              - path: rtsp://wyzecam1:{FRIGATE_WYZE1_RTSP_PASSWORD}@10.10.10.215:554/live
+              - path: rtsp://wyzecam1:{FRIGATE_WYZE1_RTSP_PASSWORD}@10.10.10.215/live
                 roles:
                   - detect
           detect:
@@ -211,7 +211,7 @@ spec:
         kid2:
           ffmpeg:
             inputs:
-              - path: rtsp://wyzecam1:{FRIGATE_WYZE1_RTSP_PASSWORD}@10.10.10.187:554/live
+              - path: rtsp://wyzecam1:{FRIGATE_WYZE1_RTSP_PASSWORD}@10.10.10.187/live
                 roles:
                   - detect
           detect:
