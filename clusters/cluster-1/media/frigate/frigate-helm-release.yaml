@@ -189,9 +189,6 @@ spec:
             width: 768
             height: 1080
             fps: 5
-          record:
-            width: 768
-            height: 1080
           objects:
             track:
               - person
