@@ -160,7 +160,7 @@ spec:
         # Optional: save a clean PNG copy of the snapshot image (default: shown below)
         #clean_copy: True
         # Optional: print a timestamp on the snapshots (default: shown below)
-        timestamp: True
+        timestamp: False
         # Optional: draw bounding box on the snapshots (default: shown below)
         bounding_box: True
         # Optional: crop the snapshot (default: shown below)
@@ -189,6 +189,9 @@ spec:
             width: 768
             height: 1080
             fps: 5
+          record:
+            width: 768
+            height: 1080
           objects:
             track:
               - person
