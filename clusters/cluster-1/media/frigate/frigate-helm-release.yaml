@@ -158,17 +158,17 @@ spec:
         # This value can be set via MQTT and will be updated in startup based on retained value
         enabled: True
         # Optional: save a clean PNG copy of the snapshot image (default: shown below)
-        clean_copy: True
+        #clean_copy: True
         # Optional: print a timestamp on the snapshots (default: shown below)
         timestamp: True
         # Optional: draw bounding box on the snapshots (default: shown below)
         bounding_box: True
         # Optional: crop the snapshot (default: shown below)
-        crop: False
+        #crop: False
         # Optional: height to resize the snapshot to (default: original size)
         # height: 768
         # Optional: Restrict snapshots to objects that entered any of the listed zones (default: no required zones)
-        required_zones: []
+        #required_zones: []
         # Optional: Camera override for retention settings (default: global values)
         retain:
           # Required: Default retention days (default: shown below)
