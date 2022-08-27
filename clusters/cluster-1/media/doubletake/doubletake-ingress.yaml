@@ -17,6 +17,6 @@ spec:
         path: "/"
         backend:
           service:
-            name: doubletake
+            name: double-take
             port:
               number: 3000
