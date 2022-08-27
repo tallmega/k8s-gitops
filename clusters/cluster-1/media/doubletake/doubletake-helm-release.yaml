@@ -17,6 +17,5 @@ spec:
   values:
    env:
       TZ: America/Toronto
-  
-  config:
-    mqtt: 10.10.10.62
+   config:
+      mqtt: 10.10.10.62
