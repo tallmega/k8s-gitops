@@ -17,9 +17,6 @@ spec:
   values:
    env:
       TZ: America/Toronto
-   persistence:
-      data:
-        enabled: true
-        existingClaim: doubletake-pvc
-        mountPath: /.storage
-    
+  
+  config:
+    mqtt: 10.10.10.62
