@@ -9,7 +9,7 @@ spec:
       chart: double-take
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home
+        name: k8s-at-home-charts
         namespace: flux-system
   interval: 10m0s
   releaseName: doubletake
