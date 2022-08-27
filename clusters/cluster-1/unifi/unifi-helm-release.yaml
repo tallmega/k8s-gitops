@@ -5,7 +5,8 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m
-  #targetNamespace: default
+  releaseName: unifi
+  targetNamespace: default
   chart:
     spec:
       chart: unifi
