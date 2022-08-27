@@ -17,11 +17,8 @@ spec:
   values:
    env:
       TZ: America/Toronto
-   config:
-    auth: false
-    mqtt:
-      host: 10.10.10.64
-    frigate:
-      url: 10.10.10.66:5000
-      
+   persistence:
+      config:
+        enabled: true
+        existingClaim: doubletake-pvc
     
