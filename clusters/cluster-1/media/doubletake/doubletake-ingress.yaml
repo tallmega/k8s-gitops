@@ -7,7 +7,7 @@ spec:
   ingressClassName: internal-nginx
   #tls:
   #- hosts:
-  #  - "appdaemon.tallflix.ca"
+  #  - "doubletake.tallflix.ca"
   #  secretName: tls-secret
   rules:
   - host: doubletake.tallflix.ca
