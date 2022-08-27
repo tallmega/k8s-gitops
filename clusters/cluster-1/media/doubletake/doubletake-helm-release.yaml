@@ -15,7 +15,7 @@ spec:
   #releaseName: double-take
   targetNamespace: default
   values:
-   env:
+    env:
       TZ: America/Toronto
-   config:
+    config:
       mqtt: 10.10.10.64
