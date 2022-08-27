@@ -19,6 +19,6 @@ spec:
       TZ: America/Toronto
     config:
       mqtt: 
-        host: 10.10.10.64
+        host: 10.10.10.64:1883
       frigate:
-        url: 10.10.10.66:5000
+        url: http://10.10.10.66:5000
