@@ -18,7 +18,7 @@ spec:
    env:
       TZ: America/Toronto
    persistence:
-      config:
+      data:
         enabled: true
         existingClaim: doubletake-pvc
     
