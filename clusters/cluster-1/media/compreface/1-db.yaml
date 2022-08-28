@@ -20,6 +20,8 @@ spec:
     spec:
       containers:
         - env:
+            - name: TZ
+              value: America\Toronto
             - name: POSTGRES_DB
               value: frs
             - name: POSTGRES_PASSWORD

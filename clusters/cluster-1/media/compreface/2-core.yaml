@@ -17,6 +17,8 @@ spec:
     spec:
       containers:
         - env:
+            - name: TZ
+              value: America\Toronto
             - name: ML_PORT
               value: "3000"
           image: 'exadel/compreface-core:0.5.1'

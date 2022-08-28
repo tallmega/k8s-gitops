@@ -17,6 +17,8 @@ spec:
     spec:
       containers:
         - env:
+            - name: TZ
+              value: America\Toronto
             - name: API_JAVA_OPTS
               value: '-Xmx8g'
             - name: POSTGRES_PASSWORD

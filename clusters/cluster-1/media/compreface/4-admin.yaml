@@ -17,6 +17,8 @@ spec:
     spec:
       containers:
         - env:
+            - name: TZ
+              value: America\Toronto
             - name: ADMIN_JAVA_OPTS
               value: '-Xmx8g'
             - name: EMAIL_FROM
