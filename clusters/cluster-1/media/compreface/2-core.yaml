@@ -4,6 +4,7 @@ metadata:
   labels:
     app: core
   name: cf-core
+  namespace: compreface
 spec:
   replicas: 1
   selector:

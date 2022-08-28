@@ -4,6 +4,7 @@ metadata:
   labels:
     app: api
   name: cf-api
+  namespace: compreface
 spec:
   replicas: 1
   selector:

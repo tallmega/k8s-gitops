@@ -4,6 +4,7 @@ metadata:
   labels:
     app: db-data
   name: cf-db-data
+  namespace: compreface
 spec:
   accessModes:
     - ReadWriteOnce
