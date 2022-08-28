@@ -16,9 +16,6 @@ spec:
         app: fe
     spec:
       containers:
-        - env:
-          - name: TZ
-            value: America\Toronto
         - image: 'exadel/compreface-fe:0.5.1'
           name: cf-fe
           ports:
