@@ -26,6 +26,8 @@ spec:
               value: postgres
             - name: POSTGRES_USER
               value: postgres
+            - name: PGDATA
+              value: /var/lib/postgresql/data/pgdata
           image: postgres:11.5
           name: cf-db
           ports:
@@ -33,6 +35,7 @@ spec:
           volumeMounts:
             - mountPath: /var/lib/postgresql/data
               name: cf-db-data
+
       restartPolicy: Always
       volumes:
         - name: cf-db-data
