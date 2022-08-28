@@ -26,4 +26,4 @@ spec:
         compreface:
           enabled: true
           url: http://10.10.10.67:8000/
-          key: 00000000-0000-0000-0000-000000000002
+          key: 3cada821-4015-43aa-a318-71ba3f66eb2e
