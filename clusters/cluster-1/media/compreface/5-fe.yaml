@@ -31,6 +31,7 @@ metadata:
   namespace: compreface
 spec:
   type: LoadBalancer
+  loadBalancerIP: 10.10.10.67
   ports:
     - port: 8000
       targetPort: 80
