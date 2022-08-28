@@ -22,3 +22,8 @@ spec:
         host: 10.10.10.64:1883
       frigate:
         url: http://10.10.10.66:5000
+      detectors:
+        compreface:
+          enabled: true
+          url: http://10.10.10.67:8000/
+          key: 00000000-0000-0000-0000-000000000002
