@@ -22,8 +22,6 @@ spec:
         host: 10.10.10.64:1883
       frigate:
         url: http://10.10.10.66:5000
-        cameras:
-          doorbell:
       detectors:
         compreface:
           enabled: true
