@@ -181,8 +181,8 @@ spec:
                   - detect
                   - rtmp  
           detect:
-            width: 768
-            height: 1080
+            width: 1536
+            height: 2160
             fps: 5
           objects:
             track:
