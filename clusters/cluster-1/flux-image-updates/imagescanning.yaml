@@ -103,5 +103,5 @@ metadata:
   name: mosquitto
   namespace: flux-system
 spec:
-  image: ghcr.io/k8s-at-home/mosquitto
+  image: eclipse-mosquitto
   interval: 30m0s
