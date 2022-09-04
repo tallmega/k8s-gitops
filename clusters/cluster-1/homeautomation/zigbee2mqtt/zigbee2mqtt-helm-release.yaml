@@ -9,14 +9,15 @@ spec:
       chart: zigbee2mqtt
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home
+        name: k8s-at-home-charts
+        namespace: flux-system
   interval: 10m0s
   releaseName: zigbee2mqtt
   targetNamespace: default
   values:
-    #image:
-      #tag: 1.27.2
-      #pullPolicy: Always
+    image:
+      tag: 1.27.2
+      pullPolicy: Always
     securityContext:
       privileged: true
     ingress:
@@ -37,15 +38,15 @@ spec:
       data:
         enabled: true
         existingClaim: zigbee2mqtt-config-pvc
-    #affinity:
-    #  nodeAffinity:
-    #    requiredDuringSchedulingIgnoredDuringExecution:
-    #      nodeSelectorTerms:
-    #      - matchExpressions:
-    #        - key: feature.node.kubernetes.io/usb-ff_10c4_ea60.present
-    #          operator: In
-    #          values:
-    #          - true
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            - key: feature.node.kubernetes.io/usb-ff_10c4_ea60.present
+              operator: In
+              values:
+              - true
     additionalVolumeMounts:
     - name: usb
       mountPath: /dev/ttyUSB0
