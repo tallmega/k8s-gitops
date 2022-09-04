@@ -123,7 +123,7 @@ spec:
 apiVersion: image.toolkit.fluxcd.io/v1beta1
 kind: ImagePolicy
 metadata:
-  name: mosquitto
+  name: eclipse-mosquitto
   namespace: flux-system
 spec:
   imageRepositoryRef:
