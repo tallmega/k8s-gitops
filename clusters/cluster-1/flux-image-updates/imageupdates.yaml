@@ -127,7 +127,7 @@ metadata:
   namespace: flux-system
 spec:
   imageRepositoryRef:
-    name: mosquitto
+    name: eclipse-mosquitto
   policy:
     semver:
       range: '>= 2.0'
