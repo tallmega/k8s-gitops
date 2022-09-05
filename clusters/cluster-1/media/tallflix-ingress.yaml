@@ -16,6 +16,7 @@ spec:
     - "stats.tallflix.ca"
     - "hass.tallflix.ca"
     - "sab.tallflix.ca"
+    - "unifi.tallflix.ca"
     secretName: tls-secret 
   rules:
   - host: "sonarr.tallflix.ca"
