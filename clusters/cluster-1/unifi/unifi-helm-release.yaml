@@ -59,10 +59,10 @@ spec:
         enabled: true
         existingClaim: unifi-config-pvc
 ---
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: unifi-controller
+  name: unifi-ingress
   annotations:
     # use the shared ingress-nginx
     kubernetes.io/ingress.class: "nginx"
@@ -82,5 +82,5 @@ spec:
                 number: 8443
   tls: # < placing a host in the TLS config will indicate a certificate should be created
     - hosts:
-        - unifi.yourdomain.tld
+        - unifi.tallflix.ca
       secretName: tls-secret 
