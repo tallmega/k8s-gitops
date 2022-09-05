@@ -52,26 +52,25 @@ spec:
             targetPort: 10001
             protocol: UDP
     ingress:        
-      main:
-        portal:
-          enabled: true
-          ingressClassName: nginx
-          annotations:
-            nginx.ingress.kubernetes.io/backend-protocol: HTTPS
-            cert-manager.io/cluster-issuer: letsencrypt-prod
-          hosts:
-          - host: unifi.tallflix.ca
-            paths:
-            - path: /
-              pathType: Prefix
-              backend:
-                service:
-                  name: http
+      main:     
+        enabled: true
+        ingressClassName: nginx
+        annotations:
+          nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+          cert-manager.io/cluster-issuer: letsencrypt-prod
+        hosts:
+        - host: unifi.tallflix.ca
+          paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: http
 
-          tls:
-          - hosts:
-            - unifi.tallflix.ca
-            secretName: tls-secret
+        tls:
+        - hosts:
+          - unifi.tallflix.ca
+          secretName: tls-secret
     persistence:
       data:
         enabled: true
