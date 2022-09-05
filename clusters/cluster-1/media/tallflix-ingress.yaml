@@ -16,7 +16,6 @@ spec:
     - "stats.tallflix.ca"
     - "hass.tallflix.ca"
     - "sab.tallflix.ca"
-    - "unifi.tallflix.ca"
     secretName: tls-secret 
   rules:
   - host: "sonarr.tallflix.ca"
@@ -69,13 +68,3 @@ spec:
             name: sabnzbd
             port:
               number: 8080
-  - host: "unifi.tallflix.ca"
-    http:
-      paths:
-      - pathType: Prefix
-        path: "/"
-        backend:
-          service:
-            name: unifi
-            port:
-              number: 8443
