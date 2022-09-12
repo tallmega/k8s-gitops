@@ -143,3 +143,15 @@ spec:
   policy:
     semver:
       range: '>= 1.26.0'
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImagePolicy
+metadata:
+  name: appdaemon
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: appdaemon
+  policy:
+    semver:
+      range: '>= 4.2.0'

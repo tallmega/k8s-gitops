@@ -105,3 +105,12 @@ metadata:
 spec:
   image: eclipse-mosquitto
   interval: 30m0s
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImageRepository
+metadata:
+  name: appdaemon
+  namespace: flux-system
+spec:
+  image: acockburn/appdaemon
+  interval: 30m0s
