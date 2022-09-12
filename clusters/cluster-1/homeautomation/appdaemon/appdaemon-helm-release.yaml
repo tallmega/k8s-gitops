@@ -1,4 +1,3 @@
----
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
@@ -19,17 +18,16 @@ spec:
       interval: 5m
   values:
     image:
-      repository: acockburn/appdaemon 
-      tag: 4.1.0 # {"$imagepolicy": "flux-system:appdaemon:tag"}
-    command: [ "./dockerStart.sh"]
+      repository: acockburn/appdaemon
+      tag: 4.2.1 # {"$imagepolicy": "flux-system:appdaemon:tag"}
+    command: ["./dockerStart.sh"]
     env:
       TZ: America/Toronto
       HA_URL: http://10.10.10.63:8123
       DASH_URL: http://0.0.0.0:5050
-
     envFrom:
     - secretRef:
-       name: appdaemon-secret
+        name: appdaemon-secret
     service:
       main:
         ports:
@@ -51,4 +49,4 @@ spec:
       config:
         enabled: true
         existingClaim: appdaemon-config-pvc
-      # -- Configure a hostPathMount to mount a USB device in the container.
+        # -- Configure a hostPathMount to mount a USB device in the container.
