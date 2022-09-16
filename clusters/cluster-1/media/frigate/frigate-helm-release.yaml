@@ -192,6 +192,9 @@ spec:
             filters:
               person:
                 min_area: 20000
+          mqtt:
+            crop: False
+
         kid1:
           ffmpeg:
             inputs:
@@ -202,6 +205,8 @@ spec:
             width: 1920
             height: 1080
             fps: 5
+          mqtt:
+            crop: False
 
         kid2:
           ffmpeg:
@@ -213,4 +218,5 @@ spec:
             width: 1920
             height: 1080
             fps: 5
-        
+          mqtt:
+            crop: False        
