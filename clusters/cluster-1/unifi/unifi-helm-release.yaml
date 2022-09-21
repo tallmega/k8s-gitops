@@ -19,7 +19,7 @@ spec:
   values:
     image:
       repository: jacobalberty/unifi
-      tag: v7.2.92 # {"$imagepolicy": "flux-system:unifi:tag"}
+      tag: v7.2.94 # {"$imagepolicy": "flux-system:unifi:tag"}
     env:
       TZ: "America/Toronto"
     service:
@@ -51,8 +51,8 @@ spec:
             port: 10001
             targetPort: 10001
             protocol: UDP
-    ingress:        
-      main:     
+    ingress:
+      main:
         enabled: true
         ingressClassName: nginx
         annotations:
@@ -66,7 +66,6 @@ spec:
             backend:
               service:
                 name: http
-
         tls:
         - hosts:
           - unifi.tallflix.ca
@@ -75,4 +74,3 @@ spec:
       data:
         enabled: true
         existingClaim: unifi-config-pvc
-  
