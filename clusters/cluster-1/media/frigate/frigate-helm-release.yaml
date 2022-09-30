@@ -80,12 +80,12 @@ spec:
         cpu1:
           type: cpu
 
-      ffmpeg:
-        hwaccel_args:
-          - -hwaccel
-          - qsv
-          - -qsv_device
-          - /dev/dri/renderD128
+      #ffmpeg:
+      #   hwaccel_args:
+      #    - -hwaccel
+      #    - qsv
+      #    - -qsv_device
+      #    - /dev/dri/renderD128
 
       record:
         # Optional: Enable recording (default: shown below)
