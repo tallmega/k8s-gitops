@@ -13,9 +13,6 @@ spec:
         namespace: flux-system
   interval: 10m0s
   releaseName: frigate
-  values:
-    image:
-      tag: 0.10.1-amd64
 targetNamespace: default
   values:
     ingress:
@@ -83,12 +80,12 @@ targetNamespace: default
         cpu1:
           type: cpu
 
-      ffmpeg:
-        hwaccel_args:
-          - -hwaccel
-          - qsv
-          - -qsv_device
-          - /dev/dri/renderD128
+      #ffmpeg:
+      #  hwaccel_args:
+      #    - -hwaccel
+      #    - qsv
+      #    - -qsv_device
+      #    - /dev/dri/renderD128
 
       record:
         # Optional: Enable recording (default: shown below)
