@@ -55,6 +55,7 @@ spec:
       main:
         enabled: true
         ingressClassName: nginx
+        namespace: default
         annotations:
           nginx.ingress.kubernetes.io/backend-protocol: HTTPS
           cert-manager.io/cluster-issuer: letsencrypt-prod
