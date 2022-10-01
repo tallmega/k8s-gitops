@@ -16,7 +16,7 @@ spec:
   targetNamespace: default
   values:
     image:
-      tag: 1.27.2 # {"$imagepolicy": "flux-system:zigbee2mqtt:tag"}
+      tag: 1.28.0 # {"$imagepolicy": "flux-system:zigbee2mqtt:tag"}
     securityContext:
       privileged: true
     ingress:
@@ -37,15 +37,16 @@ spec:
       data:
         enabled: true
         existingClaim: zigbee2mqtt-config-pvc
-    #affinity:
-     # nodeAffinity:
+        #affinity:
+      # nodeAffinity:
       #  requiredDuringSchedulingIgnoredDuringExecution:
-       #   nodeSelectorTerms:
-        #  - matchExpressions:
-         #   - key: feature.node.kubernetes.io/usb-ff_10c4_ea60.present
-          #    operator: In
-           #   values:
-            #  - true
+    #   nodeSelectorTerms:
+    #  - matchExpressions:
+    #   - key: feature.node.kubernetes.io/usb-ff_10c4_ea60.present
+    #    operator: In
+    #   values:
+    #  - true
+
     additionalVolumeMounts:
     - name: usb
       mountPath: /dev/ttyUSB0
