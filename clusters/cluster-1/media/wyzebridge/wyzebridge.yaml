@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wyzebridge
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wyzebridge
+  template:
+    metadata:
+      labels:
+        app: wyzebridge
+    spec:
+      containers:
+      - name: wyzebridge
+        image: mrlt8/wyze-bridge:1.9.2 # {"$imagepolicy": "flux-system:wyzebridge"}
+        imagePullPolicy: IfNotPresent
+        type: ClusterIP
+        ports:
+        - containerPort: 1935
+        - containerPort: 8554
+        - containerPort: 8888
+        - containerPort: 5000
+        env:
+        - WYZE_EMAIL: you@email.com
+        - WYZE_PASSWORD: yourpassw0rd
+        - name: TZ
+          value: America\Toronto
+        volumeMounts:
+        - name: wyzebridge-config
+          mountPath: /config
+      volumes:
+      - name: wyzebridge-config
+        persistentVolumeClaim:
+          claimName: wyzebridge-config-pvc
