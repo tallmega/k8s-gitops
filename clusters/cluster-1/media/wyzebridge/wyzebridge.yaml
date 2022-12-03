@@ -24,8 +24,10 @@ spec:
         - containerPort: 8888
         - containerPort: 5000
         env:
-        - WYZE_EMAIL: you@email.com
-        - WYZE_PASSWORD: yourpassw0rd
+        - name: WYZE_EMAIL
+          value: you@email.com
+        - name: WYZE_PASSWORD
+          value: yourpassw0rd
         - name: TZ
           value: America\Toronto
         volumeMounts:
