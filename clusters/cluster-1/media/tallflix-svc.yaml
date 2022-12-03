@@ -101,4 +101,5 @@ spec:
   - name: wyzebridge-5000
     port: 5000
     targetPort: 5000
-  type: ClusterIP
+  type: LoadBalancer
+  loadBalancerIP: 10.10.10.67
