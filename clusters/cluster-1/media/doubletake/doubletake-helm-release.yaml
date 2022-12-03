@@ -16,21 +16,20 @@ spec:
   targetNamespace: default
   values:
     image:
-      tag: 1.12.1 # {"$imagepolicy": "flux-system:double-take:tag"}
+      tag: 1.13.1 # {"$imagepolicy": "flux-system:double-take:tag"}
       pullPolicy: Always
     env:
       TZ: America/Toronto
     config:
-      mqtt: 
+      mqtt:
         host: 10.10.10.64:1883
       frigate:
         url: http://10.10.10.66:5000
-        attempts: { latest: 5, snapshot: 0, mqtt: true, delay: 0 }
-        image: 
+        attempts: {latest: 5, snapshot: 0, mqtt: true, delay: 0}
+        image:
           height: 2000
       detectors:
         compreface:
           enabled: true
           url: http://10.10.10.67:8000/
           key: 3cada821-4015-43aa-a318-71ba3f66eb2e
-      
