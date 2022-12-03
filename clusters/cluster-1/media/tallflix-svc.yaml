@@ -77,3 +77,28 @@ spec:
     port: 8080
     targetPort: 8080
   type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: wyzebridge
+  namespace: default
+  labels:
+    app: wyzebridge
+spec:
+  selector:
+    app: wyzebridge
+  ports:
+  - name: wyzebridge-1935
+    port: 1935
+    targetPort: 1935
+  - name: wyzebridge-8554
+    port: 8554
+    targetPort: 8554
+  - name: wyzebridge-8888
+    port: 8888
+    targetPort: 8888
+  - name: wyzebridge-5000
+    port: 5000
+    targetPort: 5000
+  type: ClusterIP
