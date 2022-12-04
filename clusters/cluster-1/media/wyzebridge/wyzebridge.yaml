@@ -28,7 +28,7 @@ spec:
           value: America\Toronto
         envFrom:
         - secretRef:
-          name: wyzebridge-secret
+            name: wyzebridge-secret
         volumeMounts:
         - name: wyzebridge-config
           mountPath: /config
