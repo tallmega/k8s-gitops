@@ -30,10 +30,10 @@ spec:
         envFrom:
         - secretRef:
             name: wyzebridge-secret
-        volumeMounts:
-        - name: wyzebridge-config
-          mountPath: /config
-      volumes:
-      - name: wyzebridge-config
-        persistentVolumeClaim:
-          claimName: wyzebridge-config-pvc
+#        volumeMounts:
+#        - name: wyzebridge-config
+#          mountPath: /config
+#      volumes:
+#      - name: wyzebridge-config
+#        persistentVolumeClaim:
+#          claimName: wyzebridge-config-pvc
