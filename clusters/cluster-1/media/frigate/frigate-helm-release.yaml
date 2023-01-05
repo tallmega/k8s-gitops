@@ -15,6 +15,9 @@ spec:
   releaseName: frigate
   targetNamespace: default
   values:
+    image:
+      repository: blakeblackshear/frigate
+      tag: 0.11.0 # {"$imagepolicy": "flux-system:frigate"}
     ingress:
       enabled: false
 
