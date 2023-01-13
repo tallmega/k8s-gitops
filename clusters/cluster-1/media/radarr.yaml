@@ -8,8 +8,8 @@ spec:
   selector:
     matchLabels:
       app: radarr
-  strategy:
-    type: Recreate
+  #strategy:
+  #  type: Recreate
   template:
     metadata:
       labels:
