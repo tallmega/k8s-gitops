@@ -15,9 +15,9 @@ spec:
   releaseName: frigate
   targetNamespace: default
   values:
-    image:
-      repository: blakeblackshear/frigate
-      tag: blakeblackshear/frigate:0.11.0-amd64
+    #image:
+    #  repository: blakeblackshear/frigate
+    #  tag: blakeblackshear/frigate:0.11.0-amd64 
     ingress:
       enabled: false
     service:
