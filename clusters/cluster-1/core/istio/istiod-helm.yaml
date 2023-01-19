@@ -4,13 +4,13 @@ apiVersion: policy/v1beta1
 kind: PodDisruptionBudget
 metadata:
   name: istiod
-  namespace: istio-system
+  namespace: default
   labels:
     app: istiod
     istio.io/rev: default
     install.operator.istio.io/owning-resource: unknown
     operator.istio.io/component: "Pilot"
-    release: istiod
+    release: RELEASE-NAME
     istio: pilot
 spec:
   minAvailable: 1
@@ -27,19 +27,19 @@ metadata:
   namespace: istio-system
   labels:
     app: istiod
-    release: istiod
+    release: RELEASE-NAME
 ---
 # Source: istiod/templates/configmap.yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: istio
-  namespace: istio-system
+  namespace: default
   labels:
     istio.io/rev: default
     install.operator.istio.io/owning-resource: unknown
     operator.istio.io/component: "Pilot"
-    release: istiod
+    release: RELEASE-NAME
 data:
 
   # Configuration file for the mesh networks to be used by the Split Horizon EDS.
@@ -48,7 +48,7 @@ data:
 
   mesh: |-
     defaultConfig:
-      discoveryAddress: istiod.istio-system.svc:15012
+      discoveryAddress: istiod.default.svc:15012
       tracing:
         zipkin:
           address: zipkin.istio-system:9411
@@ -61,12 +61,12 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: istio-sidecar-injector
-  namespace: istio-system
+  namespace: default
   labels:
     istio.io/rev: default
     install.operator.istio.io/owning-resource: unknown
     operator.istio.io/component: "Pilot"
-    release: istiod
+    release: RELEASE-NAME
 data:
 
   values: |-
@@ -1331,10 +1331,10 @@ data:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: istiod-clusterrole-istio-system
+  name: istiod-clusterrole-default
   labels:
     app: istiod
-    release: istiod
+    release: RELEASE-NAME
 rules:
   # sidecar injection controller
   - apiGroups: ["admissionregistration.k8s.io"]
@@ -1439,10 +1439,10 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: istiod-gateway-controller-istio-system
+  name: istiod-gateway-controller-default
   labels:
     app: istiod
-    release: istiod
+    release: RELEASE-NAME
 rules:
   - apiGroups: ["apps"]
     verbs: [ "get", "watch", "list", "update", "patch", "create", "delete" ]
@@ -1455,10 +1455,10 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: istio-reader-clusterrole-istio-system
+  name: istio-reader-clusterrole-default
   labels:
     app: istio-reader
-    release: istiod
+    release: RELEASE-NAME
 rules:
   - apiGroups:
       - "config.istio.io"
@@ -1500,14 +1500,14 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: istiod-clusterrole-istio-system
+  name: istiod-clusterrole-default
   labels:
     app: istiod
-    release: istiod
+    release: RELEASE-NAME
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: istiod-clusterrole-istio-system
+  name: istiod-clusterrole-default
 subjects:
   - kind: ServiceAccount
     name: istiod
@@ -1517,14 +1517,14 @@ subjects:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: istiod-gateway-controller-istio-system
+  name: istiod-gateway-controller-default
   labels:
     app: istiod
-    release: istiod
+    release: RELEASE-NAME
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: istiod-gateway-controller-istio-system
+  name: istiod-gateway-controller-default
 subjects:
 - kind: ServiceAccount
   name: istiod
@@ -1534,14 +1534,14 @@ subjects:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: istio-reader-clusterrole-istio-system
+  name: istio-reader-clusterrole-default
   labels:
     app: istio-reader
-    release: istiod
+    release: RELEASE-NAME
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: istio-reader-clusterrole-istio-system
+  name: istio-reader-clusterrole-default
 subjects:
   - kind: ServiceAccount
     name: istio-reader-service-account
@@ -1555,7 +1555,7 @@ metadata:
   namespace: istio-system
   labels:
     app: istiod
-    release: istiod
+    release: RELEASE-NAME
 rules:
 # permissions to verify the webhook is ready and rejecting
 # invalid config. We use --server-dry-run so no config is persisted.
@@ -1582,7 +1582,7 @@ metadata:
   namespace: istio-system
   labels:
     app: istiod
-    release: istiod
+    release: RELEASE-NAME
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
@@ -1597,14 +1597,14 @@ apiVersion: v1
 kind: Service
 metadata:
   name: istiod
-  namespace: istio-system
+  namespace: default
   labels:
     istio.io/rev: default
     install.operator.istio.io/owning-resource: unknown
     operator.istio.io/component: "Pilot"
     app: istiod
     istio: pilot
-    release: istiod
+    release: RELEASE-NAME
 spec:
   ports:
     - port: 15010
@@ -1631,14 +1631,14 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: istiod
-  namespace: istio-system
+  namespace: default
   labels:
     app: istiod
     istio.io/rev: default
     install.operator.istio.io/owning-resource: unknown
     operator.istio.io/component: "Pilot"
     istio: pilot
-    release: istiod
+    release: RELEASE-NAME
 spec:
   strategy:
     rollingUpdate:
@@ -1720,7 +1720,7 @@ spec:
           - name: PILOT_ENABLE_PROTOCOL_SNIFFING_FOR_INBOUND
             value: "true"
           - name: ISTIOD_ADDR
-            value: istiod.istio-system.svc:15012
+            value: istiod.default.svc:15012
           - name: PILOT_ENABLE_ANALYSIS
             value: "false"
           - name: CLUSTER_ID
@@ -1794,10 +1794,10 @@ apiVersion: autoscaling/v2beta2
 kind: HorizontalPodAutoscaler
 metadata:
   name: istiod
-  namespace: istio-system
+  namespace: default
   labels:
     app: istiod
-    release: istiod
+    release: RELEASE-NAME
     istio.io/rev: default
     install.operator.istio.io/owning-resource: unknown
     operator.istio.io/component: "Pilot"
@@ -1827,7 +1827,7 @@ apiVersion: networking.istio.io/v1alpha3
 kind: EnvoyFilter
 metadata:
   name: stats-filter-1.13
-  namespace: istio-system
+  namespace: default
   labels:
     istio.io/rev: default
 spec:
@@ -1944,7 +1944,7 @@ apiVersion: networking.istio.io/v1alpha3
 kind: EnvoyFilter
 metadata:
   name: tcp-stats-filter-1.13
-  namespace: istio-system
+  namespace: default
   labels:
     istio.io/rev: default
 spec:
@@ -2053,7 +2053,7 @@ apiVersion: networking.istio.io/v1alpha3
 kind: EnvoyFilter
 metadata:
   name: stats-filter-1.14
-  namespace: istio-system
+  namespace: default
   labels:
     istio.io/rev: default
 spec:
@@ -2170,7 +2170,7 @@ apiVersion: networking.istio.io/v1alpha3
 kind: EnvoyFilter
 metadata:
   name: tcp-stats-filter-1.14
-  namespace: istio-system
+  namespace: default
   labels:
     istio.io/rev: default
 spec:
@@ -2279,7 +2279,7 @@ apiVersion: networking.istio.io/v1alpha3
 kind: EnvoyFilter
 metadata:
   name: stats-filter-1.15
-  namespace: istio-system
+  namespace: default
   labels:
     istio.io/rev: default
 spec:
@@ -2396,7 +2396,7 @@ apiVersion: networking.istio.io/v1alpha3
 kind: EnvoyFilter
 metadata:
   name: tcp-stats-filter-1.15
-  namespace: istio-system
+  namespace: default
   labels:
     istio.io/rev: default
 spec:
@@ -2505,7 +2505,7 @@ apiVersion: networking.istio.io/v1alpha3
 kind: EnvoyFilter
 metadata:
   name: stats-filter-1.16
-  namespace: istio-system
+  namespace: default
   labels:
     istio.io/rev: default
 spec:
@@ -2622,7 +2622,7 @@ apiVersion: networking.istio.io/v1alpha3
 kind: EnvoyFilter
 metadata:
   name: tcp-stats-filter-1.16
-  namespace: istio-system
+  namespace: default
   labels:
     istio.io/rev: default
 spec:
@@ -2729,19 +2729,19 @@ spec:
 apiVersion: admissionregistration.k8s.io/v1
 kind: MutatingWebhookConfiguration
 metadata:
-  name: istio-sidecar-injector
+  name: istio-sidecar-injector-default
   labels:
     istio.io/rev: default
     install.operator.istio.io/owning-resource: unknown
     operator.istio.io/component: "Pilot"
     app: sidecar-injector
-    release: istiod
+    release: RELEASE-NAME
 webhooks:
 - name: rev.namespace.sidecar-injector.istio.io
   clientConfig:
     service:
       name: istiod
-      namespace: istio-system
+      namespace: default
       path: "/inject"
       port: 443
   sideEffects: None
@@ -2770,7 +2770,7 @@ webhooks:
   clientConfig:
     service:
       name: istiod
-      namespace: istio-system
+      namespace: default
       path: "/inject"
       port: 443
   sideEffects: None
@@ -2801,7 +2801,7 @@ webhooks:
   clientConfig:
     service:
       name: istiod
-      namespace: istio-system
+      namespace: default
       path: "/inject"
       port: 443
   sideEffects: None
@@ -2828,7 +2828,7 @@ webhooks:
   clientConfig:
     service:
       name: istiod
-      namespace: istio-system
+      namespace: default
       path: "/inject"
       port: 443
   sideEffects: None
