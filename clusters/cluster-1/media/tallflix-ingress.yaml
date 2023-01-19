@@ -5,13 +5,11 @@ metadata:
   namespace: default
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
-    nginx.ingress.kubernetes.io/from-to-www.redirect: "true"
     #kubernetes.io/ingress.class: nginx
 spec:
   ingressClassName: nginx
   tls:
   - hosts:
-    - "tallflix.ca"
     - "sonarr.tallflix.ca"
     - "radarr.tallflix.ca"
     - "www.tallflix.ca"
