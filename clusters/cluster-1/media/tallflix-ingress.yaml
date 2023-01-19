@@ -11,6 +11,7 @@ spec:
   ingressClassName: nginx
   tls:
   - hosts:
+    - "tallflix.ca"
     - "sonarr.tallflix.ca"
     - "radarr.tallflix.ca"
     - "www.tallflix.ca"
