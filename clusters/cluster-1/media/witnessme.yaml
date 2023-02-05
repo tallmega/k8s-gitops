@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: witnessme
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: witnessme
+  #strategy:
+  #  type: Recreate
+  template:
+    metadata:
+      labels:
+        app: witnessme
+    spec:
+      containers:
+      - name: witnessme
+        image: byt3bl33d3r/witnessme
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: TZ
+          value: America\Toronto
