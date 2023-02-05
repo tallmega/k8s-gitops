@@ -19,7 +19,8 @@ spec:
       - name: witnessme
         image: byt3bl33d3r/witnessme
         imagePullPolicy: IfNotPresent
-        command: ["/bin/sh", "-ec", "while :; do echo '.'; sleep 6 ; done"]
+        command: [ "sleep" ]
+        args: [ "infinity" ]
         env:
         - name: TZ
           value: America\Toronto
