@@ -24,3 +24,38 @@ spec:
         env:
         - name: TZ
           value: America\Toronto
+        volumeMounts:
+        - name: screenshots-nfs
+          mountPath: /screenshots
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: screenshots-pv
+spec:
+  storageClassName: syno-nfs
+  capacity:
+    storage: 17Ti
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  mountOptions:
+    - hard
+    - nfsvers=4
+  nfs:
+    server: 10.10.10.110
+    path: "/volume1/screenshots"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: screenshots-pvc
+  namespace: default
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: syno-nfs
+  volumeName: screenshots-pv
+  resources:
+    requests:
+      storage: 8Gi
