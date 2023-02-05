@@ -27,6 +27,10 @@ spec:
         volumeMounts:
         - name: screenshots-nfs
           mountPath: /screenshots
+      volumes:
+      - name: screenshots-nfs
+        persistentVolumeClaim:
+          claimName: screenshots-pvc
 ---
 apiVersion: v1
 kind: PersistentVolume
