@@ -102,19 +102,3 @@ spec:
     port: 5000
     targetPort: 5000
   type: ClusterIP
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: rengine
-  namespace: default
-  labels:
-    app: rengine
-spec:
-  selector:
-    app: rengine
-  ports:
-  - name: rengine
-    port: 443
-    targetPort: 443
-  type: ClusterIP
