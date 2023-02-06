@@ -19,6 +19,8 @@ spec:
       - name: witnessme
         image: trithemius/rengine
         imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 10000
         command: [ "sleep" ]
         args: [ "infinity" ]
         env:
