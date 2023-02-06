@@ -20,7 +20,7 @@ spec:
         image: trithemius/rengine
         imagePullPolicy: IfNotPresent
         ports:
-        - containerPort: 10000
+        - containerPort: 443
         command: [ "sleep" ]
         args: [ "infinity" ]
         env:

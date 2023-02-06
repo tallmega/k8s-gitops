@@ -106,15 +106,15 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: reNgine
+  name: rengine
   namespace: default
   labels:
-    app: reNgine
+    app: rengine
 spec:
   selector:
-    app: reNgine
+    app: rengine
   ports:
-  - name: reNgine
-    port: 10000
-    targetPort: 10000
+  - name: rengine
+    port: 443
+    targetPort: 443
   type: ClusterIP
