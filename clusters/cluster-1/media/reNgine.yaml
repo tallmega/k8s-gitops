@@ -19,8 +19,8 @@ spec:
       - name: witnessme
         image: trithemius/rengine
         imagePullPolicy: IfNotPresent
-        # command: [ "sleep" ]
-        # args: [ "infinity" ]
+        command: [ "sleep" ]
+        args: [ "infinity" ]
         env:
         - name: TZ
           value: America\Toronto
