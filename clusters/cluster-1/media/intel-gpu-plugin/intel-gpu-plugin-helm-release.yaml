@@ -9,7 +9,7 @@ spec:
   interval: 10m0s
   values:
     image:
-      tag: 0.23.0
+      tag: 0.25.1
     nodeSelector:
       feature.node.kubernetes.io/pci-0300_8086.present: "true"
   chart:
