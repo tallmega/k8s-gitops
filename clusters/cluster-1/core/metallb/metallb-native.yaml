@@ -122,7 +122,7 @@ spec:
     subresources:
       status: {}
   - deprecated: true
-    deprecationWarning: metallb.io v1beta1 AddressPool is deprecated, consider using
+    deprecationWarning: metallb.io v1beta1 AddressPool is deprecated, consider using aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
       IPAddressPool
     name: v1beta1
     schema:
