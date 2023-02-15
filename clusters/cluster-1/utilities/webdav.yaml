@@ -35,10 +35,10 @@ spec:
               key: password
         
         volumeMounts:
-        - name: screenshots-nfs
+        - name: uploads-nfs
           mountPath: /var/lib/dav
       volumes:
-      - name: screenshots-nfs
+      - name: uploads-nfs
         persistentVolumeClaim:
           claimName: uploads-pvc
 ---
