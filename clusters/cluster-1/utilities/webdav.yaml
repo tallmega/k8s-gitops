@@ -1,0 +1,116 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webdav
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: webdav
+  #strategy:
+  #  type: Recreate
+  template:
+    metadata:
+      labels:
+        app: webdav
+    spec:
+      containers:
+      - name: webdav
+        image: bytemark/webdav
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 80
+        env:
+        - name: TZ
+          value: America\Toronto
+        - name: AUTH_TYPE
+          value: Digest
+        - name: USERNAME
+          value: tallmega
+        - name: PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: webdav-secret
+              key: password
+        
+        volumeMounts:
+        - name: screenshots-nfs
+          mountPath: /var/lib/dav
+      volumes:
+      - name: screenshots-nfs
+        persistentVolumeClaim:
+          claimName: screenshots-pvc
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: screenshots-pv
+spec:
+  storageClassName: syno-nfs
+  capacity:
+    storage: 17Ti
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  mountOptions:
+    - hard
+    - nfsvers=4
+  nfs:
+    server: 10.10.10.110
+    path: "/volume1/screenshots"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: screenshots-pvc
+  namespace: default
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: syno-nfs
+  volumeName: screenshots-pv
+  resources:
+    requests:
+      storage: 8Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: webdav
+  namespace: default
+  labels:
+    app: webdav
+spec:
+  selector:
+    app: webdav
+  ports:
+  - name: webdav
+    port: 80
+    targetPort: 80
+  type: ClusterIP
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: webdav-ingress
+  namespace: default
+  annotations:
+  cert-manager.io/cluster-issuer: "letsencrypt-prod"
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - "webdav.tallflix.ca"
+    secretName: tls-secret
+  rules:
+  - host: webdav.tallflix.ca
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: webdav
+            port:
+              number: 80    
