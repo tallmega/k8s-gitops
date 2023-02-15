@@ -17,6 +17,7 @@ spec:
     - "hass.tallflix.ca"
     - "sab.tallflix.ca"
     - "unifi.tallflix.ca"
+    - "webdav.tallflix.ca"
     secretName: tls-secret 
   rules:
   - host: "sonarr.tallflix.ca"
