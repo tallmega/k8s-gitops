@@ -70,3 +70,13 @@ spec:
             name: sabnzbd
             port:
               number: 8080
+  - host: "webdav.tallflix.ca"
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: webdav
+            port:
+              number: 80

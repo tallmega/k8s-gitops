@@ -72,29 +72,4 @@ spec:
   - name: webdav
     port: 80
     targetPort: 80
-  type: ClusterIP
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: webdav-ingress
-  namespace: default
-  annotations:
-  cert-manager.io/cluster-issuer: "letsencrypt-prod"
-spec:
-  ingressClassName: nginx
-  tls:
-  - hosts:
-    - "webdav.tallflix.ca"
-    secretName: tls-secret
-  rules:
-  - host: webdav.tallflix.ca
-    http:
-      paths:
-      - pathType: Prefix
-        path: "/"
-        backend:
-          service:
-            name: webdav
-            port:
-              number: 80    
+  type: ClusterIP 
