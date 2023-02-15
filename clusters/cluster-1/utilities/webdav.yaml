@@ -44,19 +44,19 @@ spec:
 ---
 # 
 ---
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: screenshots-pvc
-  namespace: default
-spec:
-  accessModes:
-    - ReadWriteMany
-  storageClassName: syno-nfs
-  volumeName: screenshots-pv
-  resources:
-    requests:
-      storage: 8Gi
+# apiVersion: v1
+# kind: PersistentVolumeClaim
+# metadata:
+#   name: screenshots-pvc
+#   namespace: default
+# spec:
+#   accessModes:
+#     - ReadWriteMany
+#   storageClassName: syno-nfs
+#   volumeName: screenshots-pv
+#   resources:
+#     requests:
+#       storage: 8Gi
 ---
 apiVersion: v1
 kind: Service
