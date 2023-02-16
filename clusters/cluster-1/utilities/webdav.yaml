@@ -34,13 +34,13 @@ spec:
               name: webdav-secret
               key: password
         
-      #   volumeMounts:
-      #   - name: uploads-nfs
-      #     mountPath: /var/lib/dav
-      # volumes:
-      # - name: uploads-nfs
-      #   persistentVolumeClaim:
-      #     claimName: uploads-pvc
+        volumeMounts:
+         - name: uploads-nfs
+           mountPath: /var/lib/dav/data
+      volumes:
+       - name: uploads-nfs
+         persistentVolumeClaim:
+           claimName: uploads-pvc
 ---
 ---
 apiVersion: v1
