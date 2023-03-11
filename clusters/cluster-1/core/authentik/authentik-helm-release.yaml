@@ -21,7 +21,7 @@ spec:
     
     envFrom:
     - secretRef:
-       name: secret-key
+       name: authentik-secret-key
 
       # This sends anonymous usage-data, stack traces on errors and
       # performance data to sentry.io, and is fully opt-in
