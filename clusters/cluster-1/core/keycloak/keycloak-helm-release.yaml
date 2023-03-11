@@ -76,5 +76,5 @@ spec:
       enabled: true
       auth:
         existingSecret: keycloak-secret
-        #image:
-        # tag: 14.5.0-debian-11-r39
+        image:
+         tag: 14.5.0-debian-11-r39
