@@ -18,7 +18,7 @@ spec:
       interval: 5m
   values:
     authentik:  
-      envFrom:
+    envFrom:
       - secretRef:
         name: authentik-secret-key
       # This sends anonymous usage-data, stack traces on errors and
