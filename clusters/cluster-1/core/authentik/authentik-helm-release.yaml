@@ -18,9 +18,11 @@ spec:
       interval: 5m
   values:
     authentik:
-      envFrom:
-      - secretRef:
-        name: authentik-secret-key
+    
+    envFrom:
+    - secretRef:
+       name: authentik-secret-key
+       
       # This sends anonymous usage-data, stack traces on errors and
       # performance data to sentry.io, and is fully opt-in
       error_reporting:
