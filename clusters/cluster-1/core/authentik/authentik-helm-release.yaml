@@ -1,0 +1,40 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: authentik
+  namespace: flux-system
+spec:
+  releaseName: authentik
+  targetNamespace: default
+  interval: 5m
+  suspend: false
+  chart:
+    spec:
+      chart: authentik
+      sourceRef:
+        kind: HelmRepository
+        name: authentik-charts
+        namespace: flux-system
+      interval: 5m
+  values:
+    authentik:
+      envFrom:
+      - secretRef:
+        name: authentik-secret-key
+      # This sends anonymous usage-data, stack traces on errors and
+      # performance data to sentry.io, and is fully opt-in
+      error_reporting:
+          enabled: false
+      postgresql:
+          enabled: false
+    ingress:
+        enabled: true
+        hosts:
+            - host: authentik.tallflix.ca
+              paths:
+                  - path: "/"
+                    pathType: Prefix
+    postgresql:
+        enabled: false
+    redis:
+        enabled: false
