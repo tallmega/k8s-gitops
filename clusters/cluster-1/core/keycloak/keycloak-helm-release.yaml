@@ -35,7 +35,9 @@ spec:
   targetNamespace: identity
 
   values:
-    proxy: edge
+    image:
+      repository: jboss/keycloak
+      tag: 16.0.0
     auth:
       #existingSecret: keycloak-secret
       #tls:
