@@ -13,7 +13,7 @@ spec:
   - hosts:
     - "sonarr.tallflix.ca"
     #- "radarr.tallflix.ca"
-    - "www.tallflix.ca"
+    #- "www.tallflix.ca"
     - "stats.tallflix.ca"
     - "hass.tallflix.ca"
     - "sab.tallflix.ca"
@@ -41,16 +41,16 @@ spec:
   #           name: radarr
   #           port:
   #             number: 7878             
-  - host: "www.tallflix.ca"
-    http:
-      paths:
-      - pathType: Prefix
-        path: "/"
-        backend:
-          service:
-            name: ombi
-            port:
-              number: 3579
+  # - host: "www.tallflix.ca"
+  #   http:
+  #     paths:
+  #     - pathType: Prefix
+  #       path: "/"
+  #       backend:
+  #         service:
+  #           name: ombi
+  #           port:
+  #             number: 3579
   - host: "stats.tallflix.ca"
     http:
       paths:
