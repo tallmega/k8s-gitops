@@ -12,7 +12,7 @@ spec:
   tls:
   - hosts:
     - "sonarr.tallflix.ca"
-    - "radarr.tallflix.ca"
+    # - "radarr.tallflix.ca"
     - "www.tallflix.ca"
     - "stats.tallflix.ca"
     - "hass.tallflix.ca"
@@ -31,16 +31,16 @@ spec:
             name: sonarr
             port:
               number: 8989
-  - host: "radarr.tallflix.ca"
-    http:
-      paths:
-      - pathType: Prefix
-        path: "/"
-        backend:
-          service:
-            name: radarr
-            port:
-              number: 7878             
+  # - host: "radarr.tallflix.ca"
+  #   http:
+  #     paths:
+  #     - pathType: Prefix
+  #       path: "/"
+  #       backend:
+  #         service:
+  #           name: radarr
+  #           port:
+  #             number: 7878             
   - host: "www.tallflix.ca"
     http:
       paths:
