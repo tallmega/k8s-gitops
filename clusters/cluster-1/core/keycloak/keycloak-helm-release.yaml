@@ -36,8 +36,8 @@ spec:
 
   values:
     image:
-      repository: jboss/keycloak
-      tag: 16.0.0
+      repository: bitnami/keycloak
+      tag: 20.0.2
     auth:
       existingSecret: keycloak-secret
       #tls:
