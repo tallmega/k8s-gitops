@@ -61,7 +61,7 @@ spec:
   tls:
   - hosts:
     - "radarr.tallflix.ca"
-    secretName: tls-secret 
+    secretName: tls-secret-radarr
   rules:
   - host: "radarr.tallflix.ca"
     http:
