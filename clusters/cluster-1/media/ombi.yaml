@@ -32,29 +32,29 @@ spec:
         persistentVolumeClaim:
           claimName: ombi-config-pvc
 ---
-# apiVersion: networking.k8s.io/v1
-# kind: Ingress
-# metadata:
-#   name: ombi-ingress
-#   namespace: default
-#   annotations:
-#     cert-manager.io/cluster-issuer: "letsencrypt-prod"
-#     nginx.ingress.kubernetes.io/proxy-body-size: "0"
-#     #kubernetes.io/ingress.class: nginx
-# spec:
-#   ingressClassName: nginx
-#   tls:
-#   - hosts:
-#     - "www.tallflix.ca"
-#     secretName: tls-secret-ombi
-#   rules:
-#   - host: "www.tallflix.ca"
-#     http:
-#       paths:
-#       - pathType: Prefix
-#         path: "/"
-#         backend:
-#           service:
-#             name: ombi
-#             port:
-#               number: 3579    
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ombi-ingress
+  namespace: default
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/proxy-body-size: "0"
+    #kubernetes.io/ingress.class: nginx
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - "www.tallflix.ca"
+    secretName: tls-secret-ombi
+  rules:
+  - host: "www.tallflix.ca"
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: ombi
+            port:
+              number: 3579    
