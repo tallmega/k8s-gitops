@@ -35,9 +35,6 @@ spec:
   targetNamespace: identity
 
   values:
-    image:
-      repository: bitnami/keycloak
-      tag: 20.0.2
     auth:
       existingSecret: keycloak-secret
       #tls:
