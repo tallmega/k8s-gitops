@@ -49,17 +49,17 @@ spec:
       annotations:
         cert-manager.io/cluster-issuer: "letsencrypt-prod"
         nginx.ingress.kubernetes.io/proxy-buffer-size: "128k"
-        # nginx.ingress.kubernetes.io/configuration-snippet: |-
-        #   set $BE "";
-        #   if ($remote_addr !~ '^(10\..*|172\.31\..*)') {
-        #     set $BE W;
-        #   }
-        #   if ($uri !~ '^/(robots.txt|js|resources|realms)') {
-        #     set $BE "${BE}R";
-        #   }
-        #   if ($BE = WR) {
-        #     return 403;
-        #   }
+        nginx.ingress.kubernetes.io/configuration-snippet: |-
+           set $Location "";
+           if ($remote_addr !~ '^(10\..*|172\.31\..*)') {
+             set $Location Remote;
+           }
+           if ($uri !~ '^/(robots.txt|js|resources|realms)') {
+             set $Location "${BE}Invalid";
+           }
+           if ($Location = RemoteInvalid) {
+             return 403;
+           }
     service:
       type: ClusterIP
 
