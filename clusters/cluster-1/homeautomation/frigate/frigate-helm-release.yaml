@@ -29,6 +29,16 @@ spec:
         nginx.org/proxy-read-timeout: "3600"
         nginx.org/proxy-send-timeout: "3600"
         nginx.org/websocket-services: "frigate"
+      tls:
+        - secretName: frigate-tls
+          hosts:
+            - frigate.tallflix.ca
+
+      hosts:
+       - host: frigate.tallflix.ca
+         paths:
+           - '/'
+
     service:
       type: LoadBalancer
       loadBalancerIP: 10.10.10.66
