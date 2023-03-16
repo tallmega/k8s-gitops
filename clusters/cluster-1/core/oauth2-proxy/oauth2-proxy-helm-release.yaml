@@ -34,7 +34,7 @@ spec:
       tls:
       - secretName: oauth2-proxy-tls
         hosts:
-          - auth.tallflix.ca
+          - host: auth.tallflix.ca
 
     extraArgs:
       provider: oidc
