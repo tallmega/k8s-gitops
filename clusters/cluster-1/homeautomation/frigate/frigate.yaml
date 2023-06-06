@@ -63,10 +63,10 @@ spec:
         volumeMounts:
 #        - mountPath: /dev/dri
 #          name: intel-gpu
-        - mountPath: /dev/bus/usb
-          name: coral-dev
-        - mountPath: /dev/apex_0
-          name: coral-pci
+        # - mountPath: /dev/bus/usb
+        #   name: coral-dev
+        # - mountPath: /dev/apex_0
+        #   name: coral-pci
         - mountPath: /config
           name: frigate-config
         - mountPath: /data
@@ -77,8 +77,8 @@ spec:
           name: frigate-data
         - mountPath: /media/frigate/recordings
           name: frigate-recording
-        - mountPath: /media/frigate/clips
-          name: frigate-clips
+        # - mountPath: /media/frigate/clips
+        #   name: frigate-clips
       restartPolicy: Always
       securityContext:
         supplementalGroups:
