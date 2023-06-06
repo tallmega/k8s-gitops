@@ -38,6 +38,7 @@ spec:
         - secretRef:
             name: frigate-secret
         image: ghcr.io/blakeblackshear/frigate:0.12.0
+        command: ["sh", "-c", "tail -f /dev/null"]
         imagePullPolicy: IfNotPresent
         name: frigate
         # resources:
