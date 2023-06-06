@@ -40,11 +40,11 @@ spec:
         image: ghcr.io/blakeblackshear/frigate:0.12.0
         imagePullPolicy: IfNotPresent
         name: frigate
-        resources:
-          limits:
-            gpu.intel.com/i915: "1"
-          requests:
-            gpu.intel.com/i915: "1"
+        # resources:
+        #   limits:
+        #     gpu.intel.com/i915: "1"
+        #   requests:
+        #     gpu.intel.com/i915: "1"
         ports:
         - containerPort: 5000
           name: http
