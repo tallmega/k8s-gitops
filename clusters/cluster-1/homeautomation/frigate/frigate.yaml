@@ -99,15 +99,15 @@ spec:
       #     path: /dev/apex_0
       #     type: ""
       #   name: coral-pci
-      # - emptyDir: {}
-      #   name: data
+      - emptyDir: {}
+        name: data
       - emptyDir:
           medium: Memory
           sizeLimit: 1Gi
         name: dshm
       - name: frigate-config
         persistentVolumeClaim:
-          claimName: frigate-config-pvc
+        claimName: frigate-config-pvc
       - name: frigate-data
         persistentVolumeClaim:
         claimName: frigate-data-pvc
