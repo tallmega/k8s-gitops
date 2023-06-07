@@ -106,12 +106,12 @@ spec:
       #     medium: Memory
       #     sizeLimit: 1Gi
         # name: dshm
-      - name: frigate-config
-        persistentVolumeClaim:
-        claimName: CRAZYTEST
-      - name: frigate-data
-        persistentVolumeClaim:
-        claimName: CRAZYTEST2
+      # - name: frigate-config
+      #   persistentVolumeClaim:
+      #   claimName: CRAZYTEST
+      # - name: frigate-data
+      #   persistentVolumeClaim:
+      #   claimName: CRAZYTEST2
       # - name: frigate-recording
       #   persistentVolumeClaim:
       #   claimName: frigate-recording-pvc
