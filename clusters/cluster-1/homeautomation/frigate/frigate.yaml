@@ -76,8 +76,8 @@ spec:
         #   name: dshm
         - mountPath: /media/frigate
           name: frigate-data
-        - mountPath: /media/frigate/recordings
-          name: frigate-recording
+        # - mountPath: /media/frigate/recordings
+        #   name: frigate-recording
         # - mountPath: /media/frigate/clips
         #   name: frigate-clips
       restartPolicy: Always
@@ -112,9 +112,9 @@ spec:
       - name: frigate-data
         persistentVolumeClaim:
         claimName: frigate-data-pvc
-      - name: frigate-recording
-        persistentVolumeClaim:
-        claimName: frigate-recording-pvc
+      # - name: frigate-recording
+      #   persistentVolumeClaim:
+      #   claimName: frigate-recording-pvc
       # - name: frigate-clips
       #   persistentVolumeClaim:
       #     claimName: pvc-frigate-clips
