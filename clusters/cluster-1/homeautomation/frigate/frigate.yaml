@@ -108,10 +108,10 @@ spec:
         # name: dshm
       - name: frigate-config
         persistentVolumeClaim:
-        claimName: frigate-config-pvc
+        claimName: CRAZYTEST
       - name: frigate-data
         persistentVolumeClaim:
-        claimName: frigate-data-pvc
+        claimName: CRAZYTEST2
       # - name: frigate-recording
       #   persistentVolumeClaim:
       #   claimName: frigate-recording-pvc
