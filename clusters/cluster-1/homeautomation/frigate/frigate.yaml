@@ -8,8 +8,8 @@ spec:
       matchLabels:
         app.kubernetes.io/instance: frigate
         app.kubernetes.io/name: frigate
-    # strategy:
-    # type: Recreate
+    strategy:
+    type: Recreate
     template:
      metadata:
        labels:
@@ -38,7 +38,7 @@ spec:
         - secretRef:
             name: frigate-secret
         image: ghcr.io/blakeblackshear/frigate:0.12.0
-        command: ["sh", "-c", "tail -f /dev/null"]
+        #command: ["sh", "-c", "tail -f /dev/null"]
         imagePullPolicy: IfNotPresent
         name: frigate
         # resources:
@@ -68,14 +68,14 @@ spec:
         #   name: coral-dev
         # - mountPath: /dev/apex_0
         #   name: coral-pci
-        # - mountPath: /config
-        #   name: frigate-notconfig
-        # # - mountPath: /data
-        #   name: data
-        # - mountPath: /dev/shm
-        #   name: dshm
-        # - mountPath: /media/frigate
-        #   name: frigate-notdata
+        - mountPath: /config
+          name: frigate-config
+        - mountPath: /data
+          name: data
+        - mountPath: /dev/shm
+          name: dshm
+        - mountPath: /media/frigate
+          name: frigate-data
         - mountPath: /media/frigate/recordings
           name: frigate-recording
         # - mountPath: /media/frigate/clips
@@ -100,18 +100,18 @@ spec:
       #     path: /dev/apex_0
       #     type: ""
       #   name: coral-pci
-      # - emptyDir: {}
-      #   name: data
-      # - emptyDir:
-      #     medium: Memory
-      #     sizeLimit: 1Gi
-        # name: dshm
-      #  - name: frigate-notconfig
-      #    persistentVolumeClaim:
-      #    claimName: CRAZYTEST
-      #  - name: frigate-notdata
-      #    persistentVolumeClaim:
-      #    claimName: CRAZYTEST2
+      - emptyDir: {}
+        name: data
+      - emptyDir:
+          medium: Memory
+          sizeLimit: 1Gi
+        name: dshm
+      - name: frigate-config
+        persistentVolumeClaim:
+        claimName: frigate-config-pvc
+      - name: frigate-data
+        persistentVolumeClaim:
+        claimName: frigate-data-pvc
       - name: frigate-recording
         persistentVolumeClaim:
         claimName: frigate-recording-pvc
