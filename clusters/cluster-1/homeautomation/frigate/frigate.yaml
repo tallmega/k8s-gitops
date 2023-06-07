@@ -70,10 +70,10 @@ spec:
         #   name: coral-pci
         - mountPath: /config
           name: frigate-config
-        - mountPath: /data
-          name: data
-        - mountPath: /dev/shm
-          name: dshm
+        # - mountPath: /data
+        #   name: data
+        # - mountPath: /dev/shm
+        #   name: dshm
         - mountPath: /media/frigate
           name: frigate-data
         - mountPath: /media/frigate/recordings
