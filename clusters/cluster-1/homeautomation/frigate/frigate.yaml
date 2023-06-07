@@ -78,8 +78,6 @@ spec:
           name: frigate-data
         - mountPath: /media/frigate/recordings
           name: frigate-recording
-        - mountPath: /test
-          name: tvshows3-pvc
         # - mountPath: /media/frigate/clips
         #   name: frigate-clips
       restartPolicy: Always
@@ -102,12 +100,6 @@ spec:
       #     path: /dev/apex_0
       #     type: ""
       #   name: coral-pci
-      - emptyDir: {}
-        name: data
-      - emptyDir:
-          medium: Memory
-          sizeLimit: 1Gi
-        name: dshm
       - name: frigate-config
         persistentVolumeClaim:
         claimName: frigate-config-pvc
@@ -117,9 +109,12 @@ spec:
       - name: frigate-recording
         persistentVolumeClaim:
         claimName: frigate-recording-pvc
-      - name: sonarr-tv3-nfs
-        persistentVolumeClaim:
-          claimName: tvshows3-pvc
+      - emptyDir:
+          medium: Memory
+          sizeLimit: 1Gi
+        name: dshm
+      - emptyDir: {}
+        name: data
       # - name: frigate-clips
       #   persistentVolumeClaim:
       #     claimName: pvc-frigate-clips
