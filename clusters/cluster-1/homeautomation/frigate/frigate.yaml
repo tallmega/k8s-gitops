@@ -69,13 +69,13 @@ spec:
         # - mountPath: /dev/apex_0
         #   name: coral-pci
         - mountPath: /config
-          name: frigate-config
+          name: frigate-notconfig
         # - mountPath: /data
         #   name: data
         # - mountPath: /dev/shm
         #   name: dshm
         - mountPath: /media/frigate
-          name: frigate-data
+          name: frigate-notdata
         # - mountPath: /media/frigate/recordings
         #   name: frigate-recording
         # - mountPath: /media/frigate/clips
@@ -106,12 +106,12 @@ spec:
       #     medium: Memory
       #     sizeLimit: 1Gi
         # name: dshm
-      # - name: frigate-config
-      #   persistentVolumeClaim:
-      #   claimName: CRAZYTEST
-      # - name: frigate-data
-      #   persistentVolumeClaim:
-      #   claimName: CRAZYTEST2
+       - name: frigate-notconfig
+         persistentVolumeClaim:
+         claimName: CRAZYTEST
+       - name: frigate-notdata
+         persistentVolumeClaim:
+         claimName: CRAZYTEST2
       # - name: frigate-recording
       #   persistentVolumeClaim:
       #   claimName: frigate-recording-pvc
