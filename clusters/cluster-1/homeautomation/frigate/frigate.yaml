@@ -78,6 +78,8 @@ spec:
           name: frigate-data
         - mountPath: /media/frigate/recordings
           name: frigate-recording
+        - mountPath: /test
+          name: tvshows3-pvc
         # - mountPath: /media/frigate/clips
         #   name: frigate-clips
       restartPolicy: Always
@@ -115,6 +117,9 @@ spec:
       - name: frigate-recording
         persistentVolumeClaim:
         claimName: frigate-recording-pvc
+      - name: sonarr-tv3-nfs
+        persistentVolumeClaim:
+          claimName: tvshows3-pvc
       # - name: frigate-clips
       #   persistentVolumeClaim:
       #     claimName: pvc-frigate-clips
