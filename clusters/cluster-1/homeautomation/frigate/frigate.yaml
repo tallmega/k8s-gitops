@@ -4,17 +4,22 @@ metadata:
   name: frigate
   namespace: default
 spec:
-  #  selector:
-  #    matchLabels:
-  #      app.kubernetes.io/instance: frigate
-  #      app.kubernetes.io/name: frigate
-   strategy:
-    type: Recreate
-   template:
+    selector:
+      matchLabels:
+        #app.kubernetes.io/instance: frigate
+        #app.kubernetes.io/name: frigate
+        app: frigate
+    # strategy:
+    # type: Recreate
+    template:
     #  metadata:
     #    labels:
     #      app.kubernetes.io/instance: frigate
     #      app.kubernetes.io/name: frigate
+
+     metadata:
+       labels:
+         app: frigate
      spec:
       #affinity:
         # nodeAffinity:
