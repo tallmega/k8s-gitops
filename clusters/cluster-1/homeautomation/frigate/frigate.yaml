@@ -61,25 +61,6 @@ spec:
           protocol: UDP
         securityContext:
           privileged: true
-        volumeMounts:
-#        - mountPath: /dev/dri
-#          name: intel-gpu
-        # - mountPath: /dev/bus/usb
-        #   name: coral-dev
-        # - mountPath: /dev/apex_0
-        #   name: coral-pci
-        - mountPath: /config
-          name: frigate-config
-        - mountPath: /data
-          name: data
-        - mountPath: /dev/shm
-          name: dshm
-        - mountPath: /media/frigate
-          name: frigate-data
-        - mountPath: /media/frigate/recordings
-          name: frigate-recording
-        # - mountPath: /media/frigate/clips
-        #   name: frigate-clips
       restartPolicy: Always
       securityContext:
         supplementalGroups:
@@ -87,37 +68,6 @@ spec:
         - 109
         - 1001
       terminationGracePeriodSeconds: 30
-      volumes:
-#      - hostPath:
-#          path: /dev/dri
-#          type: ""
-#        name: intel-gpu
-      # - hostPath:
-      #     path: /dev/bus/usb
-      #     type: ""
-      #   name: coral-dev
-      # - hostPath:
-      #     path: /dev/apex_0
-      #     type: ""
-      #   name: coral-pci
-      - name: frigate-config
-        persistentVolumeClaim:
-        claimName: frigate-config-pvc
-      - name: frigate-data
-        persistentVolumeClaim:
-        claimName: frigate-data-pvc
-      - name: frigate-recording
-        persistentVolumeClaim:
-        claimName: frigate-recording-pvc
-      - emptyDir:
-          medium: Memory
-          sizeLimit: 1Gi
-        name: dshm
-      - emptyDir: {}
-        name: data
-      # - name: frigate-clips
-      #   persistentVolumeClaim:
-      #     claimName: pvc-frigate-clips
 ---
 apiVersion: v1
 kind: Service
