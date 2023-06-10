@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sonarr2
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sonarr2
+  #strategy:
+  #  type: Recreate
+  template:
+    metadata:
+      labels:
+        app: sonarr2
+    spec:
+      containers:
+      - name: sonarr
+        image: linuxserver/sonarr:3.0.10 # {"$imagepolicy": "flux-system:sonarr"}
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8989
+        env:
+        - name: PGID
+          value: "1001"
+        - name: PUID
+          value: "1001"
+        - name: TZ
+          value: America\Toronto
+        volumeMounts:
+        - name: test-config
+          mountPath: /config
+      volumes:
+      - name: test-config
+        persistentVolumeClaim:
+          claimName: test-config-pvc
