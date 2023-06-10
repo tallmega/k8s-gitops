@@ -61,16 +61,16 @@ spec:
           protocol: UDP
         securityContext:
           privileged: true
-        restartPolicy: Always
-        securityContext:
-          supplementalGroups:
-          - 44
-          - 109
-          - 1001
-        terminationGracePeriodSeconds: 30
         volumeMounts:
         - name: frigate-config
           mountPath: /config
+      restartPolicy: Always
+      securityContext:
+        supplementalGroups:
+        - 44
+        - 109
+        - 1001
+      terminationGracePeriodSeconds: 30
       volumes:
       - name: frigate-config
         persistentVolumeClaim:
