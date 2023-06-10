@@ -29,9 +29,9 @@ spec:
         - name: TZ
           value: America\Toronto
         volumeMounts:
-        - name: test-config
+        - name: frigate-config
           mountPath: /config
       volumes:
-      - name: test-config
+      - name: frigate-config
         persistentVolumeClaim:
-          claimName: test-config-pvc
+          claimName: frigate-config-pvc
