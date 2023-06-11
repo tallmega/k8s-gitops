@@ -55,7 +55,7 @@ spec:
              set $Location Remote;
            }
            if ($uri !~ '^/(robots.txt|js|resources|realms)') {
-             set $Location "${BE}Invalid";
+             set $Location "${Location}Invalid";
            }
            if ($Location = RemoteInvalid) {
              return 403;
