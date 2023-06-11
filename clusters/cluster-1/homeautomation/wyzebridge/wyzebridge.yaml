@@ -29,6 +29,8 @@ spec:
         env:
         - name: TZ
           value: America\Toronto
+        - name: ENABLE_AUDIO
+          value: 'true'
         envFrom:
         - secretRef:
             name: wyzebridge-secret
