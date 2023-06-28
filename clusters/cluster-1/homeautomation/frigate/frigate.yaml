@@ -61,10 +61,10 @@ spec:
         securityContext:
           privileged: true
         volumeMounts:
-        # - mountPath: /dev/bus/usb
-        #   name: coral-dev
-        # - mountPath: /dev/apex_0
-        #   name: coral-pci
+        - mountPath: /dev/bus/usb
+          name: coral-dev
+        - mountPath: /dev/apex_0
+          name: coral-pci
         - mountPath: /config
           name: frigate-config
         - mountPath: /data
@@ -85,17 +85,14 @@ spec:
         - 1001
       terminationGracePeriodSeconds: 30
       volumes:
-      # - name: frigate-config
-      #   persistentVolumeClaim:
-      #     claimName: frigate-config-pvc
-      # - hostPath:
-      #     path: /dev/bus/usb
-      #     type: ""
-      #   name: coral-dev
-      # - hostPath:
-      #     path: /dev/apex_0
-      #     type: ""
-      #   name: coral-pci
+      - hostPath:
+           path: /dev/bus/usb
+           type: ""
+        name: coral-dev
+      - hostPath:
+           path: /dev/apex_0
+           type: ""
+        name: coral-pci
       - emptyDir: {}
         name: data
       - emptyDir:
