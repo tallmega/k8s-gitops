@@ -61,8 +61,8 @@ spec:
         securityContext:
           privileged: true
         volumeMounts:
-        - mountPath: /dev/bus/usb
-          name: coral-dev
+        # - mountPath: /dev/bus/usb
+        #   name: coral-dev
         - mountPath: /dev/apex_0
           name: coral-pci
         - mountPath: /config
@@ -85,10 +85,10 @@ spec:
         - 1001
       terminationGracePeriodSeconds: 30
       volumes:
-      - hostPath:
-           path: /dev/bus/usb
-           type: ""
-        name: coral-dev
+      # - hostPath:
+      #      path: /dev/bus/usb
+      #      type: ""
+      #   name: coral-dev
       - hostPath:
            path: /dev/apex_0
            type: ""
