@@ -48,25 +48,13 @@ spec:
       ui:
         enabled: true
         ingress:
-          enabled: true
-          className: "internal-nginx"
-          # ingressClassName: internal-nginx
-          annotations:
-            kubernetes.io/ingress.class: internal-nginx
-          hosts:
-            - host: hubble.tallflix.ca
-                # paths:
-                # - path: /
-                #   pathType: Prefix
-                #   backend:
-                #     service:
-                #       name: home-assistant
-                #       port:
-                #         number: 8123
-        # tls:
-        # - hosts:
-        #   - hubble.tallflix.ca
-        #   secretName: tls-secret
+          enabled: false
+          # className: "internal-nginx"
+          # # ingressClassName: internal-nginx
+          # annotations:
+          #   kubernetes.io/ingress.class: internal-nginx
+          # hosts:
+          #   - host: hubble.tallflix.ca
     serviceAccounts:
       cilium:
         name: cilium
