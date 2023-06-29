@@ -43,8 +43,14 @@ spec:
     prometheus:
       enabled: true
     hubble:
-      # metrics:
-      #   enabled: true
+      metrics:
+         enabled: 
+           - dns
+           - drop
+           - tcp
+           - flow
+           - icmp
+           - http
       relay:
         enabled: true
       ui:
