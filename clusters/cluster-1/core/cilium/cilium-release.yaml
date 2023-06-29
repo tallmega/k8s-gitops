@@ -43,18 +43,14 @@ spec:
     prometheus:
       enabled: true
     hubble:
+      metrics:
+        enabled: true
       relay:
         enabled: true
       ui:
         enabled: true
         ingress:
           enabled: false
-          # className: "internal-nginx"
-          # # ingressClassName: internal-nginx
-          # annotations:
-          #   kubernetes.io/ingress.class: internal-nginx
-          # hosts:
-          #   - host: hubble.tallflix.ca
     serviceAccounts:
       cilium:
         name: cilium
