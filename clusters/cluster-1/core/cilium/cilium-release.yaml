@@ -36,12 +36,12 @@ spec:
     operator:
       replicas: 1
       prometheus:
-        enabled: true
+        enabled: false
       unmanagedPodWatcher:
         restart: true
     policyEnforcementMode: default
     prometheus:
-      enabled: true
+      enabled: false
     hubble:
       # metrics:
       #   enabled: true
