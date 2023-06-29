@@ -37,14 +37,27 @@ spec:
       replicas: 1
       prometheus:
         enabled: true
+        serviceMonitor:
+          enabled: true
       unmanagedPodWatcher:
         restart: true
     policyEnforcementMode: default
     prometheus:
       enabled: true
+      serviceMonitor:
+        eabled: true
     hubble:
       metrics:
-        enabled: true
+         enabled:
+          - dns
+          - drop
+          - tcp
+          - flow
+          - port-distribution
+          - icmp
+          - http
+         serviceMonitor:
+           enabled: true
       relay:
         enabled: true
       ui:
