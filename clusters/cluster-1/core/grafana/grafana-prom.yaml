@@ -346,4 +346,4 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: promtail
-  namespace: default
+  namespace: grafana
