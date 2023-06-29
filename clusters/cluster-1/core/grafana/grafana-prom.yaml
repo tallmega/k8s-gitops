@@ -248,6 +248,7 @@ apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   name: promtail
+  namespace: grafana
 spec:
   minReadySeconds: 10
   selector:
