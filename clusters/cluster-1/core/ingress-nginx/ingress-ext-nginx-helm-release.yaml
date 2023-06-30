@@ -24,7 +24,7 @@ spec:
       autoscaling:
         enabled: true
         minReplicas: 2
-        maxReplicas: 5
+        maxReplicas: 3
       service:
         loadBalancerIP: "10.10.10.60"
         externalTrafficPolicy: Local
