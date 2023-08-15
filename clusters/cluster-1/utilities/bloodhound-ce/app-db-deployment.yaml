@@ -50,5 +50,5 @@ spec:
       volumes:
         - name: postgres-data
           persistentVolumeClaim:
-            claimName: bloodhound-postgres-data
+            claimName: postgres-data
 status: {}
