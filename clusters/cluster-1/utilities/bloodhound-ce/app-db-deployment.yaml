@@ -44,7 +44,8 @@ spec:
               protocol: TCP
           resources: {}
           volumeMounts:
-            - mountPath: /var/lib/postgresql/data
+            - mountPath: /var/lib/postgresql/
+              subPath: data
               name: postgres-data
       restartPolicy: Always
       volumes:
