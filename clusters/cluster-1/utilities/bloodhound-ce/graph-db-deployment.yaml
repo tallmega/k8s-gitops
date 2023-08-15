@@ -34,18 +34,13 @@ spec:
             periodSeconds: 10
             timeoutSeconds: 5
           name: graph-db
-          spec:
-            ports:
-              - name: "7687"
-                port: 7687
-                targetPort: 7687
-            # ports:
-            # - containerPort: 7687
-            #   hostPort: 7687
-            #   protocol: TCP
-            # - containerPort: 7474
-            #   hostPort: 7474
-            #   protocol: TCP
+          ports:
+            - containerPort: 7687
+              hostPort: 7687
+              protocol: TCP
+            - containerPort: 7474
+              hostPort: 7474
+              protocol: TCP
           resources: {}
           volumeMounts:
             - mountPath: /data
