@@ -28,6 +28,8 @@ spec:
               value: bloodhoundcommunityedition
             - name: POSTGRES_USER
               value: bloodhound
+            - name: PGDATA
+              value: /var/lib/postgresql/data/pgdata
           image: docker.io/library/postgres:13.2
           livenessProbe:
             exec:
@@ -44,8 +46,7 @@ spec:
               protocol: TCP
           resources: {}
           volumeMounts:
-            - mountPath: /var/lib/postgresql/
-              subPath: data
+            - mountPath: /var/lib/postgresql/data
               name: postgres-data
       restartPolicy: Always
       volumes:
