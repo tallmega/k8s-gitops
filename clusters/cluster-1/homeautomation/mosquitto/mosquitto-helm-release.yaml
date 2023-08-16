@@ -17,7 +17,7 @@ spec:
   values:
     image:
       repositoy: eclipse-mosquitto
-      tag: 2.0.15 # {"$imagepolicy": "flux-system:eclipse-mosquitto:tag"}
+      tag: 2.0.16 # {"$imagepolicy": "flux-system:eclipse-mosquitto:tag"}
     service:
       main:
         loadBalancerIP: 10.10.10.64
