@@ -24,7 +24,7 @@ spec:
         - env:
             - name: NEO4J_AUTH
               value: neo4j/bloodhoundcommunityedition
-          image: docker.io/library/neo4j:4.4
+          image: docker.io/library/neo4j:4.4.26
           livenessProbe:
             exec:
               command:
