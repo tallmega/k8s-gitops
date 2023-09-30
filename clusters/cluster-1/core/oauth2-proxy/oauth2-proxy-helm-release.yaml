@@ -35,7 +35,7 @@ spec:
 
     extraArgs:
       provider: oidc
-      oidc-issuer-url: https://sso.tallflix.ca/realms/tallflix
+      oidc-issuer-url: http://sso.tallflix.ca/realms/tallflix
       cookie-domain: .tallflix.ca
       whitelist-domain: .tallflix.ca
       skip-provider-button: "true"
