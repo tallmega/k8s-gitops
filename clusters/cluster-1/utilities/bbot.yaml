@@ -35,4 +35,4 @@ spec:
           claimName: screenshots-pvc
       - name: bbot-config
         persistentVolumeClaim:
-          claimName: bbot-pvc
+          claimName: bbot-config-pvc
