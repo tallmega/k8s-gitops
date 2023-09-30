@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bbot
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bbot
+  #strategy:
+  #  type: Recreate
+  template:
+    metadata:
+      labels:
+        app: bbot
+    spec:
+      containers:
+      - name: bbot
+        image: blacklanternsecurity/bbot:stable
+        imagePullPolicy: IfNotPresent
+        command: [ "sleep" ]
+        args: [ "infinity" ]
+        env:
+        - name: TZ
+          value: America\Toronto
+        volumeMounts:
+        - name: bbot
+          mountPath: /root/.bbot
+        - name: bbot-config
+          mountPath: /root/.config/bbot
+      volumes:
+      - name: bbot
+        persistentVolumeClaim:
+          claimName: screenshots-pvc
+      - name: bbot-config
+        persistentVolumeClaim:
+          claimName: bbot-pvc
