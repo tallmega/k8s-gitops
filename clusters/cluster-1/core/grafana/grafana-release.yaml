@@ -1,4 +1,9 @@
 ---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: grafana
+---  
 # Couldn't be bothered to seal this secret.  Deployed manually.
 ---
 # Source: k8s-monitoring/charts/grafana-agent-logs/templates/serviceaccount.yaml
