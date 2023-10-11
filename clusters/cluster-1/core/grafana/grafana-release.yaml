@@ -1,10 +1,12 @@
 ---
+# Couldn't be bothered to seal this secret.  Deployed manually.
+---
 # Source: k8s-monitoring/charts/grafana-agent-logs/templates/serviceaccount.yaml
 apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: grafana-k8s-monitoring-grafana-agent-logs
-  namespace: default
+  namespace: grafana
   labels:
     helm.sh/chart: grafana-agent-logs-0.25.0
     app.kubernetes.io/name: grafana-agent-logs
@@ -17,7 +19,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: grafana-k8s-monitoring-grafana-agent
-  namespace: default
+  namespace: grafana
   labels:
     helm.sh/chart: grafana-agent-0.25.0
     app.kubernetes.io/name: grafana-agent
@@ -38,7 +40,7 @@ metadata:
     app.kubernetes.io/instance: grafana-k8s-monitoring
     app.kubernetes.io/version: "2.10.0"
   name: grafana-k8s-monitoring-kube-state-metrics
-  namespace: default
+  namespace: grafana
 imagePullSecrets:
 ---
 # Source: k8s-monitoring/charts/opencost/templates/serviceaccount.yaml
@@ -46,7 +48,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: grafana-k8s-monitoring-opencost
-  namespace: default
+  namespace: grafana
   labels:
     helm.sh/chart: opencost-1.20.1
     app.kubernetes.io/name: opencost
@@ -61,7 +63,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: grafana-k8s-monitoring-prometheus-node-exporter
-  namespace: default
+  namespace: grafana
   labels:
     helm.sh/chart: prometheus-node-exporter-4.23.2
     app.kubernetes.io/managed-by: Helm
@@ -71,33 +73,12 @@ metadata:
     app.kubernetes.io/instance: grafana-k8s-monitoring
     app.kubernetes.io/version: "1.6.1"
 ---
-apiVersion: bitnami.com/v1alpha1
-kind: SealedSecret
-metadata:
-  creationTimestamp: null
-  name: grafana-agent-credentials
-  namespace: default
-spec:
-  encryptedData:
-    prometheus_host: AgAV0tmDePxGsP6niS2JTjaZnlJmTls2yS9zUzWOMlFcs6ANUvEUQi4+NCl5jJA6RKGJzbU3QT3Or5jb9holbpxC4ibJ+KeOVj7AiIRtLBZZbyA+MX3z8RHIKYod4cLkHjVy+Zv7PGTIGwNOjrHr+AmWIKI0GZkP3nr46dP0/hCH8hZjiOcGYSToely>
-    prometheus_username: AgBPcbNegni2yCNR6VNpkUwSJ/z6vdCeWFHvr9B/3LvcaqrHdcLx5YmFg7xL5kFZBMee3zCBSzl43Q+pvMNPz3rhlxcMWY7bRyG458h39YpvcgvIV1LCq9QesVdz1Hu8kT/gGeOehvo10UmdRCrOkITn41UDO8BQjCOBoWjSEbl4OOgfppw9G1x>
-    prometheus_password: AgCZCJLlLCYJGpgBKWfPfAnSW3QgfYYYj5gWS4x0yX+8OqskLbamuWV2+mLo57EWtfiQnpjIG7wNWaVAExtxAPjt7N9nxXOIUuckhRT6x3tYs2oBYos7zqg6lvIh5uRj6clkvc+DqVdich+FOp6hIUwYIkZ4hTa+KaUL+Jf1m3JMSRzgIWycoX2>
-    loki_host: AgCvEQMbiGSeNT8NWZTTlCnaE2FbCXxZK+5HUh6qimFjwjMWV0Zl4NLwCq7NaMh5bWE9VWizz+1Yw1L+h5PlCbxygmYb7azoXbfLeJYA4InBT+Y9SQAwBCMYZoY31IVUc+z2r5KfVuoenec9QGDqpMRfBf5m+nnBwj7hX6UiqepEROKk3PlKnRbPIgxBnoypS>
-    loki_username: AgCPr3vUxn9Zlek/G0ClxLqBUGtu5Z1eaAGAjJIYvtIgYmk2PY27SBRVJDSF2Kr2W+MwnG2/FpjduweLaDtX/BkZS5ruRKpFndyho5ZK/RDpfmpTDvhpgnOG9Kwrk8NycLHJMKX7ZFCBUlnqZWfrKLGC2EW7plkFlbUqZL15KWl3nX44NJEFvndEAI0TC>
-    loki_password: AgBuHIfbjnCBPUfqHNp+eW6yY8aQdAUqxwubFHMdpRFBEuK6hlAiDPbuLklX54FhRwF1GDLu9eyU63f91YNMXd8DY96XjUf0mE4PyT3QjEbdz10YkUtTTbGLi380rGy2VW0EXJwrhGmMKiweUPkeBMFBaYhDjy8woIr6WI0NgeMg8JWKzoi6YzIi1SG2M>
-  template:
-    metadata:
-      creationTimestamp: null
-      name: grafana-agent-credentials
-      namespace: default
-    type: Opaque
----
 # Source: k8s-monitoring/templates/grafana-agent-config.yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: grafana-k8s-monitoring-grafana-agent
-  namespace: default
+  namespace: grafana
 data:
   config.river: |-
     discovery.kubernetes "nodes" {
@@ -486,7 +467,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: grafana-k8s-monitoring-grafana-agent-logs
-  namespace: default
+  namespace: grafana
 data:
   config.river: |-
     discovery.kubernetes "pods" {
@@ -620,7 +601,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: kubernetes-monitoring-telemetry
-  namespace: default
+  namespace: grafana
 data:
   metrics.prom: |
     # HELP grafana_kubernetes_monitoring_build_info A metric to report the version of the Kubernetes Monitoring Helm chart as well as a summary of enabled features
@@ -42247,7 +42228,7 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: grafana-k8s-monitoring-grafana-agent-logs
-    namespace: default
+    namespace: grafana
 ---
 # Source: k8s-monitoring/charts/grafana-agent/templates/rbac.yaml
 apiVersion: rbac.authorization.k8s.io/v1
@@ -42267,7 +42248,7 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: grafana-k8s-monitoring-grafana-agent
-    namespace: default
+    namespace: grafana
 ---
 # Source: k8s-monitoring/charts/kube-state-metrics/templates/clusterrolebinding.yaml
 apiVersion: rbac.authorization.k8s.io/v1
@@ -42289,7 +42270,7 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: grafana-k8s-monitoring-kube-state-metrics
-  namespace: default
+  namespace: grafana
 ---
 # Source: k8s-monitoring/charts/opencost/templates/clusterrolebinding.yaml
 apiVersion: rbac.authorization.k8s.io/v1
@@ -42310,14 +42291,13 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: grafana-k8s-monitoring-opencost
-    namespace: default
+    namespace: grafana
 ---
 # Source: k8s-monitoring/charts/grafana-agent-logs/templates/service.yaml
 apiVersion: v1
 kind: Service
 metadata:
   name: grafana-k8s-monitoring-grafana-agent-logs
-  namespace: default
   labels:
     helm.sh/chart: grafana-agent-logs-0.25.0
     app.kubernetes.io/name: grafana-agent-logs
@@ -42340,7 +42320,6 @@ apiVersion: v1
 kind: Service
 metadata:
   name: grafana-k8s-monitoring-grafana-agent-cluster
-  namespace: default
   labels:
     helm.sh/chart: grafana-agent-0.25.0
     app.kubernetes.io/name: grafana-agent
@@ -42370,7 +42349,6 @@ apiVersion: v1
 kind: Service
 metadata:
   name: grafana-k8s-monitoring-grafana-agent
-  namespace: default
   labels:
     helm.sh/chart: grafana-agent-0.25.0
     app.kubernetes.io/name: grafana-agent
@@ -42393,7 +42371,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: grafana-k8s-monitoring-kube-state-metrics
-  namespace: default
+  namespace: grafana
   labels:    
     helm.sh/chart: kube-state-metrics-5.14.0
     app.kubernetes.io/managed-by: Helm
@@ -42421,7 +42399,6 @@ apiVersion: v1
 kind: Service
 metadata:
   name: grafana-k8s-monitoring-opencost
-  namespace: default
   labels:
     helm.sh/chart: opencost-1.20.1
     app.kubernetes.io/name: opencost
@@ -42444,7 +42421,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: grafana-k8s-monitoring-prometheus-node-exporter
-  namespace: default
+  namespace: grafana
   labels:
     helm.sh/chart: prometheus-node-exporter-4.23.2
     app.kubernetes.io/managed-by: Helm
@@ -42471,7 +42448,7 @@ apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   name: grafana-k8s-monitoring-grafana-agent-logs
-  namespace: default
+  namespace: grafana
   labels:
     helm.sh/chart: grafana-agent-logs-0.25.0
     app.kubernetes.io/name: grafana-agent-logs
@@ -42565,7 +42542,7 @@ apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   name: grafana-k8s-monitoring-prometheus-node-exporter
-  namespace: default
+  namespace: grafana
   labels:
     helm.sh/chart: prometheus-node-exporter-4.23.2
     app.kubernetes.io/managed-by: Helm
@@ -42679,7 +42656,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: grafana-k8s-monitoring-kube-state-metrics
-  namespace: default
+  namespace: grafana
   labels:    
     helm.sh/chart: kube-state-metrics-5.14.0
     app.kubernetes.io/managed-by: Helm
@@ -42752,7 +42729,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: grafana-k8s-monitoring-opencost
-  namespace: default
+  namespace: grafana
   labels:
     helm.sh/chart: opencost-1.20.1
     app.kubernetes.io/name: opencost
@@ -42839,7 +42816,6 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: grafana-k8s-monitoring-grafana-agent
-  namespace: default
   labels:
     helm.sh/chart: grafana-agent-0.25.0
     app.kubernetes.io/name: grafana-agent
@@ -42959,7 +42935,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: grafana-k8s-monitoring-grafana-agent-test
-  namespace: default
+  namespace: grafana
   labels:
     app.kubernetes.io/managed-by: "Helm"
     app.kubernetes.io/instance: "grafana-k8s-monitoring"
@@ -43357,7 +43333,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: grafana-k8s-monitoring-grafana-agent-logs-test
-  namespace: default
+  namespace: grafana
   labels:
     app.kubernetes.io/managed-by: "Helm"
     app.kubernetes.io/instance: "grafana-k8s-monitoring"
@@ -43500,7 +43476,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: "grafana-k8s-monitoring-test"
-  namespace: default
+  namespace: grafana
   labels:
     app.kubernetes.io/managed-by: "Helm"
     app.kubernetes.io/instance: "grafana-k8s-monitoring"
@@ -43570,7 +43546,7 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: "grafana-k8s-monitoring-test-config"
-  namespace: default
+  namespace: grafana
   labels:
     app.kubernetes.io/managed-by: "Helm"
     app.kubernetes.io/instance: "grafana-k8s-monitoring"
@@ -43613,7 +43589,7 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: "grafana-k8s-monitoring-test-logs-config"
-  namespace: default
+  namespace: grafana
   labels:
     app.kubernetes.io/managed-by: "Helm"
     app.kubernetes.io/instance: "grafana-k8s-monitoring"
@@ -43656,7 +43632,7 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: "grafana-k8s-monitoring-test"
-  namespace: default
+  namespace: grafana
   labels:
     app.kubernetes.io/managed-by: "Helm"
     app.kubernetes.io/instance: "grafana-k8s-monitoring"
