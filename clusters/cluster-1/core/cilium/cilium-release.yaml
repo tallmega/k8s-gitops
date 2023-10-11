@@ -45,12 +45,12 @@ spec:
     hubble:
       metrics:
          enabled: 
-           - dns
-           - drop
-           - tcp
-           - flow
-           - icmp
-           - http
+           #- dns
+           #- drop
+           #- tcp
+           #- flow
+           #- icmp
+           #- http
       relay:
         enabled: true
       ui:
