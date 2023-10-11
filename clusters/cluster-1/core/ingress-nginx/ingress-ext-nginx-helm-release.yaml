@@ -21,10 +21,10 @@ spec:
   values:
     controller:
       replicaCount: 2
-      autoscaling:
-        enabled: true
-        minReplicas: 2
-        maxReplicas: 3
+      # autoscaling:
+      #   enabled: true
+      #   minReplicas: 2
+      #   maxReplicas: 3
       service:
         loadBalancerIP: "10.10.10.60"
         externalTrafficPolicy: Local
