@@ -20,7 +20,7 @@ spec:
     crds: CreateReplace
   values:
     controller:
-      allowSnippetAnnotations: "true"
+      allowSnippetAnnotations: true
       replicaCount: 2
       # autoscaling:
       #   enabled: true
