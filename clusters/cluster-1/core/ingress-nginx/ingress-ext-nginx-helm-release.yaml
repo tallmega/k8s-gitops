@@ -20,6 +20,8 @@ spec:
     crds: CreateReplace
   values:
     controller:
+      allowSnippetAnnotations: "true"
+      electionID: ingress-controller-leader
       replicaCount: 2
       # autoscaling:
       #   enabled: true
