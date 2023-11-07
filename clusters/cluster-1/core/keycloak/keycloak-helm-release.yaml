@@ -77,3 +77,10 @@ spec:
       enabled: true
       auth:
         existingSecret: keycloak-secret
+    extraEnvVars:
+    - name: KC_HEALTH_ENABLED
+      value: "true"
+    - name: KEYCLOAK_PRODUCTION
+      value: "true"
+    - name: KEYCLOAK_PROXY
+      value: "edge"
