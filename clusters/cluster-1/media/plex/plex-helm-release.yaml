@@ -20,8 +20,12 @@ spec:
   values:
     image:
       repository: plexinc/pms-docker
+<<<<<<< HEAD
       tag: 1.32.6.7557-1cf77d501
       #tag: 1.32.7.7621-871adbd44 # {"$imagepolicy": "flux-system:plex:tag"}
+=======
+      tag: 1.32.8.7639-fb6452ebf # {"$imagepolicy": "flux-system:plex:tag"}
+>>>>>>> 484e913c4bdf54c445e9a31788f702d737b979e8
     env:
       TZ: "America/Toronto"
     envFrom:
