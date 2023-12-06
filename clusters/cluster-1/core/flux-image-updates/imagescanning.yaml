@@ -52,14 +52,14 @@ spec:
   image: homeassistant/home-assistant
   interval: 30m0s
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
-kind: ImageRepository
-metadata:
-  name: plex
-  namespace: flux-system
-spec:
-  image: plexinc/pms-docker
-  interval: 30m0s
+# apiVersion: image.toolkit.fluxcd.io/v1beta1
+# kind: ImageRepository
+# metadata:
+#   name: plex
+#   namespace: flux-system
+# spec:
+#   image: plexinc/pms-docker
+#   interval: 30m0s
 ---
 apiVersion: image.toolkit.fluxcd.io/v1beta1
 kind: ImageRepository
