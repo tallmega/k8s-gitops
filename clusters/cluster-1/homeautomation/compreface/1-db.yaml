@@ -32,8 +32,8 @@ spec:
               value: /var/lib/postgresql/data/pgdata
           image: postgres:11.5
           name: cf-db
-          # command: ["sleep"]
-          # args: ["infinity"]
+           command: ["sleep"]
+           args: ["infinity"]
           ports:
           - containerPort: 5432
           volumeMounts:
