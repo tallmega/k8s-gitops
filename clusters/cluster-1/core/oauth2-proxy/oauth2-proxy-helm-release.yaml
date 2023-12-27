@@ -23,7 +23,7 @@ spec:
     ingress:
       enabled: true
       hostname: auth.tallflix.ca
-      ingressClassName: nginx
+      #ingressClassName: nginx
       tls:
         - secretName: oauth2-proxy-tls
           hosts:
