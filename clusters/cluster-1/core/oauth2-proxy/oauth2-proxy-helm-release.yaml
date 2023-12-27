@@ -25,7 +25,9 @@ spec:
       hostname: auth.tallflix.ca
       ingressClassName: nginx
       tls:
-        enabled: true
+        hosts:
+        - auth.tallflix.ca
+        #enabled: true
       annotations:
         cert-manager.io/cluster-issuer: "letsencrypt-prod"
         nginx.ingress.kubernetes.io/proxy-buffer-size: "128k"
