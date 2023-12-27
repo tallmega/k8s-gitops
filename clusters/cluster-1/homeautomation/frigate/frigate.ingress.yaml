@@ -2,7 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
-    kubernetes.io/ingress.class: nginx
+    #kubernetes.io/ingress.class: nginx
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
     nginx.ingress.kubernetes.io/auth-url: https://auth.tallflix.ca/oauth2/auth
     nginx.ingress.kubernetes.io/auth-signin: "https://auth.tallflix.ca/oauth2/start?rd=$scheme://$best_http_host$request_uri"
