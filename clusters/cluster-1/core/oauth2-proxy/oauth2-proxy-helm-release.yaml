@@ -28,7 +28,7 @@ spec:
         #enabled: true
         - secretName: oauth2-proxy-tls
           hosts:
-        - auth.tallflix.ca
+           - auth.tallflix.ca
 
       annotations:
         cert-manager.io/cluster-issuer: "letsencrypt-prod"
