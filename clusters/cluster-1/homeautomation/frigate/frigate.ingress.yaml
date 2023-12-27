@@ -17,6 +17,7 @@ metadata:
   # resourceVersion: "113920484"
   # uid: b12f9fed-0bf0-45ef-a840-94519c30bc29
 spec:
+  ingressClassName: nginx
   rules:
   - host: frigate.tallflix.ca
     http:
