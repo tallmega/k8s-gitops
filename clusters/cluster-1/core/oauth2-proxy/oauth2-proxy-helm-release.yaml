@@ -24,10 +24,10 @@ spec:
       enabled: true
       hostname: auth.tallflix.ca
       ingressClassName: nginx
-      # tls:
-      #   - secretName: oauth2-proxy-tls
-      #     hosts:
-      #      - auth.tallflix.ca
+      tls:
+        - secretName: oauth2-proxy-tls
+          hosts:
+           - auth.tallflix.ca
 
       annotations:
         cert-manager.io/cluster-issuer: "letsencrypt-prod"
