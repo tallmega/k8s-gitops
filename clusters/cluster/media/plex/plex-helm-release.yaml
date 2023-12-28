@@ -20,6 +20,7 @@ spec:
   values:
     image:
       repository: plexinc/pms-docker
+      tag: latest
       #tag: 1.32.6.7468-07e0d4a7e
       imagePullPolicy: Always
       #tag: 1.32.8.7639-fb6452ebf # {"$imagepolicy": "flux-system:plex:tag"}
