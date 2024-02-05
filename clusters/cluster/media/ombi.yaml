@@ -40,11 +40,11 @@ metadata:
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
     nginx.ingress.kubernetes.io/proxy-body-size: "0"
-    #kubernetes.io/ingress.class: nginx
 spec:
   ingressClassName: nginx
   tls:
   - hosts:
+    - "tallflix.ca"
     - "www.tallflix.ca"
     secretName: tls-secret-ombi
   rules:

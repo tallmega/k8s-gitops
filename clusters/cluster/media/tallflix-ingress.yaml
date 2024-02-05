@@ -6,14 +6,11 @@ metadata:
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
     nginx.ingress.kubernetes.io/proxy-body-size: "0"
-    #kubernetes.io/ingress.class: nginx
 spec:
   ingressClassName: nginx
   tls:
   - hosts:
     - "sonarr.tallflix.ca"
-    #- "radarr.tallflix.ca"
-    #- "www.tallflix.ca"
     - "stats.tallflix.ca"
     - "hass.tallflix.ca"
     - "sab.tallflix.ca"
@@ -31,26 +28,6 @@ spec:
             name: sonarr
             port:
               number: 8989
-  # - host: "radarr.tallflix.ca"
-  #   http:
-  #     paths:
-  #     - pathType: Prefix
-  #       path: "/"
-  #       backend:
-  #         service:
-  #           name: radarr
-  #           port:
-  #             number: 7878             
-  # - host: "www.tallflix.ca"
-  #   http:
-  #     paths:
-  #     - pathType: Prefix
-  #       path: "/"
-  #       backend:
-  #         service:
-  #           name: ombi
-  #           port:
-  #             number: 3579
   - host: "stats.tallflix.ca"
     http:
       paths:
