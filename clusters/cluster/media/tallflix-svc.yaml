@@ -49,6 +49,22 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
+  name: readarr
+  namespace: default
+  labels:
+    app: readarr
+spec:
+  selector:
+    app: readarr
+  ports:
+  - name: readarr
+    port: 8787
+    targetPort: 8787
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
   name: ombi
   namespace: default
   labels:
