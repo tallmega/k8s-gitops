@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: calibreweb
-        image: linuxserver/calibre-web:7.7.0 # {"$imagepolicy": "flux-system:calibre-web"}
+        image: linuxserver/calibre-web:2021.12.16 # {"$imagepolicy": "flux-system:calibre-web"}
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8083
@@ -32,6 +32,6 @@ spec:
         - name: calibreweb-config
           mountPath: /config
       volumes:
-        - name: calibreweb-config
-          persistentVolumeClaim:
-            claimName: calibreweb-config-pvc
+      - name: calibreweb-config
+        persistentVolumeClaim:
+          claimName: calibreweb-config-pvc
