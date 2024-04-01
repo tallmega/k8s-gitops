@@ -43,6 +43,20 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
+  name: books-pvc
+  namespace: default
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: syno-nfs
+  volumeName: books-pv
+  resources:
+    requests:
+      storage: 17Ti
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
   name: music-pvc
   namespace: default
 spec:

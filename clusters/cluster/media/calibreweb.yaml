@@ -31,7 +31,13 @@ spec:
         volumeMounts:
         - name: calibreweb-config
           mountPath: /config
+        - name: books-nfs
+          mountPath: /books
       volumes:
       - name: calibreweb-config
         persistentVolumeClaim:
           claimName: calibreweb-config-pvc
+      - name: books-nfs
+        persistentVolumeClaim:
+          claimName: books-pvc
+          readOnly: true

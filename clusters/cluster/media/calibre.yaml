@@ -33,10 +33,15 @@ spec:
         volumeMounts:
         - name: calibre-config
           mountPath: /config
+        - name: books-nfs
+          mountPath: /Calibre_Library
       volumes:
         - name: calibre-config
           persistentVolumeClaim:
             claimName: calibre-config-pvc
+        - name: books-nfs
+          persistentVolumeClaim:
+            claimName: books-pvc
 ---
 apiVersion: v1
 kind: Service
