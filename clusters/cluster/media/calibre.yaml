@@ -20,8 +20,8 @@ spec:
         image: linuxserver/calibre:7.7.0 # {"$imagepolicy": "flux-system:calibre"}
         imagePullPolicy: IfNotPresent
         ports:
-        #- containerPort: 8080
-        #- containerPort: 8181
+        - containerPort: 8080
+        - containerPort: 8181
         - containerPort: 8081
         env:
         - name: PGID
@@ -50,8 +50,8 @@ spec:
     app: calibre
   ports:
   - name: calibre
-    port: 8081
-    targetPort: 8081
+    port: 8080
+    targetPort: 8080
   type: ClusterIP
 ---
 apiVersion: networking.k8s.io/v1
@@ -83,4 +83,4 @@ spec:
           service:
             name: calibre
             port:
-              number: 8081
+              number: 8080
