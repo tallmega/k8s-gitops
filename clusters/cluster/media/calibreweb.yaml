@@ -58,7 +58,7 @@ spec:
   tls:
   - hosts:
     - "calibreweb.tallflix.ca"
-    secretName: tls-secret-radarr
+    secretName: tls-secret-calibre
   rules:
   - host: "calibreweb.tallflix.ca"
     http:
