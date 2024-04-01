@@ -29,16 +29,16 @@ spec:
             name: sonarr
             port:
               number: 8989
-  - host: "calibreweb.tallflix.ca"
-    http:
-      paths:
-      - pathType: Prefix
-        path: "/"
-        backend:
-          service:
-            name: calibreweb
-            port:
-              number: 8083
+  # - host: "calibreweb.tallflix.ca"
+  #   http:
+  #     paths:
+  #     - pathType: Prefix
+  #       path: "/"
+  #       backend:
+  #         service:
+  #           name: calibreweb
+  #           port:
+  #             number: 8083
   - host: "stats.tallflix.ca"
     http:
       paths:
