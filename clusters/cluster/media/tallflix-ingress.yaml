@@ -16,7 +16,6 @@ spec:
     - "sab.tallflix.ca"
     - "unifi.tallflix.ca"
     - "webdav.tallflix.ca"
-    - "calibreweb.tallflix.ca"
     secretName: tls-secret 
   rules:
   - host: "sonarr.tallflix.ca"
@@ -29,16 +28,6 @@ spec:
             name: sonarr
             port:
               number: 8989
-  # - host: "calibreweb.tallflix.ca"
-  #   http:
-  #     paths:
-  #     - pathType: Prefix
-  #       path: "/"
-  #       backend:
-  #         service:
-  #           name: calibreweb
-  #           port:
-  #             number: 8083
   - host: "stats.tallflix.ca"
     http:
       paths:
