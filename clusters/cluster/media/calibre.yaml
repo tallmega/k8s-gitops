@@ -58,7 +58,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: calibre-ingress
-  namespace: calibre-system
+  namespace: default
   annotations:
         #kubernetes.io/tls-acme: "true"
     # type of authentication
