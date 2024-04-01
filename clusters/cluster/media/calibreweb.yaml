@@ -31,7 +31,7 @@ spec:
         - name: TZ
           value: America/Toronto
         - name: DOCKER_MODS
-          value: "linuxserver/calibre-web:calibre"        
+          value: "ghcr.io/linuxserver/mods:universal-calibre"        
         volumeMounts:
         - name: calibreweb-config
           mountPath: /config
