@@ -17,11 +17,12 @@ spec:
     spec:
       containers:
       - name: calibreweb
-        image: linuxserver/calibre-web:2021.12.16 # {"$imagepolicy": "flux-system:calibre-web"}
+        image: linuxserver/calibre-web:latest
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8083
         env:
+        - DOCKER_MODS: "linuxserver/mods:universal-calibre"
         - name: PGID
           value: "1000"
         - name: PUID
