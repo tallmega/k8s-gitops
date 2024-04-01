@@ -53,6 +53,7 @@ metadata:
 spec:
   selector:
     app: calibre
+  loadBalancerIP: 10.10.10.67
   ports:
   - name: calibre
     port: 8080
