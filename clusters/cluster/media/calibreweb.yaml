@@ -18,7 +18,7 @@ spec:
       containers:
       - name: calibreweb
         image: linuxserver/calibre-web:0.6.21-ls260
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         ports:
         - containerPort: 8083
         env:

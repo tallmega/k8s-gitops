@@ -18,7 +18,7 @@ spec:
       containers:
       - name: readarr
         image: linuxserver/readarr:develop
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         ports:
         - containerPort: 8787
         env:
