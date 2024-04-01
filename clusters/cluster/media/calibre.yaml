@@ -1,0 +1,86 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: calibre
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: calibre
+  #strategy:
+  #  type: Recreate
+  template:
+    metadata:
+      labels:
+        app: calibre
+    spec:
+      containers:
+      - name: calibre
+        image: linuxserver/calibre:7.7.0 # {"$imagepolicy": "flux-system:calibre"}
+        imagePullPolicy: IfNotPresent
+        ports:
+        #- containerPort: 8080
+        #- containerPort: 8181
+        - containerPort: 8081
+        env:
+        - name: PGID
+          value: "1000"
+        - name: PUID
+          value: "1000"
+        - name: TZ
+          value: America\Toronto
+        volumeMounts:
+        - name: calibre-config
+          mountPath: /config
+      volumes:
+        - name: calibre-config
+          persistentVolumeClaim:
+            claimName: calibre-config-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: calibre
+  namespace: default
+  labels:
+    app: calibre
+spec:
+  selector:
+    app: calibre
+  ports:
+  - name: calibre
+    port: 8081
+    targetPort: 8081
+  type: ClusterIP
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: calibre-ingress
+  namespace: kube-system
+  annotations:
+        #kubernetes.io/tls-acme: "true"
+    # type of authentication
+    #nginx.ingress.kubernetes.io/auth-type: basic
+    # prevent the controller from redirecting (308) to HTTPS
+    #nginx.ingress.kubernetes.io/ssl-redirect: 'false'
+    # name of the secret that contains the user/password definitions
+    #nginx.ingress.kubernetes.io/auth-secret: nginx-secret
+    # message to display with an appropriate context why the authentication is required
+    #nginx.ingress.kubernetes.io/auth-realm: 'Authentication Required '
+    # custom max body size for file uploading like backing image uploading
+    #nginx.ingress.kubernetes.io/proxy-body-size: 10000m
+spec:
+  ingressClassName: internal-nginx
+  rules:
+  - host: calibre.tallflix.ca
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: calibre
+            port:
+              number: 80

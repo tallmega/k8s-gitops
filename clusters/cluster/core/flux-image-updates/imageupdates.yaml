@@ -13,6 +13,30 @@ spec:
 apiVersion: image.toolkit.fluxcd.io/v1beta1
 kind: ImagePolicy
 metadata:
+  name: calibre-web
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: calibre-web
+  policy:
+    semver:
+      range: '>= 0.6.21'
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImagePolicy
+metadata:
+  name: calibre
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: calibre
+  policy:
+    semver:
+      range: '>= 7.7.0'
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImagePolicy
+metadata:
   name: radarr
   namespace: flux-system
 spec:

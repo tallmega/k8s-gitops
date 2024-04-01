@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: calibreweb
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: calibreweb
+  #strategy:
+  #  type: Recreate
+  template:
+    metadata:
+      labels:
+        app: calibreweb
+    spec:
+      containers:
+      - name: calibreweb
+        image: linuxserver/calibre-web:7.7.0 # {"$imagepolicy": "flux-system:calibre-web"}
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8083
+        env:
+        - name: PGID
+          value: "1000"
+        - name: PUID
+          value: "1000"
+        - name: TZ
+          value: America\Toronto
+        volumeMounts:
+        - name: calibreweb-config
+          mountPath: /config
+      volumes:
+        - name: calibreweb-config
+          persistentVolumeClaim:
+            claimName: calibreweb-config-pvc

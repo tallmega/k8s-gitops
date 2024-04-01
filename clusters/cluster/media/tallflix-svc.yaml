@@ -17,6 +17,22 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
+  name: calibreweb
+  namespace: default
+  labels:
+    app: calibreweb
+spec:
+  selector:
+    app: calibreweb
+  ports:
+  - name: calibreweb
+    port: 8083
+    targetPort: 8083
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
   name: radarr
   namespace: default
   labels:

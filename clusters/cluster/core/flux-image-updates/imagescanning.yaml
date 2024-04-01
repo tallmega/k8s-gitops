@@ -10,6 +10,24 @@ spec:
 apiVersion: image.toolkit.fluxcd.io/v1beta1
 kind: ImageRepository
 metadata:
+  name: calibre-web
+  namespace: flux-system
+spec:
+  image: linuxserver/calibre-web
+  interval: 30m0s
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImageRepository
+metadata:
+  name: calibre
+  namespace: flux-system
+spec:
+  image: linuxserver/calibre
+  interval: 30m0s
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImageRepository
+metadata:
   name: radarr
   namespace: flux-system
 spec:
@@ -114,3 +132,4 @@ metadata:
 spec:
   image: mrlt8/wyze-bridge
   interval: 30m0s  
+
