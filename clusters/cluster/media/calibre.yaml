@@ -83,4 +83,4 @@ spec:
           service:
             name: calibre
             port:
-              number: 80
+              number: 8081
