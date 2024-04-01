@@ -20,14 +20,18 @@ spec:
         image: linuxserver/calibre-web:0.6.21-ls260
         imagePullPolicy: Always
         ports:
-        - containerPort: 8083
+        - name: "http-port"
+          containerPort: 8083
+          protocol: TCP
         env:
         - name: PGID
           value: "1000"
         - name: PUID
           value: "1000"
         - name: TZ
-          value: America\Toronto
+          value: America/Toronto
+        - name: DOCKER_MODS
+          value: "linuxserver/calibre-web:calibre"        
         volumeMounts:
         - name: calibreweb-config
           mountPath: /config
