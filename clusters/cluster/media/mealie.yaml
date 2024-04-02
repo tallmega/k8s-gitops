@@ -33,8 +33,6 @@ spec:
         volumeMounts:
         - name: mealie-config
           mountPath: /app/data/
-        - name: books-nfs
-          mountPath: /Calibre_Library
       volumes:
         - name: mealie-config
           persistentVolumeClaim:
