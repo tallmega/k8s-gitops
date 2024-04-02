@@ -10,17 +10,17 @@ spec:
     semver:
       range: '>= 3.0.0'
 ---
-# apiVersion: image.toolkit.fluxcd.io/v1beta1
-# kind: ImagePolicy
-# metadata:
-#   name: calibre-web
-#   namespace: flux-system
-# spec:
-#   imageRepositoryRef:
-#     name: calibre-web
-#   policy:
-#     semver:
-#       range: '>= 0.6.21'
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImagePolicy
+metadata:
+  name: calibre-web
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: calibre-web
+  policy:
+    semver:
+      range: '>= 0.6.21'
 ---
 apiVersion: image.toolkit.fluxcd.io/v1beta1
 kind: ImagePolicy
@@ -45,7 +45,8 @@ spec:
   policy:
     semver:
       range: '>= 7.7.0'
-# ---
+---
+# Commented out until stable builds are available.
 # apiVersion: image.toolkit.fluxcd.io/v1beta1
 # kind: ImagePolicy
 # metadata:

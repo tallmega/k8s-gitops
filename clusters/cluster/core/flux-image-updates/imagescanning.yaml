@@ -7,14 +7,14 @@ spec:
   image: linuxserver/sonarr
   interval: 30m0s
 ---
-# apiVersion: image.toolkit.fluxcd.io/v1beta1
-# kind: ImageRepository
-# metadata:
-#   name: calibre-web
-#   namespace: flux-system
-# spec:
-#   image: linuxserver/calibre-web
-#   interval: 30m0s
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImageRepository
+metadata:
+  name: calibre-web
+  namespace: flux-system
+spec:
+  image: linuxserver/calibre-web
+  interval: 30m0s
 ---
 apiVersion: image.toolkit.fluxcd.io/v1beta1
 kind: ImageRepository
@@ -33,7 +33,8 @@ metadata:
 spec:
   image: linuxserver/calibre
   interval: 30m0s
-# ---
+---
+# Commented out until stable builds are available.
 # apiVersion: image.toolkit.fluxcd.io/v1beta1
 # kind: ImageRepository
 # metadata:
