@@ -60,7 +60,7 @@ spec:
   tls:
   - hosts:
     - "readarr.tallflix.ca"
-    secretName: tls-secret-radarr
+    secretName: tls-secret-readarr
   rules:
   - host: "readarr.tallflix.ca"
     http:
