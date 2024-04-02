@@ -36,9 +36,9 @@ spec:
         - name: mealie-config
           mountPath: /app/data/
       volumes:
-        - name: mealie-config
-          persistentVolumeClaim:
-            claimName: mealie-config-pvc
+      - name: mealie-config
+        persistentVolumeClaim:
+          claimName: mealie-config-pvc
 ---
 apiVersion: v1
 kind: Service
