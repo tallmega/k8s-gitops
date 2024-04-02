@@ -32,6 +32,8 @@ spec:
           value: "1"
         - name: WEB_CONCURRENCY
           value: "1"
+        - name: BASE_URL
+          value: "https://mealie.tallflix.ca"
         volumeMounts:
         - name: mealie-config
           mountPath: /app/data/
