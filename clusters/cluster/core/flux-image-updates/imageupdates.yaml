@@ -25,6 +25,18 @@ spec:
 apiVersion: image.toolkit.fluxcd.io/v1beta1
 kind: ImagePolicy
 metadata:
+  name: mealie
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: mealie
+  policy:
+    semver:
+      range: '>= 1.3.2'
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImagePolicy
+metadata:
   name: calibre
   namespace: flux-system
 spec:
