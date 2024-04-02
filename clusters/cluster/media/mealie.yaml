@@ -28,8 +28,10 @@ spec:
           value: "1000"
         - name: TZ
           value: America\Toronto
-        - MAX_WORKERS: "1"
-        - WEB_CONCURRENCY: "1"
+        - name: MAX_WORKERS
+          value: "1"
+        - name: WEB_CONCURRENCY
+          value: "1"
         volumeMounts:
         - name: mealie-config
           mountPath: /app/data/
