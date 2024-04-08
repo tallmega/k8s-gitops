@@ -22,10 +22,10 @@ spec:
       main:
         loadBalancerIP: 10.10.10.64
         type: LoadBalancer
-    persistence:
-      data:
-        enabled: true
-        existingClaim: mosquitto-data-pvc
-      configinc:
-        enabled: true
-        existingClaim: mosquitto-config-pvc
+    # persistence:
+    #   data:
+    #     enabled: true
+    #     existingClaim: mosquitto-data-pvc
+    #   configinc:
+    #     enabled: true
+    #     existingClaim: mosquitto-config-pvc
