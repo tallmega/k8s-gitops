@@ -16,7 +16,7 @@ spec:
   targetNamespace: default
   values:
     image:
-      repositoy: eclipse-mosquitto
+      repository: eclipse-mosquitto
       tag: 2.0.18 # {"$imagepolicy": "flux-system:eclipse-mosquitto:tag"}
     service:
       main:
