@@ -22,7 +22,7 @@ spec:
       repository: plexinc/pms-docker
       #tag: latest
       imagePullPolicy: Always
-      tag: 1.32.8.7639-fb6452ebf # {"$imagepolicy": "flux-system:plex:tag"}
+      tag: 1.40.1.8227-c0dd5a73e # {"$imagepolicy": "flux-system:plex:tag"}
     env:
       TZ: "America/Toronto"
     envFrom:
