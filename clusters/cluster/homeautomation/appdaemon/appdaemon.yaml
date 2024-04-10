@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: appdaemon
-        image: 4.4.2 # {"$imagepolicy": "flux-system:appdaemon:tag"}
+        image: acockburn/appdaemon:4.4.2 # {"$imagepolicy": "flux-system:appdaemon:tag"}
         imagePullPolicy: IfNotPresent
         env:
         - name: TZ
