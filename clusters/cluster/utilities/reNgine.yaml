@@ -16,7 +16,7 @@ spec:
         app: rengine
     spec:
       containers:
-      - name: witnessme
+      - name: rengine
         image: trithemius/rengine
         imagePullPolicy: IfNotPresent
         ports:

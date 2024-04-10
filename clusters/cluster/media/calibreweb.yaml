@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: calibreweb
-        image: linuxserver/calibre-web:0.6.21-ls260
+        image: linuxserver/calibre-web:0.6.21-ls260 # {"$imagepolicy": "flux-system:calibre-web"}
         imagePullPolicy: Always
         ports:
         - name: "http-port"
