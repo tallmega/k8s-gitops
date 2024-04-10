@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: appdaemon
+  name: appdaemon1
   namespace: default
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: appdaemon
+      app: appdaemon1
   #strategy:
   #  type: Recreate
   template:
     metadata:
       labels:
-        app: appdaemon
+        app: appdaemon1
     spec:
       containers:
       - name: appdaemon
@@ -40,15 +40,15 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: appdaemon
+  name: appdaemon1
   namespace: default
   labels:
-    app: appdaemon
+    app: appdaemon1
 spec:
   selector:
-    app: appdaemon
+    app: appdaemon1
   ports:
-  - name: appdaemon
+  - name: appdaemon1
     port: 5050
     targetPort: 5050
   type: ClusterIP
