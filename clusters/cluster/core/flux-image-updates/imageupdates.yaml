@@ -20,7 +20,7 @@ spec:
     name: calibre-web
   policy:
     semver:
-      range: '>= 0.6.21 <1000.0.0'
+      range: '>= 0.6.21 <1.0.0'
 ---
 apiVersion: image.toolkit.fluxcd.io/v1beta1
 kind: ImagePolicy
