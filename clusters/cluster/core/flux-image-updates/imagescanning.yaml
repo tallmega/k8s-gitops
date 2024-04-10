@@ -7,15 +7,14 @@ spec:
   image: linuxserver/sonarr
   interval: 30m0s
 ---
-# Commented out as some builds are dates - 2021.12.16
-# apiVersion: image.toolkit.fluxcd.io/v1beta1
-# kind: ImageRepository
-# metadata:
-#   name: calibre-web
-#   namespace: flux-system
-# spec:
-#   image: linuxserver/calibre-web
-#   interval: 30m0s
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImageRepository
+metadata:
+  name: calibre-web
+  namespace: flux-system
+spec:
+  image: linuxserver/calibre-web
+  interval: 30m0s
 ---
 apiVersion: image.toolkit.fluxcd.io/v1beta1
 kind: ImageRepository
