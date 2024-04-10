@@ -17,6 +17,6 @@ spec:
         path: "/"
         backend:
           service:
-            name: appdaemon1
+            name: appdaemon
             port:
               number: 5050
