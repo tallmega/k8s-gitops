@@ -20,9 +20,12 @@ spec:
         image: 4.4.2 # {"$imagepolicy": "flux-system:appdaemon:tag"}
         imagePullPolicy: IfNotPresent
         env:
-        - TZ: America/Toronto
-        - HA_URL: http://10.10.10.63:8123
-        - DASH_URL: http://0.0.0.0:5050
+        - name: TZ
+          value: "America/Toronto"
+        - name: HA_URL
+          value: "http://10.10.10.63:8123"
+        - name: DASH_URL
+          value: "http://0.0.0.0:5050"
         envFrom:
         - secretRef:
             name: appdaemon-secret
