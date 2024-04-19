@@ -80,6 +80,10 @@ spec:
         enabled: true
         mountPath: "/data/tvshows3"
         existingClaim: tvshows3-pvc
+      media4:
+        enabled: true
+        mountPath: "/data/ytshows"
+        existingClaim: ytshows-pvc
       media6:
         enabled: true
         mountPath: "/data/movies3"
