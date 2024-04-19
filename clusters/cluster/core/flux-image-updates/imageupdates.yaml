@@ -55,7 +55,7 @@ spec:
   imageRepositoryRef:
     name: metube
   filterTags:
-    pattern: '^(?P<major>0|[0-9]\d*)\-(?P<minor>[0-9][0-9])\-(?P<patch>0|[0-9]\d*)$'
+    pattern: '^(?P<year>0|[0-9]\d*)\-(?P<month>[0-9][0-9])\-(?P<day>0|[0-9]\d*)$'
   policy:
     alphabetical:
       order: asc
