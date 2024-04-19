@@ -27,7 +27,7 @@ spec:
         - name: OUTPUT_TEMPLATE
           value: "%(uploader)s/Season %(upload_date>%Y)s/s%(upload_date>%Y)s.e%(upload_date>%m%d)s01 - %(title)s.%(ext)s"
         - name: YTDL_OPTIONS
-          value: '{"writethumbnail":true,"writeinfojson":true,"download_archive":"/downloads/archive.txt","postprocessors":[{"key":"EmbedThumbnail","key":"FFmpegMetadata"}]}'
+          value: '{"writethumbnail":true,"writeinfojson":true,"download_archive":"/downloads/archive.txt","postprocessors":[{"key":"EmbedThumbnail"},{"key":"FFmpegMetadata"}]}'
         volumeMounts:
         - name: ytshows
           mountPath: /downloads
