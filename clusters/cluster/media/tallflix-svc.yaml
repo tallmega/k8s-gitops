@@ -97,15 +97,15 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: youtubedl
+  name: metube
   namespace: default
   labels:
-    app: youtubedl
+    app: metube
 spec:
   selector:
-    app: youtubedl
+    app: metube
   ports:
-  - name: youtubedl
+  - name: metube
     port: 8081
     targetPort: 8081
   type: ClusterIP
