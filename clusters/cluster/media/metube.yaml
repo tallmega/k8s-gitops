@@ -25,7 +25,9 @@ spec:
         - name: TZ
           value: America\Toronto
         - name: OUTPUT_TEMPLATE
-          value: "%(series)s/%(season_number)s - %(season)s/%(episode_number)s - %(episode)s.%(ext)s"
+          value: "%(uploader)s/Season %(upload_date>%Y)s/s%(upload_date>%Y)s.e%(upload_date>%m%d)s01 - %(title)s.%(ext)s"
+        - name: YTDL_OPTIONS
+          value: '{"format":"bv+ba/b","format_sort":["codec:avc:m4a"],"writeinfojson":true,"writethumbnail":true,"download_archive":"/youtube/archive.txt"}'
         volumeMounts:
         - name: ytshows
           mountPath: /downloads
