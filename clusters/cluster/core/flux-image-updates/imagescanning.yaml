@@ -34,6 +34,15 @@ spec:
   image: linuxserver/calibre
   interval: 30m0s
 ---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImageRepository
+metadata:
+  name: metube
+  namespace: flux-system
+spec:
+  image: ghcr.io/alexta69/metube
+  interval: 30m0s
+---
 # Commented out until stable builds are available.
 # apiVersion: image.toolkit.fluxcd.io/v1beta1
 # kind: ImageRepository
