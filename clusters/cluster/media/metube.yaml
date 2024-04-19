@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: metube
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: metube
+  #strategy:
+  #  type: Recreate
+  template:
+    metadata:
+      labels:
+        app: metube
+    spec:
+      containers:
+      - name: metube
+        image: ghcr.io/alexta69/metube # {"$imagepolicy": "flux-system:youtubedl"}
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8081
+        env:
+        - name: TZ
+          value: America\Toronto
+        volumeMounts:
+        - name: ytshows
+          mountPath: /downloads
+      volumes:
+      - name: ytshows
+        persistentVolumeClaim:
+          claimName: ytshows-pvc
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: metube-ingress
+  namespace: default
+spec:
+  ingressClassName: internal-nginx
+  #tls:
+  #- hosts:
+  #  - "metube.tallflix.ca"
+  #  secretName: tls-secret
+  rules:
+  - host: metube.tallflix.ca
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: metube
+            port:
+              number: 8081

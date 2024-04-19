@@ -29,6 +29,20 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
+  name: ytshows-pvc
+  namespace: default
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: syno-nfs
+  volumeName: ytshows-pv
+  resources:
+    requests:
+      storage: 17Ti
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
   name: movies3-pvc
   namespace: default
 spec:

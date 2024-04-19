@@ -97,6 +97,22 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
+  name: youtubedl
+  namespace: default
+  labels:
+    app: youtubedl
+spec:
+  selector:
+    app: youtubedl
+  ports:
+  - name: youtubedl
+    port: 8081
+    targetPort: 8081
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
   name: sabnzbd
   namespace: default
   labels:
