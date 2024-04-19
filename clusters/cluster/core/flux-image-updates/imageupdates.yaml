@@ -54,9 +54,11 @@ metadata:
 spec:
   imageRepositoryRef:
     name: metube
+  filterTags:
+    pattern: '^(?P<major>0|[0-9]\d*)\-(?P<minor>[0-9][0-9])\-(?P<patch>0|[0-9]\d*)$'
   policy:
-    semver:
-      range: '>= 2024-1-26'
+    alphabetical:
+      order: asc
 ---
 # Commented out until stable builds are available.
 # apiVersion: image.toolkit.fluxcd.io/v1beta1
