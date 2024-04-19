@@ -24,6 +24,8 @@ spec:
         env:
         - name: TZ
           value: America\Toronto
+        - name: OUTPUT_TEMPLATE
+          value: "%(series)s/%(season_number)s - %(season)s/%(episode_number)s - %(episode)s.%(ext)s"
         volumeMounts:
         - name: ytshows
           mountPath: /downloads
