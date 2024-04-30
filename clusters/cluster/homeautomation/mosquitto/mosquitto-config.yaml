@@ -534,7 +534,6 @@ listener 1883 0.0.0.0
 # the local machine.
 #allow_anonymous false
 
-
 # -----------------------------------------------------------------
 # Default authentication and topic access control
 # -----------------------------------------------------------------
@@ -551,7 +550,7 @@ listener 1883 0.0.0.0
 # See the TLS client require_certificate and use_identity_as_username options
 # for alternative authentication options. If a plugin is used as well as
 # password_file, the plugin check will be made first.
-#password_file /mosquitto/config/password.txt
+password_file /mosquitto/config/password.txt
 
 # Access may also be controlled using a pre-shared-key file. This requires
 # TLS-PSK support and a listener configured to use it. The file should be text
@@ -906,5 +905,3 @@ listener 1883 0.0.0.0
 # given multiple times, all of the files from the first instance will be
 # processed before the next instance. See the man page for examples.
 #include_dir
-
-allow_anonymous true
