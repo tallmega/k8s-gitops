@@ -47,10 +47,6 @@ spec:
         - name: TZ
           value: America/Toronto
         image: eclipse-mosquitto:2.0.18 # {"$imagepolicy": "flux-system:eclipse-mosquitto:tag"}
-        - name: allow_anonymous
-          value: true
-        - name: listener
-          value: 1883
         imagePullPolicy: IfNotPresent
         name: mosquitto
         ports:
