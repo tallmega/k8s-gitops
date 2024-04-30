@@ -1,65 +1,24 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
 metadata:
   name: mosquitto
-  namespace: default
+  namespace: flux-system
 spec:
-  selector:
-    matchLabels:
-      app.kubernetes.io/instance: mosquitto
-      app.kubernetes.io/name: mosquitto
-  strategy:
-  type: Recreate
-  template:
-    metadata:
-      labels:
-        app.kubernetes.io/instance: mosquitto
-        app.kubernetes.io/name: mosquitto
+  chart:
     spec:
-      containers:
-      - env:
-        - name: TZ
-          value: America/Toronto
-        image: 2.0.18 # {"$imagepolicy": "flux-system:eclipse-mosquitto:tag"}
-        imagePullPolicy: IfNotPresent
-        name: mosquitto
-        ports:
-        - containerPort: 1883
-          name: mqtt
-          protocol: TCP
-        volumeMounts:
-        - name: mosquitto-config
-          mountPath: /mosquitto/config/mosquitto.conf
-          #subPath: mosquitto.conf
-        volumes:
-        - name: mosquitto-config
-          configMap:
-            name: mosquitto-config
-      restartPolicy: Always
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: mosquitto
-  namespace: default
-spec:
-  loadBalancerIP: 10.10.10.64
-  ports:
-  - name: mqtt
-    port: 1883
-    protocol: TCP
-    targetPort: 1883
-  selector:
-    app.kubernetes.io/name: mosquitto
-  type: LoadBalancer
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: mosquitto-config
-  namespace: default
-data:
-  mosquitto.conf: |-
-    persistence false
-    allow_anonymous true
-    listener 1883 0.0.0.0
+      chart: mosquitto
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home-charts
+        namespace: flux-system
+  interval: 5m0s
+  releaseName: mosquitto
+  targetNamespace: default
+  values:
+    image:
+      repository: eclipse-mosquitto
+      tag: 2.0.18 # {"$imagepolicy": "flux-system:eclipse-mosquitto:tag"}
+    service:
+      main:
+        loadBalancerIP: 10.10.10.64
+        type: LoadBalancer
