@@ -53,8 +53,13 @@ spec:
     app.kubernetes.io/name: mosquitto
   type: LoadBalancer
 ---
-# apiVersion: kustomize.config.k8s.io/v1beta1
-# kind: Kustomization
-# resources:
-# - mosquitto-helm-release.yaml
-# - mosquitto-config.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mosquitto-config
+  namespace: default
+data:
+  mosquitto.conf: |-
+    persistence false
+    allow_anonymous true
+    listener 1883 0.0.0.0
