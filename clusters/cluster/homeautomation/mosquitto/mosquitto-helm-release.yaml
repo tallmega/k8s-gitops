@@ -58,7 +58,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: frigate
+  name: mosquitto
   namespace: default
 spec:
   loadBalancerIP: 10.10.10.64
@@ -68,5 +68,5 @@ spec:
     protocol: TCP
     targetPort: 1883
   selector:
-    app.kubernetes.io/name: frigate
+    app.kubernetes.io/name: mosquitto
   type: LoadBalancer
