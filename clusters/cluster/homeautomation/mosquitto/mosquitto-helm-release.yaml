@@ -30,7 +30,7 @@ spec:
         volumeMounts:
         - name: mosquitto-config
           mountPath: /mosquitto/config/mosquitto.conf
-          subPath: mosquitto.conf
+          #subPath: mosquitto.conf
         volumes:
         - name: mosquitto-config
           configMap:
