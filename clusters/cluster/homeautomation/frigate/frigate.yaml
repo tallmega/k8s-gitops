@@ -4,32 +4,32 @@ metadata:
   name: frigate
   namespace: default
 spec:
-    selector:
-      matchLabels:
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: frigate
+      app.kubernetes.io/name: frigate
+  strategy:
+  type: Recreate
+  template:
+    metadata:
+      labels:
         app.kubernetes.io/instance: frigate
         app.kubernetes.io/name: frigate
-    strategy:
-    type: Recreate
-    template:
-     metadata:
-       labels:
-         app.kubernetes.io/instance: frigate
-         app.kubernetes.io/name: frigate
-     spec:
+    spec:
       #affinity:
-        # nodeAffinity:
-        #   requiredDuringSchedulingIgnoredDuringExecution:
-        #     nodeSelectorTerms:
-        #     - matchExpressions:
-        #       - key: feature.node.kubernetes.io/pci-0880_1ac1.present
-        #         operator: In
-        #         values:
-        #         - "true"
-        #     - matchExpressions:
-        #       - key: feature.node.kubernetes.io/usb-fe_1a6e_089a.present
-        #         operator: In
-        #         values:
-        #         - "true"
+      # nodeAffinity:
+      #   requiredDuringSchedulingIgnoredDuringExecution:
+      #     nodeSelectorTerms:
+      #     - matchExpressions:
+      #       - key: feature.node.kubernetes.io/pci-0880_1ac1.present
+      #         operator: In
+      #         values:
+      #         - "true"
+      #     - matchExpressions:
+      #       - key: feature.node.kubernetes.io/usb-fe_1a6e_089a.present
+      #         operator: In
+      #         values:
+      #         - "true"
       containers:
       - env:
         - name: TZ
@@ -37,7 +37,7 @@ spec:
         # envFrom:
         # - secretRef:
         #     name: frigate-secret
-        image: ghcr.io/blakeblackshear/frigate:0.12.1 # {"$imagepolicy": "flux-system:frigate"}
+        image: ghcr.io/blakeblackshear/frigate:0.13.2 # {"$imagepolicy": "flux-system:frigate"}
         imagePullPolicy: IfNotPresent
         name: frigate
         # resources:
@@ -90,8 +90,8 @@ spec:
       #      type: ""
       #   name: coral-dev
       - hostPath:
-           path: /dev/apex_0
-           type: ""
+          path: /dev/apex_0
+          type: ""
         name: coral-pci
       - emptyDir: {}
         name: data
@@ -108,7 +108,6 @@ spec:
       - name: frigate-recording
         persistentVolumeClaim:
           claimName: frigate-recording-pvc
-
 ---
 apiVersion: v1
 kind: Service
