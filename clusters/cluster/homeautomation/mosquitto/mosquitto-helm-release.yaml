@@ -60,7 +60,7 @@ spec:
         volumes:
         - name: mosquitto-config
           configMap:
-          name: mosquitto-config
+            name: mosquitto-config
       restartPolicy: Always
 ---
 apiVersion: v1
