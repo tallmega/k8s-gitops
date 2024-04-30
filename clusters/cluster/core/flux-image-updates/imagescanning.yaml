@@ -28,6 +28,15 @@ spec:
 apiVersion: image.toolkit.fluxcd.io/v1beta1
 kind: ImageRepository
 metadata:
+  name: frigate
+  namespace: flux-system
+spec:
+  image: ghcr.io/blakeblackshear/frigate
+  interval: 30m0s
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImageRepository
+metadata:
   name: calibre
   namespace: flux-system
 spec:
