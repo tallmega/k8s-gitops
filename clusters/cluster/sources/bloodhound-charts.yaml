@@ -5,5 +5,5 @@ metadata:
   namespace: flux-system
 spec:
   interval: 1h
-  url: https://github.com/SpecterOps/BloodHound/tree/main/examples/helm
+  url: https://github.com/SpecterOps/BloodHound/tree/main/examples/helm/
   timeout: 3m
