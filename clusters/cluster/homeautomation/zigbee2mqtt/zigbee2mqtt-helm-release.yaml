@@ -59,6 +59,6 @@ spec:
       homeassistant: true
       permit_join: true
       mqtt:
-        server: mqtt://10.10.10.64/
+        server: http://10.10.10.64/
       serial:
         port: /dev/ttyUSB0
