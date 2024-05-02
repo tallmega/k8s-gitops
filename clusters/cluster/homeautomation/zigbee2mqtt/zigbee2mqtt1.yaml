@@ -3,20 +3,20 @@ kind: Deployment
 metadata:
   creationTimestamp: null
   labels:
-    app: zigbee2mqtt
-  name: zigbee2mqtt
+    app: zigbee2mqtt1
+  name: zigbee2mqtt1
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: zigbee2mqtt
+      app: zigbee2mqtt1
   strategy:
     type: Recreate
   template:
     metadata:
       creationTimestamp: null
       labels:
-        app: zigbee2mqtt
+        app: zigbee2mqtt1
     spec:
       containers:
         - name: zigbee2mqtt
