@@ -18,11 +18,13 @@ spec:
         - name: zigbee2mqtt
           image: koenkk/zigbee2mqtt:1.37.0 # {"$imagepolicy": "flux-system:zigbee2mqtt"}
           imagePullPolicy: IfNotPresent
+          command: [ "sleep" ]
+          args: [ "infinity" ]
           env:
             - name: TZ
               value: America/Toronto
             - name: "ZIGBEE2MQTT_DATA"
-              value: "/app"
+              value: "/data"
             - name: ZIGBEE2MQTT_CONFIG_MQTT_SERVER # optional - can also be configured in the configuration.yaml in the configmap
               value: "mqtt://10.10.10.64"
           securityContext:
@@ -33,7 +35,7 @@ spec:
               protocol: TCP
           volumeMounts:
             - name: zigbee2mqtt-data
-              mountPath: /app
+              mountPath: /data
             # - name: zigbee2mqtt-config
             #   mountPath: /app/configuration.yaml
             #  subPath: configuration.yaml
