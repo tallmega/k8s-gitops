@@ -1,4 +1,3 @@
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -21,7 +20,7 @@ spec:
     spec:
       containers:
         - name: zigbee2mqtt
-          image: koenkk/zigbee2mqtt:1.36.1 # {"$imagepolicy": "flux-system:zigbee2mqtt:tag"}
+          image: 1.37.0 # {"$imagepolicy": "flux-system:zigbee2mqtt:tag"}
           imagePullPolicy: IfNotPresent
           env:
             - name: TZ
@@ -81,7 +80,7 @@ metadata:
   labels:
     app: zigbee2mqtt
 data:
-  configuration.yaml: |-
+  configuration.yaml: |2-
 
     # Let new devices join our zigbee network
     permit_join: true
