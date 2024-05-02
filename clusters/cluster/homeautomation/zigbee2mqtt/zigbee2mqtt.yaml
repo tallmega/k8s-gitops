@@ -24,7 +24,7 @@ spec:
             - name: TZ
               value: America/Toronto
             - name: "ZIGBEE2MQTT_DATA"
-              value: "/data"
+              value: "/app/data"
             - name: ZIGBEE2MQTT_CONFIG_MQTT_SERVER # optional - can also be configured in the configuration.yaml in the configmap
               value: "mqtt://10.10.10.64"
           securityContext:
@@ -35,7 +35,7 @@ spec:
               protocol: TCP
           volumeMounts:
             - name: zigbee2mqtt-data
-              mountPath: /data
+              mountPath: /app/data
             # - name: zigbee2mqtt-config
             #   mountPath: /app/configuration.yaml
             #  subPath: configuration.yaml
