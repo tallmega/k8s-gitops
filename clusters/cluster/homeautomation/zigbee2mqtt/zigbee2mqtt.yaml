@@ -21,8 +21,8 @@ spec:
           env:
             - name: TZ
               value: America/Toronto
-            # - name: "ZIGBEE2MQTT_DATA"
-            #   value: "/data"
+            - name: "ZIGBEE2MQTT_DATA"
+              value: "/data"
             - name: ZIGBEE2MQTT_CONFIG_MQTT_SERVER # optional - can also be configured in the configuration.yaml in the configmap
               value: "mqtt://10.10.10.64"
           securityContext:
