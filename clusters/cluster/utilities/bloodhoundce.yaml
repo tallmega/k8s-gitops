@@ -212,7 +212,7 @@ metadata:
   namespace: bloodhound
 spec:
   rules:
-  - host: bloodhound.example.com
+  - host: bloodhound.tallflix.ca
     http:
       paths:
       - path: /
@@ -222,9 +222,11 @@ spec:
             name: bloodhound-service
             port:
               number: 8080
-  tls:
-  - hosts:
-    - bloodhound.example.com
+  ingressClassName: internal-nginx
+  #tls:
+  #- hosts:
+  #  - "bloodhound.tallflix.ca"
+  #  secretName: tls-secret
 ---
 apiVersion: v1
 kind: Namespace
