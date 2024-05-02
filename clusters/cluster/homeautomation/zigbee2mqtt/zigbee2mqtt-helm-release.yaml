@@ -16,7 +16,7 @@ spec:
   targetNamespace: default
   values:
     image:
-      tag: 1.36.1 
+      tag: 1.36.1
       # {"$imagepolicy": "flux-system:zigbee2mqtt:tag"}
     securityContext:
       privileged: true
@@ -59,6 +59,6 @@ spec:
       homeassistant: true
       permit_join: true
       mqtt:
-        server: http://10.10.10.64/
+        server: mqtt://10.10.10.64/
       serial:
         port: /dev/ttyUSB0
