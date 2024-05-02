@@ -110,3 +110,26 @@ data:
     ## Map devices to persistent /data directory
     #devices: /data/devices.yaml
     #groups: /data/groups.yaml
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: zigbee2mqtt-ingress
+  namespace: default
+spec:
+  ingressClassName: internal-nginx
+  #tls:
+  #- hosts:
+  #  - "zigbee2mqtt.tallflix.ca"
+  #  secretName: tls-secret
+  rules:
+  - host: zigbee2mqtt.tallflix.ca
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: zigbee2mqtt
+            port:
+              number: 8080
