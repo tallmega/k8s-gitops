@@ -18,8 +18,8 @@ spec:
         - name: zigbee2mqtt
           image: koenkk/zigbee2mqtt:1.37.0 # {"$imagepolicy": "flux-system:zigbee2mqtt"}
           imagePullPolicy: IfNotPresent
-          command: [ "sleep" ]
-          args: [ "infinity" ]
+          # command: [ "sleep" ]
+          # args: [ "infinity" ]
           env:
             - name: TZ
               value: America/Toronto
