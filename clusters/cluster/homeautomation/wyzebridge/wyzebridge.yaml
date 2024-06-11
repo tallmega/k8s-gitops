@@ -31,7 +31,7 @@ spec:
           value: America\Toronto
         - name: ENABLE_AUDIO
           value: 'true'
-        - name: WBAUTH
+        - name: WB_AUTH
           value: 'false'
         envFrom:
         - secretRef:
