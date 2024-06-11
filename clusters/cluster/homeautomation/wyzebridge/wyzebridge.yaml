@@ -31,6 +31,8 @@ spec:
           value: America\Toronto
         - name: ENABLE_AUDIO
           value: 'true'
+        - name: WBAUTH
+          value: 'false'
         envFrom:
         - secretRef:
             name: wyzebridge-secret
