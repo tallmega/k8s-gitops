@@ -81,7 +81,7 @@ spec:
     extraEnvVars:
     - name: KC_HOSTNAME_STRICT
       value: "false"
-    - name: KC_HOSTNAME_URL
+    - name: KC_HOSTNAME
       value: "https://sso.tallflix.ca"
     - name: KC_HOSTNAME_ADMIN_URL
       value: "https://sso.tallflix.ca"
