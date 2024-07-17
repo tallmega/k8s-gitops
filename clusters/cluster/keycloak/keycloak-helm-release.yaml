@@ -83,6 +83,8 @@ spec:
       value: "false"
     - name: KC_HOSTNAME_URL
       value: "https://sso.tallflix.ca"
+    - name: KEYCLOAK_FRONTEND_URL
+      value: "https://sso.tallflix.ca"
     - name: KC_HOSTNAME_ADMIN_URL
       value: "https://sso.tallflix.ca"
     - name: KC_HOSTNAME_STRICT_HTTPS
