@@ -82,5 +82,7 @@ spec:
       value: "true"
     - name: KEYCLOAK_PRODUCTION
       value: "true"
-    - name: KEYCLOAK_PROXY
-      value: "edge"
+    # - name: KEYCLOAK_PROXY
+    #   value: "edge"
+    - name: KC_PROXY_HEADERS
+      value: "forwarded"
