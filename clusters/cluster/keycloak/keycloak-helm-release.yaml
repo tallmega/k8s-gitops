@@ -82,6 +82,8 @@ spec:
     - name: KC_HOSTNAME_STRICT
       value: "false"
     - name: KC_HOSTNAME
+      value: "sso.tallflix.ca"
+    - name: KC_HOSTNAME_URL
       value: "https://sso.tallflix.ca"
     - name: KC_HOSTNAME_ADMIN_URL
       value: "https://sso.tallflix.ca"
