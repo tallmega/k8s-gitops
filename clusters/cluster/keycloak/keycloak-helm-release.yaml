@@ -88,4 +88,4 @@ spec:
     - name: KEYCLOAK_PRODUCTION
       value: "true"
     - name: KC_PROXY_HEADERS
-       value: "forwarded"
+      value: "forwarded"
