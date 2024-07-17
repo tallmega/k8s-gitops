@@ -79,6 +79,8 @@ spec:
       enabled: true
       auth:
         existingSecret: keycloak-secret
+      command: [ "sleep" ]
+      args: [ "infinity" ]
     extraEnvVars:
     - name: KC_HEALTH_ENABLED
       value: "true"
