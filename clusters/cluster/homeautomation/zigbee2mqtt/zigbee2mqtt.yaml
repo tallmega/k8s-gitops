@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: zigbee2mqtt
-          image: koenkk/zigbee2mqtt:1.39.0 # {"$imagepolicy": "flux-system:zigbee2mqtt"}
+          image: koenkk/zigbee2mqtt:1.39.1 # {"$imagepolicy": "flux-system:zigbee2mqtt"}
           imagePullPolicy: IfNotPresent
           env:
             - name: TZ
