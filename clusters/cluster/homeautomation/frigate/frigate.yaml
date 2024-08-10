@@ -38,8 +38,8 @@ spec:
         # - secretRef:
         #     name: frigate-secret
         image: ghcr.io/blakeblackshear/frigate:0.14.0 # {"$imagepolicy": "flux-system:frigate"}
-        # command: [ "sleep" ]
-        # args: [ "infinity" ]
+        command: [ "sleep" ]
+        args: [ "infinity" ]
         imagePullPolicy: IfNotPresent
         name: frigate
         # resources:
