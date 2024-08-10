@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: metube
-        image: ghcr.io/alexta69/metube:2024-07-17 # {"$imagepolicy": "flux-system:metube"}
+        image: ghcr.io/alexta69/metube:2024-08-07 # {"$imagepolicy": "flux-system:metube"}
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8081
