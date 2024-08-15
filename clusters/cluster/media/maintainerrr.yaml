@@ -58,3 +58,19 @@ spec:
             name: maintainerr
             port:
               number: 6246
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: maintainerr
+  namespace: default
+  labels:
+    app: maintainerr
+spec:
+  selector:
+    app: maintainerr
+  ports:
+  - name: maintainerr
+    port: 6246
+    targetPort: 6246
+  type: ClusterIP
