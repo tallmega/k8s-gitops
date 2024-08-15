@@ -20,12 +20,12 @@ spec:
         image: ghcr.io/jorenn92/maintainerr:2.0.4 # {"$imagepolicy": "flux-system:maintainerr"}
         imagePullPolicy: IfNotPresent
         ports:
-        - containerPort: 7878
+        - containerPort: 6246
         env:
-        # - name: PGID
-        #   value: "1000"
-        # - name: PUID
-        #   value: "1000"
+        - name: PGID
+          value: "1000"
+        - name: PUID
+          value: "1000"
         - name: TZ
           value: America\Toronto
         volumeMounts:
