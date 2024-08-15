@@ -28,6 +28,15 @@ spec:
 apiVersion: image.toolkit.fluxcd.io/v1beta1
 kind: ImageRepository
 metadata:
+  name: maintainerr
+  namespace: flux-system
+spec:
+  image: gghcr.io/jorenn92/maintainerr
+  interval: 30m0s
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImageRepository
+metadata:
   name: frigate
   namespace: flux-system
 spec:

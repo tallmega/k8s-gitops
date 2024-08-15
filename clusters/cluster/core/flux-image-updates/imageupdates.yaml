@@ -37,6 +37,18 @@ spec:
 apiVersion: image.toolkit.fluxcd.io/v1beta1
 kind: ImagePolicy
 metadata:
+  name: maintainerr
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: maintainerr
+  policy:
+    semver:
+      range: '>= 2.0.4'
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImagePolicy
+metadata:
   name: calibre
   namespace: flux-system
 spec:
