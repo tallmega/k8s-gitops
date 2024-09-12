@@ -30,7 +30,7 @@ spec:
           value: America\Toronto
         volumeMounts:
         - name: maintainerr-config
-          mountPath: /data
+          mountPath: /opt/data
       volumes:
       - name: maintainerr-config
         persistentVolumeClaim:
