@@ -28,13 +28,13 @@ spec:
           value: "1000"
         - name: TZ
           value: America\Toronto
-      #   volumeMounts:
-      #   - name: maintainerr-config
-      #     mountPath: /opt/data
-      # volumes:
-      # - name: maintainerr-config
-      #   persistentVolumeClaim:
-      #     claimName: maintainerr-config-pvc
+        volumeMounts:
+        - name: maintainerr-config
+          mountPath: /opt/data
+      volumes:
+      - name: maintainerr-config
+        persistentVolumeClaim:
+          claimName: maintainerr-config-pvc
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
