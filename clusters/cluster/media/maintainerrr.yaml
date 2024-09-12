@@ -18,14 +18,16 @@ spec:
       containers:
       - name: maintainerr
         image: ghcr.io/jorenn92/maintainerr:2.1.1 # {"$imagepolicy": "flux-system:maintainerr"}
+        securityContext:
+            privileged: true
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 6246
         env:
         - name: PGID
-          value: "0"
+          value: "1000"
         - name: PUID
-          value: "0"
+          value: "1000"
         - name: TZ
           value: America\Toronto
         volumeMounts:
