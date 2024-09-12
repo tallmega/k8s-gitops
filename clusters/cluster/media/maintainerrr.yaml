@@ -15,9 +15,6 @@ spec:
       labels:
         app: maintainerr
     spec:
-      securityContext:
-          runAsUser: 0
-          privileged: true
       containers:
       - name: maintainerr
         image: ghcr.io/jorenn92/maintainerr:2.1.1 # {"$imagepolicy": "flux-system:maintainerr"}
@@ -26,9 +23,9 @@ spec:
         - containerPort: 6246
         env:
         - name: PGID
-          value: "0"
+          value: "1000"
         - name: PUID
-          value: "0"
+          value: "1000"
         - name: TZ
           value: America\Toronto
         volumeMounts:
