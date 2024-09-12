@@ -28,9 +28,9 @@ spec:
           value: "1000"
         - name: TZ
           value: America\Toronto
-        volumeMounts:
-        - name: maintainerr-config
-          mountPath: /opt/data
+        # volumeMounts:
+        # - name: maintainerr-config
+        #   mountPath: /opt/data
       volumes:
       - name: maintainerr-config
         persistentVolumeClaim:
