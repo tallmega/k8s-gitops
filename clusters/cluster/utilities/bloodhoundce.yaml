@@ -94,6 +94,8 @@ spec:
       containers:
       - name: postgres
         image: docker.io/library/postgres:13.2
+        command: [ "/bin/bash", "-c", "--" ]
+        args: [ "while true; do sleep 30; done;" ]
         env:
         - name: POSTGRES_USER
           value: "bloodhound"
