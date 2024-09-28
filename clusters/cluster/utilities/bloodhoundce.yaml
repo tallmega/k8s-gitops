@@ -120,12 +120,12 @@ spec:
           timeoutSeconds: 5
           failureThreshold: 5
         volumeMounts:
-        - name: bloodhoundpostgres-config
+        - name: bloodhound-postgres-config
           mountPath: /var/lib/postgresql/data 
       volumes:
-      - name: bloodhoundpostgres-config
+      - name: bloodhound-postgres-config
         persistentVolumeClaim:
-          claimName: bloodhoundpostgres-config-pvc
+          claimName: bloodhound-postgres-config-pvc
 ---
 apiVersion: apps/v1
 kind: Deployment
