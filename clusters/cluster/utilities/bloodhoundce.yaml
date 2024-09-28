@@ -121,7 +121,7 @@ spec:
           failureThreshold: 5
         volumeMounts:
         - name: bloodhoundpostgres-config
-          mountPath: /config
+          mountPath: /var/lib/postgresql/data 
       volumes:
       - name: bloodhoundpostgres-config
         persistentVolumeClaim:
