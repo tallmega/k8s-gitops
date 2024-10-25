@@ -6,6 +6,8 @@ metadata:
 spec:
   releaseName: plex
   targetNamespace: default
+  nodeSelector:
+    1TBdisk: true
   interval: 5m
   suspend: false
   chart:
@@ -63,8 +65,6 @@ spec:
     ingress:
       main:
         enabled: false
-    nodeSelector:
-      1TBdisk: true
     persistence:
       config:
         enabled: true
