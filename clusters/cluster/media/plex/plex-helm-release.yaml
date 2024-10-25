@@ -17,8 +17,6 @@ spec:
         name: k8s-at-home-charts
         namespace: flux-system
       interval: 5m
-  nodeSelector:
-    1TBdisk: true
   values:
     image:
       repository: plexinc/pms-docker
@@ -40,6 +38,8 @@ spec:
       supplementalGroups:
       - 44
       - 107
+    nodeSelector:
+      1TBdisk: true
     resources:
       requests:
         # Hardware acceleration using an Intel iGPU w/ QuickSync and
