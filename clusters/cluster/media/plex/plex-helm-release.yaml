@@ -38,9 +38,9 @@ spec:
       supplementalGroups:
       - 44
       - 107
-    nodeSelector:
-      1TBdisk: true
     resources:
+      nodeSelector:
+        1TBdisk: true
       requests:
         # Hardware acceleration using an Intel iGPU w/ QuickSync and
         # using intel-gpu-plugin (https://github.com/intel/intel-device-plugins-for-kubernetes)
