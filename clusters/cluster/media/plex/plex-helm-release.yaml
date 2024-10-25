@@ -63,6 +63,8 @@ spec:
     ingress:
       main:
         enabled: false
+    nodeSelector:
+      1TBdisk: true
     persistence:
       config:
         enabled: true
