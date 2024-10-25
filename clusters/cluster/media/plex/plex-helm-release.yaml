@@ -6,8 +6,6 @@ metadata:
 spec:
   releaseName: plex
   targetNamespace: default
-  nodeSelector:
-    1TBdisk: true
   interval: 5m
   suspend: false
   chart:
@@ -19,6 +17,8 @@ spec:
         name: k8s-at-home-charts
         namespace: flux-system
       interval: 5m
+  nodeSelector:
+    1TBdisk: true
   values:
     image:
       repository: plexinc/pms-docker
