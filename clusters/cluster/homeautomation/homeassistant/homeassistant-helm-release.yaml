@@ -31,6 +31,7 @@ spec:
     securityContext:
       privileged: true
     # -- Enable devices to be discoverable
+    resources:
     hostNetwork: true
     ingress:
       main:

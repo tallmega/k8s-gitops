@@ -39,8 +39,6 @@ spec:
       - 44
       - 107
     resources:
-      nodeSelector:
-        1TBdisk: true
       requests:
         # Hardware acceleration using an Intel iGPU w/ QuickSync and
         # using intel-gpu-plugin (https://github.com/intel/intel-device-plugins-for-kubernetes)
@@ -55,7 +53,7 @@ spec:
     service:
       main:
         type: LoadBalancer
-        ingressClassName: nginx
+       # ingressClassName: nginx
         loadBalancerIP: 10.10.10.61
         externalTrafficPolicy: Local
         ports:
