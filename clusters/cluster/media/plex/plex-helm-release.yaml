@@ -55,6 +55,7 @@ spec:
     service:
       main:
         type: LoadBalancer
+        ingressClassName: nginx
         loadBalancerIP: 10.10.10.61
         externalTrafficPolicy: Local
         ports:
