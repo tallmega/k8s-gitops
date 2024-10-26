@@ -14,6 +14,15 @@ spec:
       labels:
         app: zigbee2mqtt
     spec:
+      affinity:
+       nodeAffinity:
+         requiredDuringSchedulingIgnoredDuringExecution:
+           nodeSelectorTerms:
+           - matchExpressions:
+             - key: feature.node.kubernetes.io/pci-0300_8086.present
+               operator: In
+               values:
+               - "true"
       containers:
         - name: zigbee2mqtt
           image: koenkk/zigbee2mqtt:1.40.2 # {"$imagepolicy": "flux-system:zigbee2mqtt"}
