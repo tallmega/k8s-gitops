@@ -19,7 +19,7 @@ spec:
          requiredDuringSchedulingIgnoredDuringExecution:
            nodeSelectorTerms:
            - matchExpressions:
-             - key: feature.node.kubernetes.io/pci-0300_8086.present
+             - key: zigbee
                operator: In
                values:
                - "true"
