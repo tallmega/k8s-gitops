@@ -22,7 +22,7 @@ spec:
       repository: plexinc/pms-docker
       #tag: latest
       imagePullPolicy: Always
-      tag: 1.41.1.9057-af5eaea7a # {"$imagepolicy": "flux-system:plex:tag"}
+      tag: 1.41.2.9200-c6bbc1b53 # {"$imagepolicy": "flux-system:plex:tag"}
     env:
       TZ: "America/Toronto"
     envFrom:
@@ -53,7 +53,7 @@ spec:
     service:
       main:
         type: LoadBalancer
-       # ingressClassName: nginx
+        # ingressClassName: nginx
         loadBalancerIP: 10.10.10.61
         externalTrafficPolicy: Cluster
         ports:
