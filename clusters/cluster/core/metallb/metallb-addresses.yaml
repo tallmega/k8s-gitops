@@ -13,6 +13,8 @@ spec:
   - 10.10.10.65/32
   - 10.10.10.66/32
   - 10.10.10.67/32
+  - 10.10.10.68/32
+  - 10.10.10.69/32
 ---
 apiVersion: metallb.io/v1beta1
 kind: L2Advertisement
