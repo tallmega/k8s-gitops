@@ -115,7 +115,7 @@ kind: Service
 apiVersion: v1
 metadata:
   name: jellyfin-udp       # < name of the service
-  namespace: jellyfin      # < namespace where to place service
+  namespace: default      # < namespace where to place service
   annotations:
     metallb.universe.tf/allow-shared-ip: jellyfin
     metallb.universe.tf/ip-allocated-from-pool: myipaddresspool
@@ -140,7 +140,7 @@ kind: Service
 apiVersion: v1
 metadata:
   name: jellyfin-tcp       # < name of the service
-  namespace: jellyfin      # < namespace where to place service
+  namespace: default      # < namespace where to place service
   annotations:
     metallb.universe.tf/allow-shared-ip: jellyfin # < annotation name to combine the Service IP, make sure it's same name as in the service UDP yaml
     #metallb.universe.tf/ip-allocated-from-pool: myipaddresspool
