@@ -18,7 +18,6 @@ spec:
         app.kubernetes.io/instance: plex
         app.kubernetes.io/name: plex
     spec:
-      #runtimeClassName: nvidia
       containers:
       - env:
         - name: ADVERTISE_IP
@@ -27,12 +26,6 @@ spec:
           value: 10.10.10.0/24
         - name: TZ
           value: America/Toronto
-        - name: NVIDIA_VISIBLE_DEVICES
-          value: all
-        - name: NVIDIA_DRIVER_CAPABILITIES
-          value: compute,video,utility
-        - name: CUDA_DRIVER_CAPABILITIES
-          value: compute,video,utility
         envFrom:
         - secretRef:
             name: plex-secret
@@ -83,7 +76,7 @@ spec:
       securityContext:
         supplementalGroups:
         - 44
-        - 109
+        - 107
       volumes:
       - name: config
         persistentVolumeClaim:
@@ -93,7 +86,7 @@ spec:
           claimName: tvshows-pvc
       - name: tv3
         persistentVolumeClaim:
-          claimName: tvshows-pvc3
+          claimName: tvshows3-pvc
       - name: yt
         persistentVolumeClaim:
           claimName: ytshows-pvc
