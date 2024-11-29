@@ -1,0 +1,129 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: plex
+  namespace: default
+spec:
+  progressDeadlineSeconds: 600
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: plex
+      app.kubernetes.io/name: plex
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app.kubernetes.io/instance: plex
+        app.kubernetes.io/name: plex
+    spec:
+      runtimeClassName: nvidia
+      containers:
+      - env:
+        - name: ADVERTISE_IP
+          value: http://10.10.10.61:32400/
+        - name: ALLOWED_NETWORKS
+          value: 10.10.10.0/24
+        - name: TZ
+          value: America/Toronto
+        - name: NVIDIA_VISIBLE_DEVICES
+          value: all
+        - name: NVIDIA_DRIVER_CAPABILITIES
+          value: compute,video,utility
+        - name: CUDA_DRIVER_CAPABILITIES
+          value: compute,video,utility
+        envFrom:
+        - secretRef:
+            name: plex-secret
+        image: plexinc/pms-docker:1.41.2.9200-c6bbc1b53 # {"$imagepolicy": "flux-system:plex"}
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          failureThreshold: 3
+          periodSeconds: 10
+          successThreshold: 1
+          tcpSocket:
+            port: 32400
+          timeoutSeconds: 1
+        name: plex
+        ports:
+        - containerPort: 32400
+          name: http
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 3
+          periodSeconds: 10
+          successThreshold: 1
+          tcpSocket:
+            port: 32400
+          timeoutSeconds: 1
+        resources:
+          limits:
+            nvidia.com/gpu: 1
+        startupProbe:
+          failureThreshold: 30
+          periodSeconds: 5
+          successThreshold: 1
+          tcpSocket:
+            port: 32400
+          timeoutSeconds: 1
+        volumeMounts:
+        - mountPath: /config
+          name: config
+        - mountPath: /data/tvshows
+          name: tv1
+        - mountPath: /data/tvshows3
+          name: tv3
+        - mountPath: /data/music
+          name: music
+        - mountPath: /data/movies3
+          name: movies
+        - mountPath: /transcode
+          name: transcode
+      securityContext:
+        supplementalGroups:
+        - 44
+        - 109
+      volumes:
+      - name: config
+        persistentVolumeClaim:
+          claimName: plex-config-pvc
+      - name: tv1
+        persistentVolumeClaim:
+          claimName: tvshows-pvc
+      - name: tv3
+        persistentVolumeClaim:
+          claimName: tvshows-pvc3
+      - name: yt
+        persistentVolumeClaim:
+          claimName: ytshows-pvc
+      - name: music
+        persistentVolumeClaim:
+          claimName: music-pvc
+      - name: movies
+        persistentVolumeClaim:
+          claimName: movies3-pvc
+      - emptyDir: {}
+        name: transcode
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    metallb.universe.tf/allow-shared-ip: plex
+    metallb.universe.tf/ip-allocated-from-pool: myipaddresspool
+  name: plex
+  namespace: default
+spec:
+  externalTrafficPolicy: Cluster
+  loadBalancerIP: 10.10.10.61
+  ports:
+  - name: http
+    nodePort: 32534
+    port: 32400
+    protocol: TCP
+    targetPort: 32400
+  selector:
+    app.kubernetes.io/instance: plex
+    app.kubernetes.io/name: plex
+  type: LoadBalancer
