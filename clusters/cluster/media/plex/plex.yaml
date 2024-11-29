@@ -52,7 +52,7 @@ spec:
           timeoutSeconds: 1
         resources:
           limits:
-            nvidia.com/gpu: 1
+            gpu.intel.com/i915: 1
         startupProbe:
           failureThreshold: 30
           periodSeconds: 5
