@@ -73,6 +73,8 @@ spec:
           name: music
         - mountPath: /data/movies3
           name: movies
+        - mountPath: /data/ytshows
+          name: yt
         - mountPath: /transcode
           name: transcode
       securityContext:
