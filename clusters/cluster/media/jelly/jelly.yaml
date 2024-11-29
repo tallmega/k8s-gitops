@@ -56,11 +56,11 @@ spec:
               gpu.intel.com/i915: "1" 
         stdin: true
         tty: true
-        volumeMounts:
-        - mountPath: /config
-          name: nfs-jellyfin-config
-        - mountPath: /data
-          name: nfs-jellyfin-data
+        # volumeMounts:
+        # - mountPath: /config
+        #   name: nfs-jellyfin-config
+        # - mountPath: /data
+        #   name: nfs-jellyfin-data
         # Below are the path to mount devices for hardware acceleration
         # The settings below have been marked out and can be used when removing the "#"
         # - mountPath: /dev/vcsm
