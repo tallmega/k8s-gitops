@@ -30,7 +30,7 @@ spec:
           value: "1044" #< ACII code for '1044'
         securityContext:
           privileged: true # Container must run as privileged inside of the pod, required for hardware acceleration
-        image: linuxserver/jellyfin:2021.12.16 # {"$imagepolicy": "flux-system:jellyfin"}
+        image: linuxserver/jellyfin:latest # {"$imagepolicy": "flux-system:jellyfin"}
         imagePullPolicy: IfNotPresent
         name: jellyfin
         ports:
