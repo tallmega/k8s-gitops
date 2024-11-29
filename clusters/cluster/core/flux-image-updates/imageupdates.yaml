@@ -242,3 +242,15 @@ spec:
   policy:
     semver:
       range: '>= 1.9.0'
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImagePolicy
+metadata:
+  name: jellyfin
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: jellyfin
+  policy:
+    semver:
+      range: '>= 8.10.0'

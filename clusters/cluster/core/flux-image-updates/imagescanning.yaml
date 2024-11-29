@@ -178,4 +178,13 @@ metadata:
 spec:
   image: mrlt8/wyze-bridge
   interval: 30m0s  
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImageRepository
+metadata:
+  name: jellyfin
+  namespace: flux-system
+spec:
+  image: linuxserver/jellyfin
+  interval: 30m0s  
 
