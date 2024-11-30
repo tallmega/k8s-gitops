@@ -22,8 +22,6 @@ spec:
       - env:
         - name: TZ
           value: America/Toronto
-        - name: BIND_PRIV
-          value: false
         image: jacobalberty/unifi # {"$imagepolicy": "flux-system:unifi:tag"}
         imagePullPolicy: IfNotPresent
         name: unifi
