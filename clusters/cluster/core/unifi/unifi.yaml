@@ -17,7 +17,8 @@ spec:
   template:
     metadata:
       labels:
-        app: unifi
+        app.kubernetes.io/instance: unifi
+        app.kubernetes.io/name: unifi
     spec:
       containers:
       - env:
