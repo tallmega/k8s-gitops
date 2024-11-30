@@ -27,26 +27,26 @@ spec:
         - containerPort: 1883
           name: mqtt
           protocol: TCP
-        # volumeMounts:
+        volumeMounts:
         # - mountPath: /mosquitto/configinc
         #   name: configinc
         # - mountPath: /mosquitto/data
         #   name: data
-        # - mountPath: /mosquitto/config/mosquitto.conf
-        #   name: mosquitto-config
-        #   subPath: mosquitto.conf
+        - mountPath: /mosquitto/config/mosquitto.conf
+          name: mosquitto-config
+          subPath: mosquitto.conf
       restartPolicy: Always
-      # volumes:
+      volumes:
       # - name: configinc
       #   persistentVolumeClaim:
       #     claimName: pvc-mosquitto-configinc
       # - name: data
       #   persistentVolumeClaim:
       #     claimName: pvc-mosquitto-data
-      # - configMap:
-      #     defaultMode: 420
-      #     name: mosquitto-config
-      #   name: mosquitto-config
+      - configMap:
+          defaultMode: 420
+          name: mosquitto-config
+        name: mosquitto-config
 
 ---
 apiVersion: v1
