@@ -30,7 +30,7 @@ spec:
           value: "1044" #< ACII code for '1044'
         securityContext:
           privileged: true # Container must run as privileged inside of the pod, required for hardware acceleration
-        image: linuxserver/jellyfin:latest # {"$imagepolicy": "flux-system:jellyfin"}
+        image: linuxserver/jellyfin:10.10.3 # {"$imagepolicy": "flux-system:jellyfin"}
         imagePullPolicy: IfNotPresent
         name: jellyfin
         ports:
@@ -63,18 +63,18 @@ spec:
           name: movies
         - mountPath: /data/music
           name: music
-        # Below are the path to mount devices for hardware acceleration
-        # The settings below have been marked out and can be used when removing the "#"
-        # - mountPath: /dev/vcsm
-        #   name: device-vcsm
-        # - mountPath: /dev/vchiq
-        #   name: device-vchiq
-        # - mountPath: /dev/video10
-        #   name: device-video10
-        # - mountPath: /dev/video11
-        #   name: device-video11
-        # - mountPath: /dev/video12
-        #   name: device-video12
+          # Below are the path to mount devices for hardware acceleration
+          # The settings below have been marked out and can be used when removing the "#"
+          # - mountPath: /dev/vcsm
+          #   name: device-vcsm
+          # - mountPath: /dev/vchiq
+          #   name: device-vchiq
+          # - mountPath: /dev/video10
+          #   name: device-video10
+          # - mountPath: /dev/video11
+          #   name: device-video11
+          # - mountPath: /dev/video12
+          #   name: device-video12
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       volumes:
