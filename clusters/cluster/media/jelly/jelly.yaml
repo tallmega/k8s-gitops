@@ -52,11 +52,17 @@ spec:
             gpu.intel.com/i915: "1"
         stdin: true
         tty: true
-        # volumeMounts:
-        # - mountPath: /config
-        #   name: nfs-jellyfin-config
-        # - mountPath: /data
-        #   name: nfs-jellyfin-data
+        volumeMounts:
+        - mountPath: /config
+          name: config
+        - mountPath: /data/tvshows
+          name: tv1
+        - mountPath: /data/tvshows3
+          name: tv3
+        - mountPath: /data/movies3
+          name: movies
+        - mountPath: /data/music
+          name: music
         # Below are the path to mount devices for hardware acceleration
         # The settings below have been marked out and can be used when removing the "#"
         # - mountPath: /dev/vcsm
@@ -71,41 +77,27 @@ spec:
         #   name: device-video12
       dnsPolicy: ClusterFirst
       restartPolicy: Always
-
-#   volumeMounts:
-#   - mountPath: /config
-#     name: config
-#   - mountPath: /data/tvshows
-#     name: tv1
-#   - mountPath: /data/tvshows3
-#     name: tv3
-#   - mountPath: /data/music
-#     name: music
-#   - mountPath: /data/movies3
-#     name: movies
-#   - mountPath: /transcode
-#     name: transcode
-# volumes:
-# - name: config
-#   persistentVolumeClaim:
-#     claimName: plex-config-pvc
-# - name: tv1
-#   persistentVolumeClaim:
-#     claimName: tvshows-pvc
-# - name: tv3
-#   persistentVolumeClaim:
-#     claimName: tvshows3-pvc
-# - name: yt
-#   persistentVolumeClaim:
-#     claimName: ytshows-pvc
-# - name: music
-#   persistentVolumeClaim:
-#     claimName: music-pvc
-# - name: movies
-#   persistentVolumeClaim:
-#     claimName: movies3-pvc
-# - emptyDir: {}
-#   name: transcode
+      volumes:
+      - name: config
+        persistentVolumeClaim:
+          claimName: jellyfin-config-pvc
+      - name: tv1
+        persistentVolumeClaim:
+          claimName: tvshows-pvc
+      - name: tv3
+        persistentVolumeClaim:
+          claimName: tvshows3-pvc
+      - name: yt
+        persistentVolumeClaim:
+          claimName: ytshows-pvc
+      - name: music
+        persistentVolumeClaim:
+          claimName: music-pvc
+      - name: movies
+        persistentVolumeClaim:
+          claimName: movies3-pvc
+      - emptyDir: {}
+        name: transcode
 ---
 kind: Service
 apiVersion: v1
