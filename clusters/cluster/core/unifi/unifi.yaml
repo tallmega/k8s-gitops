@@ -24,7 +24,7 @@ spec:
       - env:
         - name: TZ
           value: America/Toronto
-        image: jacobalberty/unifi:8.6.9 # {"$imagepolicy": "flux-system:unifi:tag"}
+        image: v8.6.9 # {"$imagepolicy": "flux-system:unifi:tag"}
         imagePullPolicy: IfNotPresent
         name: unifi
         ports:
