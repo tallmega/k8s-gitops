@@ -58,8 +58,6 @@ metadata:
   annotations:
     metallb.universe.tf/ip-allocated-from-pool: myipaddresspool
 spec:
-  selector:
-    app: unifi # < reference to the deployment (connects the service with the deployment)
   ports:
   - port: 8080 # < port to open on the outside on the server
     targetPort: 8080 # < targetport. port on the pod to passthrough
