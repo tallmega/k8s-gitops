@@ -24,7 +24,7 @@ spec:
       - env:
         - name: TZ
           value: America/Toronto
-        image: v8.6.9 # {"$imagepolicy": "flux-system:unifi:tag"}
+        image: jacobalberty/unifi:8.6.9 # {"$imagepolicy": "flux-system:unifi:tag"}
         imagePullPolicy: IfNotPresent
         name: unifi
         ports:
@@ -58,8 +58,6 @@ apiVersion: v1
 metadata:
   name: unifi # < name of the service
   namespace: default # < namespace where to place service
-  # labels:
-  #   app: unifi  
   annotations:
     metallb.universe.tf/ip-allocated-from-pool: myipaddresspool
 spec:
