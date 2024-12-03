@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: prowlarr
-        image: linuxserver/prowlarr:1.28.0 # {"$imagepolicy": "flux-system:qbittorrent"}
+        image: linuxserver/prowlarr # {"$imagepolicy": "flux-system:prowlarr"}
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 9696
