@@ -68,3 +68,13 @@ spec:
             name: webdav
             port:
               number: 80
+  - host: "prowlarr.tallflix.ca"
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: prowlarr
+            port:
+              number: 9696
