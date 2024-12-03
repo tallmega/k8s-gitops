@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: qbittorrent
-        image: linuxserver/qbittorrent:5.0.1 # {"$imagepolicy": "flux-system:qbittorrent"}
+        image: linuxserver/qbittorrent:14.3.9 # {"$imagepolicy": "flux-system:qbittorrent"}
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8080
