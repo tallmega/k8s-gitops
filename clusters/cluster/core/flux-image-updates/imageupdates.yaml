@@ -254,3 +254,15 @@ spec:
   policy:
     semver:
       range: '>= 8.0.0 <1000.0.0'
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImagePolicy
+metadata:
+  name: qbittorrent
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: qbittorrent
+  policy:
+    semver:
+      range: '>= 5.0.0'
