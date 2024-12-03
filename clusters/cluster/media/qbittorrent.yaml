@@ -41,7 +41,7 @@ spec:
         - name: sabnzbd-downloads-incomplete
           mountPath: /incomplete
       volumes:
-      - name: sabnzbd-config
+      - name: qbittorrent-config
         persistentVolumeClaim:
           claimName: qbittorrent-config-pvc
       - name: sabnzbd-downloads-complete
