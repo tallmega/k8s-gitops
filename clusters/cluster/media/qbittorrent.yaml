@@ -142,7 +142,7 @@ spec:
               imagePullPolicy: IfNotPresent
               ports:
               - containerPort: 8080
-              - containerPort: 26524
+              #- containerPort: 26524
               env:
               - name: PGID
                 value: "1000"
@@ -152,8 +152,8 @@ spec:
                 value: America\Toronto
               - name: WEBUI_PORT
                 value: "8080"
-              - name: TORRENTING_PORT
-                value: "26524"
+              # - name: TORRENTING_PORT
+              #   value: "26524"
               volumeMounts:
               - name: qbittorrent-config
                 mountPath: /config
