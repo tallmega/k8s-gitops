@@ -116,6 +116,9 @@ spec:
                         value: USR
                       - name: OPENVPN_PASSWORD
                         value: PWD
+                  envFrom:
+                  - secretRef:
+                     name: gluetun-secret
                 - name: curlpodtest
                   image: curlimages/curl
                   command: ['/bin/sh', '-c']
