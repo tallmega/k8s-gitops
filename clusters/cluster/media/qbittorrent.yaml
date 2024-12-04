@@ -57,10 +57,10 @@ metadata:
   name: qbittorrent
   namespace: default
   labels:
-    app: qbittorrent
+    app: gluetun
 spec:
   selector:
-    app: qbittorrent
+    app: gluetun
   ports:
   - name: qbittorrent
     port: 8080
@@ -107,7 +107,7 @@ spec:
                       - name: TZ
                         value: America\Toronto
                       - name: FIREWALL_INPUT_PORTS
-                        value: "443,8080,8000"
+                        value: "8080"
                       # - name: VPN_SERVICE_PROVIDER
                       #   value: nordvpn
                       # - name: VPN_TYPE
