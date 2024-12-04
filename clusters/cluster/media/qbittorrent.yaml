@@ -106,16 +106,16 @@ spec:
                   env:
                       - name: TZ
                         value: America\Toronto
-                      - name: VPN_SERVICE_PROVIDER
-                        value: nordvpn
-                      - name: VPN_TYPE
-                        value: openvpn
-                      - name: SERVER_COUNTRIES
-                        value: Netherlands
-                      - name: OPENVPN_USER
-                        value: USR
-                      - name: OPENVPN_PASSWORD
-                        value: PWD
+                      # - name: VPN_SERVICE_PROVIDER
+                      #   value: nordvpn
+                      # - name: VPN_TYPE
+                      #   value: openvpn
+                      # - name: SERVER_COUNTRIES
+                      #   value: Netherlands
+                      # - name: OPENVPN_USER
+                      #   value: USR
+                      # - name: OPENVPN_PASSWORD
+                      #   value: PWD
                   envFrom:
                   - secretRef:
                      name: gluetun-secret
