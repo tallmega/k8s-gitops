@@ -106,6 +106,8 @@ spec:
                   env:
                       - name: TZ
                         value: America\Toronto
+                      - name: FIREWALL_INPUT_PORTS
+                        value: 8080
                       # - name: VPN_SERVICE_PROVIDER
                       #   value: nordvpn
                       # - name: VPN_TYPE
