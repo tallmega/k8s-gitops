@@ -79,7 +79,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
     name: gluetun-deployment
-    namespace: torrent
+    namespace: default
     labels:
         app: gluetun
 spec:
