@@ -29,7 +29,7 @@ spec:
         envFrom:
         - secretRef:
             name: plex-secret
-        image: plexinc/pms-docker:1.41.2.9200-c6bbc1b53 # {"$imagepolicy": "flux-system:plex"}
+        image: plexinc/pms-docker:1.41.3.9292-bc7397402 # {"$imagepolicy": "flux-system:plex"}
         imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 3
@@ -51,10 +51,10 @@ spec:
             port: 32400
           timeoutSeconds: 1
         resources:
-          requests: 
-              gpu.intel.com/i915: "1" 
-          limits: 
-              gpu.intel.com/i915: "1" 
+          requests:
+            gpu.intel.com/i915: "1"
+          limits:
+            gpu.intel.com/i915: "1"
         startupProbe:
           failureThreshold: 30
           periodSeconds: 5
