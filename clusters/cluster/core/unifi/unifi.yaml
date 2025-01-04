@@ -1,0 +1,146 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: unifi
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: unifi
+  template:
+    metadata:
+      labels:
+        app: unifi
+    spec:
+      containers:
+      - name: unifi
+        image: jacobalberty/unifi:8.6.9 # {"$imagepolicy": "flux-system:unifi:tag"}
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080
+        - containerPort: 8443
+        - containerPort: 3478
+        env:
+        - name: PGID
+          value: "1000"
+        - name: PUID
+          value: "1000"
+        - name: TZ
+          value: America\Toronto
+        volumeMounts:
+        - name: unifi-config
+          mountPath: /unifi
+      volumes:
+      - name: unifi-config
+        persistentVolumeClaim:
+          claimName: unifi-config-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: unifi
+  namespace: unifi
+  labels:
+    app: unifi
+spec:
+  selector:
+    app: unifi
+  loadBalancerIP: 10.10.10.62
+  ports:
+  - name: HTTP
+    port: 8080
+    targetPort: 8080
+  - name: HTTPS
+    port: 8443
+    targetPort: 8443
+  - name: Speedtest
+    port: 6789
+    targetPort: 6789
+  - name: STUN
+    port: 3478
+    protocol: UDP
+    targetPort: 3478
+  - name: discovery
+    port: 10001
+    protocol: UDP
+    targetPort: 10001
+  type: LoadBalancer
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: unifi-ingress
+  namespace: default
+spec:
+  ingressClassName: nginx
+  tls:
+    hosts:
+    - "unifi.tallflix.ca"
+    secretName: tls-secret
+  rules:
+  - host: unifi.tallflix.ca
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: unifi
+            port:
+              number: 8443
+
+
+
+    # service:
+    #   main:
+    #     enabled: true
+    #     type: LoadBalancer
+    #     loadBalancerIP: 10.10.10.62
+    #     #externalTrafficPolicy: Local
+    #     ports:
+    #       controller:
+    #         port: 8080
+    #         enabled: true
+    #         targetPort: 8080
+    #         protocol: TCP
+    #       http:
+    #         port: 8443
+    #         targetPort: 8443
+    #         protocol: TCP
+    #       speedtest:
+    #         enabled: true
+    #         port: 6789
+    #         targetPort: 6789
+    #         protocol: TCP
+    #       stun:
+    #         port: 3478
+    #         targetPort: 3478
+    #         protocol: UDP
+    #       discovery:
+    #         port: 10001
+    #         targetPort: 10001
+    #         protocol: UDP
+    # ingress:
+    #   main:
+    #     enabled: true
+    #     ingressClassName: nginx
+    #     annotations:
+    #       nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+    #       cert-manager.io/cluster-issuer: letsencrypt-prod
+    #     hosts:
+    #     - host: unifi.tallflix.ca
+    #       paths:
+    #       - path: /
+    #         pathType: Prefix
+    #         backend:
+    #           service:
+    #             name: http
+    #     tls:
+    #     - hosts:
+    #       - unifi.tallflix.ca
+    #       secretName: tls-secret
+    # persistence:
+    #   data:
+    #     enabled: true
+    #     existingClaim: unifi-config-pvc
