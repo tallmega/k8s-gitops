@@ -48,16 +48,16 @@ spec:
     app: unifi
   loadBalancerIP: 10.10.10.62
   ports:
-  - name: HTTP
+  - name: http
     port: 8080
     targetPort: 8080
-  - name: HTTPS
+  - name: https
     port: 8443
     targetPort: 8443
-  - name: Speedtest
+  - name: speedtest
     port: 6789
     targetPort: 6789
-  - name: STUN
+  - name: stun
     port: 3478
     protocol: UDP
     targetPort: 3478
