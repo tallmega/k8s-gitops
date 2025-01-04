@@ -14,7 +14,7 @@ spec:
     - "stats.tallflix.ca"
     - "hass.tallflix.ca"
     - "sab.tallflix.ca"
-    - "unifi.tallflix.ca"
+    # - "unifi.tallflix.ca"
     - "webdav.tallflix.ca"
     - "q.tallflix.ca"
     - "prowlarr.tallflix.ca"
