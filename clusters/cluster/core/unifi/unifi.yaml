@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name: unifi
-        image: jacobalberty/unifi:v8.6.9 # {"$imagepolicy": "flux-system:unifi:tag"}
+        image: v8.6.9 # {"$imagepolicy": "flux-system:unifi:tag"}
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8080
@@ -84,19 +84,19 @@ spec:
   ingressClassName: nginx
   tls:
     - hosts:
-      - "unifi.tallflix.ca"
+        - "unifi.tallflix.ca"
       secretName: tls-secret
   rules:
-  - host: "unifi.tallflix.ca"
-    http:
-      paths:
-      - pathType: Prefix
-        path: "/"
-        backend:
-          service:
-            name: unifi
-            port:
-              number: 8443
+    - host: "unifi.tallflix.ca"
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: unifi
+                port:
+                  number: 8443
 
 # service:
 #   main:
