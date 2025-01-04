@@ -54,12 +54,15 @@ spec:
   loadBalancerIP: 10.10.10.62
   ports:
   - name: http
+    protocol: TCP
     port: 8080
     targetPort: 8080
   - name: https
+    protocol: TCP
     port: 8443
     targetPort: 8443
   - name: speedtest
+    protocol: TCP
     port: 6789
     targetPort: 6789
   - name: stun
@@ -83,6 +86,7 @@ metadata:
 spec:
   ingressClassName: nginx
   annotations:
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
   tls:
