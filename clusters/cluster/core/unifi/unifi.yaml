@@ -74,29 +74,29 @@ spec:
     app.kubernetes.io/instance: plex
     app.kubernetes.io/name: plex
   type: LoadBalancer
-# ---
-# apiVersion: networking.k8s.io/v1
-# kind: Ingress
-# metadata:
-#   name: unifi-ingress
-#   namespace: default
-# spec:
-#   ingressClassName: nginx
-#   tls:
-#     - hosts:
-#       - "unifi.tallflix.ca"
-#       secretName: tls-secret
-#   rules:
-#   - host: "unifi.tallflix.ca"
-#     http:
-#       paths:
-#       - pathType: Prefix
-#         path: "/"
-#         backend:
-#           service:
-#             name: unifi
-#             port:
-#               number: 8443
+---
+apiVersion: v1
+kind: Ingress
+metadata:
+  name: unifi-ingress
+  namespace: default
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+      - "unifi.tallflix.ca"
+      secretName: tls-secret
+  rules:
+  - host: "unifi.tallflix.ca"
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: unifi
+            port:
+              number: 8443
 
 # service:
 #   main:
