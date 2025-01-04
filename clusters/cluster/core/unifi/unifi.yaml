@@ -74,8 +74,8 @@ spec:
     protocol: UDP
     targetPort: 10001
   selector:
-    app.kubernetes.io/instance: plex
-    app.kubernetes.io/name: plex
+    app.kubernetes.io/instance: unifi
+    app.kubernetes.io/name: unifi
   type: LoadBalancer
 ---
 apiVersion: networking.k8s.io/v1
