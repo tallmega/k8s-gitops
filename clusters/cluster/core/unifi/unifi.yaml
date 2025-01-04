@@ -103,7 +103,9 @@ spec:
             path: "/"
             backend:
               service:
-                name: http
+                name: unifi
+                port:
+                  name: http
           # - pathType: Prefix
           #   path: /inform
           #   backend:
