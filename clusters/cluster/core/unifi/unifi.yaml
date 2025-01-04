@@ -83,8 +83,8 @@ metadata:
 spec:
   ingressClassName: nginx
   annotations:
-    nginx.ingress.kubernetes.io/backend-protocol: HTTPS
-    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
   tls:
     - hosts:
         - "unifi.tallflix.ca"
@@ -100,6 +100,13 @@ spec:
                 name: unifi
                 port:
                   number: 8443
+          - pathType: Prefix
+            path: /inform
+            backend:
+              service:
+                name: unifi
+                port:
+                  number: 8080
 
 # service:
 #   main:
