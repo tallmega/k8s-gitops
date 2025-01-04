@@ -82,6 +82,9 @@ metadata:
   namespace: default
 spec:
   ingressClassName: nginx
+     annotations:
+       nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+       cert-manager.io/cluster-issuer: letsencrypt-prod
   tls:
     - hosts:
         - "unifi.tallflix.ca"
