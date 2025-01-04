@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name: unifi
-        image: v8.6.9 # {"$imagepolicy": "flux-system:unifi:tag"}
+        image: v8.6.9 # {"$imagepolicy": "flux-system:unifi"}
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8080
