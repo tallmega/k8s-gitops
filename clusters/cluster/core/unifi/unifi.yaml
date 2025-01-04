@@ -5,6 +5,12 @@ metadata:
   namespace: default
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: unifi
+      app.kubernetes.io/name: uniti
+  strategy:
+    type: Recreate
   template:
     metadata:
       labels:
