@@ -35,6 +35,8 @@ spec:
           value: "999"
         - name: BIND_PRIV
           value: "false"
+        - name: RUNAS_UID0
+          value: "false"
         - name: TZ
           value: America\Toronto
         volumeMounts:
