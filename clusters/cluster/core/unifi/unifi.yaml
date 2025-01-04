@@ -103,66 +103,11 @@ spec:
             path: "/"
             backend:
               service:
-                name: unifi
-                port:
-                  number: 8443
-          - pathType: Prefix
-            path: /inform
-            backend:
-              service:
-                name: unifi
-                port:
-                  number: 8080
-
-# service:
-#   main:
-#     enabled: true
-#     type: LoadBalancer
-#     loadBalancerIP: 10.10.10.62
-#     #externalTrafficPolicy: Local
-#     ports:
-#       controller:
-#         port: 8080
-#         enabled: true
-#         targetPort: 8080
-#         protocol: TCP
-#       http:
-#         port: 8443
-#         targetPort: 8443
-#         protocol: TCP
-#       speedtest:
-#         enabled: true
-#         port: 6789
-#         targetPort: 6789
-#         protocol: TCP
-#       stun:
-#         port: 3478
-#         targetPort: 3478
-#         protocol: UDP
-#       discovery:
-#         port: 10001
-#         targetPort: 10001
-#         protocol: UDP
-# ingress:
-#   main:
-#     enabled: true
-#     ingressClassName: nginx
-#     annotations:
-#       nginx.ingress.kubernetes.io/backend-protocol: HTTPS
-#       cert-manager.io/cluster-issuer: letsencrypt-prod
-#     hosts:
-#     - host: unifi.tallflix.ca
-#       paths:
-#       - path: /
-#         pathType: Prefix
-#         backend:
-#           service:
-#             name: http
-#     tls:
-#     - hosts:
-#       - unifi.tallflix.ca
-#       secretName: tls-secret
-# persistence:
-#   data:
-#     enabled: true
-#     existingClaim: unifi-config-pvc
+                name: http
+          # - pathType: Prefix
+          #   path: /inform
+          #   backend:
+          #     service:
+          #       name: unifi
+          #       port:
+          #         number: 8080
