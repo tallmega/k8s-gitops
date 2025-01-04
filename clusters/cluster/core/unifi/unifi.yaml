@@ -44,8 +44,6 @@ metadata:
   labels:
     app: unifi
 spec:
-  selector:
-    app: unifi
   loadBalancerIP: 10.10.10.62
   ports:
   - name: http
