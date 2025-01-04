@@ -34,7 +34,7 @@ spec:
         - name: PUID
           value: "999"
         - name: BIND_PRIV
-          value: false
+          value: "false"
         - name: TZ
           value: America\Toronto
         volumeMounts:
