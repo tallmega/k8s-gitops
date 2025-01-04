@@ -8,13 +8,15 @@ spec:
   selector:
     matchLabels:
       app.kubernetes.io/instance: unifi
-      app.kubernetes.io/name: uniti
+      app.kubernetes.io/name: unifi
   strategy:
     type: Recreate
   template:
     metadata:
+      creationTimestamp: null
       labels:
-        app: unifi
+        app.kubernetes.io/instance: unifi
+        app.kubernetes.io/name: unifi
     spec:
       containers:
       - name: unifi
