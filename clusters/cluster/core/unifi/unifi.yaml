@@ -83,9 +83,9 @@ metadata:
 spec:
   ingressClassName: nginx
   tls:
-    hosts:
-    - "unifi.tallflix.ca"
-    secretName: tls-secret
+    - hosts:
+      - "unifi.tallflix.ca"
+      secretName: tls-secret
   rules:
   - host: "unifi.tallflix.ca"
     http:
