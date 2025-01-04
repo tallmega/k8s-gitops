@@ -46,9 +46,11 @@ kind: Service
 metadata:
   name: unifi
   namespace: default
-  labels:
-    app: unifi
+  annotations:
+    metallb.universe.tf/allow-shared-ip: unifi
+    metallb.universe.tf/ip-allocated-from-pool: myipaddresspool
 spec:
+  externalTrafficPolicy: Cluster
   loadBalancerIP: 10.10.10.62
   ports:
   - name: http
@@ -68,6 +70,9 @@ spec:
     port: 10001
     protocol: UDP
     targetPort: 10001
+  selector:
+    app.kubernetes.io/instance: plex
+    app.kubernetes.io/name: plex
   type: LoadBalancer
 ---
 apiVersion: networking.k8s.io/v1
@@ -82,7 +87,7 @@ spec:
     - "unifi.tallflix.ca"
     secretName: tls-secret
   rules:
-  - host: unifi.tallflix.ca
+  - host: "unifi.tallflix.ca"
     http:
       paths:
       - pathType: Prefix
