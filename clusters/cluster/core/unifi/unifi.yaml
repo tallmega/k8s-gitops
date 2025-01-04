@@ -25,7 +25,9 @@ spec:
         ports:
         - containerPort: 8080
         - containerPort: 8443
+        - containerPort: 6789
         - containerPort: 3478
+        - containerPort: 10001
         env:
         - name: PGID
           value: "999"
