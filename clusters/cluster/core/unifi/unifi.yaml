@@ -148,12 +148,6 @@ spec:
               number: 8443
         path: /
         pathType: Prefix
-      - inform:
-          service:
-            name: unifi-inform
-            port:
-              number: 8080
-        path: /inform
   tls:
   - hosts:
     - unifi.tallflix.ca
