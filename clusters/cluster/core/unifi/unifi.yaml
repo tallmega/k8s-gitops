@@ -84,6 +84,45 @@ spec:
     app.kubernetes.io/name: unifi
   type: LoadBalancer
 ---
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: unifi-ingress
+#   namespace: default
+# spec:
+#   ingressClassName: nginx
+#   annotations:
+#     nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+#     #kubernetes.io/ingress.class: nginx
+#     #nginx.org/ssl-services: "unifi"
+#    #nginx.ingress.kubernetes.io/proxy-ssl-verify: "off"
+#     #nginx.ingress.kubernetes.io/ssl-redirect: "true"
+#     #nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+#     cert-manager.io/cluster-issuer: letsencrypt-prod
+#   tls:
+#     - hosts:
+#         - "unifi.tallflix.ca"
+#       secretName: tls-secret
+#   rules:
+#     - host: "unifi.tallflix.ca"
+#       http:
+#         paths:
+#           - pathType: Prefix
+#             path: "/"
+#             backend:
+#               service:
+#                 name: unifi
+#                 port:
+#                   name: https
+#           # - pathType: Prefix
+#           #   path: /inform
+#           #   backend:
+#           #     service:
+#           #       name: unifi
+#           #       port:
+#           #         number: 8080
+
+
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -109,6 +148,12 @@ spec:
               number: 8443
         path: /
         pathType: Prefix
+      - inform:
+          service:
+            name: unifi-inform
+            port:
+              number: 8080
+        path: /inform
   tls:
   - hosts:
     - unifi.tallflix.ca
