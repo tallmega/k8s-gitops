@@ -61,22 +61,22 @@ spec:
     port: 8787
     targetPort: 8787
   type: ClusterIP
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: ombi
-  namespace: default
-  labels:
-    app: ombi
-spec:
-  selector:
-    app: ombi
-  ports:
-  - name: ombi
-    port: 3579
-    targetPort: 3579
-  type: ClusterIP
+# ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: ombi
+#   namespace: default
+#   labels:
+#     app: ombi
+# spec:
+#   selector:
+#     app: ombi
+#   ports:
+#   - name: ombi
+#     port: 3579
+#     targetPort: 3579
+#   type: ClusterIP
 ---
 apiVersion: v1
 kind: Service

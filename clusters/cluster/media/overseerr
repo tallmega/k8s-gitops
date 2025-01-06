@@ -1,41 +1,41 @@
 # apiVersion: apps/v1
 # kind: Deployment
 # metadata:
-#   name: ombi
+#   name: overseerr
 #   namespace: default
 # spec:
 #   replicas: 1
 #   selector:
 #     matchLabels:
-#       app: ombi
+#       app: overseerr
 #   #strategy:
 #   #  type: Recreate
 #   template:
 #     metadata:
 #       labels:
-#         app: ombi
+#         app: overseerr
 #     spec:
 #       containers:
-#       - name: ombi
-#         image: linuxserver/ombi:4.47.1 # {"$imagepolicy": "flux-system:ombi"}
+#       - name: overseerr
+#         image: linuxserver/overseerr:1.33.1 # {"$imagepolicy": "flux-system:overseerr"}
 #         imagePullPolicy: IfNotPresent
 #         ports:
-#         - containerPort: 3579
+#         - containerPort: 5055
 #         env:
 #         - name: TZ
 #           value: America\Toronto
 #         volumeMounts:
-#         - name: ombi-config
+#         - name: overseerr-config
 #           mountPath: /config
 #       volumes:
-#       - name: ombi-config
+#       - name: overseerr-config
 #         persistentVolumeClaim:
-#           claimName: ombi-config-pvc
+#           claimName: overseerr-config-pvc
 # ---
 # apiVersion: networking.k8s.io/v1
 # kind: Ingress
 # metadata:
-#   name: ombi-ingress
+#   name: overseerr-ingress
 #   namespace: default
 #   annotations:
 #     cert-manager.io/cluster-issuer: "letsencrypt-prod"
@@ -47,7 +47,7 @@
 #   - hosts:
 #     - "tallflix.ca"
 #     - "www.tallflix.ca"
-#     secretName: tls-secret-ombi
+#     secretName: tls-secret-overseerr
 #   rules:
 #   - host: "www.tallflix.ca"
 #     http:
@@ -56,6 +56,6 @@
 #         path: "/"
 #         backend:
 #           service:
-#             name: ombi
+#             name: overseerr
 #             port:
-#               number: 3579
+#               number: 5055

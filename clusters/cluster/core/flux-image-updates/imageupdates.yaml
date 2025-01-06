@@ -108,18 +108,30 @@ spec:
   policy:
     semver:
       range: '>= 3.0.0'
+# ---
+# apiVersion: image.toolkit.fluxcd.io/v1beta1
+# kind: ImagePolicy
+# metadata:
+#   name: ombi
+#   namespace: flux-system
+# spec:
+#   imageRepositoryRef:
+#     name: ombi
+#   policy:
+#     semver:
+#       range: '>= 4.0.0'
 ---
 apiVersion: image.toolkit.fluxcd.io/v1beta1
 kind: ImagePolicy
 metadata:
-  name: ombi
+  name: overseerr
   namespace: flux-system
 spec:
   imageRepositoryRef:
-    name: ombi
+    name: overseerr
   policy:
     semver:
-      range: '>= 4.0.0'
+      range: '>= 1.33.1'
 # ---
 # apiVersion: image.toolkit.fluxcd.io/v1beta1
 # kind: ImagePolicy
