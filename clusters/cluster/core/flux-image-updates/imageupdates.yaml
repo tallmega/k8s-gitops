@@ -131,7 +131,7 @@ spec:
     name: overseerr
   policy:
     semver:
-      range: '>= 1.33.1'
+      range: '>= 1.33.1 <1000.0.0'
 # ---
 # apiVersion: image.toolkit.fluxcd.io/v1beta1
 # kind: ImagePolicy
