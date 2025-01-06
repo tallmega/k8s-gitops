@@ -11,10 +11,7 @@ spec:
   tls:
   - hosts:
     - "sonarr.tallflix.ca"
-    - "stats.tallflix.ca"
-    #- "hass.tallflix.ca"
     - "sab.tallflix.ca"
-    # - "unifi.tallflix.ca"
     - "webdav.tallflix.ca"
     - "q.tallflix.ca"
     - "prowlarr.tallflix.ca"
@@ -30,16 +27,6 @@ spec:
             name: sonarr
             port:
               number: 8989
-  - host: "stats.tallflix.ca"
-    http:
-      paths:
-      - pathType: Prefix
-        path: "/"
-        backend:
-          service:
-            name: tautulli
-            port:
-              number: 8181
   - host: "sab.tallflix.ca"
     http:
       paths:

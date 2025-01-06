@@ -81,22 +81,6 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: tautulli
-  namespace: default
-  labels:
-    app: tautulli
-spec:
-  selector:
-    app: tautulli
-  ports:
-  - name: tautulli
-    port: 8181
-    targetPort: 8181
-  type: ClusterIP
----
-apiVersion: v1
-kind: Service
-metadata:
   name: metube
   namespace: default
   labels:
