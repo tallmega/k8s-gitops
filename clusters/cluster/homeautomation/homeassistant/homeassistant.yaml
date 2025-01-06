@@ -90,7 +90,7 @@ spec:
   tls:
   - hosts:
     - hass.tallflix.ca
-    secretName: tls-secret
+    secretName: hass-secret
 status:
   loadBalancer:
     ingress:

@@ -12,7 +12,7 @@ spec:
   - hosts:
     - "sonarr.tallflix.ca"
     - "stats.tallflix.ca"
-    - "hass.tallflix.ca"
+    #- "hass.tallflix.ca"
     - "sab.tallflix.ca"
     # - "unifi.tallflix.ca"
     - "webdav.tallflix.ca"
