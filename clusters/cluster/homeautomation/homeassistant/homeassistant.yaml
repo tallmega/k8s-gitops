@@ -10,11 +10,14 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: home-assistant
+      app.kubernetes.io/instance: home-assistant
+      app.kubernetes.io/name: home-assistant
   template:
     metadata:
+      creationTimestamp: null
       labels:
-        app: home-assistant
+        app.kubernetes.io/instance: home-assistant
+        app.kubernetes.io/name: home-assistant
     spec:
       containers:
       - name: home-assistant
