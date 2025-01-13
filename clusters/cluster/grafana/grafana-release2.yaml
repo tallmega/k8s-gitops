@@ -1,0 +1,103 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: grafana-k8s-monitoring
+  namespace: default
+spec:
+  chart:
+    spec:
+      chart: k8s-monitoring
+      version: "^1"
+      sourceRef:
+        kind: HelmRepository
+        name: grafana
+        namespace: flux-system
+  interval: 1m
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  values:
+    cluster:
+      name: cluster1
+    externalServices:
+      prometheus:
+        host: https://prometheus-prod-32-prod-ca-east-0.grafana.net
+        basicAuth:
+          username: "1065506"
+          passwordFrom:
+            secretKeyRef:
+              name: grafana-basic-auth
+              key: password
+      loki:
+        host: https://logs-prod-018.grafana.net
+        basicAuth:
+          username: "634358"
+          passwordFrom:
+            secretKeyRef:
+              name: grafana-basic-auth
+              key: password
+      tempo:
+        host: https://tempo-prod-13-prod-ca-east-0.grafana.net:443
+        basicAuth:
+          username: "630862"
+          passwordFrom:
+            secretKeyRef:
+              name: grafana-basic-auth
+              key: password
+    metrics:
+      enabled: true
+      alloy:
+        metricsTuning:
+          useIntegrationAllowList: true
+      cost:
+        enabled: true
+      kepler:
+        enabled: true
+      node-exporter:
+        enabled: true
+    logs:
+      enabled: true
+      pod_logs:
+        enabled: true
+      cluster_events:
+        enabled: true
+    traces:
+      enabled: true
+    receivers:
+      grpc:
+        enabled: true
+      http:
+        enabled: true
+      zipkin:
+        enabled: true
+      grafanaCloudMetrics:
+        enabled: false
+    opencost:
+      enabled: true
+      opencost:
+        exporter:
+          defaultClusterId: cluster1
+        prometheus:
+          external:
+            url: https://prometheus-prod-32-prod-ca-east-0.grafana.net/api/prom
+    kube-state-metrics:
+      enabled: true
+    prometheus-node-exporter:
+      enabled: true
+    prometheus-operator-crds:
+      enabled: true
+    kepler:
+      enabled: true
+    alloy: {}
+    alloy-events: {}
+    alloy-logs: {}
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  name: grafana-basic-auth
+  namespace: default
+spec:
+  encryptedData:
+    password: AgAtUZICcZeO8zlY1avPjar0Uwg4Mw3J8KjmBMWsrzVSUOSdq5gUvlgC+RNGaOlLpfCrdLVmGcF2SzxTicDPeAIRZJQ1WYYiVUz8oliUfY9rYOG8GCf6ZnkKM9CYfZyawgzneLekEJXLicawOgnBnSmZUrk6QvyH/if19qBcFhyGF7wdkt50D9YhPBP25aPIJlu9SclqmduptbH1TVGSWq4upncm/2RnT9FB0/vXGRT/IqzxGNAV/03A4urMlNI/XngwEv3MbQSiLpKGhTAbMDOBoDeWVvyxAEcXjuT0VX3udWXsOhRwFI/6TaDCjzDG0S/g6CAjE6UW+QvJXuLlzQs+aG0c+C2zMST9m/toBwRy35jHyzHkCSNtekAWa7PFvCWCDcX9QtXO6Mi1ocVTyTs/GNWa9lJPrx02p1sfgBUnQfhUxKESDyXsFMu94dPVrEEi+/pi8JPfKRNRFPZApl5Q+IpLwo+dVf6XVuRGpbuj7aDzowxJ9lVovVNw0CNHhdGjoSInkzFPfJkf3T1gYbyjGJVJKkYe39rKQR3YFOOodY3AKf3sUh8FewlTOE3jn/BQ1MyQcCDdngT9PGBj3kYJaKhpDAEt25Nwd6VmAH8zu5XZAK25Ni70VPcFwsRe7DHiCl0rw2nFV4XWC7Mr1P6bW/qWxT2CxTQnyZM/Aor+N+MauHeyM5P2TkZLLwf3Lv7qy5ZktYzXHKfqkLeDVYmMgDZPoC1qRIX8QkSvB49P180500VuK1JEXHAnEl68TteQxT3oXFYf+BNckKvT2plrHOhsz19SkcBKR5PLv/KZGR3d1bXLaSGgmiB4ugZpor4xN+lKEze3uq7iFnebMwat0FApRakKN9AhDhcGsiEzqAM8AQ4Wqk7XEYyWJLzj26eT1JuF0qoonaZvFtzULsKuqIycjplJcfyJbZ1+fUU9nVu+Sw1MAlLT+5mfPw==
