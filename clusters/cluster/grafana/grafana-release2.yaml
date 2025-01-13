@@ -25,26 +25,17 @@ spec:
         host: https://prometheus-prod-32-prod-ca-east-0.grafana.net
         basicAuth:
           username: "1065506"
-          passwordFrom:
-            secretKeyRef:
-              name: grafana-basic-auth
-              key: password
+          password: "glc_eyJvIjoiODg5ODY4IiwibiI6InN0YWNrLTY4MTMxMS1pbnRlZ3JhdGlvbi1ncmFmYW5haGVsbXRva2VuLXRlc3QyIiwiayI6InhHN282NkNEODdBOHZRNDZiZjFlaTVCQyIsIm0iOnsiciI6InByb2QtY2EtZWFzdC0wIn19"
       loki:
         host: https://logs-prod-018.grafana.net
         basicAuth:
           username: "634358"
-          passwordFrom:
-            secretKeyRef:
-              name: grafana-basic-auth
-              key: password
+          password: "glc_eyJvIjoiODg5ODY4IiwibiI6InN0YWNrLTY4MTMxMS1pbnRlZ3JhdGlvbi1ncmFmYW5haGVsbXRva2VuLXRlc3QyIiwiayI6InhHN282NkNEODdBOHZRNDZiZjFlaTVCQyIsIm0iOnsiciI6InByb2QtY2EtZWFzdC0wIn19"
       tempo:
         host: https://tempo-prod-13-prod-ca-east-0.grafana.net:443
         basicAuth:
           username: "630862"
-          passwordFrom:
-            secretKeyRef:
-              name: grafana-basic-auth
-              key: password
+          password: "glc_eyJvIjoiODg5ODY4IiwibiI6InN0YWNrLTY4MTMxMS1pbnRlZ3JhdGlvbi1ncmFmYW5haGVsbXRva2VuLXRlc3QyIiwiayI6InhHN282NkNEODdBOHZRNDZiZjFlaTVCQyIsIm0iOnsiciI6InByb2QtY2EtZWFzdC0wIn19"
     metrics:
       enabled: true
       alloy:
@@ -92,18 +83,3 @@ spec:
     alloy: {}
     alloy-events: {}
     alloy-logs: {}
----
-apiVersion: bitnami.com/v1alpha1
-kind: SealedSecret
-metadata:
-  creationTimestamp: null
-  name: grafana-basic-auth
-  namespace: default
-spec:
-  encryptedData:
-    password: AgDdKqhRLISaSBwD6qkF+HXR6Wl6PvFD3buP1xxRyXdJcMF/jb5WvgZ/RvZpFMkqWMYiT/lhbZbG/9x+ETMbT89ZbdrVGzyj3gQtqQyXNdp6kIiWhUvSHMkMP6qCFq6iq6E6GfyM4Mgkq+QWl0tomjwk0ezoCovVrbdWgQyOTsjepN0Lu5lzLvGsKvhKbrW+pPSAEGhUatnkwggUVJ3KKW5npauUeMCbOBWNfwPnSUWlRwYp9v11yZstQtfytzoFxHZMmknb8qnY5BxgW3l7AjSNIOVhUc/0ju4NBYzosEAShf+hf/BiaHrAWSkXyExlVZDlQ8kKllfXNJQdjh9bsh9aVlMLsRyNUE1W1kEOk1nSrjlEj8Wa4LNr+djwmNf7182aVN2vQZzHQ4D4wKi+4k5qvxRIl52DZyVRjgArxi5nA5oTeb7R+/hTxF9AL7TLIEkroMKOzVdRRLnXJ5n07HgXlDOCSX+5tZCENKdZHfeLv/FlLTAQ6CzHWc05xZwxZSOQ/U7A1Io9H8LE92AYC2apXjPA7biPta5i3wwQ79ZXKYDoWLLB50pH6M+wXMZDBRZbjer5sKXtUnNp987J/sKNG08Pg/Lkf/aKq9n8SiYkLu7YLHdiLenaOfaTcZJuUtX6r2Dohbu72T7rK6J9PRr5Cwf42VnCHoeAj2h4VBz3eAWG66drYLCJc1QRxjvWThbzqiStSCd/PSxK9nRORbzH668OsHlvgH2Nv+RyNWph+AYyzFw0OQI2/ZVOeNgHiUcRGugT0XBEnV+17gNDkt/crhORm/5JupkEHLWkbbGL292q7j7Lme0k+ggxRftVEfjtYGl033TfSxDdUWVg+mbsbKVhQ8ctQuCjNYNKu6awCl/5NsAMMNuVRgksYI544NxV49NGIMX3cuNJenKJRN4kmeWtUDUjl7xOVa3J3QB7syGYTwk8NP8u6cliEA==
-  template:
-    metadata:
-      creationTimestamp: null
-      name: grafana-basic-auth
-      namespace: default
