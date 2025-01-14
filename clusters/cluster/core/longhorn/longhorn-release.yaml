@@ -19,25 +19,4 @@ spec:
       version: v1.7.2
   interval: 1m0s
   targetNamespace: longhorn-system
-# ---
-# apiVersion: v1
-# kind: Namespace
-# metadata:
-#   name: longhorn-system2
 ---
-# apiVersion: helm.toolkit.fluxcd.io/v2
-# kind: HelmRelease
-# metadata:
-#   name: longhorn-release2
-#   namespace: flux-system
-# spec:
-#   chart:
-#     spec:
-#       chart: longhorn
-#       reconcileStrategy: ChartVersion
-#       sourceRef:
-#         kind: HelmRepository
-#         name: longhorn-repo
-#       version: v1.7.2
-#   interval: 1m0s
-#   targetNamespace: longhorn-system2
