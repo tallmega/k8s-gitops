@@ -45,7 +45,7 @@ spec:
                   # if you do not add restartPolicy the other init containers will never start
                   # it will be an initContainer and not a native sidecar container https://kubernetes.io/docs/concepts/workloads/pods/sidecar-containers/
                   restartPolicy: Always
-                  image: ghcr.io/qdm12/gluetun
+                  image: qmcgaw/gluetun
                   imagePullPolicy: Always
                   securityContext:
                       capabilities:
