@@ -43,6 +43,8 @@ spec:
     # prometheus:
     #   enabled: true
     hubble:
+      relay:
+        enabled: true
       ui:
         enabled: true
     #   metrics:

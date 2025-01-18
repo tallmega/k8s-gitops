@@ -83,37 +83,37 @@ spec:
     app.kubernetes.io/instance: unifi
     app.kubernetes.io/name: unifi
   type: LoadBalancer
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  annotations:
-    kubernetes.io/ingress.class: nginx
-    cert-manager.io/cluster-issuer: "letsencrypt-prod"
-    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
-    nginx.org/websocket-services: "unifi"
-  labels:
-    app.kubernetes.io/name: unifi
-  name: unifi-ingress
-  namespace: default
-spec:
-  ingressClassName: nginx
-  rules:
-  - host: unifi.tallflix.ca
-    http:
-      paths:
-      - backend:
-          service:
-            name: unifi
-            port:
-              number: 8443
-        path: /
-        pathType: Prefix
-  tls:
-  - hosts:
-    - unifi.tallflix.ca
-    secretName: unifi-tls
-status:
-  loadBalancer:
-    ingress:
-    - ip: 10.10.10.62
+# ---
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   annotations:
+#     kubernetes.io/ingress.class: nginx
+#     cert-manager.io/cluster-issuer: "letsencrypt-prod"
+#     nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+#     nginx.org/websocket-services: "unifi"
+#   labels:
+#     app.kubernetes.io/name: unifi
+#   name: unifi-ingress
+#   namespace: default
+# spec:
+#   ingressClassName: nginx
+#   rules:
+#   - host: unifi.tallflix.ca
+#     http:
+#       paths:
+#       - backend:
+#           service:
+#             name: unifi
+#             port:
+#               number: 8443
+#         path: /
+#         pathType: Prefix
+#   tls:
+#   - hosts:
+#     - unifi.tallflix.ca
+#     secretName: unifi-tls
+# status:
+#   loadBalancer:
+#     ingress:
+#     - ip: 10.10.10.62
