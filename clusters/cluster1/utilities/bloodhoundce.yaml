@@ -213,29 +213,29 @@ spec:
           periodSeconds: 10
           timeoutSeconds: 5
           failureThreshold: 5
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: bloodhound-ingress
-  namespace: bloodhound
-spec:
-  rules:
-  - host: bloodhound.tallflix.ca
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: bloodhound-service
-            port:
-              number: 8080
-  ingressClassName: internal-nginx
-  #tls:
-  #- hosts:
-  #  - "bloodhound.tallflix.ca"
-  #  secretName: tls-secret
+# ---
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: bloodhound-ingress
+#   namespace: bloodhound
+# spec:
+#   rules:
+#   - host: bloodhound.tallflix.ca
+#     http:
+#       paths:
+#       - path: /
+#         pathType: Prefix
+#         backend:
+#           service:
+#             name: bloodhound-service
+#             port:
+#               number: 8080
+#   ingressClassName: internal-nginx
+#   #tls:
+#   #- hosts:
+#   #  - "bloodhound.tallflix.ca"
+#   #  secretName: tls-secret
 ---
 apiVersion: v1
 kind: Namespace
