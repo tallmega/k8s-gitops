@@ -46,7 +46,7 @@ spec:
   #tls:
   #- hosts:
   #  - "maintainerr.tallflix.ca"
-  #  secretName: tls-secret
+  #  secretName: maintainer-tls-secret
   rules:
   - host: maintainerr.tallflix.ca
     http:
