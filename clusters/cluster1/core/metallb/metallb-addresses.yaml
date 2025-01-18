@@ -7,28 +7,28 @@ metadata:
     pod-security.kubernetes.io/warn: privileged
   name: metallb-system
 ---
-apiVersion: metallb.io/v1beta1
-kind: IPAddressPool
-metadata:
-  name: myipaddresspool
-  namespace: metallb-system
-spec:
-  addresses:
-  - 10.10.10.160/32
-  - 10.10.10.161/32
-  - 10.10.10.162/32
-  - 10.10.10.163/32
-  - 10.10.10.164/32
-  - 10.10.10.165/32
-  - 10.10.10.166/32
-  - 10.10.10.167/32
-  - 10.10.10.168/32
-  - 10.10.10.169/32
-  autoAssign: true
-  avoidBuggyIPs: false
----
-apiVersion: metallb.io/v1beta1
-kind: L2Advertisement
-metadata:
-  name: empty
-  namespace: metallb-system
+# apiVersion: metallb.io/v1beta1
+# kind: L2Advertisement
+# metadata:
+#   name: empty
+#   namespace: metallb-system
+# ---
+# apiVersion: metallb.io/v1beta1
+# kind: IPAddressPool
+# metadata:
+#   name: myipaddresspool
+#   namespace: metallb-system
+# spec:
+#   addresses:
+#   - 10.10.10.160/32
+#   - 10.10.10.161/32
+#   - 10.10.10.162/32
+#   - 10.10.10.163/32
+#   - 10.10.10.164/32
+#   - 10.10.10.165/32
+#   - 10.10.10.166/32
+#   - 10.10.10.167/32
+#   - 10.10.10.168/32
+#   - 10.10.10.169/32
+#   autoAssign: true
+#   avoidBuggyIPs: false
