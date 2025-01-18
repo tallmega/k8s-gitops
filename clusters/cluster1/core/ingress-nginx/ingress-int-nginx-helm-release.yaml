@@ -12,6 +12,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: ingress-nginx
+        namespace: flux-system
   install:
     crds: Create
   interval: 10m0s
@@ -34,7 +35,7 @@ spec:
         ingressClassByName: true
         controllerValue: "k8s.io/internal-nginx"
       service:
-        loadBalancerIP: "10.10.10.165"
+        loadBalancerIP: "10.10.10.65"
         #externalTrafficPolicy: Local
         externalTrafficPolicy: Cluster
       config:
