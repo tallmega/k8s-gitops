@@ -34,7 +34,7 @@ spec:
         ingressClassByName: true
         controllerValue: "k8s.io/internal-nginx"
       service:
-        loadBalancerIP: "10.10.10.165"
+        loadBalancerIP: "10.10.10.65"
         externalTrafficPolicy: Local
       config:
         use-forwarded-headers: "true"
