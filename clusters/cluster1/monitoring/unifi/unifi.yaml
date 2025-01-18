@@ -1,0 +1,119 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: unifi
+  namespace: default
+spec:
+  progressDeadlineSeconds: 600
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: unifi
+      app.kubernetes.io/name: unifi
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app.kubernetes.io/instance: unifi
+        app.kubernetes.io/name: unifi
+    spec:
+      containers:
+      - name: unifi
+        image: jacobalberty/unifi:v9.0.108 # {"$imagepolicy": "flux-system:unifi"}
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080
+        - containerPort: 8443
+        - containerPort: 6789
+        - containerPort: 3478
+        - containerPort: 10001
+        env:
+        - name: PGID
+          value: "999"
+        - name: PUID
+          value: "999"
+        - name: BIND_PRIV
+          value: "false"
+        # - name: RUNAS_UID0
+        #   value: "false"
+        - name: TZ
+          value: America\Toronto
+        volumeMounts:
+        - name: unifi-config
+          mountPath: /unifi
+      volumes:
+      - name: unifi-config
+        persistentVolumeClaim:
+          claimName: unifi-config-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: unifi
+  namespace: default
+  annotations:
+    metallb.universe.tf/allow-shared-ip: unifi
+    metallb.universe.tf/ip-allocated-from-pool: myipaddresspool
+spec:
+  externalTrafficPolicy: Cluster
+  loadBalancerIP: 10.10.10.62
+  ports:
+  - name: http
+    protocol: TCP
+    port: 8080
+    targetPort: 8080
+  - name: https
+    protocol: TCP
+    port: 8443
+    targetPort: 8443
+  - name: speedtest
+    protocol: TCP
+    port: 6789
+    targetPort: 6789
+  - name: stun
+    port: 3478
+    protocol: UDP
+    targetPort: 3478
+  - name: discovery
+    port: 10001
+    protocol: UDP
+    targetPort: 10001
+  selector:
+    app.kubernetes.io/instance: unifi
+    app.kubernetes.io/name: unifi
+  type: LoadBalancer
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+    nginx.org/websocket-services: "unifi"
+  labels:
+    app.kubernetes.io/name: unifi
+  name: unifi-ingress
+  namespace: default
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: unifi.tallflix.ca
+    http:
+      paths:
+      - backend:
+          service:
+            name: unifi
+            port:
+              number: 8443
+        path: /
+        pathType: Prefix
+  tls:
+  - hosts:
+    - unifi.tallflix.ca
+    secretName: unifi-tls
+status:
+  loadBalancer:
+    ingress:
+    - ip: 10.10.10.62

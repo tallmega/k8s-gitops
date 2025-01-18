@@ -1,0 +1,69 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: media-ingress
+  namespace: default
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/proxy-body-size: "0"
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - "sonarr.tallflix.ca"
+    - "sab.tallflix.ca"
+    - "webdav.tallflix.ca"
+    - "q.tallflix.ca"
+    - "prowlarr.tallflix.ca"
+    secretName: tls-secret 
+  rules:
+  - host: "sonarr.tallflix.ca"
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: sonarr
+            port:
+              number: 8989
+  - host: "sab.tallflix.ca"
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: sabnzbd
+            port:
+              number: 8080
+  - host: "q.tallflix.ca"
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: qbittorrent
+            port:
+              number: 8080
+  - host: "webdav.tallflix.ca"
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: webdav
+            port:
+              number: 80
+  - host: "prowlarr.tallflix.ca"
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: prowlarr
+            port:
+              number: 9696
