@@ -42,7 +42,9 @@ spec:
        hostRoot: /sys/fs/cgroup
     # prometheus:
     #   enabled: true
-    # hubble:
+    hubble:
+      ui:
+        enabled: true
     #   metrics:
     #      enabled: 
     #        - dns
