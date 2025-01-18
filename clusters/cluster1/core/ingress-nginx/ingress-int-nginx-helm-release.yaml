@@ -35,7 +35,8 @@ spec:
         controllerValue: "k8s.io/internal-nginx"
       service:
         loadBalancerIP: "10.10.10.165"
-        externalTrafficPolicy: Local
+        #externalTrafficPolicy: Local
+        externalTrafficPolicy: Cluster
       config:
         use-forwarded-headers: "true"
         compute-full-forwarded-for: "true"

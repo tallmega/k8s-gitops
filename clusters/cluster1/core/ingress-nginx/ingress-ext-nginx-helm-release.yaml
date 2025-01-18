@@ -28,7 +28,8 @@ spec:
       #   maxReplicas: 3
       service:
         loadBalancerIP: "10.10.10.160"
-        externalTrafficPolicy: Local
+        #externalTrafficPolicy: Local
+        externalTrafficPolicy: Cluster
       config:
         use-forwarded-headers: "true"
         compute-full-forwarded-for: "true"
