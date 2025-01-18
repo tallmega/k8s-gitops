@@ -50,11 +50,11 @@ spec:
           tcpSocket:
             port: 32400
           timeoutSeconds: 1
-        # resources:
-          # requests:
-          #   gpu.intel.com/i915: "1"
-          # limits:
-          #   gpu.intel.com/i915: "1"
+        resources:
+          requests:
+            gpu.intel.com/i915: "1"
+          limits:
+            gpu.intel.com/i915: "1"
         startupProbe:
           failureThreshold: 30
           periodSeconds: 5
