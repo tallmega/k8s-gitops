@@ -37,11 +37,6 @@ spec:
         # args: [ "infinity" ]
         imagePullPolicy: IfNotPresent
         name: frigate
-        # resources:
-        #   limits:
-        #     gpu.intel.com/i915: "1"
-        #   requests:
-        #     gpu.intel.com/i915: "1"
         ports:
         - containerPort: 5000
           name: http

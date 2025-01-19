@@ -1,0 +1,17 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: sftpgo
+  namespace: flux-system
+spec:
+  releaseName: sftpgo
+  targetNamespace: default
+  chart:
+    spec:
+      chart: sftpgo
+      sourceRef:
+        kind: HelmRepository
+        name: skm
+        namespace: flux-system
+  interval: 5m
