@@ -45,7 +45,7 @@ spec:
             - name: sftpgodata
               mountPath: /srv/sftpgo/data/
             - name: sftpgohome
-              mountPath: /var/lib/sftpgo
+              mountPath: /var/lib/sftpgo/
       volumes:
         - name: sftpgodata
           persistentVolumeClaim:
