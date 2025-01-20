@@ -12,7 +12,6 @@ spec:
   - hosts:
     - "sonarr.tallflix.ca"
     - "sab.tallflix.ca"
-    - "webdav.tallflix.ca"
     - "q.tallflix.ca"
     - "prowlarr.tallflix.ca"
     secretName: tls-secret 
@@ -47,16 +46,6 @@ spec:
             name: qbittorrent
             port:
               number: 8080
-  - host: "webdav.tallflix.ca"
-    http:
-      paths:
-      - pathType: Prefix
-        path: "/"
-        backend:
-          service:
-            name: webdav
-            port:
-              number: 80
   - host: "prowlarr.tallflix.ca"
     http:
       paths:
