@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sftpgo
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sftpgo
+  #strategy:
+  #  type: Recreate
+  template:
+    metadata:
+      labels:
+        app: sftpgo
+    spec:
+      containers:
+      - name: sftpgo
+        image: drakkan/sftpgo:v2.6
+        imagePullPolicy: IfNotPresent
+        ports:
+          - name: http
+            containerPort: 8080
+          - name: ssh
+            containerPort: 2022
+          - name: ftp
+            containerPort: 2121
+          - name: webdav
+            containerPort: 10080
+        env:
+        - name: TZ
+          value: America\Toronto
+        - name: SFTPGO_HTTPD_BINDINGS_0_PORT
+          value: "8080"
+        - name: SFTPGO_HTTPD_BINDINGS_0_ADDRESS
+          value: "0.0.0.0"
+        - name: SFTPGO_DATA_PROVIDER_CREATE_DEFAULT_ADMIN
+          value: "true"
+        - name: SFTPGO_WEBDAVD_BINDINGS_0_PORT
+          value: "10080"
+        - name: SFTPGO_FTPD_BINDINGS_0_PORT
+          value: "2121"
+        - name: SFTPGO_FTPD_BINDINGS_0_FORCE_PASSIVE_IP
+          value: "127.0.0.1:8080"
+        # - name: AUTH_TYPE
+        #   value: Basic
+        # - name: USERNAME
+        #   value: tallmega
+        # - name: PASSWORD
+        #   valueFrom:
+        #     secretKeyRef:
+        #       name: webdav-secret
+        #       key: password
+        volumeMounts:
+         - name: sftpgodata
+           mountPath: /srv/sftpgo
+         - name: sftpgohome
+           mountPath: /var/lib/sftpgo
+      volumes:
+       - name: sftpgodata
+         persistentVolumeClaim:
+           claimName: uploads-pvc
+       - name: sftpgohome
+         persistentVolumeClaim:
+           claimName: sftpgo-config-pvc
+      
