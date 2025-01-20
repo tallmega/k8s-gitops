@@ -76,7 +76,7 @@ spec:
   selector:
     app: sftpgo
   ports:
-  - name: sftpgo
+  - name: http
     port: 8080
     targetPort: 8080
   type: ClusterIP 
@@ -102,13 +102,13 @@ metadata:
 spec:
   ingressClassName: internal-nginx
   rules:
-  - host: hubble.tallflix.ca
+  - host: sftpgo.tallflix.ca
     http:
       paths:
       - pathType: Prefix
         path: "/"
         backend:
           service:
-            name: hubble-admin
+            name: sftpgo
             port:
-              number: 80
+              number: 8080
