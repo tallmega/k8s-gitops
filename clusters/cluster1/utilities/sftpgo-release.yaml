@@ -14,7 +14,7 @@ spec:
         kind: HelmRepository
         name: skm
         namespace: flux-system
-      version: "<CHART_VERSION>" # Replace with the desired chart version, e.g., "2.2.1"
+      version: "0.23.1"
   interval: 1h
  values:
     persistence:
