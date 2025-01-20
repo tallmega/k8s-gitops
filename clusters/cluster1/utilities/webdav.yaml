@@ -64,7 +64,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: uploads-pvc
+  name: sftpgo-config-pvc
   namespace: default
 spec:
   accessModes:
