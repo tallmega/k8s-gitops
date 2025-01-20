@@ -1,47 +1,47 @@
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: webdav
-  namespace: default
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: webdav
-  #strategy:
-  #  type: Recreate
-  template:
-    metadata:
-      labels:
-        app: webdav
-    spec:
-      containers:
-      - name: webdav
-        image: bytemark/webdav
-        imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 80
-        env:
-        - name: TZ
-          value: America\Toronto
-        - name: AUTH_TYPE
-          value: Basic
-        - name: USERNAME
-          value: tallmega
-        - name: PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: webdav-secret
-              key: password
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: webdav
+#   namespace: default
+# spec:
+#   replicas: 1
+#   selector:
+#     matchLabels:
+#       app: webdav
+#   #strategy:
+#   #  type: Recreate
+#   template:
+#     metadata:
+#       labels:
+#         app: webdav
+#     spec:
+#       containers:
+#       - name: webdav
+#         image: bytemark/webdav
+#         imagePullPolicy: IfNotPresent
+#         ports:
+#         - containerPort: 80
+#         env:
+#         - name: TZ
+#           value: America\Toronto
+#         - name: AUTH_TYPE
+#           value: Basic
+#         - name: USERNAME
+#           value: tallmega
+#         - name: PASSWORD
+#           valueFrom:
+#             secretKeyRef:
+#               name: webdav-secret
+#               key: password
         
-        volumeMounts:
-         - name: uploads-nfs
-           mountPath: /var/lib/dav/data/
-      volumes:
-       - name: uploads-nfs
-         persistentVolumeClaim:
-           claimName: uploads-pvc
----
+#         volumeMounts:
+#          - name: uploads-nfs
+#            mountPath: /var/lib/dav/data/
+#       volumes:
+#        - name: uploads-nfs
+#          persistentVolumeClaim:
+#            claimName: uploads-pvc
+# ---
 ---
 apiVersion: v1
 kind: PersistentVolume
