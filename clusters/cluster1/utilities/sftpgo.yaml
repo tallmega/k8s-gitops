@@ -141,7 +141,7 @@ spec:
         path: "/"
         backend:
           service:
-            name: webdav
+            name: sftpgo-http
             port:
               number: 10080
 ---
