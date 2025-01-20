@@ -13,6 +13,8 @@ spec:
       labels:
         app: sftpgo
     spec:
+      securityContext:
+        fsGroupChangePolicy: always
       containers:
         - name: sftpgo
           image: drakkan/sftpgo:v2.6
