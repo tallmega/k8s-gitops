@@ -16,7 +16,10 @@ spec:
       containers:
         - name: sftpgo
           image: drakkan/sftpgo:v2.6
-          imagePullPolicy: Always
+              # Just spin & wait forever
+          command: [ "/bin/bash", "-c", "--" ]
+          args: [ "while true; do sleep 30; done;" ]
+          imagePullPolicy: IfNotPresent
           ports:
             - name: http
               containerPort: 8080
@@ -43,9 +46,9 @@ spec:
               value: "127.0.0.1:8080"
           volumeMounts:
             - name: sftpgodata
-              mountPath: /srv/sftpgo/data/
+              mountPath: /srv/sftpgo/data
             - name: sftpgohome
-              mountPath: /var/lib/sftpgo/
+              mountPath: /var/lib/sftpgo
       volumes:
         - name: sftpgodata
           persistentVolumeClaim:
