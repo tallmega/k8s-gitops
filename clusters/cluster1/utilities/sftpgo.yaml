@@ -10,10 +10,6 @@ spec:
       app: sftpgo
   #strategy:
   #  type: Recreate
-  template:
-    metadata:
-      labels:
-        app: sftpgo
     spec:
       containers:
       - name: sftpgo
