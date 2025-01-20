@@ -34,7 +34,7 @@ spec:
             - path: /
               backend:
               service:
-                name: admin
+                name: sftpgo
                 port:
                   number: 80
       # tls:
