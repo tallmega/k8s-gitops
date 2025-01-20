@@ -63,7 +63,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: sftpgo
+  name: sftpgo-http
   namespace: default
   labels:
     app: sftpgo
