@@ -65,7 +65,7 @@ spec:
   selector:
     app: sftpgo
   ports:
-  - name: http
+  - name: sftpgo-http
     port: 8080
     targetPort: 8080
   type: ClusterIP 
@@ -98,6 +98,6 @@ spec:
         path: "/"
         backend:
           service:
-            name: sftpgo
+            name: sftpgo-http
             port:
               number: 8080
