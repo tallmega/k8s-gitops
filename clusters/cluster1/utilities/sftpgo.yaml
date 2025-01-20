@@ -13,7 +13,7 @@ spec:
       labels:
         app: sftpgo
     spec:
-      securityContext:
+      # securityContext:
         # allowPrivilegeEscalation: false
         # runAsUser: 0
       containers:
