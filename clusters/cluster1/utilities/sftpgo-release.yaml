@@ -24,12 +24,6 @@ spec:
       data:
         existingClaim: uploads-pvc # PVC for file uploads/downloads
         mountPath: /srv/sftpgo/data # Mount path for file data
-    service:
-      type: ClusterIP
-      ports:
-        - name: admin
-          port: 8080
-          targetPort: 8080
     ingress:
       enabled: true
       annotations:
@@ -38,12 +32,13 @@ spec:
         - host: sftpgo.tallflix.ca # Replace with your domain
           paths:
             - path: /
-          backend:
-            service:
-              name: admin
-              port:
-                number: 80
+              backend:
+              service:
+                name: admin
+                port:
+                  number: 80
       # tls:
       #   - hosts:
       #       - sftpgo.tallflix.ca
       #     secretName: sftpgo-tls-secret
+---
