@@ -41,7 +41,7 @@ spec:
               value: "0.0.0.0"
             - name: SFTPGO_DATA_PROVIDER_CREATE_DEFAULT_ADMIN
               value: "true"
-            - name: SFTPGO_WEBDAVD_BINDINGS_0_PORT
+            - name: SFTPGO__WEBDAVD__BINDINGS__0__PORT
               value: "10080"
             - name: SFTPGO_FTPD_BINDINGS_0_PORT
               value: "2121"
