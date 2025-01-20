@@ -14,14 +14,14 @@ spec:
         app: sftpgo
     spec:
       securityContext:
-        allowPrivilegeEscalation: false
-        runAsUser: 0
+        # allowPrivilegeEscalation: false
+        # runAsUser: 0
       containers:
         - name: sftpgo
           image: drakkan/sftpgo:v2.6
-              # Just spin & wait forever
-          command: [ "/bin/bash", "-c", "--" ]
-          args: [ "while true; do sleep 30; done;" ]
+          #     # Just spin & wait forever
+          # command: [ "/bin/bash", "-c", "--" ]
+          # args: [ "while true; do sleep 30; done;" ]
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
