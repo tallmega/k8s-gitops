@@ -13,15 +13,9 @@ spec:
       labels:
         app: sftpgo
     spec:
-      # securityContext:
-        # allowPrivilegeEscalation: false
-        # runAsUser: 0
       containers:
         - name: sftpgo
           image: drakkan/sftpgo:v2.6
-          #     # Just spin & wait forever
-          # command: [ "/bin/bash", "-c", "--" ]
-          # args: [ "while true; do sleep 30; done;" ]
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
@@ -35,18 +29,8 @@ spec:
           env:
             - name: TZ
               value: America/Toronto
-            - name: SFTPGO_HTTPD_BINDINGS_0_PORT
-              value: "8080"
-            - name: SFTPGO_HTTPD_BINDINGS_0_ADDRESS
-              value: "0.0.0.0"
-            - name: SFTPGO_DATA_PROVIDER_CREATE_DEFAULT_ADMIN
-              value: "true"
             - name: SFTPGO_WEBDAVD__BINDINGS__0__PORT
               value: "10080"
-            - name: SFTPGO_FTPD_BINDINGS_0_PORT
-              value: "2121"
-            - name: SFTPGO_FTPD_BINDINGS_0_FORCE_PASSIVE_IP
-              value: "127.0.0.1:8080"
           volumeMounts:
             - name: sftpgodata
               mountPath: /srv/sftpgo/data
