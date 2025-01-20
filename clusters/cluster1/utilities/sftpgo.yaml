@@ -14,7 +14,7 @@ spec:
         app: sftpgo
     spec:
       securityContext:
-        fsGroupChangePolicy: always
+        fsGroupChangePolicy: Always
       containers:
         - name: sftpgo
           image: drakkan/sftpgo:v2.6
