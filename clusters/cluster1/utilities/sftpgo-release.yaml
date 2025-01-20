@@ -27,25 +27,9 @@ spec:
     service:
       type: ClusterIP
       ports:
-        # - name: sftp
-        #   port: 22
-        #   targetPort: 22
-        # - name: ftps
-        #   port: 990
-        #   targetPort: 990
-        # - name: ftp
-        #   port: 21
-        #   targetPort: 21
-        # - name: http
-        #   port: 80
-        #   targetPort: 80
         - name: admin
           port: 8080
           targetPort: 8080
-    sftpgo:
-      admin:
-        username: "admin"
-        password: "test" # Replace with a secure admin password
     ingress:
       enabled: true
       annotations:
