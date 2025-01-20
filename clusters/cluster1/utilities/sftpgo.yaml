@@ -43,7 +43,7 @@ spec:
               value: "127.0.0.1:8080"
           volumeMounts:
             - name: sftpgodata
-              mountPath: /srv/sftpgo
+              mountPath: /srv/sftpgo/data/
             - name: sftpgohome
               mountPath: /var/lib/sftpgo
       volumes:
