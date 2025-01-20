@@ -16,7 +16,7 @@ spec:
       containers:
         - name: sftpgo
           image: drakkan/sftpgo:v2.6
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           ports:
             - name: http
               containerPort: 8080
