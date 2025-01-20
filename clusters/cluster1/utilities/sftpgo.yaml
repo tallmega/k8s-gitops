@@ -63,7 +63,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: sftpgo-http
+  name: sftpgo-httpdav
   namespace: default
   labels:
     app: sftpgo
@@ -106,7 +106,7 @@ spec:
         path: "/"
         backend:
           service:
-            name: sftpgo-http
+            name: sftpgo-httpdav
             port:
               number: 8080
 ---      
@@ -141,7 +141,7 @@ spec:
         path: "/"
         backend:
           service:
-            name: sftpgo-http
+            name: sftpgo-httpdav
             port:
               number: 10080
 ---
