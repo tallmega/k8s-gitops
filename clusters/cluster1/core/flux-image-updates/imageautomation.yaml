@@ -20,5 +20,5 @@ spec:
     push:
       branch: main
   update:
-    path: ./clusters/cluster
+    path: ./clusters/cluster1
     strategy: Setters
