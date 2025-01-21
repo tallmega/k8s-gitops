@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: sftpgo
-          image: drakkan/sftpgo:v2.6  # {"$imagepolicy": "flux-system:sftpgo"}
+          image: drakkan/sftpgo:v2.6.4 # {"$imagepolicy": "flux-system:sftpgo"}
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
@@ -61,15 +61,15 @@ spec:
   - name: webdav
     port: 10080
     targetPort: 10080
-  type: ClusterIP 
----      
+  type: ClusterIP
+---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: sftpgo-ingress
   namespace: default
   annotations:
-        #kubernetes.io/tls-acme: "true"
+    #kubernetes.io/tls-acme: "true"
     # type of authentication
     #nginx.ingress.kubernetes.io/auth-type: basic
     # prevent the controller from redirecting (308) to HTTPS
@@ -93,7 +93,7 @@ spec:
             name: sftpgo-httpdav
             port:
               number: 8080
----      
+---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -109,7 +109,7 @@ spec:
   tls:
   - hosts:
     - "webdav.tallflix.ca"
-    secretName: webdav-tls-secret 
+    secretName: webdav-tls-secret
   rules:
   - host: "webdav.tallflix.ca"
     http:
