@@ -279,7 +279,6 @@ spec:
     semver:
       range: '>= 5.0.0'
 ---
----
 apiVersion: image.toolkit.fluxcd.io/v1beta1
 kind: ImagePolicy
 metadata:
@@ -291,3 +290,15 @@ spec:
   policy:
     semver:
       range: '>= 1.0.0'
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImagePolicy
+metadata:
+  name: sftpgo
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: sftpgo
+  policy:
+    semver:
+      range: '>= 2.5'

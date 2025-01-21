@@ -214,5 +214,14 @@ metadata:
 spec:
   image: linuxserver/prowlarr
   interval: 30m0s  
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImageRepository
+metadata:
+  name: sftpgo
+  namespace: flux-system
+spec:
+  image: drakkan/sftpgo
+  interval: 30m0s  
 
 

@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: sftpgo
-          image: drakkan/sftpgo:v2.6
+          image: drakkan/sftpgo:v2.6  # {"$imagepolicy": "flux-system:sftpgo"}
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
