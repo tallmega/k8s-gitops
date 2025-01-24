@@ -1,54 +1,54 @@
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: sonarr
-  namespace: default
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: sonarr
-  # strategy:
-  #   rollingUpdate: null
-  #   type: Recreate
-  template:
-    metadata:
-      labels:
-        app: sonarr
-    spec:
-      containers:
-      - name: sonarr
-        image: linuxserver/sonarr:4.0.12 # {"$imagepolicy": "flux-system:sonarr"}
-        imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 8989
-        env:
-        - name: PGID
-          value: "1001"
-        - name: PUID
-          value: "1001"
-        - name: TZ
-          value: America\Toronto
-        volumeMounts:
-        - name: sonarr-config1
-          mountPath: /config
-        - name: sonarr-tv-nfs
-          mountPath: /tv
-        - name: sonarr-tv3-nfs
-          mountPath: /tv3
-          #mountPropagation: Bidirectional
-        - name: sonarr-downloads-complete
-          mountPath: /downloads
-      volumes:
-      - name: sonarr-config1
-        persistentVolumeClaim:
-          claimName: sonarr-config-pvc
-      - name: sonarr-tv-nfs
-        persistentVolumeClaim:
-          claimName: tvshows-pvc
-      - name: sonarr-tv3-nfs
-        persistentVolumeClaim:
-          claimName: tvshows3-pvc
-      - name: sonarr-downloads-complete
-        persistentVolumeClaim:
-          claimName: downloads-complete-pvc
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: sonarr
+#   namespace: default
+# spec:
+#   replicas: 1
+#   selector:
+#     matchLabels:
+#       app: sonarr
+#   strategy:
+#     rollingUpdate: null
+#     type: Recreate
+#   template:
+#     metadata:
+#       labels:
+#         app: sonarr
+#     spec:
+#       containers:
+#       - name: sonarr
+#         image: linuxserver/sonarr:4.0.12 # {"$imagepolicy": "flux-system:sonarr"}
+#         imagePullPolicy: IfNotPresent
+#         ports:
+#         - containerPort: 8989
+#         env:
+#         - name: PGID
+#           value: "1001"
+#         - name: PUID
+#           value: "1001"
+#         - name: TZ
+#           value: America\Toronto
+#         volumeMounts:
+#         - name: sonarr-config1
+#           mountPath: /config
+#         - name: sonarr-tv-nfs
+#           mountPath: /tv
+#         - name: sonarr-tv3-nfs
+#           mountPath: /tv3
+#           #mountPropagation: Bidirectional
+#         - name: sonarr-downloads-complete
+#           mountPath: /downloads
+#       volumes:
+#       - name: sonarr-config1
+#         persistentVolumeClaim:
+#           claimName: sonarr-config-pvc
+#       - name: sonarr-tv-nfs
+#         persistentVolumeClaim:
+#           claimName: tvshows-pvc
+#       - name: sonarr-tv3-nfs
+#         persistentVolumeClaim:
+#           claimName: tvshows3-pvc
+#       - name: sonarr-downloads-complete
+#         persistentVolumeClaim:
+#           claimName: downloads-complete-pvc

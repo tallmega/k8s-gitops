@@ -1,61 +1,61 @@
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: metube
-  namespace: default
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: metube
-  # strategy:
-  #   rollingUpdate: null
-  #   type: Recreate
-  template:
-    metadata:
-      labels:
-        app: metube
-    spec:
-      containers:
-      - name: metube
-        image: ghcr.io/alexta69/metube:2025-01-16 # {"$imagepolicy": "flux-system:metube"}
-        imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 8081
-        env:
-        - name: TZ
-          value: America\Toronto
-        - name: OUTPUT_TEMPLATE
-          value: "%(uploader)s/Season %(upload_date>%Y)s/s%(upload_date>%Y)s.e%(upload_date>%m%d)s01 - %(title)s.%(ext)s"
-        - name: YTDL_OPTIONS
-          value: '{"writethumbnail":true,"download_archive":"/downloads/archive.txt","postprocessors":[{"key":"EmbedThumbnail"},{"key":"FFmpegMetadata"}]}'
-        volumeMounts:
-        - name: ytshows
-          mountPath: /downloads
-      volumes:
-      - name: ytshows
-        persistentVolumeClaim:
-          claimName: ytshows-pvc
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: metube-ingress
-  namespace: default
-spec:
-  ingressClassName: internal-nginx
-  #tls:
-  #- hosts:
-  #  - "metube.tallflix.ca"
-  #  secretName: tls-secret
-  rules:
-  - host: metube.tallflix.ca
-    http:
-      paths:
-      - pathType: Prefix
-        path: "/"
-        backend:
-          service:
-            name: metube
-            port:
-              number: 8081
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: metube
+#   namespace: default
+# spec:
+#   replicas: 1
+#   selector:
+#     matchLabels:
+#       app: metube
+#   strategy:
+#     rollingUpdate: null
+#     type: Recreate
+#   template:
+#     metadata:
+#       labels:
+#         app: metube
+#     spec:
+#       containers:
+#       - name: metube
+#         image: ghcr.io/alexta69/metube:2025-01-16 # {"$imagepolicy": "flux-system:metube"}
+#         imagePullPolicy: IfNotPresent
+#         ports:
+#         - containerPort: 8081
+#         env:
+#         - name: TZ
+#           value: America\Toronto
+#         - name: OUTPUT_TEMPLATE
+#           value: "%(uploader)s/Season %(upload_date>%Y)s/s%(upload_date>%Y)s.e%(upload_date>%m%d)s01 - %(title)s.%(ext)s"
+#         - name: YTDL_OPTIONS
+#           value: '{"writethumbnail":true,"download_archive":"/downloads/archive.txt","postprocessors":[{"key":"EmbedThumbnail"},{"key":"FFmpegMetadata"}]}'
+#         volumeMounts:
+#         - name: ytshows
+#           mountPath: /downloads
+#       volumes:
+#       - name: ytshows
+#         persistentVolumeClaim:
+#           claimName: ytshows-pvc
+# ---
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: metube-ingress
+#   namespace: default
+# spec:
+#   ingressClassName: internal-nginx
+#   #tls:
+#   #- hosts:
+#   #  - "metube.tallflix.ca"
+#   #  secretName: tls-secret
+#   rules:
+#   - host: metube.tallflix.ca
+#     http:
+#       paths:
+#       - pathType: Prefix
+#         path: "/"
+#         backend:
+#           service:
+#             name: metube
+#             port:
+#               number: 8081
