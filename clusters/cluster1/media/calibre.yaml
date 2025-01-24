@@ -8,9 +8,9 @@ spec:
   selector:
     matchLabels:
       app: calibre
-  strategy:
-    rollingUpdate: null
-    type: Recreate
+  # strategy:
+  #   rollingUpdate: null
+  #   type: Recreate
   template:
     metadata:
       labels:

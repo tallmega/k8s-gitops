@@ -5,14 +5,12 @@ metadata:
   namespace: default
 spec:
   replicas: 1
-  strategy:
-    rollingUpdate: null
-    type: Recreate
+  # strategy:
+  #   rollingUpdate: null
+  #   type: Recreate
   selector:
     matchLabels:
       app: prowlarr
-  #strategy:
-  #  type: Recreate
   template:
     metadata:
       labels:

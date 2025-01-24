@@ -11,9 +11,9 @@ spec:
     matchLabels:
       app.kubernetes.io/instance: mosquitto
       app.kubernetes.io/name: mosquitto
-  strategy:
-    rollingUpdate: null
-    type: Recreate
+  # strategy:
+  #   rollingUpdate: null
+  #   type: Recreate
   template:
     metadata:
       labels:

@@ -8,9 +8,9 @@ spec:
   strategy:
     rollingUpdate: null
     type: Recreate
-  selector:
-    matchLabels:
-      app: radarr
+  # selector:
+  #   matchLabels:
+  #     app: radarr
   template:
     metadata:
       labels:
