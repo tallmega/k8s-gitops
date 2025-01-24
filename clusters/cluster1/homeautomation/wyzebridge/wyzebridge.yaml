@@ -1,46 +1,46 @@
-# apiVersion: apps/v1
-# kind: Deployment
-# metadata:
-#   name: wyzebridge
-#   namespace: default
-# spec:
-#   replicas: 1
-#   selector:
-#     matchLabels:
-#       app: wyzebridge
-#   strategy:
-#     rollingUpdate: null
-#     type: Recreate
-#   template:
-#     metadata:
-#       labels:
-#         app: wyzebridge
-#     spec:
-#       hostname: wyzebridge
-#       containers:
-#       - name: wyzebridge
-#         image: mrlt8/wyze-bridge:2.10.3 # {"$imagepolicy": "flux-system:wyzebridge"}
-#         imagePullPolicy: IfNotPresent
-#         type: ClusterIP
-#         ports:
-#         - containerPort: 1935
-#         - containerPort: 8554
-#         - containerPort: 8888
-#         - containerPort: 5000
-#         env:
-#         - name: TZ
-#           value: America\Toronto
-#         - name: ENABLE_AUDIO
-#           value: 'true'
-#         - name: WB_AUTH
-#           value: 'false'
-#         envFrom:
-#         - secretRef:
-#             name: wyzebridge-secret
-#         volumeMounts:
-#         - name: wyzebridge-config
-#           mountPath: /tokens
-#       volumes:
-#       - name: wyzebridge-config
-#         persistentVolumeClaim:
-#           claimName: wyzebridge-config-pvc
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wyzebridge
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wyzebridge
+  strategy:
+    rollingUpdate: null
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: wyzebridge
+    spec:
+      hostname: wyzebridge
+      containers:
+      - name: wyzebridge
+        image: mrlt8/wyze-bridge:2.10.3 # {"$imagepolicy": "flux-system:wyzebridge"}
+        imagePullPolicy: IfNotPresent
+        type: ClusterIP
+        ports:
+        - containerPort: 1935
+        - containerPort: 8554
+        - containerPort: 8888
+        - containerPort: 5000
+        env:
+        - name: TZ
+          value: America\Toronto
+        - name: ENABLE_AUDIO
+          value: 'true'
+        - name: WB_AUTH
+          value: 'false'
+        envFrom:
+        - secretRef:
+            name: wyzebridge-secret
+        volumeMounts:
+        - name: wyzebridge-config
+          mountPath: /tokens
+      volumes:
+      - name: wyzebridge-config
+        persistentVolumeClaim:
+          claimName: wyzebridge-config-pvc
