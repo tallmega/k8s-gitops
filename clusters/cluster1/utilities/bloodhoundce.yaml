@@ -1,253 +1,253 @@
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: bloodhound-config
-  namespace: bloodhound
-data:
-  bloodhound.config.json: |
-    {
-      "version": 1,
-      "bind_addr": "0.0.0.0:8080",
-      "metrics_port": ":2112",
-      "root_url": "http://bloodhound.example.com",
-      "work_dir": "/opt/bloodhound/work",
-      "log_level": "INFO",
-      "log_path": "bloodhound.log",
-      "database": {
-        "connection": "user=bloodhound password=bloodhoundcommunityedition dbname=bloodhound host=app-db"
-      },
-      "neo4j": {
-        "connection": "neo4j://neo4j:bloodhoundcommunityedition@graph-db:7687/"
-      },
-      "collectors_base_path": "/etc/bloodhound/collectors",
-      "default_admin": {
-        "principal_name": "admin",
-        "first_name": "Bloodhound",
-        "last_name": "Admin",
-        "email_address": "spam@example.com"
-      }
-    }
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: app-db
-  namespace: bloodhound
-spec:
-  type: ClusterIP
-  ports:
-    - port: 5432
-      targetPort: 5432
-      protocol: TCP
-  selector:
-    app: postgres
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: bloodhound-service
-  namespace: bloodhound
-spec:
-  type: ClusterIP
-  ports:
-    - port: 8080
-      targetPort: 8080
-      protocol: TCP
-  selector:
-    app: bloodhound
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: graph-db
-  namespace: bloodhound
-spec:
-  selector:
-    app: graphdb
-  ports:
-    - name: graphdb
-      protocol: TCP
-      port: 7687
-      targetPort: 7687
-    - name: http
-      protocol: TCP
-      port: 7474
-      targetPort: 7474
-  type: ClusterIP
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: postgres
-  namespace: bloodhound
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: postgres
-  template:
-    metadata:
-      labels:
-        app: postgres
-    spec:
-      containers:
-      - name: postgres
-        image: docker.io/library/postgres:13.2
-        # command: [ "/bin/bash", "-c", "--" ]
-        # args: [ "while true; do sleep 30; done;" ]
-        env:
-        - name: POSTGRES_USER
-          value: "bloodhound"
-        - name: POSTGRES_PASSWORD
-          value: "bloodhoundcommunityedition"
-        - name: POSTGRES_DB
-          value: "bloodhound"
-        ports:
-        - containerPort: 5432
-        livenessProbe:
-          exec:
-            command:
-            - pg_isready
-            - -U
-            - bloodhound
-            - -d
-            - bloodhound
-            - -h
-            - 127.0.0.1
-            - -p
-            - "5432"
-          initialDelaySeconds: 30
-          periodSeconds: 10
-          timeoutSeconds: 5
-          failureThreshold: 5
-        volumeMounts:
-        - name: bloodhound-postgres-config
-          mountPath: /var/lib/postgresql/data
-      volumes:
-      - name: bloodhound-postgres-config
-        persistentVolumeClaim:
-          claimName: bloodhound-postgres-config-pvc
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: bloodhound
-  namespace: bloodhound
-spec:
-  replicas: 1
-  # strategy:
-  #   rollingUpdate: null
-  #   type: Recreate
-  selector:
-    matchLabels:
-      app: bloodhound
-  template:
-    metadata:
-      labels:
-        app: bloodhound
-    spec:
-      initContainers:
-      - name: check-db-availability
-        image: busybox
-        command: ['/bin/sh', '-c']
-        args:
-        - >
-          until nc -z graph-db 7687 && nc -z app-db 5432; do
-            echo "Waiting for databases to be ready";
-            sleep 5;
-          done;
-      containers:
-      - name: bloodhound
-        image: docker.io/specterops/bloodhound:latest
-        env:
-        - name: bhe_disable_cypher_complexity_limit
-          value: "false"
-        - name: bhe_enable_cypher_mutations
-          value: "false"
-        - name: bhe_graph_query_memory_limit
-          value: "2"
-        ports:
-        - containerPort: 8080
-        volumeMounts:
-        - name: bloodhound-config
-          mountPath: /bloodhound.config.json
-          subPath: bloodhound.config.json
-      volumes:
-      - name: bloodhound-config
-        configMap:
-          name: bloodhound-config
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: graphdb
-  namespace: bloodhound
-spec:
-  replicas: 1
-  # strategy:
-  #   rollingUpdate: null
-  #   type: Recreate
-  selector:
-    matchLabels:
-      app: graphdb
-  template:
-    metadata:
-      labels:
-        app: graphdb
-    spec:
-      containers:
-      - name: neo4j
-        image: docker.io/library/neo4j:4.4
-        env:
-        - name: NEO4J_AUTH
-          value: "neo4j/bloodhoundcommunityedition"
-        - name: NEO4J_dbms_allow__upgrade
-          value: "true"
-        ports:
-        - containerPort: 7687
-        - containerPort: 7474
-        livenessProbe:
-          exec:
-            command:
-            - wget
-            - -O
-            - /dev/null
-            - -q
-            - http://127.0.0.1:7474
-          initialDelaySeconds: 30
-          periodSeconds: 10
-          timeoutSeconds: 5
-          failureThreshold: 5
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: bloodhound-ingress
-  namespace: bloodhound
-spec:
-  rules:
-  - host: bloodhound.tallflix.ca
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: bloodhound-service
-            port:
-              number: 8080
-  ingressClassName: internal-nginx
-  #tls:
-  #- hosts:
-  #  - "bloodhound.tallflix.ca"
-  #  secretName: tls-secret
----
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: bloodhound
-  annotations:
-    "helm.sh/hook": pre-install,pre-upgrade
-    "helm.sh/hook-weight": "-5" # ensures this is executed first
-    "helm.sh/hook-delete-policy": before-hook-creation
+# ---
+# apiVersion: v1
+# kind: ConfigMap
+# metadata:
+#   name: bloodhound-config
+#   namespace: bloodhound
+# data:
+#   bloodhound.config.json: |
+#     {
+#       "version": 1,
+#       "bind_addr": "0.0.0.0:8080",
+#       "metrics_port": ":2112",
+#       "root_url": "http://bloodhound.example.com",
+#       "work_dir": "/opt/bloodhound/work",
+#       "log_level": "INFO",
+#       "log_path": "bloodhound.log",
+#       "database": {
+#         "connection": "user=bloodhound password=bloodhoundcommunityedition dbname=bloodhound host=app-db"
+#       },
+#       "neo4j": {
+#         "connection": "neo4j://neo4j:bloodhoundcommunityedition@graph-db:7687/"
+#       },
+#       "collectors_base_path": "/etc/bloodhound/collectors",
+#       "default_admin": {
+#         "principal_name": "admin",
+#         "first_name": "Bloodhound",
+#         "last_name": "Admin",
+#         "email_address": "spam@example.com"
+#       }
+#     }
+# ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: app-db
+#   namespace: bloodhound
+# spec:
+#   type: ClusterIP
+#   ports:
+#     - port: 5432
+#       targetPort: 5432
+#       protocol: TCP
+#   selector:
+#     app: postgres
+# ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: bloodhound-service
+#   namespace: bloodhound
+# spec:
+#   type: ClusterIP
+#   ports:
+#     - port: 8080
+#       targetPort: 8080
+#       protocol: TCP
+#   selector:
+#     app: bloodhound
+# ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: graph-db
+#   namespace: bloodhound
+# spec:
+#   selector:
+#     app: graphdb
+#   ports:
+#     - name: graphdb
+#       protocol: TCP
+#       port: 7687
+#       targetPort: 7687
+#     - name: http
+#       protocol: TCP
+#       port: 7474
+#       targetPort: 7474
+#   type: ClusterIP
+# ---
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: postgres
+#   namespace: bloodhound
+# spec:
+#   replicas: 1
+#   selector:
+#     matchLabels:
+#       app: postgres
+#   template:
+#     metadata:
+#       labels:
+#         app: postgres
+#     spec:
+#       containers:
+#       - name: postgres
+#         image: docker.io/library/postgres:13.2
+#         # command: [ "/bin/bash", "-c", "--" ]
+#         # args: [ "while true; do sleep 30; done;" ]
+#         env:
+#         - name: POSTGRES_USER
+#           value: "bloodhound"
+#         - name: POSTGRES_PASSWORD
+#           value: "bloodhoundcommunityedition"
+#         - name: POSTGRES_DB
+#           value: "bloodhound"
+#         ports:
+#         - containerPort: 5432
+#         livenessProbe:
+#           exec:
+#             command:
+#             - pg_isready
+#             - -U
+#             - bloodhound
+#             - -d
+#             - bloodhound
+#             - -h
+#             - 127.0.0.1
+#             - -p
+#             - "5432"
+#           initialDelaySeconds: 30
+#           periodSeconds: 10
+#           timeoutSeconds: 5
+#           failureThreshold: 5
+#         volumeMounts:
+#         - name: bloodhound-postgres-config
+#           mountPath: /var/lib/postgresql/data
+#       volumes:
+#       - name: bloodhound-postgres-config
+#         persistentVolumeClaim:
+#           claimName: bloodhound-postgres-config-pvc
+# ---
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: bloodhound
+#   namespace: bloodhound
+# spec:
+#   replicas: 1
+#   strategy:
+#     rollingUpdate: null
+#     type: Recreate
+#   selector:
+#     matchLabels:
+#       app: bloodhound
+#   template:
+#     metadata:
+#       labels:
+#         app: bloodhound
+#     spec:
+#       initContainers:
+#       - name: check-db-availability
+#         image: busybox
+#         command: ['/bin/sh', '-c']
+#         args:
+#         - >
+#           until nc -z graph-db 7687 && nc -z app-db 5432; do
+#             echo "Waiting for databases to be ready";
+#             sleep 5;
+#           done;
+#       containers:
+#       - name: bloodhound
+#         image: docker.io/specterops/bloodhound:latest
+#         env:
+#         - name: bhe_disable_cypher_complexity_limit
+#           value: "false"
+#         - name: bhe_enable_cypher_mutations
+#           value: "false"
+#         - name: bhe_graph_query_memory_limit
+#           value: "2"
+#         ports:
+#         - containerPort: 8080
+#         volumeMounts:
+#         - name: bloodhound-config
+#           mountPath: /bloodhound.config.json
+#           subPath: bloodhound.config.json
+#       volumes:
+#       - name: bloodhound-config
+#         configMap:
+#           name: bloodhound-config
+# ---
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: graphdb
+#   namespace: bloodhound
+# spec:
+#   replicas: 1
+#   # strategy:
+#   #   rollingUpdate: null
+#   #   type: Recreate
+#   selector:
+#     matchLabels:
+#       app: graphdb
+#   template:
+#     metadata:
+#       labels:
+#         app: graphdb
+#     spec:
+#       containers:
+#       - name: neo4j
+#         image: docker.io/library/neo4j:4.4
+#         env:
+#         - name: NEO4J_AUTH
+#           value: "neo4j/bloodhoundcommunityedition"
+#         - name: NEO4J_dbms_allow__upgrade
+#           value: "true"
+#         ports:
+#         - containerPort: 7687
+#         - containerPort: 7474
+#         livenessProbe:
+#           exec:
+#             command:
+#             - wget
+#             - -O
+#             - /dev/null
+#             - -q
+#             - http://127.0.0.1:7474
+#           initialDelaySeconds: 30
+#           periodSeconds: 10
+#           timeoutSeconds: 5
+#           failureThreshold: 5
+# ---
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: bloodhound-ingress
+#   namespace: bloodhound
+# spec:
+#   rules:
+#   - host: bloodhound.tallflix.ca
+#     http:
+#       paths:
+#       - path: /
+#         pathType: Prefix
+#         backend:
+#           service:
+#             name: bloodhound-service
+#             port:
+#               number: 8080
+#   ingressClassName: internal-nginx
+#   #tls:
+#   #- hosts:
+#   #  - "bloodhound.tallflix.ca"
+#   #  secretName: tls-secret
+# ---
+# apiVersion: v1
+# kind: Namespace
+# metadata:
+#   name: bloodhound
+#   annotations:
+#     "helm.sh/hook": pre-install,pre-upgrade
+#     "helm.sh/hook-weight": "-5" # ensures this is executed first
+#     "helm.sh/hook-delete-policy": before-hook-creation
