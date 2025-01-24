@@ -9,6 +9,7 @@ spec:
     matchLabels:
       app: jellyfin
   strategy:
+    rollingUpdate: null
     type: Recreate
   template:
     metadata:

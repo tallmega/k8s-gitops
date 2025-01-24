@@ -5,13 +5,12 @@ metadata:
   namespace: default
 spec:
   replicas: 1
-  strategy:
-    type: Recreate
   selector:
     matchLabels:
       app: sonarr
-  #strategy:
-  #  type: Recreate
+  strategy:
+    rollingUpdate: null
+    type: Recreate
   template:
     metadata:
       labels:

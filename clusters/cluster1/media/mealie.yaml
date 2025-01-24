@@ -9,7 +9,8 @@ spec:
     matchLabels:
       app: mealie
   strategy:
-   type: Recreate
+    rollingUpdate: null
+    type: Recreate
   template:
     metadata:
       labels:

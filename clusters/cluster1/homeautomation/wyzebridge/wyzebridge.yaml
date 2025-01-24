@@ -8,8 +8,9 @@ spec:
   selector:
     matchLabels:
       app: wyzebridge
-    strategy:
-      type: Recreate
+  strategy:
+    rollingUpdate: null
+    type: Recreate
   template:
     metadata:
       labels:
