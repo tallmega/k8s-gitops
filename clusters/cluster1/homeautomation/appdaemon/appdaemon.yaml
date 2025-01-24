@@ -8,8 +8,8 @@ spec:
   selector:
     matchLabels:
       app: appdaemon
-  strategy:
-   type: Recreate
+  # strategy:
+  #  type: Recreate
   template:
     metadata:
       labels:
