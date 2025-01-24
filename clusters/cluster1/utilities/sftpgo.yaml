@@ -52,9 +52,9 @@ metadata:
   labels:
     app: sftpgo
 spec:
-  strategy:
-    rollingUpdate: null
-    type: Recreate
+  # strategy:
+  #   rollingUpdate: null
+  #   type: Recreate
   selector:
     app: sftpgo
   ports:
