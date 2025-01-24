@@ -1,66 +1,66 @@
-# apiVersion: apps/v1
-# kind: Deployment
-# metadata:
-#   name: witnessme
-#   namespace: default
-# spec:
-#   replicas: 1
-#   selector:
-#     matchLabels:
-#       app: witnessme
-#   strategy:
-#     rollingUpdate: null
-#     type: Recreate
-#   template:
-#     metadata:
-#       labels:
-#         app: witnessme
-#     spec:
-#       containers:
-#       - name: witnessme
-#         image: byt3bl33d3r/witnessme
-#         imagePullPolicy: IfNotPresent
-#         command: [ "sleep" ]
-#         args: [ "infinity" ]
-#         env:
-#         - name: TZ
-#           value: America\Toronto
-#         volumeMounts:
-#         - name: screenshots-nfs
-#           mountPath: /screenshots
-#       volumes:
-#       - name: screenshots-nfs
-#         persistentVolumeClaim:
-#           claimName: screenshots-pvc
-# ---
-# apiVersion: v1
-# kind: PersistentVolume
-# metadata:
-#   name: screenshots-pv
-# spec:
-#   storageClassName: syno-nfs
-#   capacity:
-#     storage: 17Ti
-#   accessModes:
-#     - ReadWriteMany
-#   persistentVolumeReclaimPolicy: Retain
-#   mountOptions:
-#     - hard
-#     - nfsvers=4
-#   nfs:
-#     server: 10.10.10.110
-#     path: "/volume1/screenshots"
-# ---
-# apiVersion: v1
-# kind: PersistentVolumeClaim
-# metadata:
-#   name: screenshots-pvc
-#   namespace: default
-# spec:
-#   accessModes:
-#     - ReadWriteMany
-#   storageClassName: syno-nfs
-#   volumeName: screenshots-pv
-#   resources:
-#     requests:
-#       storage: 8Gi
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: witnessme
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: witnessme
+  strategy:
+    rollingUpdate: null
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: witnessme
+    spec:
+      containers:
+      - name: witnessme
+        image: byt3bl33d3r/witnessme
+        imagePullPolicy: IfNotPresent
+        command: [ "sleep" ]
+        args: [ "infinity" ]
+        env:
+        - name: TZ
+          value: America\Toronto
+        volumeMounts:
+        - name: screenshots-nfs
+          mountPath: /screenshots
+      volumes:
+      - name: screenshots-nfs
+        persistentVolumeClaim:
+          claimName: screenshots-pvc
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: screenshots-pv
+spec:
+  storageClassName: syno-nfs
+  capacity:
+    storage: 17Ti
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  mountOptions:
+    - hard
+    - nfsvers=4
+  nfs:
+    server: 10.10.10.110
+    path: "/volume1/screenshots"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: screenshots-pvc
+  namespace: default
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: syno-nfs
+  volumeName: screenshots-pv
+  resources:
+    requests:
+      storage: 8Gi
