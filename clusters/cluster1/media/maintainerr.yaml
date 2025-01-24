@@ -1,77 +1,77 @@
-# apiVersion: apps/v1
-# kind: Deployment
-# metadata:
-#   name: maintainerr
-#   namespace: default
-# spec:
-#   replicas: 1
-#   selector:
-#     matchLabels:
-#       app: maintainerr
-#   strategy:
-#     rollingUpdate: null
-#     type: Recreate
-#   template:
-#     metadata:
-#       labels:
-#         app: maintainerr
-#     spec:
-#       containers:
-#       - name: maintainerr
-#         image: ghcr.io/jorenn92/maintainerr:2.8.0 # {"$imagepolicy": "flux-system:maintainerr"}
-#         imagePullPolicy: IfNotPresent
-#         ports:
-#         - containerPort: 6246
-#         env:
-#         - name: PGID
-#           value: "1000"
-#         - name: PUID
-#           value: "1000"
-#         - name: TZ
-#           value: America\Toronto
-#         volumeMounts:
-#         - name: maintainerr-config
-#           mountPath: /opt/data
-#       volumes:
-#       - name: maintainerr-config
-#         persistentVolumeClaim:
-#           claimName: maintainerr-config-pvc
-# ---
-# apiVersion: networking.k8s.io/v1
-# kind: Ingress
-# metadata:
-#   name: maintainerr-ingress
-#   namespace: default
-# spec:
-#   ingressClassName: internal-nginx
-#   #tls:
-#   #- hosts:
-#   #  - "maintainerr.tallflix.ca"
-#   #  secretName: maintainer-tls-secret
-#   rules:
-#   - host: maintainerr.tallflix.ca
-#     http:
-#       paths:
-#       - pathType: Prefix
-#         path: "/"
-#         backend:
-#           service:
-#             name: maintainerr
-#             port:
-#               number: 6246
-# ---
-# apiVersion: v1
-# kind: Service
-# metadata:
-#   name: maintainerr
-#   namespace: default
-#   labels:
-#     app: maintainerr
-# spec:
-#   selector:
-#     app: maintainerr
-#   ports:
-#   - name: maintainerr
-#     port: 6246
-#     targetPort: 6246
-#   type: ClusterIP
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: maintainerr
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: maintainerr
+  strategy:
+    rollingUpdate: null
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: maintainerr
+    spec:
+      containers:
+      - name: maintainerr
+        image: ghcr.io/jorenn92/maintainerr:2.8.0 # {"$imagepolicy": "flux-system:maintainerr"}
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 6246
+        env:
+        - name: PGID
+          value: "1000"
+        - name: PUID
+          value: "1000"
+        - name: TZ
+          value: America\Toronto
+        volumeMounts:
+        - name: maintainerr-config
+          mountPath: /opt/data
+      volumes:
+      - name: maintainerr-config
+        persistentVolumeClaim:
+          claimName: maintainerr-config-pvc
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: maintainerr-ingress
+  namespace: default
+spec:
+  ingressClassName: internal-nginx
+  #tls:
+  #- hosts:
+  #  - "maintainerr.tallflix.ca"
+  #  secretName: maintainer-tls-secret
+  rules:
+  - host: maintainerr.tallflix.ca
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: maintainerr
+            port:
+              number: 6246
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: maintainerr
+  namespace: default
+  labels:
+    app: maintainerr
+spec:
+  selector:
+    app: maintainerr
+  ports:
+  - name: maintainerr
+    port: 6246
+    targetPort: 6246
+  type: ClusterIP

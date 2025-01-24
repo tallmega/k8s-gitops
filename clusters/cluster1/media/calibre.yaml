@@ -1,92 +1,92 @@
-# apiVersion: apps/v1
-# kind: Deployment
-# metadata:
-#   name: calibre
-#   namespace: default
-# spec:
-#   replicas: 1
-#   selector:
-#     matchLabels:
-#       app: calibre
-#   strategy:
-#     rollingUpdate: null
-#     type: Recreate
-#   template:
-#     metadata:
-#       labels:
-#         app: calibre
-#     spec:
-#       containers:
-#       - name: calibre
-#         image: linuxserver/calibre:7.24.0 # {"$imagepolicy": "flux-system:calibre"}
-#         imagePullPolicy: IfNotPresent
-#         ports:
-#         - containerPort: 8080
-#         - containerPort: 8181
-#         - containerPort: 8081
-#         env:
-#         - name: PGID
-#           value: "1000"
-#         - name: PUID
-#           value: "1000"
-#         - name: TZ
-#           value: America\Toronto
-#         volumeMounts:
-#         - name: calibre-config
-#           mountPath: /config
-#         - name: books-nfs
-#           mountPath: /Calibre_Library
-#       volumes:
-#       - name: calibre-config
-#         persistentVolumeClaim:
-#           claimName: calibre-config-pvc
-#       - name: books-nfs
-#         persistentVolumeClaim:
-#           claimName: books-pvc
-# ---
-# apiVersion: v1
-# kind: Service
-# metadata:
-#   name: calibre
-#   namespace: default
-#   labels:
-#     app: calibre
-# spec:
-#   selector:
-#     app: calibre
-#   loadBalancerIP: 10.10.10.67
-#   ports:
-#   - name: calibre
-#     port: 8080
-#     targetPort: 8080
-#   - name: calibre-8081
-#     port: 8081
-#     targetPort: 8081
-#   - name: calibre-8181
-#     port: 8181
-#     protocol: TCP
-#     targetPort: 8181
-#   type: LoadBalancer
-# ---
-# apiVersion: networking.k8s.io/v1
-# kind: Ingress
-# metadata:
-#   name: calibre-ingress
-#   namespace: default
-# spec:
-#   ingressClassName: internal-nginx
-#   #tls:
-#   #- hosts:
-#   #  - "longhorn.tallflix.ca"
-#   #  secretName: tls-secret
-#   rules:
-#   - host: calibre.tallflix.ca
-#     http:
-#       paths:
-#       - pathType: Prefix
-#         path: "/"
-#         backend:
-#           service:
-#             name: calibre
-#             port:
-#               number: 8080
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: calibre
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: calibre
+  strategy:
+    rollingUpdate: null
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: calibre
+    spec:
+      containers:
+      - name: calibre
+        image: linuxserver/calibre:7.24.0 # {"$imagepolicy": "flux-system:calibre"}
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080
+        - containerPort: 8181
+        - containerPort: 8081
+        env:
+        - name: PGID
+          value: "1000"
+        - name: PUID
+          value: "1000"
+        - name: TZ
+          value: America\Toronto
+        volumeMounts:
+        - name: calibre-config
+          mountPath: /config
+        - name: books-nfs
+          mountPath: /Calibre_Library
+      volumes:
+      - name: calibre-config
+        persistentVolumeClaim:
+          claimName: calibre-config-pvc
+      - name: books-nfs
+        persistentVolumeClaim:
+          claimName: books-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: calibre
+  namespace: default
+  labels:
+    app: calibre
+spec:
+  selector:
+    app: calibre
+  loadBalancerIP: 10.10.10.67
+  ports:
+  - name: calibre
+    port: 8080
+    targetPort: 8080
+  - name: calibre-8081
+    port: 8081
+    targetPort: 8081
+  - name: calibre-8181
+    port: 8181
+    protocol: TCP
+    targetPort: 8181
+  type: LoadBalancer
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: calibre-ingress
+  namespace: default
+spec:
+  ingressClassName: internal-nginx
+  #tls:
+  #- hosts:
+  #  - "longhorn.tallflix.ca"
+  #  secretName: tls-secret
+  rules:
+  - host: calibre.tallflix.ca
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: calibre
+            port:
+              number: 8080
