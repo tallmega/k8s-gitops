@@ -32,9 +32,9 @@ metadata:
         app: gluetun
 spec:
     replicas: 1
-  strategy:
-    rollingUpdate: null
-    type: Recreate
+    strategy:
+      rollingUpdate: null
+      type: Recreate
     selector:
         matchLabels:
             app: gluetun
