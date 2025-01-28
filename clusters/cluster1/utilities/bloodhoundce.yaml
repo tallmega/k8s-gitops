@@ -76,58 +76,61 @@ spec:
       targetPort: 7474
   type: ClusterIP
 ---
-# apiVersion: apps/v1
-# kind: Deployment
-# metadata:
-#   name: postgres
-#   namespace: bloodhound
-# spec:
-#   replicas: 1
-#   selector:
-#     matchLabels:
-#       app: postgres
-#   template:
-#     metadata:
-#       labels:
-#         app: postgres
-#     spec:
-#       containers:
-#       - name: postgres
-#         image: docker.io/library/postgres:13.2
-#         # command: [ "/bin/bash", "-c", "--" ]
-#         # args: [ "while true; do sleep 30; done;" ]
-#         env:
-#         - name: POSTGRES_USER
-#           value: "bloodhound"
-#         - name: POSTGRES_PASSWORD
-#           value: "bloodhoundcommunityedition"
-#         - name: POSTGRES_DB
-#           value: "bloodhound"
-#         ports:
-#         - containerPort: 5432
-#         livenessProbe:
-#           exec:
-#             command:
-#             - pg_isready
-#             - -U
-#             - bloodhound
-#             - -d
-#             - bloodhound
-#             - -h
-#             - 127.0.0.1
-#             - -p
-#             - "5432"
-#           initialDelaySeconds: 30
-#           periodSeconds: 10
-#           timeoutSeconds: 5
-#           failureThreshold: 5
-#         volumeMounts:
-#         - name: bloodhound-postgres-config
-#           mountPath: /var/lib/postgresql/data
-#       volumes:
-#       - name: bloodhound-postgres-config
-#         persistentVolumeClaim:
-#           claimName: bloodhound-postgres-config-pvc
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres
+  namespace: bloodhound
+spec:
+  replicas: 1
+  strategy:
+    rollingUpdate: null
+    type: Recreate
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+      - name: postgres
+        image: docker.io/library/postgres:13.2
+        # command: [ "/bin/bash", "-c", "--" ]
+        # args: [ "while true; do sleep 30; done;" ]
+        env:
+        - name: POSTGRES_USER
+          value: "bloodhound"
+        - name: POSTGRES_PASSWORD
+          value: "bloodhoundcommunityedition"
+        - name: POSTGRES_DB
+          value: "bloodhound"
+        ports:
+        - containerPort: 5432
+        livenessProbe:
+          exec:
+            command:
+            - pg_isready
+            - -U
+            - bloodhound
+            - -d
+            - bloodhound
+            - -h
+            - 127.0.0.1
+            - -p
+            - "5432"
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 5
+        volumeMounts:
+        - name: bloodhound-postgres-config
+          mountPath: /var/lib/postgresql/data
+      volumes:
+      - name: bloodhound-postgres-config
+        persistentVolumeClaim:
+          claimName: bloodhound-postgres-config-pvc
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -178,47 +181,47 @@ spec:
         configMap:
           name: bloodhound-config
 ---
-# apiVersion: apps/v1
-# kind: Deployment
-# metadata:
-#   name: graphdb
-#   namespace: bloodhound
-# spec:
-#   replicas: 1
-#   strategy:
-#     rollingUpdate: null
-#     type: Recreate
-#   selector:
-#     matchLabels:
-#       app: graphdb
-#   template:
-#     metadata:
-#       labels:
-#         app: graphdb
-#     spec:
-#       containers:
-#       - name: neo4j
-#         image: docker.io/library/neo4j:4.4
-#         env:
-#         - name: NEO4J_AUTH
-#           value: "neo4j/bloodhoundcommunityedition"
-#         - name: NEO4J_dbms_allow__upgrade
-#           value: "true"
-#         ports:
-#         - containerPort: 7687
-#         - containerPort: 7474
-#         livenessProbe:
-#           exec:
-#             command:
-#             - wget
-#             - -O
-#             - /dev/null
-#             - -q
-#             - http://127.0.0.1:7474
-#           initialDelaySeconds: 30
-#           periodSeconds: 10
-#           timeoutSeconds: 5
-#           failureThreshold: 5
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: graphdb
+  namespace: bloodhound
+spec:
+  replicas: 1
+  strategy:
+    rollingUpdate: null
+    type: Recreate
+  selector:
+    matchLabels:
+      app: graphdb
+  template:
+    metadata:
+      labels:
+        app: graphdb
+    spec:
+      containers:
+      - name: neo4j
+        image: docker.io/library/neo4j:4.4
+        env:
+        - name: NEO4J_AUTH
+          value: "neo4j/bloodhoundcommunityedition"
+        - name: NEO4J_dbms_allow__upgrade
+          value: "true"
+        ports:
+        - containerPort: 7687
+        - containerPort: 7474
+        livenessProbe:
+          exec:
+            command:
+            - wget
+            - -O
+            - /dev/null
+            - -q
+            - http://127.0.0.1:7474
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 5
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
