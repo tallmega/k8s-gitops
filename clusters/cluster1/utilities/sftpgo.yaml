@@ -1,51 +1,51 @@
-# apiVersion: apps/v1
-# kind: Deployment
-# metadata:
-#   name: sftpgo
-#   namespace: default
-# spec:
-#   replicas: 1
-#   selector:
-#     matchLabels:
-#       app: sftpgo
-#   strategy:
-#     rollingUpdate: null
-#     type: Recreate
-#   template:
-#     metadata:
-#       labels:
-#         app: sftpgo
-#     spec:
-#       containers:
-#         - name: sftpgo
-#           image: drakkan/sftpgo:v2.6.4 # {"$imagepolicy": "flux-system:sftpgo"}
-#           imagePullPolicy: IfNotPresent
-#           ports:
-#             - name: http
-#               containerPort: 8080
-#             - name: ssh
-#               containerPort: 2022
-#             - name: ftp
-#               containerPort: 2121
-#             - name: webdav
-#               containerPort: 10080
-#           env:
-#             - name: TZ
-#               value: America/Toronto
-#             - name: SFTPGO_WEBDAVD__BINDINGS__0__PORT
-#               value: "10080"
-#           volumeMounts:
-#             - name: sftpgodata
-#               mountPath: /srv/sftpgo/data
-#             - name: sftpgohome
-#               mountPath: /var/lib/sftpgo
-#       volumes:
-#         - name: sftpgodata
-#           persistentVolumeClaim:
-#             claimName: uploads-pvc
-#         - name: sftpgohome
-#           persistentVolumeClaim:
-#             claimName: sftpgo-config-pvc
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sftpgo
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sftpgo
+  strategy:
+    rollingUpdate: null
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: sftpgo
+    spec:
+      containers:
+        - name: sftpgo
+          image: drakkan/sftpgo:v2.6.4 # {"$imagepolicy": "flux-system:sftpgo"}
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 8080
+            - name: ssh
+              containerPort: 2022
+            - name: ftp
+              containerPort: 2121
+            - name: webdav
+              containerPort: 10080
+          env:
+            - name: TZ
+              value: America/Toronto
+            - name: SFTPGO_WEBDAVD__BINDINGS__0__PORT
+              value: "10080"
+          volumeMounts:
+            - name: sftpgodata
+              mountPath: /srv/sftpgo/data
+            - name: sftpgohome
+              mountPath: /var/lib/sftpgo
+      volumes:
+        - name: sftpgodata
+          persistentVolumeClaim:
+            claimName: uploads-pvc
+        - name: sftpgohome
+          persistentVolumeClaim:
+            claimName: sftpgo-config-pvc
 ---
 apiVersion: v1
 kind: Service
