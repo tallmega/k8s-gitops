@@ -18,14 +18,14 @@ spec:
         app.kubernetes.io/name: frigate
     spec:
       affinity:
-       nodeAffinity:
-         requiredDuringSchedulingIgnoredDuringExecution:
-           nodeSelectorTerms:
-           - matchExpressions:
-             - key: coral
-               operator: In
-               values:
-               - "true"
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: coral
+                operator: In
+                values:
+                - "true"
       containers:
       - env:
         - name: TZ
@@ -33,7 +33,7 @@ spec:
         # envFrom:
         # - secretRef:
         #     name: frigate-secret
-        image: ghcr.io/blakeblackshear/frigate:0.14.1 # {"$imagepolicy": "flux-system:frigate"}
+        image: ghcr.io/blakeblackshear/frigate:0.15.0 # {"$imagepolicy": "flux-system:frigate"}
         # command: [ "sleep" ]
         # args: [ "infinity" ]
         imagePullPolicy: IfNotPresent
