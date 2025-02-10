@@ -8,6 +8,9 @@ spec:
   selector:
     matchLabels:
       app: sftpgo
+  strategy:
+    rollingUpdate: null
+    type: Recreate
   template:
     metadata:
       labels:
@@ -15,7 +18,7 @@ spec:
     spec:
       containers:
         - name: sftpgo
-          image: drakkan/sftpgo:v2.6.4 # {"$imagepolicy": "flux-system:sftpgo"}
+          image: drakkan/sftpgo:v2.6.5 # {"$imagepolicy": "flux-system:sftpgo"}
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
