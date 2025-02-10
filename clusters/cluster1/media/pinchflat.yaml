@@ -1,0 +1,66 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pinchflat
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pinchflat
+  strategy:
+    rollingUpdate: null
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: 
+    spec:
+      containers:
+      - name: pinchflat
+        image: ghcr.io/kieraneglin/pinchflat # {"$imagepolicy": "flux-system:pinchflat"}
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8945
+        env:
+        - name: TZ
+          value: America\Toronto
+        # - name: OUTPUT_TEMPLATE
+        #   value: "%(uploader)s/Season %(upload_date>%Y)s/s%(upload_date>%Y)s.e%(upload_date>%m%d)s01 - %(title)s.%(ext)s"
+        # - name: YTDL_OPTIONS
+        #   value: '{"writethumbnail":true,"download_archive":"/downloads/archive.txt","postprocessors":[{"key":"EmbedThumbnail"},{"key":"FFmpegMetadata"}]}'
+        volumeMounts:
+        - name: ytshows
+          mountPath: /downloads
+        - name: pinchflat-config
+          mountPath: /config
+      volumes:
+      - name: pinchflat-config
+        persistentVolumeClaim:
+          claimName: pinchflat-config-pvc
+      - name: ytshows
+        persistentVolumeClaim:
+          claimName: ytshows-pvc
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: pinchflat-ingress
+  namespace: default
+spec:
+  ingressClassName: internal-nginx
+  #tls:
+  #- hosts:
+  #  - "pinchflat.tallflix.ca"
+  #  secretName: tls-secret
+  rules:
+  - host: pinchflat.tallflix.ca
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: pinchflat
+            port:
+              number: 8945
