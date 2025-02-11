@@ -78,11 +78,9 @@ metadata:
 spec:
   imageRepositoryRef:
     name: pinchflat
-  filterTags:
-    pattern: '^v(?P<year>0|[0-9]\d*)\.(?P<month>[0-9][0-9])\.(?P<day>0|[0-9]\d*)$'
   policy:
-    alphabetical:
-      order: asc
+    semver:
+      range: '>= 2021.12.0'
 ---
 # Commented out until stable builds are available.
 # apiVersion: image.toolkit.fluxcd.io/v1beta1
