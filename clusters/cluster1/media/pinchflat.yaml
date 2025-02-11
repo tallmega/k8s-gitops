@@ -38,6 +38,22 @@ spec:
         persistentVolumeClaim:
           claimName: ytshows-pvc
 ---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pinchflat
+  namespace: default
+  labels:
+    app: pinchflat
+spec:
+  selector:
+    app: pinchflat
+  ports:
+  - name: pinchflat
+    port: 8945
+    targetPort: 8945
+  type: ClusterIP
+---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
