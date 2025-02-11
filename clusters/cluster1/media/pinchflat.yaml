@@ -18,17 +18,13 @@ spec:
     spec:
       containers:
       - name: pinchflat
-        image: ghcr.io/kieraneglin/pinchflat # {"$imagepolicy": "flux-system:pinchflat"}
+        image: ghcr.io/kieraneglin/pinchflat:v2025.1.27 # {"$imagepolicy": "flux-system:pinchflat"}
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8945
         env:
         - name: TZ
           value: America\Toronto
-        # - name: OUTPUT_TEMPLATE
-        #   value: "%(uploader)s/Season %(upload_date>%Y)s/s%(upload_date>%Y)s.e%(upload_date>%m%d)s01 - %(title)s.%(ext)s"
-        # - name: YTDL_OPTIONS
-        #   value: '{"writethumbnail":true,"download_archive":"/downloads/archive.txt","postprocessors":[{"key":"EmbedThumbnail"},{"key":"FFmpegMetadata"}]}'
         volumeMounts:
         - name: ytshows
           mountPath: /downloads
