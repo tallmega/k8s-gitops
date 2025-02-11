@@ -73,27 +73,13 @@ spec:
 apiVersion: image.toolkit.fluxcd.io/v1beta1
 kind: ImagePolicy
 metadata:
-  name: metube
-  namespace: flux-system
-spec:
-  imageRepositoryRef:
-    name: metube
-  filterTags:
-    pattern: '^(?P<year>0|[0-9]\d*)\-(?P<month>[0-9][0-9])\-(?P<day>0|[0-9]\d*)$'
-  policy:
-    alphabetical:
-      order: asc
----
-apiVersion: image.toolkit.fluxcd.io/v1beta1
-kind: ImagePolicy
-metadata:
   name: pinchflat
   namespace: flux-system
 spec:
   imageRepositoryRef:
     name: pinchflat
   filterTags:
-    pattern: '^(?P<year>0|[0-9]\d*)\-(?P<month>[0-9][0-9])\-(?P<day>0|[0-9]\d*)$'
+    pattern: '^v(?P<year>0|[0-9]\d*)\.(?P<month>[0-9][0-9])\.(?P<day>0|[0-9]\d*)$'
   policy:
     alphabetical:
       order: asc
