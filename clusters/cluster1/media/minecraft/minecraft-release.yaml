@@ -19,6 +19,8 @@ spec:
       tag: 2025.2.0 # {"$imagepolicy": "flux-system:minecraft:tag"}
     minecraftServer:
       eula: true
+      gameMode: creative
+      motd: "Welcome to Finn and Kane's Minecraft Server"
       version: "LATEST"
       difficult: easy
       serviceType: LoadBalancer
