@@ -16,7 +16,7 @@ spec:
       labels:
         app: minecraft-sky-parkour
     spec:
-      hostNetwork: true
+      # hostNetwork: true
       containers:
       - name: minecraft-sky-parkour
         image: itzg/minecraft-bedrock-server:2024.11.0 # {"$imagepolicy": "flux-system:minecraft"}
