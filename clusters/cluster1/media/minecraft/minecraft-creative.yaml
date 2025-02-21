@@ -51,21 +51,21 @@ spec:
       - name: minecraft-config
         persistentVolumeClaim:
           claimName: minecraft-config-pvc
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: minecraft-creative
-  namespace: default
-spec:
-  externalTrafficPolicy: Cluster
-  loadBalancerIP: 10.10.10.69
-  ports:
-  - name: minecraft-creative
-    port: 19132
-    protocol: UDP
-    targetPort: 19132
-  selector:
-    app.kubernetes.io/instance: minecraft-creative
-    app.kubernetes.io/name: minecraft-creative
-  type: LoadBalancer
+# ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: minecraft-creative
+#   namespace: default
+# spec:
+#   externalTrafficPolicy: Cluster
+#   loadBalancerIP: 10.10.10.69
+#   ports:
+#   - name: minecraft-creative
+#     port: 19132
+#     protocol: UDP
+#     targetPort: 19132
+#   selector:
+#     app.kubernetes.io/instance: minecraft-creative
+#     app.kubernetes.io/name: minecraft-creative
+#   type: LoadBalancer
