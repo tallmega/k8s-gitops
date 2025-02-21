@@ -27,11 +27,13 @@ spec:
       motd: "Welcome to Finn and Kane's Minecraft Server"
       version: "LATEST"
       difficult: easy
-      serviceType: LoadBalancer
+      # serviceType: LoadBalancer
       memory: 2048M
-      loadBalancerIP: 10.10.10.69
+      # loadBalancerIP: 10.10.10.69
     #rcon:
     hostNetwork: true
+    extraPodSpec:
+      hostNetwork: 10.10.10.69
     # extraPodSpec:
     #   hostNetwork: "{{ .Values.hostNetwork }}"
     persistence:
