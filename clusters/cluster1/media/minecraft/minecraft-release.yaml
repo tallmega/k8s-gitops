@@ -21,6 +21,7 @@ spec:
       serverName: McBrideServer
       cheats: true
       onlineMode: true
+      enable-lan-visibility: true
       serverPort: 19132
       eula: true
       gameMode: creative
@@ -31,6 +32,9 @@ spec:
       memory: 2048M
       loadBalancerIP: 10.10.10.69
     #rcon:
+    hostNetwork: true
+    # extraPodSpec:
+    #   hostNetwork: "{{ .Values.hostNetwork }}"
     persistence:
       dataDir:
         enabled: true
