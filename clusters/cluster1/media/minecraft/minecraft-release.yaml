@@ -13,11 +13,6 @@ spec:
   interval: 1h0m0s
   releaseName: minecraft-server
   targetNamespace: default
-  hostNetwork: true
-    extraPodSpec:
-      hostNetwork: 10.10.10.69
-    # extraPodSpec:
-    #   hostNetwork: "{{ .Values.hostNetwork }}"
   values:
     image:
       repository: itzg/minecraft-bedrock-server
@@ -32,9 +27,9 @@ spec:
       motd: "Welcome to Finn and Kane's Minecraft Server"
       version: "LATEST"
       difficult: easy
-      # serviceType: LoadBalancer
+      serviceType: LoadBalancer
       memory: 2048M
-      # loadBalancerIP: 10.10.10.69
+      loadBalancerIP: 10.10.10.69
     #rcon:
     persistence:
       dataDir:
