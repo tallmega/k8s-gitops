@@ -1,38 +1,67 @@
-apiVersion: helm.toolkit.fluxcd.io/v2beta1
-kind: HelmRelease
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: minecraft-server
-  namespace: flux-system
+  name: minecraft
+  namespace: default
 spec:
-  chart:
+  replicas: 1
+  strategy:
+    rollingUpdate: null
+    type: Recreate
+  selector:
+    matchLabels:
+      app: minecraft
+  template:
+    metadata:
+      labels:
+        app: minecraft
     spec:
-      chart: minecraft-bedrock
-      sourceRef:
-        kind: HelmRepository
-        name: itzg
-  interval: 1h0m0s
-  releaseName: minecraft-server
-  targetNamespace: default
-  values:
-    image:
-      repository: itzg/minecraft-bedrock-server
-      tag: 2024.11.0 # {"$imagepolicy": "flux-system:minecraft:tag"}
-    minecraftServer:
-      serverName: McBrideServer
-      enable-lan-visibility: true
-      cheats: true
-      onlineMode: true
-      serverPort: 19132
-      eula: true
-      gameMode: creative
-      motd: "Welcome to Finn and Kane's Minecraft Server"
-      version: "LATEST"
-      difficult: easy
-      serviceType: LoadBalancer
-      memory: 2048M
-      loadBalancerIP: 10.10.10.69
-    #rcon:
-    persistence:
-      dataDir:
-        enabled: true
-        existingClaim: minecraft-config-pvc
+      hostNetwork: true
+      containers:
+      - name: radarr
+        image: itzg/minecraft-bedrock-server:5.18.4 2024.11.0 # {"$imagepolicy": "flux-system:minecraft"}
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 19132
+        env:
+        - name: TZ
+          value: America\Toronto
+        - name: SERVER_NAME
+          value: McBrideServer
+        - name: ENABLE_LAN_VISIBILITY
+          value: True
+        - name: EULA
+          value: True
+        - name: ALLOW_CHEATS
+          value: True
+        - name: DIFFICULTY
+          value: easy
+        - name: ONLINE_MODE
+          value: True
+        - name: SERVER_PORT
+          value: 19132
+        volumeMounts:
+        - name: minecraft-config
+          mountPath: /data
+      volumes:
+      - name: minecraft-config
+        persistentVolumeClaim:
+          claimName: minecraft-config-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: minecraft
+  namespace: default
+spec:
+  externalTrafficPolicy: Cluster
+  loadBalancerIP: 10.10.10.69
+  ports:
+  - name: minecraft
+    port: 19132
+    protocol: UDP
+    targetPort: 19132
+  selector:
+    app.kubernetes.io/instance: minecraft
+    app.kubernetes.io/name: minecraft
+  type: LoadBalancer
