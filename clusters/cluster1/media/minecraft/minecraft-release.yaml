@@ -32,7 +32,7 @@ spec:
       memory: 2048M
       loadBalancerIP: 10.10.10.69
     #rcon:
-    hostNetwork: true
+    #hostNetwork: true
     # extraPodSpec:
     #   hostNetwork: "{{ .Values.hostNetwork }}"
     persistence:
