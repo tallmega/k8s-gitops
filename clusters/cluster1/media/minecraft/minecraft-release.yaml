@@ -34,8 +34,6 @@ spec:
           value: "true"
         - name: ALLOW_CHEATS
           value: "true"
-        - name: motd
-          value: "Finn & Kane's Minecraft Server"
         - name: DIFFICULTY
           value: "easy"
         - name: ONLINE_MODE
