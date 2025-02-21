@@ -51,21 +51,21 @@ spec:
       - name: minecraft-config-survival-house
         persistentVolumeClaim:
           claimName: minecraft-survival-house-config-pvc
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: minecraft-survival-house
-  namespace: default
-spec:
-  externalTrafficPolicy: Cluster
-  loadBalancerIP: 10.10.10.70
-  ports:
-  - name: minecraft-survival-house
-    port: 19132
-    protocol: UDP
-    targetPort: 19132
-  selector:
-    app.kubernetes.io/instance: minecraft-survival-house
-    app.kubernetes.io/name: minecraft-survival-house
-  type: LoadBalancer
+# ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: minecraft-survival-house
+#   namespace: default
+# spec:
+#   externalTrafficPolicy: Cluster
+#   loadBalancerIP: 10.10.10.70
+#   ports:
+#   - name: minecraft-survival-house
+#     port: 19132
+#     protocol: UDP
+#     targetPort: 19132
+#   selector:
+#     app.kubernetes.io/instance: minecraft-survival-house
+#     app.kubernetes.io/name: minecraft-survival-house
+#   type: LoadBalancer
