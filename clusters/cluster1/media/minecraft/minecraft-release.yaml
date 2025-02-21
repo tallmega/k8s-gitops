@@ -19,7 +19,7 @@ spec:
       hostNetwork: true
       containers:
       - name: minecraft
-        image: itzg/minecraft-bedrock-server:5.18.4 2024.11.0 # {"$imagepolicy": "flux-system:minecraft"}
+        image: itzg/minecraft-bedrock-server:2024.11.0 # {"$imagepolicy": "flux-system:minecraft"}
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 19132
