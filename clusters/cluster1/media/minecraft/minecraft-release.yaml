@@ -6,7 +6,7 @@ metadata:
 spec:
   chart:
     spec:
-      chart: minecraft
+      chart: minecraft-bedrock
       sourceRef:
         kind: HelmRepository
         name: itzg
@@ -18,10 +18,10 @@ spec:
       repository: itzg/minecraft-bedrock-server
       tag: 2024.11.0 # {"$imagepolicy": "flux-system:minecraft:tag"}
     minecraftServer:
-      server-name: McBrideServer
-      allow-cheats: true
-      online-mode: true
-      server-port: 19132
+      serverName: McBrideServer
+      cheats: true
+      onlineMode: true
+      serverPort: 19132
       eula: true
       gameMode: creative
       motd: "Welcome to Finn and Kane's Minecraft Server"
@@ -31,7 +31,7 @@ spec:
       memory: 2048M
       loadBalancerIP: 10.10.10.69
       externalTrafficPolicy: Local
-    rcon:
+    #rcon:
     persistence:
       dataDir:
         enabled: true
