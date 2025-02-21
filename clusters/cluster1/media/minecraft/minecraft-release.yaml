@@ -15,7 +15,7 @@ spec:
   targetNamespace: default
   values:
     image:
-      repository: itzg/minecraft-server
+      repository: itzg/minecraft-bedrock-server
       tag: 2025.2.0 # {"$imagepolicy": "flux-system:minecraft:tag"}
     minecraftServer:
       eula: true
