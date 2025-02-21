@@ -11,6 +11,7 @@ spec:
   selector:
     matchLabels:
       app: minecraft-survival-house
+  template:
     metadata:
       labels:
         app: minecraft-survival-house
