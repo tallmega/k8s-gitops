@@ -27,7 +27,7 @@ spec:
         - name: TZ
           value: America\Toronto
         - name: SERVER_NAME
-          value: "McBride"
+          value: "Parkour"
         - name: LEVEL_NAME
           value: "Sky Parkour"
         - name: ENABLE_LAN_VISIBILITY

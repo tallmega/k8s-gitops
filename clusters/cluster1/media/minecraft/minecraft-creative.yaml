@@ -27,7 +27,7 @@ spec:
         - name: TZ
           value: America\Toronto
         - name: SERVER_NAME
-          value: "McBride"
+          value: "Creative"
         - name: LEVEL_NAME
           value: "Creative World"
         - name: ENABLE_LAN_VISIBILITY
