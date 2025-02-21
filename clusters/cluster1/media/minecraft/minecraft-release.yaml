@@ -18,7 +18,7 @@ spec:
     spec:
       hostNetwork: true
       containers:
-      - name: radarr
+      - name: minecraft
         image: itzg/minecraft-bedrock-server:5.18.4 2024.11.0 # {"$imagepolicy": "flux-system:minecraft"}
         imagePullPolicy: IfNotPresent
         ports:
@@ -27,19 +27,19 @@ spec:
         - name: TZ
           value: America\Toronto
         - name: SERVER_NAME
-          value: McBrideServer
+          value: "McBrideServer"
         - name: ENABLE_LAN_VISIBILITY
-          value: True
+          value: "TRUE"
         - name: EULA
-          value: True
+          value: "TRUE"
         - name: ALLOW_CHEATS
-          value: True
+          value: "TRUE"
         - name: DIFFICULTY
-          value: easy
+          value: "easy"
         - name: ONLINE_MODE
-          value: True
+          value: "TRUE"
         - name: SERVER_PORT
-          value: 19132
+          value: "19132"
         volumeMounts:
         - name: minecraft-config
           mountPath: /data
