@@ -21,7 +21,7 @@ spec:
       serverName: McBrideServer
       cheats: true
       onlineMode: true
-      enable-lan-visibility: true
+      enable_lan_visibility: true
       serverPort: 19132
       eula: true
       gameMode: creative
