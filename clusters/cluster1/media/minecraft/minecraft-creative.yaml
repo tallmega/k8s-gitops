@@ -1,56 +1,56 @@
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: minecraft-creative
-  namespace: default
-spec:
-  replicas: 1
-  strategy:
-    rollingUpdate: null
-    type: Recreate
-  selector:
-    matchLabels:
-      app: minecraft-creative
-  template:
-    metadata:
-      labels:
-        app: minecraft-creative
-    spec:
-      hostNetwork: true
-      containers:
-      - name: minecraft-creative
-        image: itzg/minecraft-bedrock-server:2024.11.0 # {"$imagepolicy": "flux-system:minecraft"}
-        imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 19132
-        env:
-        - name: TZ
-          value: America\Toronto
-        - name: SERVER_NAME
-          value: "Creative"
-        - name: LEVEL_NAME
-          value: "Creative World"
-        - name: ENABLE_LAN_VISIBILITY
-          value: "true"
-        - name: GAMEMODE
-          value: "creative"
-        - name: EULA
-          value: "true"
-        - name: ALLOW_CHEATS
-          value: "true"
-        - name: DIFFICULTY
-          value: "easy"
-        - name: ONLINE_MODE
-          value: "true"
-        - name: SERVER_PORT
-          value: "19132"
-        volumeMounts:
-        - name: minecraft-config
-          mountPath: /data
-      volumes:
-      - name: minecraft-config
-        persistentVolumeClaim:
-          claimName: minecraft-config-pvc
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: minecraft-creative
+#   namespace: default
+# spec:
+#   replicas: 1
+#   strategy:
+#     rollingUpdate: null
+#     type: Recreate
+#   selector:
+#     matchLabels:
+#       app: minecraft-creative
+#   template:
+#     metadata:
+#       labels:
+#         app: minecraft-creative
+#     spec:
+#       hostNetwork: true
+#       containers:
+#       - name: minecraft-creative
+#         image: itzg/minecraft-bedrock-server:2024.11.0 # {"$imagepolicy": "flux-system:minecraft"}
+#         imagePullPolicy: IfNotPresent
+#         ports:
+#         - containerPort: 19132
+#         env:
+#         - name: TZ
+#           value: America\Toronto
+#         - name: SERVER_NAME
+#           value: "Creative"
+#         - name: LEVEL_NAME
+#           value: "Creative World"
+#         - name: ENABLE_LAN_VISIBILITY
+#           value: "true"
+#         - name: GAMEMODE
+#           value: "creative"
+#         - name: EULA
+#           value: "true"
+#         - name: ALLOW_CHEATS
+#           value: "true"
+#         - name: DIFFICULTY
+#           value: "easy"
+#         - name: ONLINE_MODE
+#           value: "true"
+#         - name: SERVER_PORT
+#           value: "19132"
+#         volumeMounts:
+#         - name: minecraft-config
+#           mountPath: /data
+#       volumes:
+#       - name: minecraft-config
+#         persistentVolumeClaim:
+#           claimName: minecraft-config-pvc
 # ---
 # apiVersion: v1
 # kind: Service
