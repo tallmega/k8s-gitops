@@ -29,15 +29,15 @@ spec:
         - name: SERVER_NAME
           value: "McBrideServer"
         - name: ENABLE_LAN_VISIBILITY
-          value: "TRUE"
+          value: "true"
         - name: EULA
-          value: "TRUE"
+          value: "true"
         - name: ALLOW_CHEATS
-          value: "TRUE"
+          value: "true"
         - name: DIFFICULTY
           value: "easy"
         - name: ONLINE_MODE
-          value: "TRUE"
+          value: "true"
         - name: SERVER_PORT
           value: "19132"
         volumeMounts:
