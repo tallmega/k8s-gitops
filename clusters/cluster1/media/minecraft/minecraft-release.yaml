@@ -27,7 +27,9 @@ spec:
         - name: TZ
           value: America\Toronto
         - name: SERVER_NAME
-          value: "McBrideServer"
+          value: "McBride"
+        - name: LEVEL_NAME
+          value: "Creative World"
         - name: ENABLE_LAN_VISIBILITY
           value: "true"
         - name: EULA
