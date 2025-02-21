@@ -30,7 +30,6 @@ spec:
       serviceType: LoadBalancer
       memory: 2048M
       loadBalancerIP: 10.10.10.69
-      externalTrafficPolicy: Local
     #rcon:
     persistence:
       dataDir:
