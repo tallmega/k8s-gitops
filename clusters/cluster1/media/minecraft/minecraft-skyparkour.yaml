@@ -58,7 +58,7 @@ metadata:
   name: minecraft-sky-parkour
   namespace: default
 spec:
-  externalTrafficPolicy: Cluster
+  externalTrafficPolicy: Local
   loadBalancerIP: 10.10.10.71
   ports:
   - name: minecraft-sky-parkour
