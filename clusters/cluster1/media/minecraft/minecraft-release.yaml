@@ -16,8 +16,12 @@ spec:
   values:
     image:
       repository: itzg/minecraft-bedrock-server
-      tag: 2025.2.0 # {"$imagepolicy": "flux-system:minecraft:tag"}
+      tag: 2024.11.0 # {"$imagepolicy": "flux-system:minecraft:tag"}
     minecraftServer:
+      server-name: McBrideServer
+      allow-cheats: true
+      online-mode: true
+      server-port: 19132
       eula: true
       gameMode: creative
       motd: "Welcome to Finn and Kane's Minecraft Server"
