@@ -16,7 +16,9 @@ spec:
       labels:
         app: minecraft-survival-house
     spec:
-      # hostNetwork: true
+      hostNetwork: true
+      extraPodSpec:
+          hostNetwork: "{{ .Values.hostNetwork }}"
       containers:
       - name: minecraft-survival-house
         image: itzg/minecraft-bedrock-server:2024.11.0 # {"$imagepolicy": "flux-system:minecraft"}
