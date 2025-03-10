@@ -22,6 +22,7 @@ spec:
         image: mrlt8/wyze-bridge:2.10.3 # {"$imagepolicy": "flux-system:wyzebridge"}
         imagePullPolicy: IfNotPresent
         type: ClusterIP
+        hostNetwork: true #cuz of https://github.com/mrlt8/docker-wyze-bridge/issues/1448
         ports:
         - containerPort: 1935
         - containerPort: 8554
@@ -59,7 +60,7 @@ spec:
   - name: wyzebridge-1935
     port: 1935
     targetPort: 1935
-  - name: wyzebridge-8554
+  - name: wyzebridge-8554w
     port: 8554
     targetPort: 8554
   - name: wyzebridge-8888
