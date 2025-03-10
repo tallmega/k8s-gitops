@@ -22,7 +22,6 @@ spec:
         image: mrlt8/wyze-bridge:2.10.3 # {"$imagepolicy": "flux-system:wyzebridge"}
         imagePullPolicy: IfNotPresent
         type: ClusterIP
-        hostNetwork: true #cuz of https://github.com/mrlt8/docker-wyze-bridge/issues/1448
         ports:
         - containerPort: 1935
         - containerPort: 8554
@@ -41,6 +40,12 @@ spec:
         volumeMounts:
         - name: wyzebridge-config
           mountPath: /tokens
+      
+      hostNetwork: true #cuz of https://github.com/mrlt8/docker-wyze-bridge/issues/1448
+      capabilities:
+        add:
+        - NET_BIND_SERVICE
+        
       volumes:
       - name: wyzebridge-config
         persistentVolumeClaim:
