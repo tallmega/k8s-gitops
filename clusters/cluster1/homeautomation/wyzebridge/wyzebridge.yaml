@@ -17,6 +17,7 @@ spec:
         app: wyzebridge
     spec:
       hostname: wyzebridge
+      hostNetwork: true #cuz of https://github.com/mrlt8/docker-wyze-bridge/issues/1448
       containers:
       - name: wyzebridge
         image: mrlt8/wyze-bridge:2.10.3 # {"$imagepolicy": "flux-system:wyzebridge"}
@@ -41,11 +42,6 @@ spec:
         - name: wyzebridge-config
           mountPath: /tokens
       
-      hostNetwork: true #cuz of https://github.com/mrlt8/docker-wyze-bridge/issues/1448
-      capabilities:
-        add:
-        - NET_BIND_SERVICE
-        
       volumes:
       - name: wyzebridge-config
         persistentVolumeClaim:
