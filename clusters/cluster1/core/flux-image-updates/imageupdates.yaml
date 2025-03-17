@@ -178,18 +178,18 @@ spec:
   policy:
     semver:
       range: '>= 2021.12.0'
-# ---
-# apiVersion: image.toolkit.fluxcd.io/v1beta1
-# kind: ImagePolicy
-# metadata:
-#   name: musicassistant
-#   namespace: flux-system
-# spec:
-#   imageRepositoryRef:
-#     name: musicassistant
-#   policy:
-#     semver:
-#       range: '>= 1.0.0'
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImagePolicy
+metadata:
+  name: musicassistant
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: musicassistant
+  policy:
+    semver:
+      range: '>= 1.0.0'
 ---
 apiVersion: image.toolkit.fluxcd.io/v1beta1
 kind: ImagePolicy
