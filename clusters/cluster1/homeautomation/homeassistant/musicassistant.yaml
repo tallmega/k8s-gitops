@@ -32,7 +32,11 @@ spec:
         - mountPath: /data
           name: config
         securityContext:
-          privileged: true
+          # privileged: true
+          capabilities:
+            add: 
+             - SYS_ADMIN
+             - DAC_READ_SEARCH
       hostNetwork: true
       volumes:
       - name: config
