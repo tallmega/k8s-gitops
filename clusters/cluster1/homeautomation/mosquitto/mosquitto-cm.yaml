@@ -4,7 +4,8 @@ data:
     per_listener_settings false
     listener 1883
     allow_anonymous true
-    persistence false
+    persistence true
+    persistence_location /mosquitto/data
     autosave_interval 1800
 kind: ConfigMap
 metadata:
