@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: default
+  name: music-assistant
+  labels:
+    app: music-assistant
+spec:
+  replicas: 1
+  strategy:
+    rollingUpdate: null
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: music-assistant
+      app.kubernetes.io/name: music-assistant
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app.kubernetes.io/instance: music-assistant
+        app.kubernetes.io/name: music-assistant
+    spec:
+      containers:
+      - name: music-assistant
+        image: music-assistant/server:2025.3.3 # {"$imagepolicy": "flux-system:musicassistant"}
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: TZ
+          value: America\Toronto
+        volumeMounts:
+        - mountPath: /data
+          name: config
+        securityContext:
+          privileged: true
+      hostNetwork: true
+      volumes:
+      - name: config
+        persistentVolumeClaim:
+          claimName: musicassistant-config-pvc
