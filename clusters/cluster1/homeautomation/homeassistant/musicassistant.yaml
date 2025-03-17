@@ -23,7 +23,8 @@ spec:
     spec:
       containers:
       - name: music-assistant
-        image: music-assistant/server:2.4.2 # {"$imagepolicy": "flux-system:musicassistant"}
+        image: music-assistant/server:2.4.3
+         # {"$imagepolicy": "flux-system:musicassistant"}
         imagePullPolicy: IfNotPresent
         env:
         - name: TZ
