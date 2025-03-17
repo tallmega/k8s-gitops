@@ -78,3 +78,26 @@ spec:
     app.kubernetes.io/instance: music-assistant
     app.kubernetes.io/name: music-assistant
   type: LoadBalancer
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: musicassistant-ingress
+  namespace: default
+spec:
+  ingressClassName: internal-nginx
+  #tls:
+  #- hosts:
+  #  - "appdaemon.tallflix.ca"
+  #  secretName: tls-secret
+  rules:
+  - host: music.tallflix.ca
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: music-assistant
+            port:
+              number: 8095
