@@ -140,7 +140,7 @@ metadata:
   name: musicassistant
   namespace: flux-system
 spec:
-  image: music-assistant/server
+  image: ghcr.io/music-assistant/server
   interval: 30m0s
 ---
 apiVersion: image.toolkit.fluxcd.io/v1beta1
