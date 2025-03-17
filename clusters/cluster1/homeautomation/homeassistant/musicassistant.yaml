@@ -28,7 +28,9 @@ spec:
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8095
+        - containerPort: 8097
         - containerPort: 8098
+        - containerPort: 8099
         env:
         - name: TZ
           value: America\Toronto
@@ -60,10 +62,18 @@ spec:
     protocol: TCP
     port: 8095
     targetPort: 8095
-  - name: streamserver
+  - name: streamserver1
+    protocol: TCP
+    port: 8097
+    targetPort: 8097
+  - name: streamserver2
     protocol: TCP
     port: 8098
     targetPort: 8098
+  - name: streamserver3
+    protocol: TCP
+    port: 8099
+    targetPort: 8099
   selector:
     app.kubernetes.io/instance: music-assistant
     app.kubernetes.io/name: music-assistant
