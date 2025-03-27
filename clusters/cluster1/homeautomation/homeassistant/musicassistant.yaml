@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
       - name: music-assistant
-        image: ghcr.io/music-assistant/server:2.4.3 # {"$imagepolicy": "flux-system:musicassistant"}
+        image: ghcr.io/music-assistant/server:2.4.4 # {"$imagepolicy": "flux-system:musicassistant"}
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8095
@@ -39,9 +39,9 @@ spec:
         securityContext:
           # privileged: true
           capabilities:
-            add: 
-             - SYS_ADMIN
-             - DAC_READ_SEARCH
+            add:
+            - SYS_ADMIN
+            - DAC_READ_SEARCH
       hostNetwork: true
       volumes:
       - name: config
