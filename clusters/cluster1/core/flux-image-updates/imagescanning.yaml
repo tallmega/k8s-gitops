@@ -241,5 +241,22 @@ metadata:
 spec:
   image: drakkan/sftpgo
   interval: 30m0s  
-
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImageRepository
+metadata:
+  name: piper
+  namespace: flux-system
+spec:
+  image: rhasspy/wyoming-piper
+  interval: 30m0s  
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImageRepository
+metadata:
+  name: whisper
+  namespace: flux-system
+spec:
+  image: rhasspy/wyoming-whisper
+  interval: 30m0s  
 
