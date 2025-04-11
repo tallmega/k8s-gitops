@@ -348,3 +348,15 @@ spec:
   policy:
     semver:
       range: '>= 1.0.0'
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImagePolicy
+metadata:
+  name: pot-provider
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: pot-provider
+  policy:
+    semver:
+      range: '>= 0.3.0'

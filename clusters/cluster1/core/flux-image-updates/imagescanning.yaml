@@ -259,4 +259,12 @@ metadata:
 spec:
   image: rhasspy/wyoming-whisper
   interval: 30m0s  
-
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImageRepository
+metadata:
+  name: pot-provider
+  namespace: flux-system
+spec:
+  image: brainicism/bgutil-ytdlp-pot-provider
+  interval: 30m0s  

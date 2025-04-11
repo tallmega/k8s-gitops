@@ -19,8 +19,7 @@ spec:
     spec:
       containers:
       - name: pot-provider
-        image: brainicism/bgutil-ytdlp-pot-provider
-        #:1.32.2 # {"$imagepolicy": "flux-system:pot-provider"}
+        image: brainicism/bgutil-ytdlp-pot-provider:0.4.0 # {"$imagepolicy": "flux-system:pot-provider"}
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 4416
