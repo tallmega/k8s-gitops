@@ -34,8 +34,8 @@ spec:
         # - secretRef:
         #     name: frigate-secret
         image: ghcr.io/blakeblackshear/frigate:0.15.0 # {"$imagepolicy": "flux-system:frigate"}
-        # command: [ "sleep" ]
-        # args: [ "infinity" ]
+        command: [ "sleep" ]
+        args: [ "infinity" ]
         imagePullPolicy: IfNotPresent
         name: frigate
         ports:
@@ -54,8 +54,6 @@ spec:
         securityContext:
           privileged: true
         volumeMounts:
-        # - mountPath: /dev/bus/usb
-        #   name: coral-dev
         - mountPath: /dev/apex_0
           name: coral-pci
         - mountPath: /config
@@ -78,10 +76,6 @@ spec:
         - 1001
       terminationGracePeriodSeconds: 30
       volumes:
-      # - hostPath:
-      #      path: /dev/bus/usb
-      #      type: ""
-      #   name: coral-dev
       - hostPath:
           path: /dev/apex_0
           type: ""
