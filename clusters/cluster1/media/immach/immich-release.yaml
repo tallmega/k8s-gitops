@@ -82,3 +82,4 @@ spec:
       creationTimestamp: null
       name: immich-secret
       namespace: default
+    type: Opaque
