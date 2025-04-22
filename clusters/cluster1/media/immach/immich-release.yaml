@@ -66,20 +66,3 @@ spec:
               - *host
               secretName: immich-tls
           ingressClassName: nginx-external
----
-apiVersion: bitnami.com/v1alpha1
-kind: SealedSecret
-metadata:
-  creationTimestamp: null
-  name: immich-secret
-  namespace: default
-spec:
-  encryptedData:
-    password: AgBturgAbw/rWb0t1BI89enPDg4tLsK8HDF1HY5Omll6uGPTpNoYHsc1x0NlUDOQL+N+XDev7szO3eLNFo+LAnBvEJm58RbLY81RHApbsN7JEwgTVA5glMPOuiYcDcBLQthVDXMRZFw5t1yIo27rY+LMuADl9iJV1zFVYODcpDYybkE/aFOW0uvCBuVo1KTHG4d8Hp48RBc4AoF+wObf5OROlclqCulOPcVyaW7Hhgxd9m4S3I8KG7XW9pajqKCJtoTVMGHjajQanpAYUfyq6rb2ULjfep5oRbcAXDwz4bJFiZL/OUo4iQQTpTcrypOCWhE7VB6aP1RZQ4f65N+JqdbKeCeCqWoWTIY2YDQYUvMhBaQ+/OO+rUSD56kMjoo5TdmwCPeQArKu7CZfx6Z8hffVTMWpjPp2c0PrVc7Hlj3ls6hdOjR+2Ta6dzkDKDl/Lzzrqzpjr+X65uy1DxBmDekvS4/KiA2jiPiRyDZ3ZFsSE9b3xtXSdk6dESqi4VYVjzfwG6eTzguXwQ4avZuxe+kHvUup1l+c+W7S0YbYiJXOr4e6FEgHD3s3mJL/570CTVwIE/qosQFaRy38+P94mPmIhFPzfVIonqNFbKkF5FlWBhSBBRNmMxoIYzqk2lg8SL8I9r3nORvFefHNMuotBtzFozDSV42zWyEsTrtZ5En5Z/KINgs+Q9ZdrNRGktHtR6rK/g1i0iSCIV2w8sGYNg==
-    postgres-password: AgAzP0BTknUrgSnLhNC0rz2+lsg5LJzSI2H3oADYm9WHkpwk3y7lS0vxnScnf7d6kkcCEzzcU1x7AZxwK0GE7LrcA+Ff+aGo3BPxgtaxGXV92wtGCC2Ts52LvnQRBpBwmtm7f8qn6qetPSrftWruSZJVRy2CsdXYLJz6x6jSZ+KTXzZ0BE/zCZPaeUqb8Kx3cRbz/5wvdBcl62/B0Ivimlb/xbULTQDi3/+kZ6+RY2hwxunXIrpgsOYRaprbddNL4YL4JkIy6ZyODljbv8E+aA08jLDMGHFrNkW51f1W13zoGjQTbV4m99MP1ACepyz2L3JBFS+hFCBg3raM3KOBiObz/Xa7hAci2k+QZadFTytj7wvoHYBq5XiJDFw0mkrbt86JmwwGz8/yubxZFNdriIZSGhx4eaofVlziaUGD4SKHFdHea+uEhfAr0avHWANOpKNTRrbaONNTVOZUKXygXNAhgi10z0XZOjqwDmNIsWJKq9qJ4WS8RE2uqrvs5NFZxhPc1SX1qyT9FElVzOkNGILc4OiVusDBluzfcO8B641rzNPRlTwcmRb+M+SGQfsT1JoExR6xGT2xsliT7/R1OKTkmZ9/lkKLu6CmquJHccwg+Sfn8V2UeLhFV3QuX7MiJ3ZXjTGhVvOXzy/SqdZVRvS1VV8hGPlbCywr2DwetZRJndKLfooo8KrvuDuku4unnJBzYwaeEnpuhmZs8H2gSg==
-  template:
-    metadata:
-      creationTimestamp: null
-      name: immich-secret
-      namespace: default
-    type: Opaque
