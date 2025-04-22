@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: vectorchord-demo
+  name: vectorchord
   namespace: default
 spec:
   replicas: 1
@@ -29,6 +29,8 @@ spec:
                 secretKeyRef:
                   name: immach-secret
                   key: postgres-password
+            - name: PGDATA
+              value: /var/lib/postgresql/data/postgres
           volumeMounts:
             - name: vectorchord-data
               mountPath: /var/lib/postgresql/data
