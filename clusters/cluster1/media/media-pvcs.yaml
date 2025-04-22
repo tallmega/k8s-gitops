@@ -119,7 +119,7 @@ spec:
   accessModes:
     - ReadWriteMany
   storageClassName: syno-nfs
-  volumeName: immich-data-pvc
+  volumeName: immich-data-pv
   resources:
     requests:
       storage: 8Gi
