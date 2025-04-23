@@ -20,12 +20,12 @@ spec:
       containers:
         - name: immich-machine-learning
           image: ghcr.io/immich-app/immich-machine-learning:-release}
-          volumeMounts:
-            - mountPath: /cache
-              name: model-cache
-          envFrom:
-            - configMapRef:
-                name: immich-env
+          # volumeMounts:
+          #   - mountPath: /cache
+          #     name: model-cache
+          # envFrom:
+          #   - configMapRef:
+          #       name: immich-env
           healthCheck:
             httpGet:
               path: /health
