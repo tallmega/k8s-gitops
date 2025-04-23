@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: immich-machine-learning
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: immich-machine-learning
+  template:
+    metadata:
+      labels:
+        app: immich-machine-learning
+    spec:
+      containers:
+        - name: immich-machine-learning
+          image: ghcr.io/immich-app/immich-machine-learning:-release}
+          volumeMounts:
+            - mountPath: /cache
+              name: model-cache
+          envFrom:
+            - configMapRef:
+                name: immich-env
+          restartPolicy: Always
+          healthCheck:
+            httpGet:
+              path: /health
+              port: 5000
+              initialDelaySeconds: 30
+              periodSeconds: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: immich-machine-learning
+spec:
+  selector:
+    app: immich-machine-learning
+  ports:
+    - protocol: TCP
+      port: 5000
+      targetPort: 5000

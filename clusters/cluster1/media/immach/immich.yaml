@@ -1,0 +1,90 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: immich-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: immich-server
+  template:
+    metadata:
+      labels:
+        app: immich-server
+    spec:
+      containers:
+        - name: immich-server
+          image: ghcr.io/immich-app/immich-server:-release-quicksync
+          ports:
+            - containerPort: 2283
+          volumeMounts:
+            - mountPath: /usr/src/app/upload
+              name: upload-location
+            - mountPath: /etc/localtime
+              name: local-time
+              readOnly: true
+            - name: dri
+              mountPath: /dev/dri
+          envFrom:
+            - configMapRef:
+                name: immich-env
+          env:
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: immich-db-secret
+                  key: db_password
+            - name: DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: immich-db-secret
+                  key: db_username
+            - name: DB_DATABASE_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: immich-db-secret
+                  key: db_database_name
+          restartPolicy: Always
+          healthCheck:
+            httpGet:
+              path: /health
+              port: 2283
+              initialDelaySeconds: 30
+              periodSeconds: 10
+    volumes:
+      - name: upload-location
+        persistentVolumeClaim:
+          claimName: immich-data-pvc
+      - name: dri
+        hostPath:
+          path: /dev/dri
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: immich-server
+spec:
+  selector:
+    app: immich-server
+  ports:
+    - protocol: TCP
+      port: 2283
+      targetPort: 2283
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: immich-server-ingress
+spec:
+  rules:
+    - host: immich-server.example.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: immich-server
+                port:
+                  number: 2283
+---
