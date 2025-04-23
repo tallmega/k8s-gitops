@@ -32,14 +32,14 @@ spec:
       persistence:
         library:
           existingClaim: immich-data-pvc
-    # postgresql:
-    #   enabled: false
-    #   global:
-    #     postgresql:
-    #       auth:
-    #         username: *db_user
-    #         database: *db_database
-    #         existingSecret: immich-secret
+    postgresql:
+      enabled: true
+      global:
+        postgresql:
+          auth:
+            username: *db_user
+            database: *db_database
+            existingSecret: immich-secret
       primary:
         resourcesPreset: "large"
     redis:
