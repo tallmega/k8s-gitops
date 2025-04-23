@@ -41,6 +41,8 @@ spec:
                   key: db_database_name
             - name: POSTGRES_INITDB_ARGS
               value: '--data-checksums'
+            - name: PGDATA
+              value: '/var/lib/postgresql/data/pgdata'
           volumeMounts:
             - mountPath: /var/lib/postgresql/data
               name: immich-db
