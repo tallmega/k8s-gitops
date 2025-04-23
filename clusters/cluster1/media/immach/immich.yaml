@@ -25,9 +25,6 @@ spec:
           volumeMounts:
             - mountPath: /usr/src/app/upload
               name: upload-location
-            - mountPath: /etc/localtime
-              name: local-time
-              readOnly: true
             - name: dri
               mountPath: /dev/dri
           envFrom:
@@ -55,13 +52,13 @@ spec:
               port: 2283
               initialDelaySeconds: 30
               periodSeconds: 10
-    volumes:
-      - name: upload-location
-        persistentVolumeClaim:
-          claimName: immich-data-pvc
-      - name: dri
-        hostPath:
-          path: /dev/dri
+      volumes:
+        - name: upload-location
+          persistentVolumeClaim:
+            claimName: immich-data-pvc
+        - name: dri
+          hostPath:
+            path: /dev/dri
 ---
 apiVersion: v1
 kind: Service
