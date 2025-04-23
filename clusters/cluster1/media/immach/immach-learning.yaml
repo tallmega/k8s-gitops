@@ -1,9 +1,14 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: immich-machine-learning
+  namespace: default
 spec:
   replicas: 1
+  strategy:
+    rollingUpdate: null
+    type: Recreate
   selector:
     matchLabels:
       app: immich-machine-learning
