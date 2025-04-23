@@ -19,7 +19,7 @@ spec:
       hostname: vectorchord
       containers:
         - name: vectorchord
-          image: ghcr.io/tensorchord/vchord-postgres:pg17-v0.4.0
+          image: ghcr.io/tensorchord/pgvecto-rs:pg17-v0.4.0
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 5432
