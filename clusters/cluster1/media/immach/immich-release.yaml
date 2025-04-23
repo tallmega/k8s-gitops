@@ -20,8 +20,8 @@ spec:
     env:
       TZ: "America/New_York"
       DB_HOSTNAME: vectorchord
-      DB_USERNAME: &db_user postgres
-      DB_DATABASE_NAME: &db_database immich
+      DB_USERNAME: immich
+      DB_DATABASE_NAME: immich
       DB_PASSWORD:
         valueFrom:
           secretKeyRef:
