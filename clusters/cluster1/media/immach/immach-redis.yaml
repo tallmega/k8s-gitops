@@ -22,7 +22,6 @@ spec:
           image: docker.io/redis:6.2-alpine
           ports:
             - containerPort: 6379
-          restartPolicy: Always
           healthCheck:
             exec:
               command: ["redis-cli", "ping"]

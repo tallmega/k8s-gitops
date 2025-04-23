@@ -49,7 +49,6 @@ spec:
                 secretKeyRef:
                   name: immich-db-secret
                   key: db_database_name
-          restartPolicy: Always
           healthCheck:
             httpGet:
               path: /health

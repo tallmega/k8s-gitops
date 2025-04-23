@@ -26,7 +26,6 @@ spec:
           envFrom:
             - configMapRef:
                 name: immich-env
-          restartPolicy: Always
           healthCheck:
             httpGet:
               path: /health
