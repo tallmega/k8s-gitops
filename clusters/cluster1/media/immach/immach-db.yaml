@@ -43,12 +43,16 @@ spec:
               value: '--data-checksums'
           volumeMounts:
             - mountPath: /var/lib/postgresql/data
-              name: immich-db-pvc
+              name: immich-db
           healthCheck:
             exec:
               command: ["pg_isready", "--dbname=${POSTGRES_DB}", "--username=${POSTGRES_USER}"]
               initialDelaySeconds: 30
               periodSeconds: 30
+      volumes:
+      - name: immich-db
+        persistentVolumeClaim:
+          claimName: immich-db-pvc
 ---
 apiVersion: v1
 kind: Service
