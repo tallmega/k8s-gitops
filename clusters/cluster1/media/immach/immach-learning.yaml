@@ -23,9 +23,6 @@ spec:
           # volumeMounts:
           #   - mountPath: /cache
           #     name: model-cache
-          # envFrom:
-          #   - configMapRef:
-          #       name: immich-env
           healthCheck:
             httpGet:
               path: /health

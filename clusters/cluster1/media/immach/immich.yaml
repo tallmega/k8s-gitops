@@ -27,9 +27,6 @@ spec:
               name: upload-location
             - name: dri
               mountPath: /dev/dri
-          # envFrom:
-          #   - configMapRef:
-          #       name: immich-env
           env:
             - name: DB_HOSTNAME
               value: immich-database
