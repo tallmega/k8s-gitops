@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: immich-machine-learning
-          image: ghcr.io/immich-app/immich-machine-learning:v1.132.1
+          image: ghcr.io/immich-app/immich-machine-learning:v1.132.1-openvino
           # volumeMounts:
           #   - mountPath: /cache
           #     name: model-cache
