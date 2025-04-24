@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: immich-server
-          image: ghcr.io/immich-app/immich-server:${IMMICH_VERSION)
+          image: ghcr.io/immich-app/immich-server:${IMMICH_VERSION}
           ports:
             - containerPort: 2283
           volumeMounts:
