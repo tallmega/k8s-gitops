@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: immich-server
-          image: ghcr.io/immich-app/immich-server:${IMMICH_VERSION}
+          image: ghcr.io/immich-app/immich-server:v1.132.1
           ports:
             - containerPort: 2283
           volumeMounts:
@@ -27,10 +27,10 @@ spec:
               name: upload-location
             - name: dri
               mountPath: /dev/dri
-          envFrom:
-            - configMapRef:
-                name: immich-env
-                key: IMMICH_VERSION
+          # envFrom:
+          #   - configMapRef:
+          #       name: immich-env
+          #       key: IMMICH_VERSION
           env:
             - name: DB_HOSTNAME
               value: immich-database

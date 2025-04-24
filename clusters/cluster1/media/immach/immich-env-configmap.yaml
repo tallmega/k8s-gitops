@@ -1,7 +1,7 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: immich-env
-  namespace: default
-data:
-  IMMICH_VERSION: "v1.132.1"
+# apiVersion: v1
+# kind: ConfigMap
+# metadata:
+#   name: immich-env
+#   namespace: default
+# data:
+#   IMMICH_VERSION: "v1.132.1"

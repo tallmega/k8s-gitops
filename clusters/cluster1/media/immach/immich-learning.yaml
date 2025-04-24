@@ -19,14 +19,14 @@ spec:
     spec:
       containers:
         - name: immich-machine-learning
-          image: ghcr.io/immich-app/immich-machine-learning:${IMMICH_VERSION}-openvino
+          image: ghcr.io/immich-app/immich-machine-learning:v1.132.1-openvino
           # volumeMounts:
           #   - mountPath: /cache
           #     name: model-cache
-          envFrom:
-           - configMapRef:
-              name: immich-env
-              key: IMMICH_VERSION
+          # envFrom:
+          #  - configMapRef:
+          #     name: immich-env
+          #     key: IMMICH_VERSION
           healthCheck:
             httpGet:
               path: /health
