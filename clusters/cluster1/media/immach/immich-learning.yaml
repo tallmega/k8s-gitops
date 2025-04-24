@@ -26,6 +26,7 @@ spec:
           envFrom:
            - configMapRef:
               name: immich-env
+              key: IMMICH_VERSION
           healthCheck:
             httpGet:
               path: /health
