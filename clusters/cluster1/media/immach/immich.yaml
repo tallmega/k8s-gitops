@@ -71,6 +71,7 @@ metadata:
   name: immich-server
   namespace: default
 spec:
+  loadBalancerIP: 10.10.10.72
   selector:
     app: immich-server
   ports:
