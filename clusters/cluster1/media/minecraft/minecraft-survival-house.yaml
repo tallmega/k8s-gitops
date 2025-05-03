@@ -21,7 +21,7 @@ spec:
         hostNetwork: "{{ .Values.hostNetwork }}"
       containers:
       - name: minecraft-survival-house
-        image: itzg/minecraft-bedrock-server:2025.4.0 # {"$imagepolicy": "flux-system:minecraft"}
+        image: itzg/minecraft-bedrock-server:2025.5.0 # {"$imagepolicy": "flux-system:minecraft"}
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 19132
