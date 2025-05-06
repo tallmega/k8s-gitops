@@ -27,12 +27,6 @@ spec:
           #  - configMapRef:
           #     name: immich-env
           #     key: IMMICH_VERSION
-          healthCheck:
-            httpGet:
-              path: /health
-              port: 3003
-              initialDelaySeconds: 30
-              periodSeconds: 10
           resources:  
               requests:
                   gpu.intel.com/i915: "1"

@@ -51,12 +51,12 @@ spec:
                 secretKeyRef:
                   name: immich-db-secret
                   key: db_database_name
-          healthCheck:
+          readinessProbe:
             httpGet:
-              path: /
+              path: /health
               port: 2283
-              initialDelaySeconds: 30
-              periodSeconds: 10
+            initialDelaySeconds: 30
+            periodSeconds: 10
       volumes:
         - name: upload-location
           persistentVolumeClaim:
@@ -88,11 +88,11 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
     nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
 spec:
-  ingressClassName: internal-nginx
-  #tls:
-  #- hosts:
-  #  - "appdaemon.tallflix.ca"
-  #  secretName: tls-secret
+  ingressClassName: nginx
+  tls:
+  - hosts:
+   - "immich.tallflix.ca"
+   secretName: tls-secret
   rules:
     - host: immich.tallflix.ca
       http:
