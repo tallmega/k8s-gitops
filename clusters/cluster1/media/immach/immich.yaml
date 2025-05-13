@@ -84,9 +84,10 @@ metadata:
   name: immich-ingress
   namespace: default
   annotations:
-    nginx.ingress.kubernetes.io/proxy-body-size: "1000000M"
     nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
     nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/proxy-body-size: "0"
 spec:
   ingressClassName: nginx
   tls:
