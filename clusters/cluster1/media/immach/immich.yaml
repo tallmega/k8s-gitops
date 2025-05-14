@@ -94,7 +94,7 @@ spec:
   tls:
   - hosts:
     - "immich.tallflix.ca"
-    secretName: immich-secret
+    secretName: immich-tls
   rules:
     - host: immich.tallflix.ca
       http:
