@@ -20,14 +20,13 @@ spec:
           value: America\Toronto
         imagePullPolicy: IfNotPresent
         name: piper-k8s
-        image: rhasspy/wyoming-piper:1.5.0 # {"$imagepolicy": "flux-system:piper"}
+        image: rhasspy/wyoming-piper:1.5.4 # {"$imagepolicy": "flux-system:piper"}
         args:
         - --voice=en_GB-cori-high
         - --update-voices
         ports:
         - containerPort: 10200
           protocol: TCP
-
         volumeMounts:
         - mountPath: /data
           name: piper-data
