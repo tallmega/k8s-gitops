@@ -3,4 +3,5 @@ kind: Namespace
 metadata:
   name: intel-gpu-plugin
   labels:
+    pod-security.kubernetes.io/enforce: privileged
     managed-by: flux
