@@ -1,73 +1,73 @@
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: wyzebridge
-  namespace: default
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: wyzebridge
-  strategy:
-    rollingUpdate: null
-    type: Recreate
-  template:
-    metadata:
-      labels:
-        app: wyzebridge
-    spec:
-      hostname: wyzebridge
-      hostNetwork: true #cuz of https://github.com/mrlt8/docker-wyze-bridge/issues/1448
-      containers:
-      - name: wyzebridge
-        image: mrlt8/wyze-bridge:2.10.3 # {"$imagepolicy": "flux-system:wyzebridge"}
-        imagePullPolicy: IfNotPresent
-        type: ClusterIP
-        ports:
-        - containerPort: 1935
-        - containerPort: 8554
-        - containerPort: 8888
-        - containerPort: 5000
-        env:
-        - name: TZ
-          value: America\Toronto
-        - name: ENABLE_AUDIO
-          value: 'true'
-        - name: WB_AUTH
-          value: 'false'
-        envFrom:
-        - secretRef:
-            name: wyzebridge-secret
-        volumeMounts:
-        - name: wyzebridge-config
-          mountPath: /tokens
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: wyzebridge
+#   namespace: default
+# spec:
+#   replicas: 1
+#   selector:
+#     matchLabels:
+#       app: wyzebridge
+#   strategy:
+#     rollingUpdate: null
+#     type: Recreate
+#   template:
+#     metadata:
+#       labels:
+#         app: wyzebridge
+#     spec:
+#       hostname: wyzebridge
+#       hostNetwork: true #cuz of https://github.com/mrlt8/docker-wyze-bridge/issues/1448
+#       containers:
+#       - name: wyzebridge
+#         image: mrlt8/wyze-bridge:2.10.3 # {"$imagepolicy": "flux-system:wyzebridge"}
+#         imagePullPolicy: IfNotPresent
+#         type: ClusterIP
+#         ports:
+#         - containerPort: 1935
+#         - containerPort: 8554
+#         - containerPort: 8888
+#         - containerPort: 5000
+#         env:
+#         - name: TZ
+#           value: America\Toronto
+#         - name: ENABLE_AUDIO
+#           value: 'true'
+#         - name: WB_AUTH
+#           value: 'false'
+#         envFrom:
+#         - secretRef:
+#             name: wyzebridge-secret
+#         volumeMounts:
+#         - name: wyzebridge-config
+#           mountPath: /tokens
       
-      volumes:
-      - name: wyzebridge-config
-        persistentVolumeClaim:
-          claimName: wyzebridge-config-pvc
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: wyzebridge
-  namespace: default
-  labels:
-    app: wyzebridge
-spec:
-  selector:
-    app: wyzebridge
-  ports:
-  - name: wyzebridge-1935
-    port: 1935
-    targetPort: 1935
-  - name: wyzebridge-8554w
-    port: 8554
-    targetPort: 8554
-  - name: wyzebridge-8888
-    port: 8888
-    targetPort: 8888
-  - name: wyzebridge-5000
-    port: 5000
-    targetPort: 5000
-  type: ClusterIP
+#       volumes:
+#       - name: wyzebridge-config
+#         persistentVolumeClaim:
+#           claimName: wyzebridge-config-pvc
+# ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: wyzebridge
+#   namespace: default
+#   labels:
+#     app: wyzebridge
+# spec:
+#   selector:
+#     app: wyzebridge
+#   ports:
+#   - name: wyzebridge-1935
+#     port: 1935
+#     targetPort: 1935
+#   - name: wyzebridge-8554w
+#     port: 8554
+#     targetPort: 8554
+#   - name: wyzebridge-8888
+#     port: 8888
+#     targetPort: 8888
+#   - name: wyzebridge-5000
+#     port: 5000
+#     targetPort: 5000
+#   type: ClusterIP

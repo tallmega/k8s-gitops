@@ -1,54 +1,54 @@
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: prowlarr
-  namespace: default
-spec:
-  replicas: 1
-  strategy:
-    rollingUpdate: null
-    type: Recreate
-  selector:
-    matchLabels:
-      app: prowlarr
-  template:
-    metadata:
-      labels:
-        app: prowlarr
-    spec:
-      containers:
-      - name: prowlarr
-        image: linuxserver/prowlarr:1.35.1 # {"$imagepolicy": "flux-system:prowlarr"}
-        imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 9696
-        env:
-        - name: PGID
-          value: "1000"
-        - name: PUID
-          value: "1000"
-        - name: TZ
-          value: America\Toronto
-        volumeMounts:
-        - name: prowlarr-config
-          mountPath: /config
-      volumes:
-      - name: prowlarr-config
-        persistentVolumeClaim:
-          claimName: prowlarr-config-pvc
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: prowlarr
-  namespace: default
-  labels:
-    app: prowlarr
-spec:
-  selector:
-    app: prowlarr
-  ports:
-  - name: prowlarr
-    port: 9696
-    targetPort: 9696
-  type: ClusterIP
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: prowlarr
+#   namespace: default
+# spec:
+#   replicas: 1
+#   strategy:
+#     rollingUpdate: null
+#     type: Recreate
+#   selector:
+#     matchLabels:
+#       app: prowlarr
+#   template:
+#     metadata:
+#       labels:
+#         app: prowlarr
+#     spec:
+#       containers:
+#       - name: prowlarr
+#         image: linuxserver/prowlarr:1.35.1 # {"$imagepolicy": "flux-system:prowlarr"}
+#         imagePullPolicy: IfNotPresent
+#         ports:
+#         - containerPort: 9696
+#         env:
+#         - name: PGID
+#           value: "1000"
+#         - name: PUID
+#           value: "1000"
+#         - name: TZ
+#           value: America\Toronto
+#         volumeMounts:
+#         - name: prowlarr-config
+#           mountPath: /config
+#       volumes:
+#       - name: prowlarr-config
+#         persistentVolumeClaim:
+#           claimName: prowlarr-config-pvc
+# ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: prowlarr
+#   namespace: default
+#   labels:
+#     app: prowlarr
+# spec:
+#   selector:
+#     app: prowlarr
+#   ports:
+#   - name: prowlarr
+#     port: 9696
+#     targetPort: 9696
+#   type: ClusterIP

@@ -1,133 +1,133 @@
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: qbittorrent
-  namespace: default
-  labels:
-    app: gluetun
-spec:
-  selector:
-    app: gluetun
-  ports:
-  - name: qbittorrent
-    port: 8080
-    targetPort: 8080
-  - name: qbittorrent-torrentudp
-    port: 6881
-    protocol: UDP
-    targetPort: 6881
-  - name: qbittorrent-torrenttcp
-    port: 6881
-    protocol: TCP
-    targetPort: 6881
-  type: ClusterIP
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-    name: gluetun-deployment
-    namespace: default
-    labels:
-        app: gluetun
-spec:
-    replicas: 1
-    strategy:
-      rollingUpdate: null
-      type: Recreate
-    selector:
-        matchLabels:
-            app: gluetun
-    template:
-        metadata:
-            labels:
-                app: gluetun
-        spec:
-            initContainers:
-                - name: gluetun
-                  # if you do not add restartPolicy the other init containers will never start
-                  # it will be an initContainer and not a native sidecar container https://kubernetes.io/docs/concepts/workloads/pods/sidecar-containers/
-                  restartPolicy: Always
-                  image: qmcgaw/gluetun
-                  imagePullPolicy: Always
-                  securityContext:
-                      capabilities:
-                          add:
-                              - 'NET_ADMIN'
-                  env:
-                      - name: TZ
-                        value: America\Toronto
-                      - name: FIREWALL_INPUT_PORTS
-                        value: "8080"
-                      - name: VPN_PORT_FORWARDING
-                        value: "on"
-                  envFrom:
-                  - secretRef:
-                     name: gluetun-secret
-                - name: curlpodtest
-                  image: curlimages/curl
-                  command: ['/bin/sh', '-c']
-                  args:
-                      - &check-ip |
-                          IP=$(curl -s checkip.amazonaws.com)
-                          EXPECTED_IP="YOUR_IP_ADDRESS"
-                          if [ "$IP" != "$EXPECTED_IP" ]; then
-                            echo "IP is different from $EXPECTED_IP. Current IP is $IP."
-                          else
-                            echo "IP is $EXPECTED_IP. Exiting..."
-                            exit 1
-                          fi
-            containers:
-            - name: qbittorrent
-              image: linuxserver/qbittorrent:14.3.9 # {"$imagepolicy": "flux-system:qbittorrent"}
-              imagePullPolicy: IfNotPresent
-              ports:
-              - containerPort: 8080
-              #- containerPort: 26524
-              env:
-              - name: PGID
-                value: "1000"
-              - name: PUID
-                value: "1000"
-              - name: TZ
-                value: America\Toronto
-              - name: WEBUI_PORT
-                value: "8080"
-              # - name: TORRENTING_PORT
-              #   value: "26524"
-              volumeMounts:
-              - name: qbittorrent-config
-                mountPath: /config
-              - name: sabnzbd-downloads-complete
-                mountPath: /complete
-              - name: sabnzbd-downloads-incomplete
-                mountPath: /incomplete
-            volumes:
-            - name: qbittorrent-config
-              persistentVolumeClaim:
-                claimName: qbittorrent-config-pvc
-            - name: sabnzbd-downloads-complete
-              persistentVolumeClaim:
-                claimName: downloads-complete-pvc
-            - name: sabnzbd-downloads-incomplete
-              persistentVolumeClaim:
-                claimName: downloads-incomplete-pvc
----
-apiVersion: bitnami.com/v1alpha1
-kind: SealedSecret
-metadata:
-  creationTimestamp: null
-  name: gluetun-secret
-  namespace: default
-spec:
-  encryptedData:
-    OPENVPN_PASSWORD: AgAeVf7GoWdaCDQ1+nvPjWUGbRgmNDR5OX7KTZPL9kiPfG0xSpUAqTYGb06BCUuek7KUHvYKyhp4MSJcsUGqqDxEne7qwEMwhvqf9UwA/3YJbF6ehYqoALVtIl24Jk5nTVvuv2NDEW8pxoQnBTn/Cunq5HKvcsZK1SeY+xAaWmoYusN/sLotxEoHM3QFXnvS1ks/Eh/f8cR4yMr7KQlDdKst1MDzqPQLzxqx8CVZtbSkDUglgVSErQAsRe+3HlbO90ZuPjTFQbbctEIwfG2Cfwsd0D+ZU/ugEymaDfM++VjuoXYZ0BRkORpErk4LH2cTH8JYAHIjwv4k6AMol6ztTtfiUDQVXAeTvUBq65C3/2yrKqXXRiwUr9GHUA8ZtZSe5h67rKoKJqDC5OGvHD3R9sbyf6bucwgHVGIa3JMMeOOS3DqUPWcpPhZ673OAItNRf/vsR4608zR5/B4TeTBdgpWyxwRGhZ54Ck4yNw1iEG2RMy6NscAFmMhldJDKTLQJM1Ioj9/4zhzXot7EB0VBMxiYt1emn9QSal6Vrx4X2GG/XsGcquBxy4cMOVcqfewaxaBJqbKooGd2EhEN3CdnhIOdifri4vhu622GCqnQRUs6YVoyZhkz+ivhBa1lvw2L/L/eULOucGSi6LnY4raziQCYUP3lQqRM9nxFXqPqbNgsarRM7CKM+NyabV1tveKP5vcVtlVrzx7YDbzO
-    OPENVPN_USER: AgASfEVGCid1XhSvrrNmJ87/c1WKR0ad3+FbuQ4wcFImpRebdJR2zY6R1R4nfow5AHrNj/JrJJdx8a4yc6gHQCSa8ussPTbSAWnS+tlKMCW7szFhanh0CwFWCVMR1HpfWBRX5UFxN56Pki3Iw6CTnSaITKv21u9J7O8LCqsj4WR9xoj6HaVwzm8nex0ulYqGBen/3yYQiVXPpTBIK6vvDRR57SaqINm6RajM8X7MBDcuoEFbe9CXnMmANP0unCEq0o2m47k9vly4rBGvx6J1JmCXmzZMK4QL7CqJjtPo7bpsg40Nlhuh59yJxvnQIqE5vG4giL5uMuQzbDa6JqFWH1khl9aSUGJqqlBwVUM9wIk0d0Yaggp9Cz/dpwy+ND3zUof3MY/ohkQzI2TZphP8/zrZrdmJPFl9wrsScJiz3wHbCgdUZP4zC6tsg3fgYilUArzjVGERisLRKksUN60R4GkBRKFH2u3CGS+2nDEM/foH8BAraWYq6aauiH/Mnwsfd/fdXlH8YDhLAtAjNncL90X7qESYtaT4EkSrwU1IR7J5gR8wO94gF2BfprawcY0XcMa33RgieN0nb3TCwyhCC27yZ3WIJm+N2HiimlmUOUlO5BI6eUnWmoXS3Vp6n2K/3xWjufw2L24chwKLC9RvOLXkbb2b4sx2gxuued6lG/KaSHjZy37UhtZBAybC+8vTKIn+/3sP+0NqCA==
-    SERVER_REGIONS: AgCnH0yiLssSTKBC3v2ud8xGnBlz6iUubHr5utRTx1CLFeX8mSejg03JULMm78+gHlL/93TbOecbnQzkz08XevutS14q2OO6A66/UnvCE4dxyLbtecxTcokzPG+LHw9IJdnY5vunRRT5yvhTAVwgols1odK4frOqlLW7GTn31FyGYVf85TK2Gj0Phm9jU2hysjWppgkwqm2H9pMQgwAmZH68wNrGoegSxFU+3FdDcjtbocI1KntNbAff3S0Rq5iFPq1IYL24mK07qSxJwrF65I5Cp2NxsWfcR9WEJ6nr8in+qHf5w9tHlya1odKVPefssDblyNEWriCkx8oUEUMVJchkrW7sb87afqc/7TeS7EUpS1radqywiQkv+Fv2J20i8JAfDUamGF3ku9c/pPZpUw/7iaUb1n6oqxHx8UPk/GOK3iPbKyfTzyx615g1b8qNlsps3UBB9E2bn1bHKryOxDof1Q57ps95i5qXJn0z7hhhTne6TKnnImbD6oJFaR1LhT9oiF7va4xG+W1cQWBUlaILzTzLjAk81ZthUsv789G1PbdsjfnC1Z3gufwWoMul9Voadfg9anEls8OxsuRJa78YAarRBU63pFz+NKaNewzY8ZkIPzoEsFgr700sMOVM3lyUHvwp3ZYrWsw75/92NEbKVhYYbY+JC/RsUWtukAuPMURR4/Ff1sfbM/bkl28I04OHAexOFvuFe81u
-    VPN_SERVICE_PROVIDER: AgC1Qfij/QA2dpuQyCmpSTyF0q+ijZx5ilLGhrWJ/H4HJtd1fdHS3SBwDU7GYfpPtA8KYNdmR/adoGdZkItyD7friJ/Nh6qJwlnlgAZYMN4iUMRxlBKCP4lQszZiPJZZxlHdAVaLHdI6dHvHZlt3I6tQWhLPpJBYKGKJlg6jewt3+8ElzIFhFQxEnypx93s/wVLmXgvwETCGDIlfLfQGjbs+MFA8pxlI/9qLEL4vI34JH8BzwtRszCGEDKbru777AjvegFFXf4cHntPBkV9qu94f+S7i10W9uowkha+c1isgGjobRAaom+mmlT+gIVQ2tXAkO1Cj/Wq+P42+dV+fBU1/YvVue8/5y3Wtmc8oe6y4vTPcZorRUPq5TVvMUFekm5dH4JlowexjAPzvfLIERRTWOESiwT6sX6SoTPiz0t6iQ2XGBf4kTTioCgZemdV5a9xvo0x9GONvTnI6EZpO6qpFAvGR6xYXHUC11ne4Zh9NzszMnO+AqQsLx9v+VKdOIVeTPnn+E1H/27cTMUPcUCHi1L9Ms43d8lASwtUhcIFJCQGM5Xc7mb5MgGCv6l3wBapd026m7ootbuiKZb0OsthtNUrKKmM8JFMwcqgh+ztWL6YUfaN2ChoAHgdwk/ONPgF9uHzebgrAxIXoMPd6m5kyq38Z2IwF3tOSB1tobuT9gOEEDbFt/2sM+KG8pnD7qj3D1fo7vIaFtv/Z0P9XjDApIKH5GilunQ==
-  template:
-    metadata:
-      creationTimestamp: null
-      name: gluetun-secret
-      namespace: default
-    type: Opaque
+# ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: qbittorrent
+#   namespace: default
+#   labels:
+#     app: gluetun
+# spec:
+#   selector:
+#     app: gluetun
+#   ports:
+#   - name: qbittorrent
+#     port: 8080
+#     targetPort: 8080
+#   - name: qbittorrent-torrentudp
+#     port: 6881
+#     protocol: UDP
+#     targetPort: 6881
+#   - name: qbittorrent-torrenttcp
+#     port: 6881
+#     protocol: TCP
+#     targetPort: 6881
+#   type: ClusterIP
+# ---
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#     name: gluetun-deployment
+#     namespace: default
+#     labels:
+#         app: gluetun
+# spec:
+#     replicas: 1
+#     strategy:
+#       rollingUpdate: null
+#       type: Recreate
+#     selector:
+#         matchLabels:
+#             app: gluetun
+#     template:
+#         metadata:
+#             labels:
+#                 app: gluetun
+#         spec:
+#             initContainers:
+#                 - name: gluetun
+#                   # if you do not add restartPolicy the other init containers will never start
+#                   # it will be an initContainer and not a native sidecar container https://kubernetes.io/docs/concepts/workloads/pods/sidecar-containers/
+#                   restartPolicy: Always
+#                   image: qmcgaw/gluetun
+#                   imagePullPolicy: Always
+#                   securityContext:
+#                       capabilities:
+#                           add:
+#                               - 'NET_ADMIN'
+#                   env:
+#                       - name: TZ
+#                         value: America\Toronto
+#                       - name: FIREWALL_INPUT_PORTS
+#                         value: "8080"
+#                       - name: VPN_PORT_FORWARDING
+#                         value: "on"
+#                   envFrom:
+#                   - secretRef:
+#                      name: gluetun-secret
+#                 - name: curlpodtest
+#                   image: curlimages/curl
+#                   command: ['/bin/sh', '-c']
+#                   args:
+#                       - &check-ip |
+#                           IP=$(curl -s checkip.amazonaws.com)
+#                           EXPECTED_IP="YOUR_IP_ADDRESS"
+#                           if [ "$IP" != "$EXPECTED_IP" ]; then
+#                             echo "IP is different from $EXPECTED_IP. Current IP is $IP."
+#                           else
+#                             echo "IP is $EXPECTED_IP. Exiting..."
+#                             exit 1
+#                           fi
+#             containers:
+#             - name: qbittorrent
+#               image: linuxserver/qbittorrent:14.3.9 # {"$imagepolicy": "flux-system:qbittorrent"}
+#               imagePullPolicy: IfNotPresent
+#               ports:
+#               - containerPort: 8080
+#               #- containerPort: 26524
+#               env:
+#               - name: PGID
+#                 value: "1000"
+#               - name: PUID
+#                 value: "1000"
+#               - name: TZ
+#                 value: America\Toronto
+#               - name: WEBUI_PORT
+#                 value: "8080"
+#               # - name: TORRENTING_PORT
+#               #   value: "26524"
+#               volumeMounts:
+#               - name: qbittorrent-config
+#                 mountPath: /config
+#               - name: sabnzbd-downloads-complete
+#                 mountPath: /complete
+#               - name: sabnzbd-downloads-incomplete
+#                 mountPath: /incomplete
+#             volumes:
+#             - name: qbittorrent-config
+#               persistentVolumeClaim:
+#                 claimName: qbittorrent-config-pvc
+#             - name: sabnzbd-downloads-complete
+#               persistentVolumeClaim:
+#                 claimName: downloads-complete-pvc
+#             - name: sabnzbd-downloads-incomplete
+#               persistentVolumeClaim:
+#                 claimName: downloads-incomplete-pvc
+# ---
+# apiVersion: bitnami.com/v1alpha1
+# kind: SealedSecret
+# metadata:
+#   creationTimestamp: null
+#   name: gluetun-secret
+#   namespace: default
+# spec:
+#   encryptedData:
+#     OPENVPN_PASSWORD: AgAeVf7GoWdaCDQ1+nvPjWUGbRgmNDR5OX7KTZPL9kiPfG0xSpUAqTYGb06BCUuek7KUHvYKyhp4MSJcsUGqqDxEne7qwEMwhvqf9UwA/3YJbF6ehYqoALVtIl24Jk5nTVvuv2NDEW8pxoQnBTn/Cunq5HKvcsZK1SeY+xAaWmoYusN/sLotxEoHM3QFXnvS1ks/Eh/f8cR4yMr7KQlDdKst1MDzqPQLzxqx8CVZtbSkDUglgVSErQAsRe+3HlbO90ZuPjTFQbbctEIwfG2Cfwsd0D+ZU/ugEymaDfM++VjuoXYZ0BRkORpErk4LH2cTH8JYAHIjwv4k6AMol6ztTtfiUDQVXAeTvUBq65C3/2yrKqXXRiwUr9GHUA8ZtZSe5h67rKoKJqDC5OGvHD3R9sbyf6bucwgHVGIa3JMMeOOS3DqUPWcpPhZ673OAItNRf/vsR4608zR5/B4TeTBdgpWyxwRGhZ54Ck4yNw1iEG2RMy6NscAFmMhldJDKTLQJM1Ioj9/4zhzXot7EB0VBMxiYt1emn9QSal6Vrx4X2GG/XsGcquBxy4cMOVcqfewaxaBJqbKooGd2EhEN3CdnhIOdifri4vhu622GCqnQRUs6YVoyZhkz+ivhBa1lvw2L/L/eULOucGSi6LnY4raziQCYUP3lQqRM9nxFXqPqbNgsarRM7CKM+NyabV1tveKP5vcVtlVrzx7YDbzO
+#     OPENVPN_USER: AgASfEVGCid1XhSvrrNmJ87/c1WKR0ad3+FbuQ4wcFImpRebdJR2zY6R1R4nfow5AHrNj/JrJJdx8a4yc6gHQCSa8ussPTbSAWnS+tlKMCW7szFhanh0CwFWCVMR1HpfWBRX5UFxN56Pki3Iw6CTnSaITKv21u9J7O8LCqsj4WR9xoj6HaVwzm8nex0ulYqGBen/3yYQiVXPpTBIK6vvDRR57SaqINm6RajM8X7MBDcuoEFbe9CXnMmANP0unCEq0o2m47k9vly4rBGvx6J1JmCXmzZMK4QL7CqJjtPo7bpsg40Nlhuh59yJxvnQIqE5vG4giL5uMuQzbDa6JqFWH1khl9aSUGJqqlBwVUM9wIk0d0Yaggp9Cz/dpwy+ND3zUof3MY/ohkQzI2TZphP8/zrZrdmJPFl9wrsScJiz3wHbCgdUZP4zC6tsg3fgYilUArzjVGERisLRKksUN60R4GkBRKFH2u3CGS+2nDEM/foH8BAraWYq6aauiH/Mnwsfd/fdXlH8YDhLAtAjNncL90X7qESYtaT4EkSrwU1IR7J5gR8wO94gF2BfprawcY0XcMa33RgieN0nb3TCwyhCC27yZ3WIJm+N2HiimlmUOUlO5BI6eUnWmoXS3Vp6n2K/3xWjufw2L24chwKLC9RvOLXkbb2b4sx2gxuued6lG/KaSHjZy37UhtZBAybC+8vTKIn+/3sP+0NqCA==
+#     SERVER_REGIONS: AgCnH0yiLssSTKBC3v2ud8xGnBlz6iUubHr5utRTx1CLFeX8mSejg03JULMm78+gHlL/93TbOecbnQzkz08XevutS14q2OO6A66/UnvCE4dxyLbtecxTcokzPG+LHw9IJdnY5vunRRT5yvhTAVwgols1odK4frOqlLW7GTn31FyGYVf85TK2Gj0Phm9jU2hysjWppgkwqm2H9pMQgwAmZH68wNrGoegSxFU+3FdDcjtbocI1KntNbAff3S0Rq5iFPq1IYL24mK07qSxJwrF65I5Cp2NxsWfcR9WEJ6nr8in+qHf5w9tHlya1odKVPefssDblyNEWriCkx8oUEUMVJchkrW7sb87afqc/7TeS7EUpS1radqywiQkv+Fv2J20i8JAfDUamGF3ku9c/pPZpUw/7iaUb1n6oqxHx8UPk/GOK3iPbKyfTzyx615g1b8qNlsps3UBB9E2bn1bHKryOxDof1Q57ps95i5qXJn0z7hhhTne6TKnnImbD6oJFaR1LhT9oiF7va4xG+W1cQWBUlaILzTzLjAk81ZthUsv789G1PbdsjfnC1Z3gufwWoMul9Voadfg9anEls8OxsuRJa78YAarRBU63pFz+NKaNewzY8ZkIPzoEsFgr700sMOVM3lyUHvwp3ZYrWsw75/92NEbKVhYYbY+JC/RsUWtukAuPMURR4/Ff1sfbM/bkl28I04OHAexOFvuFe81u
+#     VPN_SERVICE_PROVIDER: AgC1Qfij/QA2dpuQyCmpSTyF0q+ijZx5ilLGhrWJ/H4HJtd1fdHS3SBwDU7GYfpPtA8KYNdmR/adoGdZkItyD7friJ/Nh6qJwlnlgAZYMN4iUMRxlBKCP4lQszZiPJZZxlHdAVaLHdI6dHvHZlt3I6tQWhLPpJBYKGKJlg6jewt3+8ElzIFhFQxEnypx93s/wVLmXgvwETCGDIlfLfQGjbs+MFA8pxlI/9qLEL4vI34JH8BzwtRszCGEDKbru777AjvegFFXf4cHntPBkV9qu94f+S7i10W9uowkha+c1isgGjobRAaom+mmlT+gIVQ2tXAkO1Cj/Wq+P42+dV+fBU1/YvVue8/5y3Wtmc8oe6y4vTPcZorRUPq5TVvMUFekm5dH4JlowexjAPzvfLIERRTWOESiwT6sX6SoTPiz0t6iQ2XGBf4kTTioCgZemdV5a9xvo0x9GONvTnI6EZpO6qpFAvGR6xYXHUC11ne4Zh9NzszMnO+AqQsLx9v+VKdOIVeTPnn+E1H/27cTMUPcUCHi1L9Ms43d8lASwtUhcIFJCQGM5Xc7mb5MgGCv6l3wBapd026m7ootbuiKZb0OsthtNUrKKmM8JFMwcqgh+ztWL6YUfaN2ChoAHgdwk/ONPgF9uHzebgrAxIXoMPd6m5kyq38Z2IwF3tOSB1tobuT9gOEEDbFt/2sM+KG8pnD7qj3D1fo7vIaFtv/Z0P9XjDApIKH5GilunQ==
+#   template:
+#     metadata:
+#       creationTimestamp: null
+#       name: gluetun-secret
+#       namespace: default
+#     type: Opaque

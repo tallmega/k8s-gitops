@@ -1,76 +1,76 @@
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: radarr
-  namespace: default
-spec:
-  replicas: 1
-  strategy:
-    rollingUpdate: null
-    type: Recreate
-  selector:
-    matchLabels:
-      app: radarr
-  template:
-    metadata:
-      labels:
-        app: radarr
-    spec:
-      containers:
-      - name: radarr
-        image: linuxserver/radarr:5.23.3 # {"$imagepolicy": "flux-system:radarr"}
-        imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 7878
-        env:
-        - name: PGID
-          value: "1001"
-        - name: PUID
-          value: "1001"
-        - name: TZ
-          value: America\Toronto
-        volumeMounts:
-        - name: radarr-config1
-          mountPath: /config
-        - name: radarr-movies3-nfs
-          mountPath: /movies3
-          #mountPropagation: Bidirectional
-        - name: radarr-downloads-complete
-          mountPath: /downloads
-      volumes:
-      - name: radarr-config1
-        persistentVolumeClaim:
-          claimName: radarr-config-pvc
-      - name: radarr-movies3-nfs
-        persistentVolumeClaim:
-          claimName: movies3-pvc
-      - name: radarr-downloads-complete
-        persistentVolumeClaim:
-          claimName: downloads-complete-pvc
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: radarr-ingress
-  namespace: default
-  annotations:
-    cert-manager.io/cluster-issuer: "letsencrypt-prod"
-    nginx.ingress.kubernetes.io/proxy-body-size: "0"
-    #kubernetes.io/ingress.class: nginx
-spec:
-  ingressClassName: nginx
-  tls:
-  - hosts:
-    - "radarr.tallflix.ca"
-    secretName: tls-secret-radarr
-  rules:
-  - host: "radarr.tallflix.ca"
-    http:
-      paths:
-      - pathType: Prefix
-        path: "/"
-        backend:
-          service:
-            name: radarr
-            port:
-              number: 7878
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: radarr
+#   namespace: default
+# spec:
+#   replicas: 1
+#   strategy:
+#     rollingUpdate: null
+#     type: Recreate
+#   selector:
+#     matchLabels:
+#       app: radarr
+#   template:
+#     metadata:
+#       labels:
+#         app: radarr
+#     spec:
+#       containers:
+#       - name: radarr
+#         image: linuxserver/radarr:5.23.3 # {"$imagepolicy": "flux-system:radarr"}
+#         imagePullPolicy: IfNotPresent
+#         ports:
+#         - containerPort: 7878
+#         env:
+#         - name: PGID
+#           value: "1001"
+#         - name: PUID
+#           value: "1001"
+#         - name: TZ
+#           value: America\Toronto
+#         volumeMounts:
+#         - name: radarr-config1
+#           mountPath: /config
+#         - name: radarr-movies3-nfs
+#           mountPath: /movies3
+#           #mountPropagation: Bidirectional
+#         - name: radarr-downloads-complete
+#           mountPath: /downloads
+#       volumes:
+#       - name: radarr-config1
+#         persistentVolumeClaim:
+#           claimName: radarr-config-pvc
+#       - name: radarr-movies3-nfs
+#         persistentVolumeClaim:
+#           claimName: movies3-pvc
+#       - name: radarr-downloads-complete
+#         persistentVolumeClaim:
+#           claimName: downloads-complete-pvc
+# ---
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: radarr-ingress
+#   namespace: default
+#   annotations:
+#     cert-manager.io/cluster-issuer: "letsencrypt-prod"
+#     nginx.ingress.kubernetes.io/proxy-body-size: "0"
+#     #kubernetes.io/ingress.class: nginx
+# spec:
+#   ingressClassName: nginx
+#   tls:
+#   - hosts:
+#     - "radarr.tallflix.ca"
+#     secretName: tls-secret-radarr
+#   rules:
+#   - host: "radarr.tallflix.ca"
+#     http:
+#       paths:
+#       - pathType: Prefix
+#         path: "/"
+#         backend:
+#           service:
+#             name: radarr
+#             port:
+#               number: 7878

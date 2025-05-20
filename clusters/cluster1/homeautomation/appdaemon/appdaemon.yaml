@@ -1,55 +1,55 @@
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: appdaemon
-  namespace: default
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: appdaemon
-  strategy:
-    rollingUpdate: null
-    type: Recreate
-  template:
-    metadata:
-      labels:
-        app: appdaemon
-    spec:
-      containers:
-      - name: appdaemon
-        image: acockburn/appdaemon:4.4.2 # {"$imagepolicy": "flux-system:appdaemon"}
-        imagePullPolicy: IfNotPresent
-        env:
-        - name: TZ
-          value: "America/Toronto"
-        - name: HA_URL
-          value: "http://10.10.10.63:8123"
-        - name: DASH_URL
-          value: "http://0.0.0.0:5050"
-        envFrom:
-        - secretRef:
-            name: appdaemon-secret
-        volumeMounts:
-        - name: appdaemon-config
-          mountPath: /conf
-      volumes:
-      - name: appdaemon-config
-        persistentVolumeClaim:
-          claimName: appdaemon-config-pvc
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: appdaemon
-  namespace: default
-  labels:
-    app: appdaemon
-spec:
-  selector:
-    app: appdaemon
-  ports:
-  - name: appdaemon
-    port: 5050
-    targetPort: 5050
-  type: ClusterIP
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: appdaemon
+#   namespace: default
+# spec:
+#   replicas: 1
+#   selector:
+#     matchLabels:
+#       app: appdaemon
+#   strategy:
+#     rollingUpdate: null
+#     type: Recreate
+#   template:
+#     metadata:
+#       labels:
+#         app: appdaemon
+#     spec:
+#       containers:
+#       - name: appdaemon
+#         image: acockburn/appdaemon:4.4.2 # {"$imagepolicy": "flux-system:appdaemon"}
+#         imagePullPolicy: IfNotPresent
+#         env:
+#         - name: TZ
+#           value: "America/Toronto"
+#         - name: HA_URL
+#           value: "http://10.10.10.63:8123"
+#         - name: DASH_URL
+#           value: "http://0.0.0.0:5050"
+#         envFrom:
+#         - secretRef:
+#             name: appdaemon-secret
+#         volumeMounts:
+#         - name: appdaemon-config
+#           mountPath: /conf
+#       volumes:
+#       - name: appdaemon-config
+#         persistentVolumeClaim:
+#           claimName: appdaemon-config-pvc
+# ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: appdaemon
+#   namespace: default
+#   labels:
+#     app: appdaemon
+# spec:
+#   selector:
+#     app: appdaemon
+#   ports:
+#   - name: appdaemon
+#     port: 5050
+#     targetPort: 5050
+#   type: ClusterIP

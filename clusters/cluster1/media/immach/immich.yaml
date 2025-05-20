@@ -1,108 +1,108 @@
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: immich-server
-  namespace: default
-spec:
-  replicas: 1
-  strategy:
-    rollingUpdate: null
-    type: Recreate
-  selector:
-    matchLabels:
-      app: immich-server
-  template:
-    metadata:
-      labels:
-        app: immich-server
-    spec:
-      containers:
-        - name: immich-server
-          image: ghcr.io/immich-app/immich-server:v1.132.3 # {"$imagepolicy": "flux-system:immich-server"}
-          ports:
-            - containerPort: 2283
-          volumeMounts:
-            - mountPath: /usr/src/app/upload
-              name: upload-location
-            - name: dri
-              mountPath: /dev/dri
-          # envFrom:
-          #   - configMapRef:
-          #       name: immich-env
-          #       key: IMMICH_VERSION
-          env:
-            - name: DB_HOSTNAME
-              value: immich-database
-            - name: REDIS_HOSTNAME
-              value: immich-redis
-            - name: DB_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: immich-db-secret
-                  key: db_password
-            - name: DB_USERNAME
-              valueFrom:
-                secretKeyRef:
-                  name: immich-db-secret
-                  key: db_username
-            - name: DB_DATABASE_NAME
-              valueFrom:
-                secretKeyRef:
-                  name: immich-db-secret
-                  key: db_database_name
-          readinessProbe:
-            httpGet:
-              path: /health
-              port: 2283
-            initialDelaySeconds: 30
-            periodSeconds: 10
-      volumes:
-        - name: upload-location
-          persistentVolumeClaim:
-            claimName: immich-data-pvc
-        - name: dri
-          hostPath:
-            path: /dev/dri
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: immich-server
-  namespace: default
-spec:
-  selector:
-    app: immich-server
-  ports:
-    - protocol: TCP
-      port: 2283
-      targetPort: 2283
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: immich-ingress
-  namespace: default
-  annotations:
-    kubernetes.io/ingress.class: nginx
-    nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
-    nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
-    cert-manager.io/cluster-issuer: "letsencrypt-prod"
-    nginx.ingress.kubernetes.io/proxy-body-size: "0"
-spec:
-  ingressClassName: nginx
-  tls:
-  - hosts:
-    - "immich.tallflix.ca"
-    secretName: immich-tls
-  rules:
-    - host: immich.tallflix.ca
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: immich-server
-                port:
-                  number: 2283
+# ---
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: immich-server
+#   namespace: default
+# spec:
+#   replicas: 1
+#   strategy:
+#     rollingUpdate: null
+#     type: Recreate
+#   selector:
+#     matchLabels:
+#       app: immich-server
+#   template:
+#     metadata:
+#       labels:
+#         app: immich-server
+#     spec:
+#       containers:
+#         - name: immich-server
+#           image: ghcr.io/immich-app/immich-server:v1.132.3 # {"$imagepolicy": "flux-system:immich-server"}
+#           ports:
+#             - containerPort: 2283
+#           volumeMounts:
+#             - mountPath: /usr/src/app/upload
+#               name: upload-location
+#             - name: dri
+#               mountPath: /dev/dri
+#           # envFrom:
+#           #   - configMapRef:
+#           #       name: immich-env
+#           #       key: IMMICH_VERSION
+#           env:
+#             - name: DB_HOSTNAME
+#               value: immich-database
+#             - name: REDIS_HOSTNAME
+#               value: immich-redis
+#             - name: DB_PASSWORD
+#               valueFrom:
+#                 secretKeyRef:
+#                   name: immich-db-secret
+#                   key: db_password
+#             - name: DB_USERNAME
+#               valueFrom:
+#                 secretKeyRef:
+#                   name: immich-db-secret
+#                   key: db_username
+#             - name: DB_DATABASE_NAME
+#               valueFrom:
+#                 secretKeyRef:
+#                   name: immich-db-secret
+#                   key: db_database_name
+#           readinessProbe:
+#             httpGet:
+#               path: /health
+#               port: 2283
+#             initialDelaySeconds: 30
+#             periodSeconds: 10
+#       volumes:
+#         - name: upload-location
+#           persistentVolumeClaim:
+#             claimName: immich-data-pvc
+#         - name: dri
+#           hostPath:
+#             path: /dev/dri
+# ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: immich-server
+#   namespace: default
+# spec:
+#   selector:
+#     app: immich-server
+#   ports:
+#     - protocol: TCP
+#       port: 2283
+#       targetPort: 2283
+# ---
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: immich-ingress
+#   namespace: default
+#   annotations:
+#     kubernetes.io/ingress.class: nginx
+#     nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
+#     nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
+#     cert-manager.io/cluster-issuer: "letsencrypt-prod"
+#     nginx.ingress.kubernetes.io/proxy-body-size: "0"
+# spec:
+#   ingressClassName: nginx
+#   tls:
+#   - hosts:
+#     - "immich.tallflix.ca"
+#     secretName: immich-tls
+#   rules:
+#     - host: immich.tallflix.ca
+#       http:
+#         paths:
+#           - path: /
+#             pathType: Prefix
+#             backend:
+#               service:
+#                 name: immich-server
+#                 port:
+#                   number: 2283

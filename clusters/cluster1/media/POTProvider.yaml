@@ -1,44 +1,44 @@
-# shttps://github.com/Brainicism/bgutil-ytdlp-pot-provider
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: pot-provider
-  namespace: default
-spec:
-  replicas: 1
-  strategy:
-    rollingUpdate: null
-    type: Recreate
-  selector:
-    matchLabels:
-      app: pot-provider
-  template:
-    metadata:
-      labels:
-        app: pot-provider
-    spec:
-      containers:
-      - name: pot-provider
-        image: brainicism/bgutil-ytdlp-pot-provider:0.8.5 # {"$imagepolicy": "flux-system:pot-provider"}
-        imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 4416
-        env:
-        - name: TZ
-          value: America\Toronto
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: pot-provider
-  namespace: default
-  labels:
-    app: pot-provider
-spec:
-  selector:
-    app: pot-provider
-  ports:
-  - name: pot-provider
-    port: 4416
-    targetPort: 4416
-  type: ClusterIP
+# # shttps://github.com/Brainicism/bgutil-ytdlp-pot-provider
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: pot-provider
+#   namespace: default
+# spec:
+#   replicas: 1
+#   strategy:
+#     rollingUpdate: null
+#     type: Recreate
+#   selector:
+#     matchLabels:
+#       app: pot-provider
+#   template:
+#     metadata:
+#       labels:
+#         app: pot-provider
+#     spec:
+#       containers:
+#       - name: pot-provider
+#         image: brainicism/bgutil-ytdlp-pot-provider:0.8.5 # {"$imagepolicy": "flux-system:pot-provider"}
+#         imagePullPolicy: IfNotPresent
+#         ports:
+#         - containerPort: 4416
+#         env:
+#         - name: TZ
+#           value: America\Toronto
+# ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: pot-provider
+#   namespace: default
+#   labels:
+#     app: pot-provider
+# spec:
+#   selector:
+#     app: pot-provider
+#   ports:
+#   - name: pot-provider
+#     port: 4416
+#     targetPort: 4416
+#   type: ClusterIP
