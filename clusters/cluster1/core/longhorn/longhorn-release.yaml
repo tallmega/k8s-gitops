@@ -21,6 +21,6 @@ spec:
         name: longhorn-repo
         namespace: flux-system
       version: 1.8.1
-  interval: 5m
+  interval: 10m
   install:
     createNamespace: true
