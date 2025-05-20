@@ -130,7 +130,7 @@ spec:
       volumes:
       - name: bloodhound-postgres-config
         persistentVolumeClaim:
-          claimName: bloodhoundpostgres-config-pvc
+          claimName: bloodhound-postgres-config-pvc
 ---
 apiVersion: apps/v1
 kind: Deployment
