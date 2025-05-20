@@ -17,6 +17,7 @@ spec:
   values:
     sharedDevNum: 3  # <--- This sets the equivalent of -shared-dev-num=4
 # ---
+# dont think we need this operator
 # apiVersion: helm.toolkit.fluxcd.io/v2beta1
 # kind: HelmRelease
 # metadata:
