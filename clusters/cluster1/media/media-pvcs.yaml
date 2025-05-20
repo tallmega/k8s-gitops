@@ -1,125 +1,125 @@
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: tvshows-pvc
-  namespace: default
-spec:
-  accessModes:
-    - ReadWriteMany
-  storageClassName: syno-nfs
-  volumeName: tvshows-pv
-  resources:
-    requests:
-      storage: 8Gi
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: tvshows3-pvc
-  namespace: default
-spec:
-  accessModes:
-    - ReadWriteMany
-  storageClassName: syno-nfs
-  volumeName: tvshows3-pv
-  resources:
-    requests:
-      storage: 17Ti
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: ytshows-pvc
-  namespace: default
-spec:
-  accessModes:
-    - ReadWriteMany
-  storageClassName: syno-nfs
-  volumeName: ytshows-pv
-  resources:
-    requests:
-      storage: 17Ti
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: movies3-pvc
-  namespace: default
-spec:
-  accessModes:
-    - ReadWriteMany
-  storageClassName: syno-nfs
-  volumeName: movies3-pv
-  resources:
-    requests:
-      storage: 17Ti
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: books-pvc
-  namespace: default
-spec:
-  accessModes:
-    - ReadWriteMany
-  storageClassName: syno-nfs
-  volumeName: books-pv
-  resources:
-    requests:
-      storage: 17Ti
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: music-pvc
-  namespace: default
-spec:
-  accessModes:
-    - ReadWriteMany
-  storageClassName: syno-nfs
-  volumeName: music-pv
-  resources:
-    requests:
-      storage: 8Gi
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: downloads-complete-pvc
-  namespace: default
-spec:
-  accessModes:
-    - ReadWriteMany
-  storageClassName: syno-nfs
-  volumeName: downloads-complete-pv
-  resources:
-    requests:
-      storage: 8Gi
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: downloads-incomplete-pvc
-  namespace: default
-spec:
-  accessModes:
-    - ReadWriteMany
-  storageClassName: syno-nfs
-  volumeName: downloads-incomplete-pv
-  resources:
-    requests:
-      storage: 8Gi
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: immich-data-pvc
-  namespace: default
-spec:
-  accessModes:
-    - ReadWriteMany
-  storageClassName: syno-nfs
-  volumeName: immich-data-pv
-  resources:
-    requests:
-      storage: 8Gi
+# apiVersion: v1
+# kind: PersistentVolumeClaim
+# metadata:
+#   name: tvshows-pvc
+#   namespace: default
+# spec:
+#   accessModes:
+#     - ReadWriteMany
+#   storageClassName: syno-nfs
+#   volumeName: tvshows-pv
+#   resources:
+#     requests:
+#       storage: 8Gi
+# ---
+# apiVersion: v1
+# kind: PersistentVolumeClaim
+# metadata:
+#   name: tvshows3-pvc
+#   namespace: default
+# spec:
+#   accessModes:
+#     - ReadWriteMany
+#   storageClassName: syno-nfs
+#   volumeName: tvshows3-pv
+#   resources:
+#     requests:
+#       storage: 17Ti
+# ---
+# apiVersion: v1
+# kind: PersistentVolumeClaim
+# metadata:
+#   name: ytshows-pvc
+#   namespace: default
+# spec:
+#   accessModes:
+#     - ReadWriteMany
+#   storageClassName: syno-nfs
+#   volumeName: ytshows-pv
+#   resources:
+#     requests:
+#       storage: 17Ti
+# ---
+# apiVersion: v1
+# kind: PersistentVolumeClaim
+# metadata:
+#   name: movies3-pvc
+#   namespace: default
+# spec:
+#   accessModes:
+#     - ReadWriteMany
+#   storageClassName: syno-nfs
+#   volumeName: movies3-pv
+#   resources:
+#     requests:
+#       storage: 17Ti
+# ---
+# apiVersion: v1
+# kind: PersistentVolumeClaim
+# metadata:
+#   name: books-pvc
+#   namespace: default
+# spec:
+#   accessModes:
+#     - ReadWriteMany
+#   storageClassName: syno-nfs
+#   volumeName: books-pv
+#   resources:
+#     requests:
+#       storage: 17Ti
+# ---
+# apiVersion: v1
+# kind: PersistentVolumeClaim
+# metadata:
+#   name: music-pvc
+#   namespace: default
+# spec:
+#   accessModes:
+#     - ReadWriteMany
+#   storageClassName: syno-nfs
+#   volumeName: music-pv
+#   resources:
+#     requests:
+#       storage: 8Gi
+# ---
+# apiVersion: v1
+# kind: PersistentVolumeClaim
+# metadata:
+#   name: downloads-complete-pvc
+#   namespace: default
+# spec:
+#   accessModes:
+#     - ReadWriteMany
+#   storageClassName: syno-nfs
+#   volumeName: downloads-complete-pv
+#   resources:
+#     requests:
+#       storage: 8Gi
+# ---
+# apiVersion: v1
+# kind: PersistentVolumeClaim
+# metadata:
+#   name: downloads-incomplete-pvc
+#   namespace: default
+# spec:
+#   accessModes:
+#     - ReadWriteMany
+#   storageClassName: syno-nfs
+#   volumeName: downloads-incomplete-pv
+#   resources:
+#     requests:
+#       storage: 8Gi
+# ---
+# apiVersion: v1
+# kind: PersistentVolumeClaim
+# metadata:
+#   name: immich-data-pvc
+#   namespace: default
+# spec:
+#   accessModes:
+#     - ReadWriteMany
+#   storageClassName: syno-nfs
+#   volumeName: immich-data-pv
+#   resources:
+#     requests:
+#       storage: 8Gi
