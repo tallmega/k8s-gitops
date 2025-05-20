@@ -31,5 +31,4 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: intel
-  sharedDevNum: 3  # <--- This sets the equivalent of -shared-dev-num=4
   interval: 1m0s
