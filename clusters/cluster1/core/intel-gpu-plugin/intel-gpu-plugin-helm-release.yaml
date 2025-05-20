@@ -32,5 +32,3 @@ spec:
         kind: HelmRepository
         name: intel
   interval: 1m0s
-  values:
-    sharedDevNum: 3  # <--- This sets the equivalent of -shared-dev-num=4
