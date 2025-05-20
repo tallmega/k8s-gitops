@@ -1,102 +1,102 @@
-# apiVersion: apps/v1
-# kind: Deployment
-# metadata:
-#   namespace: default
-#   name: music-assistant
-#   labels:
-#     app: music-assistant
-# spec:
-#   replicas: 1
-#   strategy:
-#     rollingUpdate: null
-#     type: Recreate
-#   selector:
-#     matchLabels:
-#       app.kubernetes.io/instance: music-assistant
-#       app.kubernetes.io/name: music-assistant
-#   template:
-#     metadata:
-#       creationTimestamp: null
-#       labels:
-#         app.kubernetes.io/instance: music-assistant
-#         app.kubernetes.io/name: music-assistant
-#     spec:
-#       containers:
-#       - name: music-assistant
-#         image: ghcr.io/music-assistant/server:2.5.2 # {"$imagepolicy": "flux-system:musicassistant"}
-#         imagePullPolicy: IfNotPresent
-#         ports:
-#         - containerPort: 8095
-#         - containerPort: 8097
-#         - containerPort: 8098
-#         - containerPort: 8099
-#         env:
-#         - name: TZ
-#           value: America\Toronto
-#         volumeMounts:
-#         - mountPath: /data
-#           name: config
-#         securityContext:
-#           # privileged: true
-#           capabilities:
-#             add:
-#             - SYS_ADMIN
-#             - DAC_READ_SEARCH
-#       hostNetwork: true
-#       volumes:
-#       - name: config
-#         persistentVolumeClaim:
-#           claimName: musicassistant-config-pvc
-# ---
-# apiVersion: v1
-# kind: Service
-# metadata:
-#   name: music-assistant
-#   namespace: default
-# spec:
-#   externalTrafficPolicy: Cluster
-#   loadBalancerIP: 10.10.10.69
-#   ports:
-#   - name: http
-#     protocol: TCP
-#     port: 8095
-#     targetPort: 8095
-#   - name: streamserver1
-#     protocol: TCP
-#     port: 8097
-#     targetPort: 8097
-#   - name: streamserver2
-#     protocol: TCP
-#     port: 8098
-#     targetPort: 8098
-#   - name: streamserver3
-#     protocol: TCP
-#     port: 8099
-#     targetPort: 8099
-#   selector:
-#     app.kubernetes.io/instance: music-assistant
-#     app.kubernetes.io/name: music-assistant
-#   type: LoadBalancer
-# ---
-# apiVersion: networking.k8s.io/v1
-# kind: Ingress
-# metadata:
-#   name: musicassistant-ingress
-#   namespace: default
-# spec:
-#   ingressClassName: internal-nginx
-#   #tls:
-#   #- hosts:
-#   #  - "appdaemon.tallflix.ca"
-#   #  secretName: tls-secret
-#   rules:
-#   - host: music.tallflix.ca
-#     http:
-#       paths:
-#       - pathType: Prefix
-#         path: "/"
-#         backend:
-#           service:
-#             name: music-assistant
-#             port:
-#               number: 8095
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: default
+  name: music-assistant
+  labels:
+    app: music-assistant
+spec:
+  replicas: 1
+  strategy:
+    rollingUpdate: null
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: music-assistant
+      app.kubernetes.io/name: music-assistant
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app.kubernetes.io/instance: music-assistant
+        app.kubernetes.io/name: music-assistant
+    spec:
+      containers:
+      - name: music-assistant
+        image: ghcr.io/music-assistant/server:2.5.2 # {"$imagepolicy": "flux-system:musicassistant"}
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8095
+        - containerPort: 8097
+        - containerPort: 8098
+        - containerPort: 8099
+        env:
+        - name: TZ
+          value: America\Toronto
+        volumeMounts:
+        - mountPath: /data
+          name: config
+        securityContext:
+          # privileged: true
+          capabilities:
+            add:
+            - SYS_ADMIN
+            - DAC_READ_SEARCH
+      hostNetwork: true
+      volumes:
+      - name: config
+        persistentVolumeClaim:
+          claimName: musicassistant-config-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: music-assistant
+  namespace: default
+spec:
+  externalTrafficPolicy: Cluster
+  loadBalancerIP: 10.10.10.69
+  ports:
+  - name: http
+    protocol: TCP
+    port: 8095
+    targetPort: 8095
+  - name: streamserver1
+    protocol: TCP
+    port: 8097
+    targetPort: 8097
+  - name: streamserver2
+    protocol: TCP
+    port: 8098
+    targetPort: 8098
+  - name: streamserver3
+    protocol: TCP
+    port: 8099
+    targetPort: 8099
+  selector:
+    app.kubernetes.io/instance: music-assistant
+    app.kubernetes.io/name: music-assistant
+  type: LoadBalancer
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: musicassistant-ingress
+  namespace: default
+spec:
+  ingressClassName: internal-nginx
+  #tls:
+  #- hosts:
+  #  - "appdaemon.tallflix.ca"
+  #  secretName: tls-secret
+  rules:
+  - host: music.tallflix.ca
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: music-assistant
+            port:
+              number: 8095

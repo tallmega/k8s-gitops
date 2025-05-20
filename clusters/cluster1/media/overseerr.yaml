@@ -1,78 +1,78 @@
-# apiVersion: apps/v1
-# kind: Deployment
-# metadata:
-#   name: overseerr
-#   namespace: default
-# spec:
-#   replicas: 1
-#   selector:
-#     matchLabels:
-#       app: overseerr
-#   strategy:
-#     rollingUpdate: null
-#     type: Recreate
-#   template:
-#     metadata:
-#       labels:
-#         app: overseerr
-#     spec:
-#       containers:
-#       - name: overseerr
-#         image: linuxserver/overseerr:1.34.0 # {"$imagepolicy": "flux-system:overseerr"}
-#         imagePullPolicy: IfNotPresent
-#         ports:
-#         - containerPort: 5055
-#         env:
-#         - name: TZ
-#           value: America\Toronto
-#         volumeMounts:
-#         - name: overseerr-config
-#           mountPath: /config
-#       volumes:
-#       - name: overseerr-config
-#         persistentVolumeClaim:
-#           claimName: overseerr-config-pvc
-# ---
-# apiVersion: v1
-# kind: Service
-# metadata:
-#   name: overseerr
-#   namespace: default
-#   labels:
-#     app: overseerr
-# spec:
-#   selector:
-#     app: overseerr
-#   ports:
-#   - name: overseerr
-#     port: 5055
-#     targetPort: 5055
-#   type: ClusterIP
-# ---
-# apiVersion: networking.k8s.io/v1
-# kind: Ingress
-# metadata:
-#   name: overseerr-ingress
-#   namespace: default
-#   annotations:
-#     cert-manager.io/cluster-issuer: "letsencrypt-prod"
-#     nginx.ingress.kubernetes.io/proxy-body-size: "0"
-#     nginx.ingress.kubernetes.io/from-to-www-redirect: "true"
-# spec:
-#   ingressClassName: nginx
-#   tls:
-#   - hosts:
-#     - "tallflix.ca"
-#     - "www.tallflix.ca"
-#     secretName: tls-secret-overseerr
-#   rules:
-#   - host: "www.tallflix.ca"
-#     http:
-#       paths:
-#       - pathType: Prefix
-#         path: "/"
-#         backend:
-#           service:
-#             name: overseerr
-#             port:
-#               number: 5055
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: overseerr
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: overseerr
+  strategy:
+    rollingUpdate: null
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: overseerr
+    spec:
+      containers:
+      - name: overseerr
+        image: linuxserver/overseerr:1.34.0 # {"$imagepolicy": "flux-system:overseerr"}
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 5055
+        env:
+        - name: TZ
+          value: America\Toronto
+        volumeMounts:
+        - name: overseerr-config
+          mountPath: /config
+      volumes:
+      - name: overseerr-config
+        persistentVolumeClaim:
+          claimName: overseerr-config-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: overseerr
+  namespace: default
+  labels:
+    app: overseerr
+spec:
+  selector:
+    app: overseerr
+  ports:
+  - name: overseerr
+    port: 5055
+    targetPort: 5055
+  type: ClusterIP
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: overseerr-ingress
+  namespace: default
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/proxy-body-size: "0"
+    nginx.ingress.kubernetes.io/from-to-www-redirect: "true"
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - "tallflix.ca"
+    - "www.tallflix.ca"
+    secretName: tls-secret-overseerr
+  rules:
+  - host: "www.tallflix.ca"
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: overseerr
+            port:
+              number: 5055
