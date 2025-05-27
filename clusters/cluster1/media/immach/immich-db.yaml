@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: immich-database
-          image: docker.io/tensorchord/pgvecto-rs:pg14-v0.2.0
+          image: ghcr.io/immich-app/postgres:14-vectorchord0.3.0-pgvectors0.2.0
           ports:
             - containerPort: 5432
           env:
@@ -41,6 +41,8 @@ spec:
                   key: db_database_name
             - name: POSTGRES_INITDB_ARGS
               value: '--data-checksums'
+            - name: DB_STORAGE_TYPE
+              value: 'HDD'
             - name: PGDATA
               value: '/var/lib/postgresql/data/pgdata'
           volumeMounts:
