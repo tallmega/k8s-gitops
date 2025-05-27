@@ -52,7 +52,7 @@ spec:
             - containerPort: 5432
           volumeMounts:
             - mountPath: /var/lib/postgresql/data
-              name: postgres-storage
+              name: paperless-postgres-storage
       volumes:
         - name: paperless-postgres-storage
           persistentVolumeClaim:
