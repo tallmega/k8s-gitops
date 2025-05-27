@@ -162,11 +162,16 @@ spec:
                   key: secret-key
           volumeMounts:
             - name: paperless-data
-              mountPath: /usr/src/paperless
+              mountPath: /usr/src/paperless/data
+            - name: paperless-media
+              mountPath: /usr/src/paperless/media
       volumes:
         - name: paperless-data
           persistentVolumeClaim:
             claimName: paperless-data-pvc
+        - name: paperless-media
+          persistentVolumeClaim:
+            claimName: paperless-media-pvc
 ---
 apiVersion: v1
 kind: Service
