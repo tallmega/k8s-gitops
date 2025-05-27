@@ -18,13 +18,7 @@ spec:
     spec:
       containers:
       - name: appdaemon
-<<<<<<< HEAD
-        image: acockburn/appdaemon:4.5.1 # {"$imagepolicy": "flux-system:appdaemon"}
-        command: [ "sleep" ]
-        args: [ "infinity" ]
-=======
         image: acockburn/appdaemon:4.5.2 # {"$imagepolicy": "flux-system:appdaemon"}
->>>>>>> e185783d94d5a92bc233798dd8d749ad472e0c06
         imagePullPolicy: IfNotPresent
         env:
         - name: TZ
