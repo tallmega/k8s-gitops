@@ -1,0 +1,197 @@
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: paperless-secret
+  namespace: default
+spec:
+  encryptedData:
+    db-pass: AgBTlymOMfB21hOQdeXzV0keAN3OpMRv5WTWWsTq3guA0WV4IqciSOkDogGmWQUE6mlt7s/Ahgz/rQPYVd7pELIDCuUyIe7Z8Waz8eZoau1vS3afsjC+Ajafk5Po8dM+clijtHsH1QdoxwmQD34bfvNRNC1uN1ZNr5XK/avIV3pt90J14Jq4j48jJ3iyfkkAt/YalbmCsVxCIDU1ERZVy9rvLihoHIX/T1Kas85zw0Dho0grndJXR6SlvMnOTSattiSJz65gYwwQa9x1uAS7gW3+xP51N3rEoDK1mtrsasGvQqdsOQVxvK7eBJWUcPnARMUP2mnzCdUDXJWa/4Wq/V+B1CHWh50d+qIDYA4hnWOuakHmmzZM2N2puN8wnNKACYHzRuRIpS8w4YMqmaOpuWrIdN5Lu4qzwUFltRYp8jDbSV2TpuRBkTjnUsSlVpacL9m5mjPLHB3d1yFAh2Fqi4iLPLsJvGaWG02OIN6R+mQ8uniNH21K5lTqU+McBnzrxqY4hAJgiHUi6t4zEatlCdr9rdPCuaceaafVlz9rMLxqZlv6p8s3vKqs1ghPG8RvFxIc5MV5YQtJyu8wNGQwPf0MPWeh3uYS6j0W9nAiY88t8m8qazybKFna+y9+CAioo92JGsjHSkgqW07Gb+NSnSCKAWnLUBaSlwRcJXIdncB+ZPq/sHyW6Sbto+Ls+vEnmpEFTGIXjbh55r+RNThp3g==
+    db-user: AgA+Cfnm/jW2w3HNPE5Zlf33VhJPzSswk1kL7u9XpjmAYo5oPzGpYalel3KXWsk6b51rzoKLzQRVCIzryZKuiP2WrlUnUkXdwvlP+ATrolfPE7xG44yDr4jF+a1QMJ5PFSS5HGZVNaUV6VL5rDKF4ogDpnvk1KnTVCmwR7aud+OtSg9LAhj2VounLlprG+MO+R+k2UoKXD0rVZ9M8TzeGppFG1ML2rBkyUrlvEt/bMMmDLcAsw1y3FPcy8trV7fGjEA5uA37VC5dcqNZBJ9pdoLACUMMVCybAOGky3jL4So/j49HjxMvFznWsq+Kd92rs8dLJlprsv2NpkaaJ9W8+7QWoNOUERxP9rwYXkhLOTWfOFrXYtO7vobfl2EUUvfsVPMqPjF6oih1XjqlGXzJovQr7q33daLkGvy+zpCIFOSDbcM1VSxGnXW+LkZqGbh/qwpFz4Xl/j3eqIBV03OdFwxs8seiF8RCENXmlcMRO0cAEWyXPY8N4/GbjmQjQEx7GIH/h36kQtaCs2xnLEQBY7fJdb6eUIRsokEFXqAAIzaFs7h9aVzhz4Ca9Fef/BrOBPNIg7bUudc6gYD1HgHBTkfpAXIcMAWYQnaGpO5nhrbATzQcslCR/C3FvDuorc+jis28F4PAu9u6U3TPTCGkZeTZqDjwrdu5alI18sSMrDVzPxAWRI+PQoUyMb5azcOyAPAJOk6+KQrNBbQ=
+    secret-key: AgAZV6gA86vXm6BL2Vk5+456Pl3syEviys1v35ItlYDMUZ2wl+SRrTnNONKGsRDk5/ut1uWd6yobuQZSfMsC5QvtMcdYoNEpPesS+pdXxt0/N5lu9Z3PzF70DXdDBwNwBM443kO2LcIHmrHQfjj5Ss+QjvRIXnxdg6GSfrYDO+QYCTfu/CEq2sGHPpVe9Qj1bmi7KD+kKCsQcEK8DZHLaqj94kZfjhxgbvdZfOpPBzmCd7kO/O6J/6fyR5CTZyzlYdGS0oC2HiRN20tVhuKN99bptl9CX2IcN9R1OXIBrlteUAwbyUfo0QsuhHSoD6gduOIse45ivB9WjMU2llAJDv88ah/DgitNOMFqbBdNwas6Ky122AfG9Ey/5bJHj7hqhM6PKWdJjLWVCPyTWsM0p8xhMZsQwEfG6tAVU2vvYSqNFBGof6+X0boqbHlgHgx7eToWDV091UXxkWwA4yOfbVGcs+O01ES5lsAvwV7EM7XGn3v76Uylw6W/e5d7HyduaSS4UTsTFshH8n5nT5hXNYUTiwqGhabKHp46CsHZFoRAj4byqIpWxoXeDqbi5Zu9rRHVcqMBP6fOe34YCYStQuVWs2gzoR8d7lWNfT9H0az5nAPkmPrHm0HWv6Ie0tEwbNMj5YlFp/56Wuv62VzQnPdDdsiXHPB85WJnrMN2R5d43HdYIAuEq0FhML1fsbuO9FGmVtUgyCIATuOuItJMaZAoie79EiHUpKBKyM6r3+FlsPhPGWLeeUH2k8X/Iw==
+  template:
+    metadata:
+      creationTimestamp: null
+      name: paperless-secret
+      namespace: default
+    type: Opaque
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: paperless-postgres
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: paperless-postgres
+  template:
+    metadata:
+      labels:
+        app: paperless-postgres
+    spec:
+      containers:
+        - name: paperless-postgres
+          image: docker.io/library/postgres:17
+          env:
+            - name: POSTGRES_DB
+              value: paperless
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: paperless-secret
+                  key: db-user
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: paperless-secret
+                  key: db-pass
+          ports:
+            - containerPort: 5432
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: postgres-storage
+      volumes:
+        - name: paperless-postgres-storage
+          persistentVolumeClaim:
+            claimName: paperless-postgres-data-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: paperless-postgresql
+spec:
+  selector:
+    app: paperless-postgres
+  ports:
+    - port: 5432
+      targetPort: 5432
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: paperless-redis
+  template:
+    metadata:
+      labels:
+        app: paperless-redis
+    spec:
+      containers:
+        - name: paperless-redis
+          image: docker.io/library/redis:8
+          ports:
+            - containerPort: 6379
+          volumeMounts:
+            - mountPath: /data
+              name: paperless-redis-storage
+          args: ["--save", "", "--appendonly", "no"]
+      volumes:
+        - name: paperless-redis-storage
+          persistentVolumeClaim:
+            claimName: paperless-redis-data-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: paperless-redis
+spec:
+  selector:
+    app: paperless-redis
+  ports:
+    - port: 6379
+      targetPort: 6379
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: paperless-ngx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: paperless-ngx
+  template:
+    metadata:
+      labels:
+        app: paperless-ngx
+    spec:
+      containers:
+        - name: paperless-ngx
+          image: ghcr.io/paperless-ngx/paperless-ngx:latest
+          ports:
+            - containerPort: 8000
+          env:
+            - name: PAPERLESS_REDIS
+              value: redis://paperless-redis:6379
+            - name: PAPERLESS_DBHOST
+              value: paperless-postgresql
+            - name: PAPERLESS_DBUSER
+              valueFrom:
+                secretKeyRef:
+                  name: paperless-secret
+                  key: db-user
+            - name: PAPERLESS_DBPASS
+              valueFrom:
+                secretKeyRef:
+                  name: paperless-secret
+                  key: db-pass
+            - name: PAPERLESS_DBNAME
+              value: paperless
+            - name: PAPERLESS_URL
+              value: https://paperless.tallflix.ca
+            - name: PAPERLESS_TIME_ZONE
+              value: America/Toronto
+            - name: PAPERLESS_OCR_LANGUAGE
+              value: eng
+            - name: PAPERLESS_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: paperless-secret
+                  key: secret-key
+          volumeMounts:
+            - name: paperless-data
+              mountPath: /usr/src/paperless/data
+      volumes:
+        - name: paperless-data
+          persistentVolumeClaim:
+            claimName: paperless-data-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: paperless-ngx
+spec:
+  selector:
+    app: paperless-ngx
+  ports:
+    - port: 8000
+      targetPort: 8000
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: paperless-ingress
+  namespace: default
+spec:
+  ingressClassName: internal-nginx
+  #tls:
+  #- hosts:
+  #  - "paperless.tallflix.ca"
+  #  secretName: paperless-tls-secret
+  rules:
+  - host: paperless.tallflix.ca
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: paperless-ngx
+            port:
+              number: 8000
