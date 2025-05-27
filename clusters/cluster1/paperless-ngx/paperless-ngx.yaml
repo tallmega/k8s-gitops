@@ -21,6 +21,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: paperless-postgres
+  namespace: default
 spec:
   replicas: 1
   selector:
@@ -61,6 +62,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: paperless-postgresql
+  namespace: default
 spec:
   selector:
     app: paperless-postgres
@@ -71,7 +73,8 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: redis
+  name: paperless-redis
+  namespace: default
 spec:
   replicas: 1
   selector:
@@ -100,6 +103,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: paperless-redis
+  namespace: default
 spec:
   selector:
     app: paperless-redis
@@ -111,6 +115,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: paperless-ngx
+  namespace: default
 spec:
   replicas: 1
   selector:
@@ -166,6 +171,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: paperless-ngx
+  namespace: default
 spec:
   selector:
     app: paperless-ngx
