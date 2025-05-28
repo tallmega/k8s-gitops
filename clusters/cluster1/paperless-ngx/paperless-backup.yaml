@@ -1,0 +1,66 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: paperless-weekly-export
+  namespace: default
+spec:
+  schedule: "*/10 * * * *"  # Every ten minutes
+  #schedule: "0 3 * * 0"  # At 3:00 AM every Sunday
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+            - name: paperless-export
+              image: ghcr.io/paperless-ngx/paperless-ngx:2.16.2 # {"$imagepolicy": "flux-system:paperless-ngx"}
+              env:
+                - name: PAPERLESS_REDIS
+                  value: redis://paperless-redis:6379
+                - name: PAPERLESS_DBHOST
+                  value: paperless-postgresql
+                - name: PAPERLESS_DBUSER
+                  valueFrom:
+                    secretKeyRef:
+                      name: paperless-secret
+                      key: db-user
+                - name: PAPERLESS_DBPASS
+                  valueFrom:
+                    secretKeyRef:
+                      name: paperless-secret
+                      key: db-pass
+                - name: PAPERLESS_DBNAME
+                  value: paperless
+                - name: PAPERLESS_SECRET_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      name: paperless-secret
+                      key: secret-key
+                - name: PAPERLESS_TIME_ZONE
+                  value: America/Toronto
+                - name: PAPERLESS_OCR_LANGUAGE
+                  value: eng
+              volumeMounts:
+                - name: paperless-data
+                  mountPath: /usr/src/paperless/data
+                - name: paperless-media
+                  mountPath: /usr/src/paperless/media
+                - name: paperless-export
+                  mountPath: /usr/src/paperless/export
+              command: ["/bin/sh"]
+              args:
+                - -c
+                - |
+                  echo "Running weekly export..."
+                  document_exporter ../export --compare-checksums
+                  echo "Weekly export completed."
+          volumes:
+            - name: paperless-data
+              persistentVolumeClaim:
+                claimName: paperless-data-pvc
+            - name: paperless-media
+              persistentVolumeClaim:
+                claimName: paperless-media-pvc
+            - name: paperless-export
+              persistentVolumeClaim:
+                claimName: paperless-export-pvc
