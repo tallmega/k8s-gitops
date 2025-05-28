@@ -53,9 +53,8 @@ spec:
                 - -c
                 - |
                   echo "Running weekly export..."
-                  manage.py document_exporter ../export --compare-checksums
+                  python3 /usr/src/paperless/src/manage.py document_exporter ../export --compare-checksums
                   echo "Weekly export completed."
-                  sleep infinity
           volumes:
             - name: paperless-data
               persistentVolumeClaim:
