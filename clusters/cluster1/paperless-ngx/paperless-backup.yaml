@@ -10,7 +10,7 @@ spec:
     spec:
       template:
         spec:
-          restartPolicy: OnFailure
+          restartPolicy: Never
           containers:
             - name: paperless-export
               image: ghcr.io/paperless-ngx/paperless-ngx:2.16.2 # {"$imagepolicy": "flux-system:paperless-ngx"}
@@ -47,14 +47,8 @@ spec:
                   mountPath: /usr/src/paperless/media
                 - name: paperless-export
                   mountPath: /usr/src/paperless/export
-              command: ["/bin/sh"]
-              args:
-                - -c
-                - |
-                  echo "Running weekly export..."
-                  document_exporter ../export --compare-checksums
-                  echo "Weekly export completed."
-                  sleep infinity
+                - name: cont-init
+                  mountPath: /etc/cont-init.d
           volumes:
             - name: paperless-data
               persistentVolumeClaim:
@@ -65,3 +59,19 @@ spec:
             - name: paperless-export
               persistentVolumeClaim:
                 claimName: paperless-export-pvc
+            - name: cont-init
+              configMap:
+                name: paperless-export-script
+                defaultMode: 0755
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: paperless-export-script
+data:
+  50-export.sh: |
+    #!/bin/bash
+    echo "[export] Starting scheduled export..."
+    document_exporter ../export --compare-checksums
+    echo "[export] Export complete."
+
