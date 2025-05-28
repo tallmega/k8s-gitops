@@ -4,8 +4,8 @@ metadata:
   name: paperless-weekly-export
   namespace: default
 spec:
-  #schedule: "*/5 * * * *"  # Every five minutes (for testing)
-  schedule: "0 3 * * 0"  # At 3:00 AM every Sunday
+  schedule: "*/5 * * * *"  # Every five minutes (for testing)
+  #schedule: "0 3 * * 0"  # At 3:00 AM every Sunday
   jobTemplate:
     spec:
       template:
