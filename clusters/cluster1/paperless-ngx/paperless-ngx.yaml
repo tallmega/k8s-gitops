@@ -187,7 +187,7 @@ spec:
   accessModes:
     - ReadWriteMany
   storageClassName: syno-nfs
-  volumeName: tvshows-pv
+  volumeName: paperless-export-pv
   resources:
     requests:
       storage: 8Gi
