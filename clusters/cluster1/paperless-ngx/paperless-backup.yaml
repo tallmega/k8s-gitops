@@ -4,7 +4,7 @@ metadata:
   name: paperless-weekly-export
   namespace: default
 spec:
-  schedule: "*/10 * * * *"  # Every ten minutes
+  schedule: "*/5 * * * *"  # Every ten minutes
   #schedule: "0 3 * * 0"  # At 3:00 AM every Sunday
   jobTemplate:
     spec:
@@ -54,6 +54,7 @@ spec:
                   echo "Running weekly export..."
                   document_exporter ../export --compare-checksums
                   echo "Weekly export completed."
+                  sleep -infinity
           volumes:
             - name: paperless-data
               persistentVolumeClaim:
