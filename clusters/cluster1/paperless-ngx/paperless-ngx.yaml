@@ -165,6 +165,8 @@ spec:
               mountPath: /usr/src/paperless/data
             - name: paperless-media
               mountPath: /usr/src/paperless/media
+            - name: paperless-export
+              mountPath: /usr/src/paperless/export
       volumes:
         - name: paperless-data
           persistentVolumeClaim:
@@ -172,6 +174,41 @@ spec:
         - name: paperless-media
           persistentVolumeClaim:
             claimName: paperless-media-pvc
+        - name: paperless-export
+          persistentVolumeClaim:
+            claimName: paperless-export-pvc
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: paperless-export-pvc
+  namespace: default
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: syno-nfs
+  volumeName: tvshows-pv
+  resources:
+    requests:
+      storage: 8Gi
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: paperless-export-pv
+spec:
+  storageClassName: syno-nfs
+  capacity:
+    storage: 8Ti
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  mountOptions:
+    - hard
+    - nfsvers=4
+  nfs:
+    server: 10.10.10.110
+    path: "/volume1/paperless-backups"
 ---
 apiVersion: v1
 kind: Service

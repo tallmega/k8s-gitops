@@ -158,4 +158,4 @@ spec:
     - nfsvers=4
   nfs:
     server: 10.10.10.110
-    path: "/volume1/photos"
+    path: "/volume1/immich-photos"
