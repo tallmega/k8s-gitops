@@ -53,7 +53,7 @@ spec:
                 - -c
                 - |
                   echo "Running weekly export..."
-                  if python3 /usr/src/paperless/src/manage.py document_exporter /usr/src/paperless/export --no-progress-bar --compare-checksums --zip --zip-name paperless-backup.zip; then
+                  if python3 /usr/src/paperless/src/manage.py document_exporter /usr/src/paperless/export --no-progress-bar --compare-checksums --zip --zip-name paperless-backup; then
                     echo "Weekly export completed successfully."
                     exit 0
                   else
