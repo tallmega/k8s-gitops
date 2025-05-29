@@ -56,33 +56,41 @@ spec:
                   DATE=$(date +%F)
                   YEAR=$(date +%Y)
                   MONTH=$(date +%Y-%m)
+                  DOW=$(date +%u)
 
+                  DAILY_ZIP="$EXPORT_DIR/paperless-daily.zip"
                   WEEKLY_ZIP="$EXPORT_DIR/paperless-weekly.zip"
                   MONTHLY_ZIP="$EXPORT_DIR/paperless-monthly.zip"
                   YEARLY_ZIP="$EXPORT_DIR/paperless-yearly.zip"
 
-                  echo "Running weekly export..."
+                  MONTH_MARKER="$EXPORT_DIR/.last-monthly"
+                  YEAR_MARKER="$EXPORT_DIR/.last-yearly"
 
-                  # Export to static weekly zip
+                  echo "Running daily export..."
+
+                  # Run the export to daily backup
                   if python3 /usr/src/paperless/src/manage.py document_exporter "$EXPORT_DIR" \
                     --no-progress-bar --compare-checksums --zip \
-                    --zip-name "$(basename "$WEEKLY_ZIP")"; then
-                    echo "Weekly export completed: $WEEKLY_ZIP"
+                    --zip-name "$(basename "$DAILY_ZIP")"; then
 
-                    # Save current month/year marker files
-                    MONTH_MARKER="$EXPORT_DIR/.last-monthly"
-                    YEAR_MARKER="$EXPORT_DIR/.last-yearly"
+                    echo "Daily export completed: $DAILY_ZIP"
 
-                    # Monthly: only copy if we haven't already done so this month
+                    # Weekly backup only on Mondays
+                    if [ "$DOW" -eq 1 ]; then
+                      cp "$DAILY_ZIP" "$WEEKLY_ZIP"
+                      echo "Weekly backup updated: $WEEKLY_ZIP"
+                    fi
+
+                    # Monthly backup if not done yet this month
                     if [ ! -f "$MONTH_MARKER" ] || [ "$(cat "$MONTH_MARKER")" != "$MONTH" ]; then
-                      cp "$WEEKLY_ZIP" "$MONTHLY_ZIP"
+                      cp "$DAILY_ZIP" "$MONTHLY_ZIP"
                       echo "$MONTH" > "$MONTH_MARKER"
                       echo "Monthly backup updated: $MONTHLY_ZIP"
                     fi
 
-                    # Yearly: only copy if we haven't already done so this year
+                    # Yearly backup if not done yet this year
                     if [ ! -f "$YEAR_MARKER" ] || [ "$(cat "$YEAR_MARKER")" != "$YEAR" ]; then
-                      cp "$WEEKLY_ZIP" "$YEARLY_ZIP"
+                      cp "$DAILY_ZIP" "$YEARLY_ZIP"
                       echo "$YEAR" > "$YEAR_MARKER"
                       echo "Yearly backup updated: $YEARLY_ZIP"
                     fi
