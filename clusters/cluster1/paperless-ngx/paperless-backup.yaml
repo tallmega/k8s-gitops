@@ -4,8 +4,8 @@ metadata:
   name: paperless-weekly-export
   namespace: default
 spec:
-  #schedule: "*/5 * * * *"  # Every five minutes (for testing)
-  schedule: "0 3 * * 0"  # At 3:00 AM every Sunday
+  schedule: "*/5 * * * *"  # Every five minutes (for testing)
+  #schedule: "0 3 * * 0"  # At 3:00 AM every Sunday
   jobTemplate:
     spec:
       template:
@@ -53,7 +53,7 @@ spec:
                 - -c
                 - |
                   echo "Running weekly export..."
-                  if python3 /usr/src/paperless/src/manage.py document_exporter /usr/src/paperless/export --compare-checksums; then
+                  if python3 /usr/src/paperless/src/manage.py document_exporter /usr/src/paperless/export --no-progress-bar --compare-checksums --zip --zip-name paperless-backup.zip; then
                     echo "Weekly export completed successfully."
                     exit 0
                   else
