@@ -52,14 +52,47 @@ spec:
               args:
                 - -c
                 - |
+                  EXPORT_DIR="/usr/src/paperless/export"
+                  DATE=$(date +%F)
+                  YEAR=$(date +%Y)
+                  MONTH=$(date +%Y-%m)
+
+                  WEEKLY_ZIP="$EXPORT_DIR/paperless-weekly.zip"
+                  MONTHLY_ZIP="$EXPORT_DIR/paperless-monthly.zip"
+                  YEARLY_ZIP="$EXPORT_DIR/paperless-yearly.zip"
+
                   echo "Running weekly export..."
-                  if python3 /usr/src/paperless/src/manage.py document_exporter /usr/src/paperless/export --no-progress-bar --compare-checksums --zip --zip-name paperless-backup; then
-                    echo "Weekly export completed successfully."
+
+                  # Export to static weekly zip
+                  if python3 /usr/src/paperless/src/manage.py document_exporter "$EXPORT_DIR" \
+                    --no-progress-bar --compare-checksums --zip \
+                    --zip-name "$(basename "$WEEKLY_ZIP")"; then
+                    echo "Weekly export completed: $WEEKLY_ZIP"
+
+                    # Save current month/year marker files
+                    MONTH_MARKER="$EXPORT_DIR/.last-monthly"
+                    YEAR_MARKER="$EXPORT_DIR/.last-yearly"
+
+                    # Monthly: only copy if we haven't already done so this month
+                    if [ ! -f "$MONTH_MARKER" ] || [ "$(cat "$MONTH_MARKER")" != "$MONTH" ]; then
+                      cp "$WEEKLY_ZIP" "$MONTHLY_ZIP"
+                      echo "$MONTH" > "$MONTH_MARKER"
+                      echo "Monthly backup updated: $MONTHLY_ZIP"
+                    fi
+
+                    # Yearly: only copy if we haven't already done so this year
+                    if [ ! -f "$YEAR_MARKER" ] || [ "$(cat "$YEAR_MARKER")" != "$YEAR" ]; then
+                      cp "$WEEKLY_ZIP" "$YEARLY_ZIP"
+                      echo "$YEAR" > "$YEAR_MARKER"
+                      echo "Yearly backup updated: $YEARLY_ZIP"
+                    fi
+
                     exit 0
                   else
                     echo "Export failed!" >&2
                     exit 1
                   fi
+
           volumes:
             - name: paperless-data
               persistentVolumeClaim:
