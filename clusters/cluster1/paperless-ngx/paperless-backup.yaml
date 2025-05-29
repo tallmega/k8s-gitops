@@ -58,10 +58,10 @@ spec:
                   MONTH=$(date +%Y-%m)
                   DOW=$(date +%u)
 
-                  DAILY_ZIP="$EXPORT_DIR/paperless-daily.zip"
-                  WEEKLY_ZIP="$EXPORT_DIR/paperless-weekly.zip"
-                  MONTHLY_ZIP="$EXPORT_DIR/paperless-monthly.zip"
-                  YEARLY_ZIP="$EXPORT_DIR/paperless-yearly.zip"
+                  DAILY_ZIP="$EXPORT_DIR/paperless-daily"
+                  WEEKLY_ZIP="$EXPORT_DIR/paperless-weekly"
+                  MONTHLY_ZIP="$EXPORT_DIR/paperless-monthly"
+                  YEARLY_ZIP="$EXPORT_DIR/paperless-yearly"
 
                   MONTH_MARKER="$EXPORT_DIR/.last-monthly"
                   YEAR_MARKER="$EXPORT_DIR/.last-yearly"
