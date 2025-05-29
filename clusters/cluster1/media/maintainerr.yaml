@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: maintainerr
-        image: ghcr.io/jorenn92/maintainerr:2.16.0 # {"$imagepolicy": "flux-system:maintainerr"}
+        image: ghcr.io/jorenn92/maintainerr:2.17.0 # {"$imagepolicy": "flux-system:maintainerr"}
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 6246
