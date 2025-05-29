@@ -75,10 +75,13 @@ spec:
 
                     echo "Daily export completed: $DAILY_ZIP"
 
-                    # Weekly backup only on Mondays
-                    if [ "$DOW" -eq 1 ]; then
+                    # Create weekly backup if it doesn't exist
+                    if [ ! -f "$WEEKLY_ZIP" ]; then
                       cp "$DAILY_ZIP" "$WEEKLY_ZIP"
-                      echo "Weekly backup updated: $WEEKLY_ZIP"
+                      echo "Weekly backup created (first run): $WEEKLY_ZIP"
+                    elif [ "$DOW" -eq 1 ]; then
+                      cp "$DAILY_ZIP" "$WEEKLY_ZIP"
+                      echo "Weekly backup updated (Monday): $WEEKLY_ZIP"
                     fi
 
                     # Monthly backup if not done yet this month
