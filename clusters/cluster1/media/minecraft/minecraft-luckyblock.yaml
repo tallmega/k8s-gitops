@@ -54,6 +54,14 @@ spec:
       - name: minecraft-config-luckyblock
         persistentVolumeClaim:
           claimName: minecraft-luckyblock-config-pvc
+
+
+##Installing data:
+
+## Download from https://www.curseforge.com/minecraft-bedrock/maps
+##  This one is https://www.curseforge.com/minecraft-bedrock/maps/lucky-tree-skyblock
+## kubectl cp <path>/Downloads/Lucky_Skyblock_V5.3_ft_XylaTSquid.mcworld minecraft-luckyblock-55b586ffbc-p8v54:/data/
+##  unzip Lucky_Skyblock_V5.3_ft_XylaTSquid.mcworld
 ---
 apiVersion: v1
 kind: Service
