@@ -1,7 +1,7 @@
 # apiVersion: apps/v1
 # kind: Deployment
 # metadata:
-#   name: minecraft-luckyblock
+#   name: minecraft-luckyblockrace
 #   namespace: default
 # spec:
 #   replicas: 1
@@ -10,17 +10,17 @@
 #     type: Recreate
 #   selector:
 #     matchLabels:
-#       app: minecraft-luckyblock
+#       app: minecraft-luckyblockrace
 #   template:
 #     metadata:
 #       labels:
-#         app: minecraft-luckyblock
+#         app: minecraft-luckyblockrace
 #     spec:
 #       hostNetwork: true
 #       extraPodSpec:
 #         hostNetwork: "{{ .Values.hostNetwork }}"
 #       containers:
-#       - name: minecraft-luckyblock
+#       - name: minecraft-luckyblockrace
 #         image: itzg/minecraft-bedrock-server:2025.5.0 # {"$imagepolicy": "flux-system:minecraft"}
 #         imagePullPolicy: IfNotPresent
 #         ports:
@@ -48,35 +48,35 @@
 #         - name: SERVER_PORT
 #           value: "19132"
 #         volumeMounts:
-#         - name: minecraft-config-luckyblock
+#         - name: minecraft-config-luckyblockrace
 #           mountPath: /data
 #       volumes:
-#       - name: minecraft-config-luckyblock
+#       - name: minecraft-config-luckyblockrace
 #         persistentVolumeClaim:
-#           claimName: minecraft-luckyblock-config-pvc
+#           claimName: minecraft-luckyblockrace-config-pvc
 
 
 # ##Installing data:
 
 # ## Download from https://www.curseforge.com/minecraft-bedrock/maps
-# ##  This one is https://www.curseforge.com/minecraft-bedrock/maps/lucky-tree-skyblock
-# ## kubectl cp <path>/Downloads/Lucky_Skyblock_V5.3_ft_XylaTSquid.mcworld minecraft-luckyblock-55b586ffbc-p8v54:/data/
+# ##  This one is https://www.curseforge.com/minecraft-bedrock/maps/luckyblocks-race-v2
+# ## kubectl cp  kubectl cp '/mnt/c/Users//Downloads/LuckyBlocksRace v2.1.mcworld'  minecraft-luckyblockrace-66c48947fd-5tq5w:/data/
 # ##  unzip Lucky_Skyblock_V5.3_ft_XylaTSquid.mcworld
 # ---
 # apiVersion: v1
 # kind: Service
 # metadata:
-#   name: minecraft-luckyblock
+#   name: minecraft-luckyblockrace
 #   namespace: default
 # spec:
 #   externalTrafficPolicy: Cluster
 #   loadBalancerIP: 10.10.10.70
 #   ports:
-#   - name: minecraft-luckyblock
+#   - name: minecraft-luckyblockrace
 #     port: 19132
 #     protocol: UDP
 #     targetPort: 19132
 #   selector:
-#     app.kubernetes.io/instance: minecraft-luckyblock
-#     app.kubernetes.io/name: minecraft-luckyblock
+#     app.kubernetes.io/instance: minecraft-luckyblockrace
+#     app.kubernetes.io/name: minecraft-luckyblockrace
 #   type: LoadBalancer
