@@ -1,82 +1,82 @@
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: minecraft-skyblock
-  namespace: default
-spec:
-  replicas: 1
-  strategy:
-    rollingUpdate: null
-    type: Recreate
-  selector:
-    matchLabels:
-      app: minecraft-skyblock
-  template:
-    metadata:
-      labels:
-        app: minecraft-skyblock
-    spec:
-      hostNetwork: true
-      extraPodSpec:
-        hostNetwork: "{{ .Values.hostNetwork }}"
-      containers:
-      - name: minecraft-skyblock
-        image: itzg/minecraft-bedrock-server:2025.5.0 # {"$imagepolicy": "flux-system:minecraft"}
-        imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 19132
-          protocol: UDP
-        env:
-        - name: TZ
-          value: America\Toronto
-        - name: SERVER_NAME
-          value: "Tallflix"
-        - name: LEVEL_NAME
-          value: "Lucky Block"
-        - name: ENABLE_LAN_VISIBILITY
-          value: "true"
-        - name: GAMEMODE
-          value: "survival"
-        - name: EULA
-          value: "true"
-        - name: ALLOW_CHEATS
-          value: "true"
-        - name: DIFFICULTY
-          value: "easy"
-        - name: ONLINE_MODE
-          value: "true"
-        - name: SERVER_PORT
-          value: "19132"
-        volumeMounts:
-        - name: minecraft-config-luckyblock
-          mountPath: /data
-      volumes:
-      - name: minecraft-config-luckyblock
-        persistentVolumeClaim:
-          claimName: minecraft-luckyblock-config-pvc
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: minecraft-skyblock
+#   namespace: default
+# spec:
+#   replicas: 1
+#   strategy:
+#     rollingUpdate: null
+#     type: Recreate
+#   selector:
+#     matchLabels:
+#       app: minecraft-skyblock
+#   template:
+#     metadata:
+#       labels:
+#         app: minecraft-skyblock
+#     spec:
+#       hostNetwork: true
+#       extraPodSpec:
+#         hostNetwork: "{{ .Values.hostNetwork }}"
+#       containers:
+#       - name: minecraft-skyblock
+#         image: itzg/minecraft-bedrock-server:2025.5.0 # {"$imagepolicy": "flux-system:minecraft"}
+#         imagePullPolicy: IfNotPresent
+#         ports:
+#         - containerPort: 19132
+#           protocol: UDP
+#         env:
+#         - name: TZ
+#           value: America\Toronto
+#         - name: SERVER_NAME
+#           value: "Tallflix"
+#         - name: LEVEL_NAME
+#           value: "Sky Block"
+#         - name: ENABLE_LAN_VISIBILITY
+#           value: "true"
+#         - name: GAMEMODE
+#           value: "survival"
+#         - name: EULA
+#           value: "true"
+#         - name: ALLOW_CHEATS
+#           value: "true"
+#         - name: DIFFICULTY
+#           value: "easy"
+#         - name: ONLINE_MODE
+#           value: "true"
+#         - name: SERVER_PORT
+#           value: "19132"
+#         volumeMounts:
+#         - name: minecraft-config-luckyblock
+#           mountPath: /data
+#       volumes:
+#       - name: minecraft-config-luckyblock
+#         persistentVolumeClaim:
+#           claimName: minecraft-luckyblock-config-pvc
 
 
-##Installing data:
+# ##Installing data:
 
-## Download from https://www.curseforge.com/minecraft-bedrock/maps
-##  This one is https://www.curseforge.com/minecraft-bedrock/maps/lucky-tree-skyblock
-## kubectl cp <path>/Downloads/Lucky_Skyblock_V5.3_ft_XylaTSquid.mcworld minecraft-luckyblock-55b586ffbc-p8v54:/data/
-##  unzip Lucky_Skyblock_V5.3_ft_XylaTSquid.mcworld
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: minecraft-skyblock
-  namespace: default
-spec:
-  externalTrafficPolicy: Cluster
-  loadBalancerIP: 10.10.10.70
-  ports:
-  - name: minecraft-skyblock
-    port: 19132
-    protocol: UDP
-    targetPort: 19132
-  selector:
-    app.kubernetes.io/instance: minecraft-skyblock
-    app.kubernetes.io/name: minecraft-skyblock
-  type: LoadBalancer
+# ## Download from https://www.curseforge.com/minecraft-bedrock/maps
+# ##  This one is https://www.curseforge.com/minecraft-bedrock/maps/lucky-tree-skyblock
+# ## kubectl cp <path>/Downloads/Lucky_Skyblock_V5.3_ft_XylaTSquid.mcworld minecraft-luckyblock-55b586ffbc-p8v54:/data/
+# ##  unzip Lucky_Skyblock_V5.3_ft_XylaTSquid.mcworld
+# ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: minecraft-skyblock
+#   namespace: default
+# spec:
+#   externalTrafficPolicy: Cluster
+#   loadBalancerIP: 10.10.10.70
+#   ports:
+#   - name: minecraft-skyblock
+#     port: 19132
+#     protocol: UDP
+#     targetPort: 19132
+#   selector:
+#     app.kubernetes.io/instance: minecraft-skyblock
+#     app.kubernetes.io/name: minecraft-skyblock
+#   type: LoadBalancer
