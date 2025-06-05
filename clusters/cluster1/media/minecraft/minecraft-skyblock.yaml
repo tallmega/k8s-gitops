@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: minecraft-luckyblock
+  name: minecraft-skyblock
   namespace: default
 spec:
   replicas: 1
@@ -10,17 +10,17 @@ spec:
     type: Recreate
   selector:
     matchLabels:
-      app: minecraft-luckyblock
+      app: minecraft-skyblock
   template:
     metadata:
       labels:
-        app: minecraft-luckyblock
+        app: minecraft-skyblock
     spec:
       hostNetwork: true
       extraPodSpec:
         hostNetwork: "{{ .Values.hostNetwork }}"
       containers:
-      - name: minecraft-luckyblock
+      - name: minecraft-skyblock
         image: itzg/minecraft-bedrock-server:2025.5.0 # {"$imagepolicy": "flux-system:minecraft"}
         imagePullPolicy: IfNotPresent
         ports:
@@ -30,7 +30,7 @@ spec:
         - name: TZ
           value: America\Toronto
         - name: SERVER_NAME
-          value: "Survival"
+          value: "Tallflix"
         - name: LEVEL_NAME
           value: "Lucky Block"
         - name: ENABLE_LAN_VISIBILITY
@@ -66,17 +66,17 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: minecraft-luckyblock
+  name: minecraft-skyblock
   namespace: default
 spec:
   externalTrafficPolicy: Cluster
   loadBalancerIP: 10.10.10.70
   ports:
-  - name: minecraft-luckyblock
+  - name: minecraft-skyblock
     port: 19132
     protocol: UDP
     targetPort: 19132
   selector:
-    app.kubernetes.io/instance: minecraft-luckyblock
-    app.kubernetes.io/name: minecraft-luckyblock
+    app.kubernetes.io/instance: minecraft-skyblock
+    app.kubernetes.io/name: minecraft-skyblock
   type: LoadBalancer
