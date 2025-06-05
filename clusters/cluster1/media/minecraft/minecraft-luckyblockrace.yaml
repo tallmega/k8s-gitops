@@ -32,7 +32,7 @@ spec:
         - name: SERVER_NAME
           value: "Tallflix"
         - name: LEVEL_NAME
-          value: "Lucky Block Race"
+          value: "Lucky Block Race Classic"
         - name: ENABLE_LAN_VISIBILITY
           value: "true"
         - name: GAMEMODE
