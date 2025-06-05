@@ -48,12 +48,12 @@
 #         - name: SERVER_PORT
 #           value: "19132"
 #         volumeMounts:
-#         - name: minecraft-config-luckyblock
+#         - name: minecraft-config-skyblock
 #           mountPath: /data
 #       volumes:
-#       - name: minecraft-config-luckyblock
+#       - name: minecraft-config-skyblock
 #         persistentVolumeClaim:
-#           claimName: minecraft-luckyblock-config-pvc
+#           claimName: minecraft-skyblock-config-pvc
 
 
 # ##Installing data:
