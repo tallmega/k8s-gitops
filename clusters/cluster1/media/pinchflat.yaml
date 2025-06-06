@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: pinchflat
-        image: ghcr.io/kieraneglin/pinchflat:v2025.3.17 # {"$imagepolicy": "flux-system:pinchflat"}
+        image: ghcr.io/kieraneglin/pinchflat:v2025.6.6 # {"$imagepolicy": "flux-system:pinchflat"}
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8945
