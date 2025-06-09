@@ -33,7 +33,7 @@ spec:
           value: America\Toronto
         - name: OPENAI_API_KEY
           valueFrom:
-            secretRef:
+            secretKeyRef:
               name: karakeep-secrets
               key: OPENAI_API_KEY
         volumeMounts:
@@ -108,7 +108,7 @@ spec:
               value: "true"
             - name: MMEILI_MASTER_KEY
               valueFrom:
-                secretRef:
+                secretKeyRef:
                   name: karakeep-secrets
                   key: MMEILI_MASTER_KEY
           volumeMounts:
