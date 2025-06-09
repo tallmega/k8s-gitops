@@ -30,7 +30,7 @@ spec:
         - name: TZ
           value: America\Toronto
         - name: SERVER_NAME
-          value: "Tallflix"
+          value: "LuckyBlockRaceClassic"
         - name: LEVEL_NAME
           value: "LuckyBlockRaceClassic"
         - name: ENABLE_LAN_VISIBILITY
@@ -56,6 +56,10 @@ spec:
       - name: minecraft-config-luckyblockrace
         persistentVolumeClaim:
           claimName: minecraft-luckyblockrace-config-pvc
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
 
 
 ##Installing data:
