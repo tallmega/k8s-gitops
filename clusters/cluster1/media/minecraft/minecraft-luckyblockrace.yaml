@@ -1,82 +1,82 @@
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: minecraft-luckyblockrace
-  namespace: default
-spec:
-  replicas: 1
-  strategy:
-    rollingUpdate: null
-    type: Recreate
-  selector:
-    matchLabels:
-      app: minecraft-luckyblockrace
-  template:
-    metadata:
-      labels:
-        app: minecraft-luckyblockrace
-    spec:
-      hostNetwork: true
-      extraPodSpec:
-        hostNetwork: "{{ .Values.hostNetwork }}"
-      containers:
-      - name: minecraft-luckyblockrace
-        image: itzg/minecraft-bedrock-server:2025.5.0 # {"$imagepolicy": "flux-system:minecraft"}
-        imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 19132
-          protocol: UDP
-        env:
-        - name: TZ
-          value: America\Toronto
-        - name: SERVER_NAME
-          value: "Tallflix"
-        - name: LEVEL_NAME
-          value: "LuckyBlockRaceClassic"
-        - name: ENABLE_LAN_VISIBILITY
-          value: "true"
-        - name: GAMEMODE
-          value: "survival"
-        - name: EULA
-          value: "true"
-        - name: ALLOW_CHEATS
-          value: "true"
-        - name: DIFFICULTY
-          value: "easy"
-        - name: ONLINE_MODE
-          value: "true"
-        - name: SERVER_PORT
-          value: "19132"
-        volumeMounts:
-        - name: minecraft-config-luckyblockrace
-          mountPath: /data
-      volumes:
-      - name: minecraft-config-luckyblockrace
-        persistentVolumeClaim:
-          claimName: minecraft-luckyblockrace-config-pvc
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: minecraft-luckyblockrace
+#   namespace: default
+# spec:
+#   replicas: 1
+#   strategy:
+#     rollingUpdate: null
+#     type: Recreate
+#   selector:
+#     matchLabels:
+#       app: minecraft-luckyblockrace
+#   template:
+#     metadata:
+#       labels:
+#         app: minecraft-luckyblockrace
+#     spec:
+#       hostNetwork: true
+#       extraPodSpec:
+#         hostNetwork: "{{ .Values.hostNetwork }}"
+#       containers:
+#       - name: minecraft-luckyblockrace
+#         image: itzg/minecraft-bedrock-server:2025.5.0 # {"$imagepolicy": "flux-system:minecraft"}
+#         imagePullPolicy: IfNotPresent
+#         ports:
+#         - containerPort: 19132
+#           protocol: UDP
+#         env:
+#         - name: TZ
+#           value: America\Toronto
+#         - name: SERVER_NAME
+#           value: "Tallflix"
+#         - name: LEVEL_NAME
+#           value: "LuckyBlockRaceClassic"
+#         - name: ENABLE_LAN_VISIBILITY
+#           value: "true"
+#         - name: GAMEMODE
+#           value: "survival"
+#         - name: EULA
+#           value: "true"
+#         - name: ALLOW_CHEATS
+#           value: "true"
+#         - name: DIFFICULTY
+#           value: "easy"
+#         - name: ONLINE_MODE
+#           value: "true"
+#         - name: SERVER_PORT
+#           value: "19132"
+#         volumeMounts:
+#         - name: minecraft-config-luckyblockrace
+#           mountPath: /data
+#       volumes:
+#       - name: minecraft-config-luckyblockrace
+#         persistentVolumeClaim:
+#           claimName: minecraft-luckyblockrace-config-pvc
 
 
-##Installing data:
+# ##Installing data:
 
-## Download from https://www.curseforge.com/minecraft-bedrock/maps
-##  This one is https://www.curseforge.com/minecraft-bedrock/maps/luckyblocks-race-v2
-## kubectl cp  kubectl cp '/mnt/c/Users//Downloads/LuckyBlocksRace v2.1.mcworld'  minecraft-luckyblockrace-66c48947fd-5tq5w:/data/
-##  unzip Lucky_Skyblock_V5.3_ft_XylaTSquid.mcworld
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: minecraft-luckyblockrace
-  namespace: default
-spec:
-  externalTrafficPolicy: Cluster
-  loadBalancerIP: 10.10.10.71
-  ports:
-  - name: minecraft-luckyblockrace
-    port: 19132
-    protocol: UDP
-    targetPort: 19132
-  selector:
-    app.kubernetes.io/instance: minecraft-luckyblockrace
-    app.kubernetes.io/name: minecraft-luckyblockrace
-  type: LoadBalancer
+# ## Download from https://www.curseforge.com/minecraft-bedrock/maps
+# ##  This one is https://www.curseforge.com/minecraft-bedrock/maps/luckyblocks-race-v2
+# ## kubectl cp  kubectl cp '/mnt/c/Users//Downloads/LuckyBlocksRace v2.1.mcworld'  minecraft-luckyblockrace-66c48947fd-5tq5w:/data/
+# ##  unzip Lucky_Skyblock_V5.3_ft_XylaTSquid.mcworld
+# ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: minecraft-luckyblockrace
+#   namespace: default
+# spec:
+#   externalTrafficPolicy: Cluster
+#   loadBalancerIP: 10.10.10.71
+#   ports:
+#   - name: minecraft-luckyblockrace
+#     port: 19132
+#     protocol: UDP
+#     targetPort: 19132
+#   selector:
+#     app.kubernetes.io/instance: minecraft-luckyblockrace
+#     app.kubernetes.io/name: minecraft-luckyblockrace
+#   type: LoadBalancer
