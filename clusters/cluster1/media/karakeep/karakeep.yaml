@@ -29,6 +29,8 @@ spec:
           value: http://karakeep-chrome:9222
         - name: DATA_DIR
           value: /data
+        - name: NEXTAUTH_URL
+          value: https://karakeep.tallflix.ca
         - name: TZ
           value: America\Toronto
         - name: OPENAI_API_KEY
@@ -36,6 +38,16 @@ spec:
             secretKeyRef:
               name: karakeep-secrets
               key: OPENAI_API_KEY
+        - name: NEXTAUTH_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: karakeep-secrets
+              key: NEXTAUTH_SECRET
+        - name: NEXT_PUBLIC_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: karakeep-secrets
+              key: NEXT_PUBLIC_SECRET
         volumeMounts:
         - mountPath: /data
           name: karakeep-config
