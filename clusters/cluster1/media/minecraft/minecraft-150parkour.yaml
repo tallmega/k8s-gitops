@@ -31,8 +31,8 @@ spec:
           value: America\Toronto
         - name: SERVER_NAME
           value: "150Parkour"
-        # - name: LEVEL_NAME
-        #   value: "§o§6150 LEVEL §r§fPARKOUR"
+        - name: LEVEL_NAME
+          value: "§o§6150 LEVEL §r§fPARKOUR"
         - name: ENABLE_LAN_VISIBILITY
           value: "true"
         - name: GAMEMODE
