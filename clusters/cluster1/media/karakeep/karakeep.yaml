@@ -32,8 +32,8 @@ spec:
         - name: TZ
           value: America\Toronto
         envFrom:
-            - secretRef:
-              name: karakeep-secrets
+        - secretRef:
+          name: karakeep-secrets
         volumeMounts:
         - name: karakeep-config
         - mountPath: /data
