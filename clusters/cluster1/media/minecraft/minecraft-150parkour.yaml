@@ -56,6 +56,10 @@ spec:
       - name: minecraft-config-150parkour
         persistentVolumeClaim:
           claimName: minecraft-150parkour-config-pvc
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
 ---
 apiVersion: v1
 kind: Service
