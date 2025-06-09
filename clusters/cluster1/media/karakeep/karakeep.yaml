@@ -30,7 +30,7 @@ spec:
         - name: DATA_DIR
           value: /data
         - name: NEXTAUTH_URL
-          value: https://karakeep.tallflix.ca
+          value: http://karakeep.tallflix.ca
         - name: TZ
           value: America\Toronto
         - name: OPENAI_API_KEY
