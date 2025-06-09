@@ -78,11 +78,11 @@ metadata:
   name: karakeep-ingress
   namespace: default
 spec:
-  ingressClassName: internal-nginx
-  #tls:
-  #- hosts:
-  #  - "longhorn.tallflix.ca"
-  #  secretName: tls-secret
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - "karakeep.tallflix.ca"
+    secretName: karakeep-tls-secret
   rules:
   - host: karakeep.tallflix.ca
     http:
