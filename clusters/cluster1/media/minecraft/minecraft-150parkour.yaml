@@ -32,7 +32,7 @@ spec:
         - name: SERVER_NAME
           value: "150Parkour"
         - name: LEVEL_NAME
-          value: "150 LEVEL PARKOUR"
+          value: "150LEVELPARKOUR"
         - name: ENABLE_LAN_VISIBILITY
           value: "true"
         - name: GAMEMODE
