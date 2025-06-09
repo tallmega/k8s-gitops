@@ -32,7 +32,7 @@ spec:
         - name: SERVER_NAME
           value: "150Parkour"
         # - name: LEVEL_NAME
-        #   value: "Survival House"
+        #   value: "§o§6150 LEVEL §r§fPARKOUR"
         - name: ENABLE_LAN_VISIBILITY
           value: "true"
         - name: GAMEMODE
