@@ -31,6 +31,8 @@ spec:
           value: /data
         - name: NEXTAUTH_URL
           value: http://karakeep.tallflix.ca
+        - name: DISABLE_SIGNUPS
+          value: true
         - name: TZ
           value: America\Toronto
         - name: OPENAI_API_KEY
