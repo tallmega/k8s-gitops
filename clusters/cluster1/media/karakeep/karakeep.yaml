@@ -37,8 +37,8 @@ spec:
               name: karakeep-secrets
               key: OPENAI_API_KEY
         volumeMounts:
-        - name: karakeep-config
         - mountPath: /data
+          name: karakeep-config
       volumes:
       - name: karakeep-config
         persistentVolumeClaim:
