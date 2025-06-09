@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: karakeep
-        image: ghcr.io/karakeep-app/karakeep:0.24.0 # {"$imagepolicy": "flux-system:karakeep"}
+        image: ghcr.io/karakeep-app/karakeep:0.25.0 # {"$imagepolicy": "flux-system:karakeep"}
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 3000
@@ -57,7 +57,6 @@ spec:
     port: 3000
     targetPort: 3000
   type: ClusterIP
-
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -118,7 +117,6 @@ spec:
         - name: meilisearch
           persistentVolumeClaim:
             claimName: meilisearch-config-pvc
-
 ---
 apiVersion: v1
 kind: Service
