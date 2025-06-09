@@ -31,9 +31,11 @@ spec:
           value: /data
         - name: TZ
           value: America\Toronto
-        envFrom:
-        - secretRef:
-          name: karakeep-secrets
+        - name: OPENAI_API_KEY
+          valueFrom:
+            secretRef:
+              name: karakeep-secrets
+              key: OPENAI_API_KEY
         volumeMounts:
         - name: karakeep-config
         - mountPath: /data
@@ -104,12 +106,14 @@ spec:
           env:
             - name: MEILI_NO_ANALYTICS
               value: "true"
+            - name: MMEILI_MASTER_KEY
+              valueFrom:
+                secretRef:
+                  name: karakeep-secrets
+                  key: MMEILI_MASTER_KEY
           volumeMounts:
             - mountPath: /meili_data
               name: meilisearch
-          envFrom:
-            - secretRef:
-                name: karakeep-secrets
       volumes:
         - name: meilisearch
           persistentVolumeClaim:
