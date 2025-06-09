@@ -36,7 +36,7 @@ spec:
         - name: ENABLE_LAN_VISIBILITY
           value: "true"
         - name: GAMEMODE
-          value: "creative"
+          value: "adventure"
         - name: EULA
           value: "true"
         - name: ALLOW_CHEATS
