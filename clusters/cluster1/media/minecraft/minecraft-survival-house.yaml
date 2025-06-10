@@ -1,78 +1,78 @@
-# apiVersion: apps/v1
-# kind: Deployment
-# metadata:
-#   name: minecraft-survival-house
-#   namespace: default
-# spec:
-#   replicas: 1
-#   strategy:
-#     rollingUpdate: null
-#     type: Recreate
-#   selector:
-#     matchLabels:
-#       app: minecraft-survival-house
-#   template:
-#     metadata:
-#       labels:
-#         app: minecraft-survival-house
-#     spec:
-#       hostNetwork: true
-#       extraPodSpec:
-#         hostNetwork: "{{ .Values.hostNetwork }}"
-#       containers:
-#       - name: minecraft-survival-house
-#         image: itzg/minecraft-bedrock-server:2025.5.0 # {"$imagepolicy": "flux-system:minecraft"}
-#         imagePullPolicy: IfNotPresent
-#         ports:
-#         - containerPort: 19132
-#           protocol: UDP
-#         env:
-#         - name: TZ
-#           value: America\Toronto
-#         - name: SERVER_NAME
-#           value: "Finn and Kane"
-#         - name: LEVEL_NAME
-#           value: "Survival House"
-#         - name: ENABLE_LAN_VISIBILITY
-#           value: "true"
-#         - name: GAMEMODE
-#           value: "survival"
-#         - name: EULA
-#           value: "true"
-#         - name: ALLOW_CHEATS
-#           value: "true"
-#         - name: DIFFICULTY
-#           value: "easy"
-#         - name: ONLINE_MODE
-#           value: "true"
-#         - name: SERVER_PORT
-#           value: "19132"
-#         volumeMounts:
-#         - name: minecraft-config-survival-house
-#           mountPath: /data
-#       volumes:
-#       - name: minecraft-config-survival-house
-#         persistentVolumeClaim:
-#           claimName: minecraft-survival-house-config-pvc
-#       securityContext:
-#         runAsUser: 1000
-#         runAsGroup: 1000
-#         fsGroup: 1000
-# ---
-# apiVersion: v1
-# kind: Service
-# metadata:
-#   name: minecraft-survival-house
-#   namespace: default
-# spec:
-#   externalTrafficPolicy: Cluster
-#   loadBalancerIP: 10.10.10.71
-#   ports:
-#   - name: minecraft-survival-house
-#     port: 19132
-#     protocol: UDP
-#     targetPort: 19132
-#   selector:
-#     app.kubernetes.io/instance: minecraft-survival-house
-#     app.kubernetes.io/name: minecraft-survival-house
-#   type: LoadBalancer
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: minecraft-survival-house
+  namespace: default
+spec:
+  replicas: 1
+  strategy:
+    rollingUpdate: null
+    type: Recreate
+  selector:
+    matchLabels:
+      app: minecraft-survival-house
+  template:
+    metadata:
+      labels:
+        app: minecraft-survival-house
+    spec:
+      hostNetwork: true
+      extraPodSpec:
+        hostNetwork: "{{ .Values.hostNetwork }}"
+      containers:
+      - name: minecraft-survival-house
+        image: itzg/minecraft-bedrock-server:2025.5.0 # {"$imagepolicy": "flux-system:minecraft"}
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 19132
+          protocol: UDP
+        env:
+        - name: TZ
+          value: America\Toronto
+        - name: SERVER_NAME
+          value: "Finn and Kane"
+        - name: LEVEL_NAME
+          value: "Survival House"
+        - name: ENABLE_LAN_VISIBILITY
+          value: "true"
+        - name: GAMEMODE
+          value: "survival"
+        - name: EULA
+          value: "true"
+        - name: ALLOW_CHEATS
+          value: "true"
+        - name: DIFFICULTY
+          value: "easy"
+        - name: ONLINE_MODE
+          value: "true"
+        - name: SERVER_PORT
+          value: "19132"
+        volumeMounts:
+        - name: minecraft-config-survival-house
+          mountPath: /data
+      volumes:
+      - name: minecraft-config-survival-house
+        persistentVolumeClaim:
+          claimName: minecraft-survival-house-config-pvc
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: minecraft-survival-house
+  namespace: default
+spec:
+  externalTrafficPolicy: Cluster
+  loadBalancerIP: 10.10.10.71
+  ports:
+  - name: minecraft-survival-house
+    port: 19132
+    protocol: UDP
+    targetPort: 19132
+  selector:
+    app.kubernetes.io/instance: minecraft-survival-house
+    app.kubernetes.io/name: minecraft-survival-house
+  type: LoadBalancer
