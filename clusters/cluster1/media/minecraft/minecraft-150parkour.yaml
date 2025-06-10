@@ -30,7 +30,7 @@
 #         - name: TZ
 #           value: America\Toronto
 #         - name: SERVER_NAME
-#           value: "150Parkour"
+#           value: "Finn and Kane"
 #         - name: LEVEL_NAME
 #           value: "150LEVELPARKOUR"
 #         - name: ENABLE_LAN_VISIBILITY

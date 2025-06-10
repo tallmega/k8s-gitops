@@ -30,7 +30,7 @@
 #         - name: TZ
 #           value: America\Toronto
 #         - name: SERVER_NAME
-#           value: "Survival"
+#           value: "Finn and Kane"
 #         - name: LEVEL_NAME
 #           value: "Survival House"
 #         - name: ENABLE_LAN_VISIBILITY

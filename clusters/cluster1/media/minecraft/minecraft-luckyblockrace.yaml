@@ -30,7 +30,7 @@ spec:
         - name: TZ
           value: America\Toronto
         - name: SERVER_NAME
-          value: "LuckyBlocksRace"
+          value: "Finn and Kane"
         - name: LEVEL_NAME
           value: "LuckyBlocksRace"
         - name: ENABLE_LAN_VISIBILITY

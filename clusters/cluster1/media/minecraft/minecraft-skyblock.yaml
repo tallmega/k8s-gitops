@@ -30,7 +30,7 @@ spec:
         - name: TZ
           value: America\Toronto
         - name: SERVER_NAME
-          value: "Tallflix"
+          value: "Finn and Kane"
         - name: LEVEL_NAME
           value: "Skybedrock"
         - name: ENABLE_LAN_VISIBILITY
