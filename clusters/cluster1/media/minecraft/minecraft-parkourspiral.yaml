@@ -55,7 +55,7 @@ spec:
       volumes:
       - name: minecraft-config-parkourspiral
         persistentVolumeClaim:
-          claimName: minecraft-parkourspiral-config-pvc
+          claimName: minecraft-config-parkourspiral-pvc
       securityContext:
         runAsUser: 1000
         runAsGroup: 1000
