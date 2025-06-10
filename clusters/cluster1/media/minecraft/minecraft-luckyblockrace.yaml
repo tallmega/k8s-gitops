@@ -30,9 +30,9 @@ spec:
         - name: TZ
           value: America\Toronto
         - name: SERVER_NAME
-          value: "LuckyBlockRaceClassic"
+          value: "LuckyBlocksRace"
         - name: LEVEL_NAME
-          value: "LuckyBlockRaceClassic"
+          value: "LuckyBlocksRace"
         - name: ENABLE_LAN_VISIBILITY
           value: "true"
         - name: GAMEMODE
