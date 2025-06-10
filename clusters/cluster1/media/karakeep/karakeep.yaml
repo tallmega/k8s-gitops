@@ -77,6 +77,8 @@ kind: Ingress
 metadata:
   name: karakeep-ingress
   namespace: default
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
 spec:
   ingressClassName: nginx
   tls:

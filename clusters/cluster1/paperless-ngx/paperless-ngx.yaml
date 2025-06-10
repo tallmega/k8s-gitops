@@ -227,12 +227,14 @@ kind: Ingress
 metadata:
   name: paperless-ingress
   namespace: default
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
 spec:
   ingressClassName: internal-nginx
-  #tls:
-  #- hosts:
-  #  - "paperless.tallflix.ca"
-  #  secretName: paperless-tls-secret
+  tls:
+  - hosts:
+    - "paperless.tallflix.ca"
+    secretName: paperless-tls-secret
   rules:
   - host: paperless.tallflix.ca
     http:
