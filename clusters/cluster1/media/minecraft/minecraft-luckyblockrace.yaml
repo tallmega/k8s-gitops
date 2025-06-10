@@ -64,10 +64,10 @@ spec:
 
 ##Installing data:
 
-## Download from https://www.curseforge.com/minecraft-bedrock/maps
-##  This one is https://www.curseforge.com/minecraft-bedrock/maps/luckyblocks-race-v2
+## Download from https://www.curseforge.com/minecraft-bedrock/maps or https://www.planetminecraft.com/project/
+##  This one is https://www.planetminecraft.com/project/lucky-blocks-race-map-minecraft-bedrock/
 ##  kubectl cp '/mnt/c/Users//Downloads/LuckyBlocksRace v2.1.mcworld'  minecraft-luckyblockrace-66c48947fd-5tq5w:/data/
-##  unzip Lucky_Skyblock_V5.3_ft_XylaTSquid.mcworld
+##  unzip LuckyBlocksRace v2.1.mcworld
 ---
 apiVersion: v1
 kind: Service
