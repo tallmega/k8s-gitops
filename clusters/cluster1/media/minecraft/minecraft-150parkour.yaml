@@ -1,80 +1,80 @@
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: minecraft-150parkour
-  namespace: default
-spec:
-  replicas: 1
-  strategy:
-    rollingUpdate: null
-    type: Recreate
-  selector:
-    matchLabels:
-      app: minecraft-150parkour
-  template:
-    metadata:
-      labels:
-        app: minecraft-150parkour
-    spec:
-      hostNetwork: true
-      extraPodSpec:
-        hostNetwork: "{{ .Values.hostNetwork }}"
-      containers:
-      - name: minecraft-150parkour
-        image: itzg/minecraft-bedrock-server:2025.5.0 # {"$imagepolicy": "flux-system:minecraft"}
-        imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 19132
-          protocol: UDP
-        env:
-        - name: TZ
-          value: America\Toronto
-        - name: SERVER_NAME
-          value: "Finn and Kane"
-        - name: LEVEL_NAME
-          value: "150LEVELPARKOUR"
-        - name: ENABLE_LAN_VISIBILITY
-          value: "true"
-        - name: GAMEMODE
-          value: "adventure"
-        - name: EULA
-          value: "true"
-        - name: ALLOW_CHEATS
-          value: "true"
-        - name: ENABLE_COMMAND_BLOCK
-          value: "true"
-        - name: DIFFICULTY
-          value: "easy"
-        - name: ONLINE_MODE
-          value: "true"
-        - name: SERVER_PORT
-          value: "19132"
-        volumeMounts:
-        - name: minecraft-config-150parkour
-          mountPath: /data
-      volumes:
-      - name: minecraft-config-150parkour
-        persistentVolumeClaim:
-          claimName: minecraft-150parkour-config-pvc
-      securityContext:
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: minecraft-150parkour
-  namespace: default
-spec:
-  externalTrafficPolicy: Cluster
-  loadBalancerIP: 10.10.10.70
-  ports:
-  - name: minecraft-150parkour
-    port: 19132
-    protocol: UDP
-    targetPort: 19132
-  selector:
-    app.kubernetes.io/instance: minecraft-150parkour
-    app.kubernetes.io/name: minecraft-150parkour
-  type: LoadBalancer
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: minecraft-150parkour
+#   namespace: default
+# spec:
+#   replicas: 1
+#   strategy:
+#     rollingUpdate: null
+#     type: Recreate
+#   selector:
+#     matchLabels:
+#       app: minecraft-150parkour
+#   template:
+#     metadata:
+#       labels:
+#         app: minecraft-150parkour
+#     spec:
+#       hostNetwork: true
+#       extraPodSpec:
+#         hostNetwork: "{{ .Values.hostNetwork }}"
+#       containers:
+#       - name: minecraft-150parkour
+#         image: itzg/minecraft-bedrock-server:2025.5.0 # {"$imagepolicy": "flux-system:minecraft"}
+#         imagePullPolicy: IfNotPresent
+#         ports:
+#         - containerPort: 19132
+#           protocol: UDP
+#         env:
+#         - name: TZ
+#           value: America\Toronto
+#         - name: SERVER_NAME
+#           value: "Finn and Kane"
+#         - name: LEVEL_NAME
+#           value: "150LEVELPARKOUR"
+#         - name: ENABLE_LAN_VISIBILITY
+#           value: "true"
+#         - name: GAMEMODE
+#           value: "adventure"
+#         - name: EULA
+#           value: "true"
+#         - name: ALLOW_CHEATS
+#           value: "true"
+#         - name: ENABLE_COMMAND_BLOCK
+#           value: "true"
+#         - name: DIFFICULTY
+#           value: "easy"
+#         - name: ONLINE_MODE
+#           value: "true"
+#         - name: SERVER_PORT
+#           value: "19132"
+#         volumeMounts:
+#         - name: minecraft-config-150parkour
+#           mountPath: /data
+#       volumes:
+#       - name: minecraft-config-150parkour
+#         persistentVolumeClaim:
+#           claimName: minecraft-150parkour-config-pvc
+#       securityContext:
+#         runAsUser: 1000
+#         runAsGroup: 1000
+#         fsGroup: 1000
+# ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: minecraft-150parkour
+#   namespace: default
+# spec:
+#   externalTrafficPolicy: Cluster
+#   loadBalancerIP: 10.10.10.70
+#   ports:
+#   - name: minecraft-150parkour
+#     port: 19132
+#     protocol: UDP
+#     targetPort: 19132
+#   selector:
+#     app.kubernetes.io/instance: minecraft-150parkour
+#     app.kubernetes.io/name: minecraft-150parkour
+#   type: LoadBalancer
