@@ -15,12 +15,13 @@ metadata:
     nginx.ingress.kubernetes.io/auth-realm: 'Authentication Required '
     # custom max body size for file uploading like backing image uploading
     nginx.ingress.kubernetes.io/proxy-body-size: 10000m
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
 spec:
   ingressClassName: internal-nginx
-  #tls:
-  #- hosts:
-  #  - "longhorn.tallflix.ca"
-  #  secretName: tls-secret
+  tls:
+  - hosts:
+    - "longhorn.tallflix.ca"
+    secretName: tls-secret-longhorn
   rules:
   - host: longhorn.tallflix.ca
     http:
