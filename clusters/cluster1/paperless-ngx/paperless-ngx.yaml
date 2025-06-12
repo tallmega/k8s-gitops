@@ -230,7 +230,7 @@ metadata:
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
 spec:
-  ingressClassName: internal-nginx
+  ingressClassName: nginx
   tls:
   - hosts:
     - "paperless.tallflix.ca"
