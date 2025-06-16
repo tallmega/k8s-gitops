@@ -20,14 +20,13 @@ spec:
           value: America\Toronto
         imagePullPolicy: IfNotPresent
         name: whisper-k8s
-        image: rhasspy/wyoming-whisper:2.4.0 # {"$imagepolicy": "flux-system:whisper"}
+        image: rhasspy/wyoming-whisper:2.5.0 # {"$imagepolicy": "flux-system:whisper"}
         args:
         - --model=base
         - --language=en
         ports:
         - containerPort: 10300
           protocol: TCP
-
         volumeMounts:
         - mountPath: /data
           name: whisper-data
