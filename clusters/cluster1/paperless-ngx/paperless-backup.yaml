@@ -13,7 +13,7 @@ spec:
           restartPolicy: Never
           containers:
             - name: paperless-export
-              image: ghcr.io/paperless-ngx/paperless-ngx:2.16.3 # {"$imagepolicy": "flux-system:paperless-ngx"}
+              image: ghcr.io/paperless-ngx/paperless-ngx:2.17.0 # {"$imagepolicy": "flux-system:paperless-ngx"}
               env:
                 - name: PAPERLESS_REDIS
                   value: redis://paperless-redis:6379
