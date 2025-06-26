@@ -1,0 +1,291 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: siriusscan
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: siriusscan-secrets
+  namespace: siriusscan
+spec:
+  encryptedData:
+    NEXTAUTH_SECRET: AgBAe0zbF7xRAYGyfS1l5f4yH6IORdXnjZAlctsyPzLEsD4rGtGlHr9boG6u8E3hTozfhjVd4JWkyViVuZqa+4zixhN5W+WUPH4xe9SI9vDeuBNGpwO1uliW7PX2lwlZbeFktX88S6kHZx7RJQJQZ9igxyDNToH/lAGYnshMF28W8rdttsCCZ3l5HM2OnZvXQor/qkU4+RxNWOU9uxKe9Fs2u6rc9Z7Oc2nBIidRAha/eq4Js/Bq3E6HJWHQPxHm1bpEnfSQ822Jgt0hV6bl+ChjP/lKBOQJitY7ssAmp2M3/zxe2Uq7yqdUSOJ/fmrZnODrYSoCqC6LQysAHhBczHXe530pLFfiW5wZ1b0+WfFUuk1RBjrv5klCkVo0DbCw1Vk884P9Ap7vHJq9nTbUeNuwSP0pR9rQQr9yP8+4StrfF4f/LvlYQ3vqN0OpoDmtoyicBzz5+I4jvaroqNXXjJO1jKNUqhtU0KaNv1QMhV9pjMusqvgDpX0nYaX+YsmqgQZcCJdgUaD7IOQnlaM6lsTcgsVZsnWY/r1k3XczUlF5OyTYfCO65Bt97NVDiPfBggitleNAxWM9hsKbg5dWRdcj/W4nZWOvgMwfU0NY0yTbXo34pUgMholvL7tvey8YnijC9ibW/1turW/8s6Z8ETycUsClnzV4sChXYx9ZlPEmU1w3xERfZ1roWyjK4h99Yky+VtDudakPPheUHd2clSyD0wx3hL3KtnTo
+    POSTGRES_PASSWORD: AgBNUHQzmpjSrOe+pUNYBQXrd1fuDSnZxM91LJsLnXQx8RAAi+oy6NR58k/fVmoAW+ALQcq9+aedb+JLRKYsfkdED8tLHcdDmYICaHF3NbuC1COTwhTrQteJGgTMIi7ETlpJccczUMF2RVo4be2RRFH/PJ+VW1x85QLI2j4efEHKpWyOyp4eFPr/QdRNc50DVH/Jq6oAiD+6ly/uS3DS9sA8J3xMh/ZAto28uJKurtnjekQOM6N2Q1/q9Zqq6Kzutnaoka5ZaqRuncFYMnmnA1mKchp2svFD0h+/TESLhHaR1TQQnJf4Ah3q1kYaFfgzibFCm6gliiT3YRzBwu8U8bVBsCC4PDsxa3geD1W9WJnaiXkH4GFztRYiiqzUENRqDaE44OQQ5NiR1Q9D39xl5eL0uYl557H6i/5xYVWbjxl3OkVqcV89MLpZhtnwgqiwA/oUyXiFQm/5YFbM+Ch5WbUTj7TR5oy+6R8eDBOT9EpDUV7pV93+6u2qnW+8jaYbVra6GOTAttwQJvkcaxClksmsyvK8axLrDsbPAxMJy9dpWT1ULGd9LLNNRePqttUwPC7Bod92d3Lh5k0mA3Agg2v7fZmhFwoqS2zx+mkieDUBMf9UkMI0+EINCbF1tx6+f8g6dFIOM88waPvhkGEhRsm3c2S6yStKPQ9eHpXXIsp/H04b+eFjL4FSCwdesv0mL3ocF9JUBZMNgyHY2aAaYEdkJi8LPIX8keTX
+  template:
+    metadata:
+      creationTimestamp: null
+      name: siriusscan-secrets
+      namespace: siriusscan
+    type: Opaque
+---
+# 1. PostgreSQL
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sirius-postgres
+  namespace: siriusscan
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sirius-postgres
+  template:
+    metadata:
+      labels:
+        app: sirius-postgres
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:15-alpine
+          env:
+            - name: POSTGRES_USER
+              value: "postgres"
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: siriusscan-secrets
+                  key: POSTGRES_PASSWORD
+            - name: POSTGRES_DB
+              value: "sirius"
+          ports:
+            - containerPort: 5432
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: postgres-data
+      volumes:
+        - name: postgres-data
+          emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sirius-postgres
+  namespace: siriusscan
+spec:
+  ports:
+    - port: 5432
+  selector:
+    app: sirius-postgres
+---
+# 2. Valkey
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sirius-valkey
+  namespace: siriusscan
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sirius-valkey
+  template:
+    metadata:
+      labels:
+        app: sirius-valkey
+    spec:
+      containers:
+        - name: valkey
+          image: valkey/valkey:latest
+          ports:
+            - containerPort: 6379
+          volumeMounts:
+            - mountPath: /data
+              name: valkey-data
+      volumes:
+        - name: valkey-data
+          emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sirius-valkey
+  namespace: siriusscan
+spec:
+  ports:
+    - port: 6379
+  selector:
+    app: sirius-valkey
+---
+# 3. RabbitMQ
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sirius-rabbitmq
+  namespace: siriusscan
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sirius-rabbitmq
+  template:
+    metadata:
+      labels:
+        app: sirius-rabbitmq
+    spec:
+      containers:
+        - name: rabbitmq
+          image: rabbitmq:3.7.3-management
+          ports:
+            - containerPort: 5672
+            - containerPort: 15672
+          volumeMounts:
+            - name: rabbitmq-data
+              mountPath: /var/lib/rabbitmq
+      volumes:
+        - name: rabbitmq-data
+          emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sirius-rabbitmq
+  namespace: siriusscan
+spec:
+  ports:
+    - port: 5672
+    - port: 15672
+  selector:
+    app: sirius-rabbitmq
+---
+# 4. API Service
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sirius-api
+  namespace: siriusscan
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sirius-api
+  template:
+    metadata:
+      labels:
+        app: sirius-api
+    spec:
+      containers:
+        - name: api
+          image: ghcr.io/siriusscan/sirius-api:latest
+          ports:
+            - containerPort: 9001
+          env:
+            - name: POSTGRES_HOST
+              value: sirius-postgres
+            - name: POSTGRES_USER
+              value: postgres
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: siriusscan-secrets
+                  key: POSTGRES_PASSWORD
+            - name: POSTGRES_DB
+              value: sirius
+            - name: POSTGRES_PORT
+              value: "5432"
+            - name: VALKEY_HOST
+              value: sirius-valkey
+            - name: VALKEY_PORT
+              value: "6379"
+            - name: RABBITMQ_URL
+              value: amqp://guest:guest@sirius-rabbitmq:5672/
+            - name: API_PORT
+              value: "9001"
+            - name: GO_ENV
+              value: production
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sirius-api
+  namespace: siriusscan
+spec:
+  ports:
+    - port: 9001
+  selector:
+    app: sirius-api
+---
+# 5. UI Service
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sirius-ui
+  namespace: siriusscan
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sirius-ui
+  template:
+    metadata:
+      labels:
+        app: sirius-ui
+    spec:
+      containers:
+        - name: ui
+          image: ghcr.io/siriusscan/sirius-ui:latest
+          ports:
+            - containerPort: 3000
+          env:
+            - name: NEXTAUTH_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: siriusscan-secrets
+                  key: NEXTAUTH_SECRET
+            - name: NEXTAUTH_URL
+              value: http://sirius-ui.siriusscan.svc.cluster.local
+            - name: NEXT_PUBLIC_SIRIUS_API_URL
+              value: http://sirius-api:9001
+            - name: SIRIUS_API_URL
+              value: http://sirius-api:9001
+            - name: DISCORD_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: siriusscan-secrets
+                  key: DISCORD_CLIENT_ID
+            - name: DISCORD_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: siriusscan-secrets
+                  key: DISCORD_CLIENT_SECRET
+            - name: NODE_ENV
+              value: production
+            - name: SKIP_ENV_VALIDATION
+              value: "1"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sirius-ui
+  namespace: siriusscan
+spec:
+  type: ClusterIP
+  ports:
+    - port: 3000
+      targetPort: 3000
+  selector:
+    app: sirius-ui
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: sirius-ui-ingress
+  namespace: siriusscan
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+spec:
+  rules:
+    - host: siriusscan.local
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: sirius-ui
+                port:
+                  number: 3000
+---

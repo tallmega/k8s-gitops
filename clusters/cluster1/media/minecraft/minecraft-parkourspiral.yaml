@@ -35,7 +35,7 @@ spec:
           value: "ParkourSpiral"
         - name: ENABLE_LAN_VISIBILITY
           value: "true"
-        - name: GAMEMODE
+        - name: GAMEMODE  
           value: "creative"
         - name: EULA
           value: "true"
