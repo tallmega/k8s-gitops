@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: calibreweb
-        image: linuxserver/calibre-web:0.6.24 # {"$imagepolicy": "flux-system:calibre-web"}
+        image: crocodilestick/calibre-web-automated:3.0.3 # {"$imagepolicy": "flux-system:calibre-web-automated"}
         imagePullPolicy: Always
         ports:
         - name: "http-port"
@@ -37,7 +37,7 @@ spec:
         - name: calibreweb-config
           mountPath: /config
         - name: books-nfs
-          mountPath: /books
+          mountPath: /calibre-library
       volumes:
       - name: calibreweb-config
         persistentVolumeClaim:
@@ -45,7 +45,7 @@ spec:
       - name: books-nfs
         persistentVolumeClaim:
           claimName: books-pvc
-          readOnly: true
+          #readOnly: true
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
