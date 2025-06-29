@@ -9,19 +9,20 @@ spec:
   policy:
     semver:
       range: '>= 3.0.0'
----
-apiVersion: image.toolkit.fluxcd.io/v1beta1
-kind: ImagePolicy
-metadata:
-  name: calibre-web-automated
-  namespace: flux-system
-spec:
-  imageRepositoryRef:
-    name: calibre-web-automated
-  policy:
-    semver:
-      range: '>= 3.0.0 < 10.0.0'
-      stripPrefix: 'v'
+# ---
+# bad versioning
+# apiVersion: image.toolkit.fluxcd.io/v1beta1
+# kind: ImagePolicy
+# metadata:
+#   name: calibre-web-automated
+#   namespace: flux-system
+# spec:
+#   imageRepositoryRef:
+#     name: calibre-web-automated
+#   policy:
+#     semver:
+#       range: '>= 3.0.0'
+#       stripPrefix: 'v'
 ---
 apiVersion: image.toolkit.fluxcd.io/v1beta1
 kind: ImagePolicy
