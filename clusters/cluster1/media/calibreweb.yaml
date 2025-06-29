@@ -40,6 +40,8 @@ spec:
           mountPath: /config
         - name: books-nfs
           mountPath: /calibre-library
+        - name: readarr-downloads-complete
+          mountPath: /cwa-book-ingest
       volumes:
       - name: calibreweb-config
         persistentVolumeClaim:
@@ -48,6 +50,9 @@ spec:
         persistentVolumeClaim:
           claimName: books-pvc
           #readOnly: true
+      - name: readarr-downloads-complete
+        persistentVolumeClaim:
+          claimName: downloads-complete-pvc
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
