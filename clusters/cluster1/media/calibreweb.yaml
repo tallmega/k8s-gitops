@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: calibreweb
-        image: linuxserver/calibre-web:2021.12.16 # {"$imagepolicy": "flux-system:calibre-web-automated"}
+        image: crocodilestick/calibre-web-automated:V3.0.3 # {"$imagepolicy": "flux-system:calibre-web-automated"}
         imagePullPolicy: Always
         ports:
         - name: "http-port"
@@ -31,8 +31,8 @@ spec:
           value: "1000"
         - name: TZ
           value: America/Toronto
-        - name: DOCKER_MODS
-          value: "ghcr.io/linuxserver/mods:universal-calibre"
+        # - name: DOCKER_MODS
+        #   value: "ghcr.io/linuxserver/mods:universal-calibre"
         volumeMounts:
         - name: calibreweb-config
           mountPath: /config
