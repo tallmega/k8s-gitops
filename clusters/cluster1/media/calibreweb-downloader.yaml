@@ -61,6 +61,22 @@ spec:
         persistentVolumeClaim:
           claimName: cwa-book-ingest-pvc
 ---
+apiVersion: v1
+kind: Service
+metadata:
+  name: calibreweb-downloader
+  namespace: default
+  labels:
+    app: calibreweb-downloader
+spec:
+  selector:
+    app: calibreweb-downloader
+  ports:
+  - name: calibreweb-downloader
+    port: 8084
+    targetPort: 8084
+  type: ClusterIP
+---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
