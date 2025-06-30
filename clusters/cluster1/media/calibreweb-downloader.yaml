@@ -35,8 +35,6 @@ spec:
           value: "en"
         - name: USE_BOOK_TITLE
           value: "true"
-        - name: TZ
-          value: "America/New_York"
         - name: APP_ENV
           value: "prod"
         - name: UID
