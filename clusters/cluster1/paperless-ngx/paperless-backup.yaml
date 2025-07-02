@@ -1,114 +1,114 @@
-apiVersion: batch/v1
-kind: CronJob
-metadata:
-  name: paperless-weekly-export
-  namespace: default
-spec:
-  #schedule: "*/5 * * * *"  # Every five minutes (for testing)
-  schedule: "0 3 * * *" # At 3:00 AM every day
-  jobTemplate:
-    spec:
-      template:
-        spec:
-          restartPolicy: Never
-          containers:
-            - name: paperless-export
-              image: ghcr.io/paperless-ngx/paperless-ngx:2.17.1 # {"$imagepolicy": "flux-system:paperless-ngx"}
-              env:
-                - name: PAPERLESS_REDIS
-                  value: redis://paperless-redis:6379
-                - name: PAPERLESS_DBHOST
-                  value: paperless-postgresql
-                - name: PAPERLESS_DBUSER
-                  valueFrom:
-                    secretKeyRef:
-                      name: paperless-secret
-                      key: db-user
-                - name: PAPERLESS_DBPASS
-                  valueFrom:
-                    secretKeyRef:
-                      name: paperless-secret
-                      key: db-pass
-                - name: PAPERLESS_DBNAME
-                  value: paperless
-                - name: PAPERLESS_SECRET_KEY
-                  valueFrom:
-                    secretKeyRef:
-                      name: paperless-secret
-                      key: secret-key
-                - name: PAPERLESS_TIME_ZONE
-                  value: America/Toronto
-                - name: PAPERLESS_OCR_LANGUAGE
-                  value: eng
-              volumeMounts:
-                - name: paperless-data
-                  mountPath: /usr/src/paperless/data
-                - name: paperless-media
-                  mountPath: /usr/src/paperless/media
-                - name: paperless-export
-                  mountPath: /usr/src/paperless/export
-              command: ["/bin/sh"]
-              args:
-                - -c
-                - |
-                  EXPORT_DIR="/usr/src/paperless/export"
-                  DATE=$(date +%F)
-                  YEAR=$(date +%Y)
-                  MONTH=$(date +%Y-%m)
-                  DOW=$(date +%u)
+# apiVersion: batch/v1
+# kind: CronJob
+# metadata:
+#   name: paperless-weekly-export
+#   namespace: default
+# spec:
+#   #schedule: "*/5 * * * *"  # Every five minutes (for testing)
+#   schedule: "0 3 * * *" # At 3:00 AM every day
+#   jobTemplate:
+#     spec:
+#       template:
+#         spec:
+#           restartPolicy: Never
+#           containers:
+#             - name: paperless-export
+#               image: ghcr.io/paperless-ngx/paperless-ngx:2.17.1 # {"$imagepolicy": "flux-system:paperless-ngx"}
+#               env:
+#                 - name: PAPERLESS_REDIS
+#                   value: redis://paperless-redis:6379
+#                 - name: PAPERLESS_DBHOST
+#                   value: paperless-postgresql
+#                 - name: PAPERLESS_DBUSER
+#                   valueFrom:
+#                     secretKeyRef:
+#                       name: paperless-secret
+#                       key: db-user
+#                 - name: PAPERLESS_DBPASS
+#                   valueFrom:
+#                     secretKeyRef:
+#                       name: paperless-secret
+#                       key: db-pass
+#                 - name: PAPERLESS_DBNAME
+#                   value: paperless
+#                 - name: PAPERLESS_SECRET_KEY
+#                   valueFrom:
+#                     secretKeyRef:
+#                       name: paperless-secret
+#                       key: secret-key
+#                 - name: PAPERLESS_TIME_ZONE
+#                   value: America/Toronto
+#                 - name: PAPERLESS_OCR_LANGUAGE
+#                   value: eng
+#               volumeMounts:
+#                 - name: paperless-data
+#                   mountPath: /usr/src/paperless/data
+#                 - name: paperless-media
+#                   mountPath: /usr/src/paperless/media
+#                 - name: paperless-export
+#                   mountPath: /usr/src/paperless/export
+#               command: ["/bin/sh"]
+#               args:
+#                 - -c
+#                 - |
+#                   EXPORT_DIR="/usr/src/paperless/export"
+#                   DATE=$(date +%F)
+#                   YEAR=$(date +%Y)
+#                   MONTH=$(date +%Y-%m)
+#                   DOW=$(date +%u)
 
-                  DAILY_ZIP="$EXPORT_DIR/paperless-daily"
-                  WEEKLY_ZIP="$EXPORT_DIR/paperless-weekly"
-                  MONTHLY_ZIP="$EXPORT_DIR/paperless-monthly"
-                  YEARLY_ZIP="$EXPORT_DIR/paperless-yearly"
+#                   DAILY_ZIP="$EXPORT_DIR/paperless-daily"
+#                   WEEKLY_ZIP="$EXPORT_DIR/paperless-weekly"
+#                   MONTHLY_ZIP="$EXPORT_DIR/paperless-monthly"
+#                   YEARLY_ZIP="$EXPORT_DIR/paperless-yearly"
 
-                  MONTH_MARKER="$EXPORT_DIR/.last-monthly"
-                  YEAR_MARKER="$EXPORT_DIR/.last-yearly"
+#                   MONTH_MARKER="$EXPORT_DIR/.last-monthly"
+#                   YEAR_MARKER="$EXPORT_DIR/.last-yearly"
 
-                  echo "Running daily export..."
+#                   echo "Running daily export..."
 
-                  # Run the export to daily backup
-                  if python3 /usr/src/paperless/src/manage.py document_exporter "$EXPORT_DIR" \
-                    --no-progress-bar --compare-checksums --zip \
-                    --zip-name "$(basename "$DAILY_ZIP")"; then
+#                   # Run the export to daily backup
+#                   if python3 /usr/src/paperless/src/manage.py document_exporter "$EXPORT_DIR" \
+#                     --no-progress-bar --compare-checksums --zip \
+#                     --zip-name "$(basename "$DAILY_ZIP")"; then
 
-                    echo "Daily export completed: $DAILY_ZIP"
+#                     echo "Daily export completed: $DAILY_ZIP"
 
-                    # Create weekly backup if it doesn't exist
-                    if [ ! -f "${WEEKLY_ZIP}.zip" ]; then
-                      cp "${DAILY_ZIP}.zip" "${WEEKLY_ZIP}.zip"
-                      echo "Weekly backup created (first run): $WEEKLY_ZIP"
-                    elif [ "$DOW" -eq 1 ]; then
-                      cp "${DAILY_ZIP}.zip" "${WEEKLY_ZIP}.zip"
-                      echo "Weekly backup updated (Monday): $WEEKLY_ZIP"
-                    fi
+#                     # Create weekly backup if it doesn't exist
+#                     if [ ! -f "${WEEKLY_ZIP}.zip" ]; then
+#                       cp "${DAILY_ZIP}.zip" "${WEEKLY_ZIP}.zip"
+#                       echo "Weekly backup created (first run): $WEEKLY_ZIP"
+#                     elif [ "$DOW" -eq 1 ]; then
+#                       cp "${DAILY_ZIP}.zip" "${WEEKLY_ZIP}.zip"
+#                       echo "Weekly backup updated (Monday): $WEEKLY_ZIP"
+#                     fi
 
-                    # Monthly backup if not done yet this month
-                    if [ ! -f "$MONTH_MARKER" ] || [ "$(cat "$MONTH_MARKER")" != "$MONTH" ]; then
-                      cp "${DAILY_ZIP}.zip" "${MONTHLY_ZIP}.zip"
-                      echo "$MONTH" > "$MONTH_MARKER"
-                      echo "Monthly backup updated: $MONTHLY_ZIP"
-                    fi
+#                     # Monthly backup if not done yet this month
+#                     if [ ! -f "$MONTH_MARKER" ] || [ "$(cat "$MONTH_MARKER")" != "$MONTH" ]; then
+#                       cp "${DAILY_ZIP}.zip" "${MONTHLY_ZIP}.zip"
+#                       echo "$MONTH" > "$MONTH_MARKER"
+#                       echo "Monthly backup updated: $MONTHLY_ZIP"
+#                     fi
 
-                    # Yearly backup if not done yet this year
-                    if [ ! -f "$YEAR_MARKER" ] || [ "$(cat "$YEAR_MARKER")" != "$YEAR" ]; then
-                      cp "${DAILY_ZIP}.zip" "${YEARLY_ZIP}.zip"
-                      echo "$YEAR" > "$YEAR_MARKER"
-                      echo "Yearly backup updated: $YEARLY_ZIP"
-                    fi
+#                     # Yearly backup if not done yet this year
+#                     if [ ! -f "$YEAR_MARKER" ] || [ "$(cat "$YEAR_MARKER")" != "$YEAR" ]; then
+#                       cp "${DAILY_ZIP}.zip" "${YEARLY_ZIP}.zip"
+#                       echo "$YEAR" > "$YEAR_MARKER"
+#                       echo "Yearly backup updated: $YEARLY_ZIP"
+#                     fi
 
-                    exit 0
-                  else
-                    echo "Export failed!" >&2
-                    exit 1
-                  fi
-          volumes:
-            - name: paperless-data
-              persistentVolumeClaim:
-                claimName: paperless-data-pvc
-            - name: paperless-media
-              persistentVolumeClaim:
-                claimName: paperless-media-pvc
-            - name: paperless-export
-              persistentVolumeClaim:
-                claimName: paperless-export-pvc
+#                     exit 0
+#                   else
+#                     echo "Export failed!" >&2
+#                     exit 1
+#                   fi
+#           volumes:
+#             - name: paperless-data
+#               persistentVolumeClaim:
+#                 claimName: paperless-data-pvc
+#             - name: paperless-media
+#               persistentVolumeClaim:
+#                 claimName: paperless-media-pvc
+#             - name: paperless-export
+#               persistentVolumeClaim:
+#                 claimName: paperless-export-pvc
