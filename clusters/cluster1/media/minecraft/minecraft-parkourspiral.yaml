@@ -1,82 +1,82 @@
-# apiVersion: apps/v1
-# kind: Deployment
-# metadata:
-#   name: minecraft-parkourspiral
-#   namespace: default
-# spec:
-#   replicas: 1
-#   strategy:
-#     rollingUpdate: null
-#     type: Recreate
-#   selector:
-#     matchLabels:
-#       app: minecraft-parkourspiral
-#   template:
-#     metadata:
-#       labels:
-#         app: minecraft-parkourspiral
-#     spec:
-#       hostNetwork: true
-#       extraPodSpec:
-#         hostNetwork: "{{ .Values.hostNetwork }}"
-#       containers:
-#       - name: minecraft-parkourspiral
-#         image: itzg/minecraft-bedrock-server:2025.6.0 # {"$imagepolicy": "flux-system:minecraft"}
-#         imagePullPolicy: IfNotPresent
-#         ports:
-#         - containerPort: 19132
-#           protocol: UDP
-#         env:
-#         - name: TZ
-#           value: America\Toronto
-#         - name: SERVER_NAME
-#           value: "Finn and Kane"
-#         - name: LEVEL_NAME
-#           value: "ParkourSpiral"
-#         - name: ENABLE_LAN_VISIBILITY
-#           value: "true"
-#         - name: GAMEMODE  
-#           value: "adventure"
-#         - name: EULA
-#           value: "true"
-#         - name: ALLOW_CHEATS
-#           value: "true"
-#         - name: OPS
-#           value: "2533274835894189"
-#         - name: ENABLE_COMMAND_BLOCK
-#           value: "true"
-#         - name: DIFFICULTY
-#           value: "easy"
-#         - name: ONLINE_MODE
-#           value: "true"
-#         - name: SERVER_PORT
-#           value: "19132"
-#         volumeMounts:
-#         - name: minecraft-config-parkourspiral
-#           mountPath: /data
-#       volumes:
-#       - name: minecraft-config-parkourspiral
-#         persistentVolumeClaim:
-#           claimName: minecraft-config-parkourspiral-pvc
-#       securityContext:
-#         runAsUser: 1000
-#         runAsGroup: 1000
-#         fsGroup: 1000
-# ---
-# apiVersion: v1
-# kind: Service
-# metadata:
-#   name: minecraft-parkourspiral
-#   namespace: default
-# spec:
-#   externalTrafficPolicy: Cluster
-#   loadBalancerIP: 10.10.10.70
-#   ports:
-#   - name: minecraft-parkourspiral
-#     port: 19132
-#     protocol: UDP
-#     targetPort: 19132
-#   selector:
-#     app.kubernetes.io/instance: minecraft-parkourspiral
-#     app.kubernetes.io/name: minecraft-parkourspiral
-#   type: LoadBalancer
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: minecraft-parkourspiral
+  namespace: default
+spec:
+  replicas: 1
+  strategy:
+    rollingUpdate: null
+    type: Recreate
+  selector:
+    matchLabels:
+      app: minecraft-parkourspiral
+  template:
+    metadata:
+      labels:
+        app: minecraft-parkourspiral
+    spec:
+      hostNetwork: true
+      extraPodSpec:
+        hostNetwork: "{{ .Values.hostNetwork }}"
+      containers:
+      - name: minecraft-parkourspiral
+        image: itzg/minecraft-bedrock-server:2025.6.0 # {"$imagepolicy": "flux-system:minecraft"}
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 19132
+          protocol: UDP
+        env:
+        - name: TZ
+          value: America\Toronto
+        - name: SERVER_NAME
+          value: "Finn and Kane"
+        - name: LEVEL_NAME
+          value: "ParkourSpiral"
+        - name: ENABLE_LAN_VISIBILITY
+          value: "true"
+        - name: GAMEMODE  
+          value: "adventure"
+        - name: EULA
+          value: "true"
+        - name: ALLOW_CHEATS
+          value: "true"
+        - name: OPS
+          value: "2533274835894189"
+        - name: ENABLE_COMMAND_BLOCK
+          value: "true"
+        - name: DIFFICULTY
+          value: "easy"
+        - name: ONLINE_MODE
+          value: "true"
+        - name: SERVER_PORT
+          value: "19132"
+        volumeMounts:
+        - name: minecraft-config-parkourspiral
+          mountPath: /data
+      volumes:
+      - name: minecraft-config-parkourspiral
+        persistentVolumeClaim:
+          claimName: minecraft-config-parkourspiral-pvc
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: minecraft-parkourspiral
+  namespace: default
+spec:
+  externalTrafficPolicy: Cluster
+  loadBalancerIP: 10.10.10.72
+  ports:
+  - name: minecraft-parkourspiral
+    port: 19132
+    protocol: UDP
+    targetPort: 19132
+  selector:
+    app.kubernetes.io/instance: minecraft-parkourspiral
+    app.kubernetes.io/name: minecraft-parkourspiral
+  type: LoadBalancer
