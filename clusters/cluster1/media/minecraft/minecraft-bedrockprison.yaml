@@ -84,6 +84,6 @@ spec:
     protocol: UDP
     targetPort: 19132
   selector:
-    app.kubernetes.io/instance: minecraft-skyblockisland
-    app.kubernetes.io/name: minecraft-skyblockisland
+    app.kubernetes.io/instance: minecraft-bedrockprison
+    app.kubernetes.io/name: minecraft-bedrockprison
   type: LoadBalancer
