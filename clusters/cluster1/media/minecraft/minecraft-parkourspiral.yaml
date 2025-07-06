@@ -36,11 +36,13 @@ spec:
         - name: ENABLE_LAN_VISIBILITY
           value: "true"
         - name: GAMEMODE  
-          value: "adventure"
+          value: "creative"
         - name: EULA
           value: "true"
         - name: ALLOW_CHEATS
           value: "true"
+        - name: OPS
+          value: "tallmega"
         - name: ENABLE_COMMAND_BLOCK
           value: "true"
         - name: DIFFICULTY

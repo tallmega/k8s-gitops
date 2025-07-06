@@ -36,11 +36,13 @@ spec:
         - name: ENABLE_LAN_VISIBILITY
           value: "true"
         - name: GAMEMODE
-          value: "survival"
+          value: "creative"
         - name: EULA
           value: "true"
         - name: ALLOW_CHEATS
           value: "true"
+        - name: OPS
+          value: "tallmega"
         - name: ENABLE_COMMAND_BLOCK
           value: "true"
         - name: DIFFICULTY
@@ -75,7 +77,7 @@ metadata:
   namespace: default
 spec:
   externalTrafficPolicy: Cluster
-  loadBalancerIP: 10.10.10.73
+  loadBalancerIP: 10.10.10.75
   ports:
   - name: minecraft-skyblockisland
     port: 19132

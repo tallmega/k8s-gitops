@@ -39,6 +39,8 @@ spec:
           value: "survival"
         - name: EULA
           value: "true"
+        - name: OPS
+          value: "tallmega"
         - name: ALLOW_CHEATS
           value: "true"
         - name: ENABLE_COMMAND_BLOCK
