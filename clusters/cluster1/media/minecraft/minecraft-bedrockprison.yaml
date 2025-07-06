@@ -32,7 +32,7 @@ spec:
         - name: SERVER_NAME
           value: "Finn and Kane"
         - name: LEVEL_NAME
-          value: "EscapeBedrockPrison1"
+          value: "Escape from Bedrock v1"
         - name: ENABLE_LAN_VISIBILITY
           value: "true"
         - name: GAMEMODE
