@@ -65,8 +65,8 @@ spec:
 
 ## Download from https://www.curseforge.com/minecraft-bedrock/maps or https://www.planetminecraft.com/project/
 ##  This one is https://www.planetminecraft.com/project/skyblock-evolved-lots-of-different-islands-1-21-bedrock-edition/
-##  kubectl cp '/mnt/c/Users//Downloads/LuckyBlocksRace v2.1.mcworld'  minecraft-luckyblockrace-66c48947fd-5tq5w:/data/
-##  unzip LuckyBlocksRace v2.1.mcworld in the worlds folder
+##  kubectl cp '/mnt/c/Users//Downloads/skyblock-evolved.mcworld'  minecraft-SKYBLOCKISLAND-66c48947fd-5tq5w:/data/
+##  unzip skyblock-evolved.mcworld in the worlds folder
 ---
 apiVersion: v1
 kind: Service
