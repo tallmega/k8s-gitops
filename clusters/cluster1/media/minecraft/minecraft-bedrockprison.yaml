@@ -40,7 +40,7 @@ spec:
         - name: EULA
           value: "true"
         - name: OPS
-          value: "tallmega"
+          value: "2533274835894189"
         - name: ALLOW_CHEATS
           value: "true"
         - name: ENABLE_COMMAND_BLOCK

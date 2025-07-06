@@ -42,7 +42,7 @@ spec:
         - name: ALLOW_CHEATS
           value: "true"
         - name: OPS
-          value: "tallmega"
+          value: "2533274835894189"
         - name: ENABLE_COMMAND_BLOCK
           value: "true"
         - name: DIFFICULTY
