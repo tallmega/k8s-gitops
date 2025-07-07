@@ -34,7 +34,7 @@ subjects:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: deleting-pod-myname
+  name: deleting-pod-minecraft
   namespace: default
 spec:
   concurrencyPolicy: Forbid

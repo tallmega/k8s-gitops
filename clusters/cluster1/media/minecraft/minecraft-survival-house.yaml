@@ -15,6 +15,7 @@
 #     metadata:
 #       labels:
 #         app: minecraft-survival-house
+#         podtype: minecraft
 #     spec:
 #       hostNetwork: true
 #       extraPodSpec:
