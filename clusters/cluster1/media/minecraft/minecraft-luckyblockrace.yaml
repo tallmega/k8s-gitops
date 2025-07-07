@@ -15,6 +15,7 @@ spec:
     metadata:
       labels:
         app: minecraft-luckyblockrace
+        podtype: minecraft
     spec:
       hostNetwork: true
       extraPodSpec:

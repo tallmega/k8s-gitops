@@ -31,7 +31,7 @@ subjects:
     name: deleting-pods
 
 ---
-apiVersion: batch/v1beta1
+apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: deleting-pod-myname
@@ -52,4 +52,4 @@ spec:
               image: bitnami/kubectl
               command: [ "/bin/sh", "-c" ]
               args: 
-                - 'kubectl delete pod $(kubectl get pod -l app=minecraft-luckyblockrace -o jsonpath="{.items[0].metadata.name}")'
+                - 'kubectl delete pod $(kubectl get pod -l podtype:minecraft -o jsonpath="{.items[0].metadata.name}")'
