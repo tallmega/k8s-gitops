@@ -55,7 +55,7 @@ spec:
       volumes:
       - name: minecraft-config-luckyblockrace
         persistentVolumeClaim:
-          claimName: minecraft-luckyblockrace-config-pvc
+          claimName: minecraft-luckyblockrace-conf-pvc
       securityContext:
         runAsUser: 1000
         runAsGroup: 1000
