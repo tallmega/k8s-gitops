@@ -25,7 +25,7 @@ data:
         "principal_name": "admin",
         "first_name": "Bloodhound",
         "last_name": "Admin",
-        "email_address": "spam@example.com"
+        "email_address": "spam@example.com",
         "password: "bloodhound123!"
       }
     }
