@@ -135,6 +135,8 @@ spec:
           env:
             - name: PAPERLESS_REDIS
               value: redis://paperless-redis:6379
+            - name: CELERY_BROKER_URL
+              value: "redis://paperless-redis:6379/0"
             - name: PAPERLESS_DBHOST
               value: paperless-postgresql
             - name: PAPERLESS_DBUSER
@@ -155,8 +157,6 @@ spec:
               value: America/Toronto
             - name: PAPERLESS_OCR_LANGUAGE
               value: eng
-            - name: PAPERLESS_LOGGING_CONFIG
-              value: '{"version": 1, "handlers": {"console": {"class": "logging.StreamHandler", "level": "INFO"}}, "root": {"handlers": ["console"], "level": "INFO"}}'
             - name: PAPERLESS_SECRET_KEY
               valueFrom:
                 secretKeyRef:
