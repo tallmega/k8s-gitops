@@ -161,7 +161,7 @@ spec:
                   name: paperless-secret
                   key: secret-key
             - name: PAPERLESS_TIKA_ENABLED
-              value: true
+              value: "true"
             - name: PAPERLESS_TIKA_GOTENBERG_ENDPOINT
               value: http://paperless-gotenberg:3000
             - name: PAPERLESS_TIKA_ENDPOINT
