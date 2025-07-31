@@ -160,12 +160,12 @@ spec:
                 secretKeyRef:
                   name: paperless-secret
                   key: secret-key
-            - name: PAPERLESS_TIKA_ENABLED
-              value: "true"
-            - name: PAPERLESS_TIKA_GOTENBERG_ENDPOINT
-              value: http://paperless-gotenberg:3000
-            - name: PAPERLESS_TIKA_ENDPOINT
-              value: http://paperless-tika:9998
+            # - name: PAPERLESS_TIKA_ENABLED
+            #   value: "true"
+            # - name: PAPERLESS_TIKA_GOTENBERG_ENDPOINT
+            #   value: http://paperless-gotenberg:3000
+            # - name: PAPERLESS_TIKA_ENDPOINT
+            #   value: http://paperless-tika:9998
           volumeMounts:
             - name: paperless-data
               mountPath: /usr/src/paperless/data
