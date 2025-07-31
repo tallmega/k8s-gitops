@@ -136,7 +136,7 @@ spec:
             - name: PAPERLESS_REDIS
               value: redis://paperless-redis:6379
             - name: CELERY_BROKER_URL
-              value: "redis://paperless-redis:6379/0"
+              value: "redis://paperless-redis:6379"
             - name: PAPERLESS_DBHOST
               value: paperless-postgresql
             - name: PAPERLESS_DBUSER
