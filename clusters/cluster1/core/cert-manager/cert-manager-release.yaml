@@ -27,3 +27,6 @@ spec:
     crds: CreateReplace
   values:
     installCRDs: true
+    config:
+      featureGates:
+        ACMEHTTP01IngressPathTypeExact: false
