@@ -33,10 +33,9 @@ metadata:
 spec:
   imageRepositoryRef:
     name: calibre-web-automated-book-downloader
-  #policy:
-   # semver:
-    #  range: '>= 3.0.0'
-      #stripPrefix: 'v'
+  # policy:
+  #  semver:
+  #    range: '<= 3.0.0'
 ---
 apiVersion: image.toolkit.fluxcd.io/v1beta1
 kind: ImagePolicy

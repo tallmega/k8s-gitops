@@ -13,7 +13,7 @@ metadata:
   name: calibre-web-automated
   namespace: flux-system
 spec:
-  image: crocodilestick/calibre-web-automated
+  image: ghcr.io/crocodilestick/calibre-web-automated
   interval: 30m0s
 ---
 apiVersion: image.toolkit.fluxcd.io/v1beta1
@@ -22,7 +22,7 @@ metadata:
   name: calibre-web-automated-book-downloader
   namespace: flux-system
 spec:
-  image: calibrain/calibre-web-automated-book-downloader
+  image: ghcr.io/calibrain/calibre-web-automated-book-downloader
   interval: 30m0s
 ---
 apiVersion: image.toolkit.fluxcd.io/v1beta1
