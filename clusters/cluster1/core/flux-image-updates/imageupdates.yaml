@@ -22,7 +22,7 @@ spec:
   policy:
     semver:
       range: '>= 3.0.0'
-      stripPrefix: 'v'
+      #stripPrefix: 'v'
 ---
 # bad versioning
 apiVersion: image.toolkit.fluxcd.io/v1beta1
@@ -36,7 +36,7 @@ spec:
   policy:
     semver:
       range: '>= 3.0.0'
-      stripPrefix: 'v'
+      #stripPrefix: 'v'
 ---
 apiVersion: image.toolkit.fluxcd.io/v1beta1
 kind: ImagePolicy
