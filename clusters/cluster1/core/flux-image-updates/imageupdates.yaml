@@ -19,10 +19,12 @@ metadata:
 spec:
   imageRepositoryRef:
     name: calibre-web-automated
+  filterTags:
+    pattern: '^[Vv]?(?P<version>\d+\.\d+\.\d+)$'
+    extract: '$version'
   policy:
     semver:
-      range: '>= 3.0.0'
-      stripPrefix: 'V'
+      range: '>=3.0.0'
 ---
 apiVersion: image.toolkit.fluxcd.io/v1beta1
 kind: ImagePolicy
