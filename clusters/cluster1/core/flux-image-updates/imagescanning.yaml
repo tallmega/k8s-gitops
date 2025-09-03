@@ -6,15 +6,24 @@ metadata:
 spec:
   image: linuxserver/sonarr
   interval: 30m0s
-# ---
-# apiVersion: image.toolkit.fluxcd.io/v1beta1
-# kind: ImageRepository
-# metadata:
-#   name: calibre-web-automated
-#   namespace: flux-system
-# spec:
-#   image: crocodilestick/calibre-web-automated
-#   interval: 30m0s
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImageRepository
+metadata:
+  name: calibre-web-automated
+  namespace: flux-system
+spec:
+  image: crocodilestick/calibre-web-automated
+  interval: 30m0s
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImageRepository
+metadata:
+  name: calibre-web-automated-book-downloader
+  namespace: flux-system
+spec:
+  image: calibrain/calibre-web-automated-book-downloader
+  interval: 30m0s
 ---
 apiVersion: image.toolkit.fluxcd.io/v1beta1
 kind: ImageRepository
