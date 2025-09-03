@@ -19,10 +19,10 @@ metadata:
 spec:
   imageRepositoryRef:
     name: calibre-web-automated
-  policy:
-    semver:
-      range: '>= 3.0.0'
-      #stripPrefix: 'v'
+  # policy:
+  #   semver:
+  #     range: '>= 3.0.0'
+  #     #stripPrefix: 'v'
 ---
 # bad versioning
 apiVersion: image.toolkit.fluxcd.io/v1beta1
