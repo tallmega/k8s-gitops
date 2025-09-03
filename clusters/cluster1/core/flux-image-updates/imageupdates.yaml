@@ -10,7 +10,6 @@ spec:
     semver:
       range: '>= 3.0.0'
 ---
-# bad versioning
 apiVersion: image.toolkit.fluxcd.io/v1beta1
 kind: ImagePolicy
 metadata:
