@@ -18,7 +18,8 @@ spec:
     spec:
       containers:
       - name: appdaemon
-        image: v:4.5.11 # {"$imagepolicy": "flux-system:appdaemon"}
+        image: v:4.4.2 
+        # {"$imagepolicy": "flux-system:appdaemon"}
         # command: [ "sleep" ]
         # args: [ "infinity" ]
         imagePullPolicy: IfNotPresent
