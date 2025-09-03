@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: calibreweb
-        image: crocodilestick/calibre-web-automated:V3.1.4 # {"$imagepolicy": "flux-system:calibre-web-automated"}
+        image: ghcr.io/crocodilestick/calibre-web-automated:V3.1.4 # {"$imagepolicy": "flux-system:calibre-web-automated"}
         imagePullPolicy: Always
         ports:
         - name: "http-port"
