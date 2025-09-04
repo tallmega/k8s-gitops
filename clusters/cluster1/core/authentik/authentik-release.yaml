@@ -37,12 +37,12 @@ spec:
       auth:
         # will be set via valuesFrom
         password: ""
-        postgresPassword: ""
+        #postgresPassword: ""
     redis:
       enabled: true
       auth:
         # will be set via valuesFrom
-        password: ""
+        #password: ""
   valuesFrom:
     - kind: Secret
       name: authentik-secrets
