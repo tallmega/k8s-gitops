@@ -10,7 +10,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: authentik
-  namespace: authentik
+  namespace: flux-system
 spec:
   chart:
     spec:
@@ -18,7 +18,6 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: authentik
-        namespace: flux-system
   install:
     crds: Create
   interval: 10m0s
