@@ -1,77 +1,52 @@
-# ---
-# apiVersion: v1
-# kind: Namespace
-# metadata:
-#   name: authentik
-#   labels:
-#     managed-by: flux
-# ---
-# apiVersion: helm.toolkit.fluxcd.io/v2beta1
-# kind: HelmRelease
-# metadata:
-#   name: authentik
-#   namespace: flux-system
-# spec:
-#   chart:
-#     spec:
-#       chart: authentik/authentik
-#       sourceRef:
-#         kind: HelmRepository
-#         name: authentik
-#   install:
-#     crds: Create
-#   interval: 10m0s
-#   releaseName: authentik
-#   targetNamespace: authentik
-#   upgrade:
-#     crds: CreateReplace
-#   values:
-#     replicaCount: 1
-#     service:
-#       type: ClusterIP
-#       port: 8000
-
-#     persistence:
-#       enabled: true
-#       size: 8Gi
-#       storageClass: ""
-      
-#     ingress:
-#       enabled: false
-#       className: ""
-#       hosts:
-#         - host: authentik.local
-#           paths:
-#             - /
-#       annotations: {}
-
-#     resources:
-#       limits:
-#         cpu: 500m
-#         memory: 512Mi
-#       requests:
-#         cpu: 250m
-#         memory: 256Mi
-
-#       # If your chart supports sourcing secrets from a Kubernetes Secret, use this:
-#       existingSecret: authentik-secrets    # optional; if your chart supports it
-
-#       config:
-#         domain: authentik.example.com
-#         featureGates:
-#           ACMEHTTP01IngressPathTypeExact: false
-#         # Sensitive values come from the sealed secret referenced above
-#         # SECRET_KEY, DATABASE_PASSWORD, ADMIN_PASSWORD, SMTP_PASSWORD, OAUTH secrets etc.
-
-#       # Optional external DB (adjust as needed)
-#       database:
-#         host: db-authentik
-#         port: 5432
-#         name: authentik
-#         user: authentik
-
-#       smtp:
-#         host: smtp.example.com
-#         port: 587
-#         user: noreply@example.com
-#         # password comes from sealed secret
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: authentik
+  labels:
+    managed-by: flux
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: authentik
+  namespace: flux-system
+spec:
+  chart:
+    spec:
+      chart: authentik/authentik
+      sourceRef:
+        kind: HelmRepository
+        name: authentik
+        namespace: flux-system
+  install:
+    crds: Create
+  interval: 10m0s
+  releaseName: authentik
+  targetNamespace: authentik
+  upgrade:
+    crds: CreateReplace
+  values:
+    server:
+      ingress:
+        ingressClassName: nginx
+        enabled: true
+        hosts:
+          - authentik.tallflix.ca
+    postgresql:
+      enabled: true
+      auth:
+        existingSecret: authentik-secrets
+        secretKeys:
+          adminPasswordKey: db-password
+          userPasswordKey: db-password
+    redis:
+      enabled: true
+      auth:
+        existingSecret: authentik-secrets
+        existingSecretPasswordKey: redis-password
+  valuesFrom:
+    - kind: Secret
+      name: authentik-secrets
+      valuesKey: secret-key
+      targetPath: authentik.secret_key
