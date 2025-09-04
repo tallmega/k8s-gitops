@@ -34,6 +34,7 @@ spec:
           - authentik.tallflix.ca
     postgresql:
       enabled: true
+      auth:
         existingSecret: authentik-secrets2
         secretKeys:
           adminPasswordKey: db-password
@@ -41,7 +42,7 @@ spec:
     redis:
       enabled: true
       auth:
-        existingSecret: authentik-secrets2        # must exist in namespace: authentik
+        existingSecret: authentik-secrets2
         existingSecretPasswordKey: redis-password
 
   valuesFrom:
