@@ -34,15 +34,14 @@ spec:
           - authentik.tallflix.ca
     postgresql:
       enabled: true
-      auth:
-        # will be set via valuesFrom
-        password: ""
-        #postgresPassword: ""
+      auth: {}                         # for postgresql.auth.*
     redis:
       enabled: true
-      auth:
-        # will be set via valuesFrom
-        #password: ""
+      auth: {}                         # for redis.auth.*
+    global:
+      postgresql:
+        auth: {}                       # for global.postgresql.auth.*
+        
   valuesFrom:
     - kind: Secret
       name: authentik-secrets
