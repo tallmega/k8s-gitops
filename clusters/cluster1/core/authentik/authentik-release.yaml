@@ -37,11 +37,13 @@ spec:
       auth: {}                         # for postgresql.auth.*
     redis:
       enabled: true
-      auth: {}                         # for redis.auth.*
+      auth:
+        existingSecret: authentik-secrets        # must exist in namespace: authentik
+        existingSecretPasswordKey: redis-password
     global:
       postgresql:
         auth: {}                       # for global.postgresql.auth.*
-        
+
   valuesFrom:
     - kind: Secret
       name: authentik-secrets
@@ -55,7 +57,7 @@ spec:
       name: authentik-secrets
       valuesKey: db-password
       targetPath: postgresql.auth.postgresPassword
-    - kind: Secret
-      name: authentik-secrets
-      valuesKey: redis-password
-      targetPath: redis.auth.password
+    # - kind: Secret
+    #   name: authentik-secrets
+    #   valuesKey: redis-password
+    #   targetPath: redis.auth.password
