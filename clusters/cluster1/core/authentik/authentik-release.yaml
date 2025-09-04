@@ -14,7 +14,7 @@ metadata:
 spec:
   chart:
     spec:
-      chart: authentik/authentik
+      chart: authentik
       sourceRef:
         kind: HelmRepository
         name: authentik
