@@ -35,17 +35,28 @@ spec:
     postgresql:
       enabled: true
       auth:
-        existingSecret: authentik-secrets
-        secretKeys:
-          adminPasswordKey: db-password
-          userPasswordKey: db-password
+        # will be set via valuesFrom
+        password: ""
+        postgresPassword: ""
     redis:
       enabled: true
       auth:
-        existingSecret: authentik-secrets
-        existingSecretPasswordKey: redis-password
+        # will be set via valuesFrom
+        password: ""
   valuesFrom:
     - kind: Secret
       name: authentik-secrets
       valuesKey: secret-key
       targetPath: authentik.secret_key
+    - kind: Secret
+      name: authentik-secrets
+      valuesKey: db-password
+      targetPath: postgresql.auth.password
+    - kind: Secret
+      name: authentik-secrets
+      valuesKey: db-password
+      targetPath: postgresql.auth.postgresPassword
+    - kind: Secret
+      name: authentik-secrets
+      valuesKey: redis-password
+      targetPath: redis.auth.password
