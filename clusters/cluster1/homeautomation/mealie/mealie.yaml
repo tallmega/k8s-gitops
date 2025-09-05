@@ -37,6 +37,8 @@ spec:
           value: "https://mealie.tallflix.ca"
         - name: OIDC_AUTH_ENABLED
           value: "true"
+        - name: OIDC_PROVIDER_NAME
+          value: "Authentik"
         - name: OIDC_SIGNUP_ENABLED
           value: "true"
         - name: OIDC_CONFIGURATION_URL
