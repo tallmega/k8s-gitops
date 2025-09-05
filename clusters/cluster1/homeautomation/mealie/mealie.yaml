@@ -54,11 +54,11 @@ spec:
             secretKeyRef:
               name: mealie-secrets
               key: OIDC_CLIENT_SECRET
-        - name: OIDC_ADMIN_GROUPS
-          valueFrom:
-            secretKeyRef:
-              name: mealie-secrets
-              key: OIDC_ADMIN_GROUPS
+        # - name: OIDC_ADMIN_GROUPS
+        #   valueFrom:
+        #     secretKeyRef:
+        #       name: mealie-secrets
+        #       key: OIDC_ADMIN_GROUPS
         - name: OIDC_AUTO_REDIRECT
           value: "true"
         - name: OIDC_REMEMBER_ME
