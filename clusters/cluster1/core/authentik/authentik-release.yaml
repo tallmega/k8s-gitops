@@ -27,20 +27,18 @@ spec:
     crds: CreateReplace
   values:
     server:
-
       ingress:
         ingressClassName: nginx
         enabled: true
         hosts:
           - authentik.tallflix.ca
-      
       env:
-      - name: AUTHENTIK_POSTGRESQL__PASSWORD
-        valueFrom:
-          secretKeyRef:
-            name: authentik-secrets2
-            key: db-password
-      - name: AUTHENTIK_REDIS__PASSWORD
+        - name: AUTHENTIK_POSTGRESQL__PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: authentik-secrets2
+              key: db-password
+        - name: AUTHENTIK_REDIS__PASSWORD
           valueFrom:
             secretKeyRef:
               name: authentik-redis
