@@ -41,7 +41,7 @@ spec:
         - name: AUTHENTIK_REDIS__PASSWORD
           valueFrom:
             secretKeyRef:
-              name: authentik-redis
+              name: authentik-secrets2
               key: redis-password
 
     worker:
@@ -54,7 +54,7 @@ spec:
         - name: AUTHENTIK_REDIS__PASSWORD
           valueFrom:
             secretKeyRef:
-              name: authentik-redis
+              name: authentik-secrets2
               key: redis-password
 
     postgresql:
