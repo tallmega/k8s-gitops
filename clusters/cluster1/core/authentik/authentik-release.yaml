@@ -40,7 +40,25 @@ spec:
           secretKeyRef:
             name: authentik-secrets2
             key: db-password
-            
+      - name: AUTHENTIK_REDIS__PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: authentik-redis
+              key: redis-password
+
+    worker:
+      env:
+        - name: AUTHENTIK_POSTGRESQL__PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: authentik-secrets2
+              key: db-password
+        - name: AUTHENTIK_REDIS__PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: authentik-redis
+              key: redis-password
+
     postgresql:
       enabled: true
       auth:
