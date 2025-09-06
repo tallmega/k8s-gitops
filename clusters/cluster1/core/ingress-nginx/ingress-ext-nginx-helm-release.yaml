@@ -33,5 +33,5 @@ spec:
       config:
         use-forwarded-headers: "true"
         compute-full-forwarded-for: "true"
-        annotations-risk-level: "Critical"
+        annotations-risk-level: "High"
 
