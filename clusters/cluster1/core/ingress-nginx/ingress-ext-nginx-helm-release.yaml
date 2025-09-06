@@ -21,7 +21,6 @@ spec:
   values:
     controller:
       allowSnippetAnnotations: true
-      config.annotations-risk-level: "Critical"
       replicaCount: 2
       # autoscaling:
       #   enabled: true
@@ -34,3 +33,4 @@ spec:
       config:
         use-forwarded-headers: "true"
         compute-full-forwarded-for: "true"
+        annotations-risk-level: "Critical"
