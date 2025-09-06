@@ -180,6 +180,8 @@ spec:
                 secretKeyRef:
                   name: paperless-socialaccount
                   key: PAPERLESS_SOCIALACCOUNT_PROVIDERS
+            - name: PAPERLESS_REDIRECT_LOGIN_TO_SSO
+              value: "true"
             - name: PAPERLESS_SECRET_KEY
               valueFrom:
                 secretKeyRef:
