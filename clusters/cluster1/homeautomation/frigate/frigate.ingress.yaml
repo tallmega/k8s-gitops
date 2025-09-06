@@ -9,6 +9,8 @@ metadata:
     # nginx.ingress.kubernetes.io/auth-response-headers: "X-Auth-Request-Preferred-Username"
     # nginx.org/proxy-read-timeout: "3600"
     # nginx.org/proxy-send-timeout: "3600"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
     # nginx.org/websocket-services: "frigate"
     nginx.ingress.kubernetes.io/auth-url: |-
        http://ak-outpost-authentik-embedded-outpost.authentik.svc.cluster.local:9000/outpost.goauthentik.io/auth/nginx
