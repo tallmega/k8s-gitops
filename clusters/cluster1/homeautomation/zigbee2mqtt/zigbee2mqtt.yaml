@@ -77,12 +77,14 @@ kind: Ingress
 metadata:
   name: zigbee2mqtt-ingress
   namespace: default
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-dns01"
 spec:
   ingressClassName: internal-nginx
-  #tls:
-  #- hosts:
-  #  - "zigbee2mqtt.tallflix.ca"
-  #  secretName: tls-secret
+  tls:
+  - hosts:
+   - "zigbee2mqtt.tallflix.ca"
+   secretName: zigbee-tls-secret
   rules:
   - host: zigbee2mqtt.tallflix.ca
     http:

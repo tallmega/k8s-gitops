@@ -3,12 +3,14 @@ kind: Ingress
 metadata:
   name: appdaemon-ingress
   namespace: default
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-dns01"
 spec:
   ingressClassName: internal-nginx
-  #tls:
-  #- hosts:
-  #  - "appdaemon.tallflix.ca"
-  #  secretName: tls-secret
+  tls:
+  - hosts:
+   - "appdaemon.tallflix.ca"
+   secretName: tls-secret-appdaemon
   rules:
   - host: appdaemon.tallflix.ca
     http:
