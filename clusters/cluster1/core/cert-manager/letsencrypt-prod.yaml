@@ -22,6 +22,8 @@ spec:
   acme:
     server: https://acme-v02.api.letsencrypt.org/directory
     email: kmcbride@gmail.com
+    privateKeySecretRef:
+      name: letsencrypt-dns01
     solvers:
     - dns01:
         route53:
