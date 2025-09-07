@@ -34,5 +34,5 @@ spec:
           secretAccessKeySecretRef:
             name: prod-route53-credentials-secret
             key: secret-access-key
-        ingress:
-          class: internal-nginx
+        # ingress:
+        #   class: internal-nginx
