@@ -65,8 +65,8 @@ spec:
   ingressClassName: internal-nginx
   tls:
   - hosts:
-   - "pinchflat.tallflix.ca"
-   secretName: pinchflat-tls-secret
+    - "pinchflat.tallflix.ca"
+    secretName: pinchflat-tls-secret
   rules:
   - host: pinchflat.tallflix.ca
     http:
