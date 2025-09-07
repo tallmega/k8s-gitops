@@ -4,7 +4,6 @@ metadata:
   name: longhorn-ingress
   namespace: longhorn-system
   annotations:
-        #kubernetes.io/tls-acme: "true"
     # type of authentication
     nginx.ingress.kubernetes.io/auth-type: basic
     # prevent the controller from redirecting (308) to HTTPS
@@ -15,7 +14,7 @@ metadata:
     nginx.ingress.kubernetes.io/auth-realm: 'Authentication Required '
     # custom max body size for file uploading like backing image uploading
     nginx.ingress.kubernetes.io/proxy-body-size: 10000m
-    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    cert-manager.io/cluster-issuer: "letsencrypt-dns01"
 spec:
   ingressClassName: internal-nginx
   tls:
