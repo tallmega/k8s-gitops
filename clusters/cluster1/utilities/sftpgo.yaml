@@ -75,11 +75,12 @@ metadata:
   name: sftpgo-ingress
   namespace: default
   annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-dns01"
     #kubernetes.io/tls-acme: "true"
     # type of authentication
     #nginx.ingress.kubernetes.io/auth-type: basic
     # prevent the controller from redirecting (308) to HTTPS
-    nginx.ingress.kubernetes.io/ssl-redirect: 'false'
+    #nginx.ingress.kubernetes.io/ssl-redirect: 'false'
     # name of the secret that contains the user/password definitions
     #nginx.ingress.kubernetes.io/auth-secret: nginx-secret
     # message to display with an appropriate context why the authentication is required
