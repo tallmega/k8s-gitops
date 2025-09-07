@@ -88,6 +88,10 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-body-size: 10000m
 spec:
   ingressClassName: internal-nginx
+  tls:
+  - hosts:
+    - "sftpgo.tallflix.ca"
+    secretName: sftpgo-tls-secret
   rules:
   - host: sftpgo.tallflix.ca
     http:
