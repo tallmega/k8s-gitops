@@ -83,8 +83,8 @@ spec:
   ingressClassName: internal-nginx
   tls:
   - hosts:
-   - "zigbee2mqtt.tallflix.ca"
-   secretName: zigbee-tls-secret
+    - "zigbee2mqtt.tallflix.ca"
+    secretName: zigbee-tls-secret
   rules:
   - host: zigbee2mqtt.tallflix.ca
     http:
