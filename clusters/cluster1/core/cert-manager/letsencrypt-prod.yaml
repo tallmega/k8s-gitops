@@ -13,3 +13,26 @@ spec:
     - http01:
         ingress:
           class: nginx
+---
+apiVersion: cert-manager.io/v1alpha2
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-dns01
+spec:
+  acme:
+    server: https://acme-v02.api.letsencrypt.org/directory
+    email: kmcbride@gmail.com
+    privateKeySecretRef:
+      name: letsencrypt-dns01
+    solvers:
+    - dns01:
+        route53:
+          region: us-east-1
+          accessKeyIDSecretRef:
+            name: prod-route53-credentials-secret
+            key: access-key-id
+          secretAccessKeySecretRef:
+            name: prod-route53-credentials-secret
+            key: secret-access-key
+        ingress:
+          class: internal-nginx
