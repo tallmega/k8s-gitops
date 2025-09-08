@@ -34,32 +34,6 @@ spec:
               value: America/Toronto
             - name: SFTPGO_WEBDAVD__BINDINGS__0__PORT
               value: "10080"
-            - name: SFTPGO_HTTPD__BINDINGS__0__OIDC__CLIENT_ID
-              valueFrom:
-                secretKeyRef:
-                  name: sftpgo-secret
-                  key: SFTPGO_HTTPD__BINDINGS__0__OIDC__CLIENT_ID
-            - name: SFTPGO_HTTPD__BINDINGS__0__OIDC__CLIENT_SECRET
-              valueFrom:
-                secretKeyRef:
-                  name: sftpgo-secret
-                  key: SFTPGO_HTTPD__BINDINGS__0__OIDC__CLIENT_SECRET
-            - name: SFTPGO_HTTPD__BINDINGS__0__OIDC__CONFIG_URL
-              valueFrom:
-                secretKeyRef:
-                  name: sftpgo-secret
-                  key: SFTPGO_HTTPD__BINDINGS__0__OIDC__CONFIG_URL
-            - name: SFTPGO_HTTPD__BINDINGS__0__OIDC__REDIRECT_BASE_URL
-              valueFrom:
-                secretKeyRef:
-                  name: sftpgo-secret
-                  key: SFTPGO_HTTPD__BINDINGS__0__OIDC__REDIRECT_BASE_URL
-            - name: SFTPGO_HTTPD__BINDINGS__0__OIDC__ROLE_FIELD
-              value: "admin"
-            - name: SFTPGO_HTTPD__BINDINGS__0__OIDC__USERNAME_FIELD
-              value: "email"
-            - name: SFTPGO_HTTPD__BINDINGS__0__OIDC__SCOPES
-              value: "openid,profile,email,sftpgo"
           volumeMounts:
             - name: sftpgodata
               mountPath: /srv/sftpgo/data
