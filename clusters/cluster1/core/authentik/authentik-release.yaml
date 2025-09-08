@@ -36,7 +36,11 @@ spec:
           nginx.ingress.kubernetes.io/ssl-redirect: "true"
         hosts:
           - sso.tallflix.ca
-        secretName: sso-tallflix-tls
+        tls:
+        - hosts:
+            - sso.tallflix.ca
+          secretName: sso-tallflix-tls
+        
       env:
         - name: AUTHENTIK_POSTGRESQL__PASSWORD
           valueFrom:
