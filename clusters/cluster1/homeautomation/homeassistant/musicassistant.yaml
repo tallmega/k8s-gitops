@@ -83,12 +83,14 @@ kind: Ingress
 metadata:
   name: musicassistant-ingress
   namespace: default
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-dns01"
 spec:
   ingressClassName: internal-nginx
-  #tls:
-  #- hosts:
-  #  - "appdaemon.tallflix.ca"
-  #  secretName: tls-secret
+  tls:
+  - hosts:
+    - "appdaemon.tallflix.ca"
+    secretName: tls-secret
   rules:
   - host: music.tallflix.ca
     http:
