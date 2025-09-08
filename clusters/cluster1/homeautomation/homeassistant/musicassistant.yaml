@@ -89,8 +89,8 @@ spec:
   ingressClassName: internal-nginx
   tls:
   - hosts:
-    - "appdaemon.tallflix.ca"
-    secretName: tls-secret
+    - "musicassistant.tallflix.ca"
+    secretName: musicassistant-tls-secret
   rules:
   - host: music.tallflix.ca
     http:
