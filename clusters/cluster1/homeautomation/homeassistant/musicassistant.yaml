@@ -89,7 +89,7 @@ spec:
   ingressClassName: internal-nginx
   tls:
   - hosts:
-    - "musicassistant.tallflix.ca"
+    - "music.tallflix.ca"
     secretName: musicassistant-tls-secret
   rules:
   - host: music.tallflix.ca
