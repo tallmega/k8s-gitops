@@ -54,6 +54,8 @@ spec:
                 secretKeyRef:
                   name: sftpgo-secret
                   key: SFTPGO_HTTPD__BINDINGS__0__OIDC__REDIRECT_BASE_URL
+            - name: SFTPGO_HTTPD__BINDINGS__0__OIDC__ROLE_FIELD
+              value: "admin"
             - name: SFTPGO_HTTPD__BINDINGS__0__OIDC__USERNAME_FIELD
               value: "email"
             - name: SFTPGO_HTTPD__BINDINGS__0__OIDC__SCOPES
