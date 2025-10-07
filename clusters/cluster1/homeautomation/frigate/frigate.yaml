@@ -73,7 +73,7 @@ spec:
             memory: "2Gi"
             cpu: "1000m"
           limits:
-            memory: "4Gi"
+            memory: "8Gi"
             cpu: "2000m"
       restartPolicy: Always
       securityContext:
