@@ -20,7 +20,7 @@ spec:
           value: America\Toronto
         imagePullPolicy: IfNotPresent
         name: whisper-k8s
-        image: rhasspy/wyoming-whisper:2.5.0 # {"$imagepolicy": "flux-system:whisper"}
+        image: rhasspy/wyoming-whisper:3.0.0 # {"$imagepolicy": "flux-system:whisper"}
         args:
         - --model=base
         - --language=en
