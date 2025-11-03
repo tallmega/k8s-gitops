@@ -22,7 +22,7 @@ spec:
         hostNetwork: "{{ .Values.hostNetwork }}"
       containers:
       - name: minecraft-parkourspiral
-        image: itzg/minecraft-bedrock-server:2025.9.0 # {"$imagepolicy": "flux-system:minecraft"}
+        image: itzg/minecraft-bedrock-server:2025.11.0 # {"$imagepolicy": "flux-system:minecraft"}
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 19132
