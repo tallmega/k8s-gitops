@@ -144,7 +144,7 @@ spec:
     spec:
       containers:
         - name: paperless-ngx
-          image: ghcr.io/paperless-ngx/paperless-ngx:2.19.4 # {"$imagepolicy": "flux-system:paperless-ngx"}
+          image: ghcr.io/paperless-ngx/paperless-ngx:2.19.5 # {"$imagepolicy": "flux-system:paperless-ngx"}
           ports:
             - containerPort: 8000
           env:
