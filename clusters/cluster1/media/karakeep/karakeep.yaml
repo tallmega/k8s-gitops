@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: karakeep
-        image: ghcr.io/karakeep-app/karakeep:0.29.2 # {"$imagepolicy": "flux-system:karakeep"}
+        image: ghcr.io/karakeep-app/karakeep:0.29.3 # {"$imagepolicy": "flux-system:karakeep"}
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 3000
