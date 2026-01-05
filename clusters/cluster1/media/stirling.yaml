@@ -39,7 +39,7 @@ metadata:
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt-dns01"
 spec:
-  ingressClassName: nginx-internal
+  ingressClassName: internal-nginx
   tls:
   - hosts:
     - "stirling.tallflix.ca"
