@@ -37,9 +37,7 @@ metadata:
   name: stirling-ingress
   namespace: default
   annotations:
-    cert-manager.io/cluster-issuer: "letsencrypt-prod"
-    nginx.ingress.kubernetes.io/proxy-body-size: "0"
-    #kubernetes.io/ingress.class: nginxstirling
+    cert-manager.io/cluster-issuer: "letsencrypt-dns01"
 spec:
   ingressClassName: nginx-internal
   tls:
@@ -56,4 +54,4 @@ spec:
           service:
             name: stirling
             port:
-              number: 8080
+              number: 8080   
