@@ -157,6 +157,18 @@ spec:
   policy:
     semver:
       range: '>= 1.33.1 <1000.0.0'
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImagePolicy
+metadata:
+  name: stirling
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: stirling
+  policy:
+    semver:
+      range: '>= 2.1.5'
 # ---
 # apiVersion: image.toolkit.fluxcd.io/v1beta1
 # kind: ImagePolicy

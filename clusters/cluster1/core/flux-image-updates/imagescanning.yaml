@@ -106,6 +106,15 @@ metadata:
 spec:
   image: linuxserver/overseerr
   interval: 30m0s
+===
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImageRepository
+metadata:
+  name: stirling
+  namespace: flux-system
+spec:
+  image: stirlingtools/stirling-pdf
+  interval: 30m0s
 # ---
 # apiVersion: image.toolkit.fluxcd.io/v1beta1
 # kind: ImageRepository

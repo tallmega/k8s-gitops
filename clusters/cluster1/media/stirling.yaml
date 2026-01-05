@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: stirling
+  namespace: default
+spec:
+  replicas: 1
+  strategy:
+    rollingUpdate: null
+    type: Recreate
+  selector:
+    matchLabels:
+      app: stirling
+  template:
+    metadata:
+      labels:
+        app: stirling
+    spec:
+      containers:
+      - name: stirling
+        image: stirlingtools/stirling-pdf:2.1.5 # {"$imagepolicy": "flux-system:stirling"}
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080
+        env:
+        - name: PGID
+          value: "1001"
+        - name: PUID
+          value: "1001"
+        - name: TZ
+          value: America\Toronto
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: stirling-ingress
+  namespace: default
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/proxy-body-size: "0"
+    #kubernetes.io/ingress.class: nginxstirling
+spec:
+  ingressClassName: nginx-internal
+  tls:
+  - hosts:
+    - "stirling.tallflix.ca"
+    secretName: tls-secret-stirling
+  rules:
+  - host: "stirling.tallflix.ca"
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: stirling
+            port:
+              number: 8080
