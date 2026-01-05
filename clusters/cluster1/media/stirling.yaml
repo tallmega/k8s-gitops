@@ -29,6 +29,22 @@ spec:
           value: "false"
         - name: TZ
           value: America\Toronto
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: stirling
+  namespace: default
+  labels:
+    app: stirling
+spec:
+  selector:
+    app: stirling
+  ports:
+  - name: stirling
+    port: 8080
+    targetPort: 8080
+  type: ClusterIP
 
 ---
 apiVersion: networking.k8s.io/v1
@@ -45,7 +61,7 @@ spec:
     - "stirling.tallflix.ca"
     secretName: tls-secret-stirling
   rules:
-  - host: "stirling.tallflix.ca"
+  - host: stirling.tallflix.ca
     http:
       paths:
       - pathType: Prefix
@@ -54,4 +70,4 @@ spec:
           service:
             name: stirling
             port:
-              number: 8080   
+              number: 8080
