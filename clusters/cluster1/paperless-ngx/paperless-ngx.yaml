@@ -282,8 +282,8 @@ spec:
             - name: PAPERLESS_LOGGING_DIR
               value: ""
           volumeMounts:
-            - name: paperless-data
-              mountPath: /usr/src/paperless/data
+            # - name: paperless-data
+            #   mountPath: /usr/src/paperless/data
             - name: paperless-media
               mountPath: /usr/src/paperless/media
             - name: paperless-export
@@ -291,9 +291,9 @@ spec:
             - name: logs
               mountPath: /usr/src/paperless/log
       volumes:
-        - name: paperless-data
-          persistentVolumeClaim:
-            claimName: paperless-data-pvc
+        # - name: paperless-data
+        #   persistentVolumeClaim:
+        #     claimName: paperless-data-pvc
         - name: paperless-media
           persistentVolumeClaim:
             claimName: paperless-media-pvc
@@ -383,6 +383,7 @@ spec:
               value: "1"
             - name: PAPERLESS_LOGGING_DIR
               value: ""
+              
           command: 
             - /bin/bash
             - -c
