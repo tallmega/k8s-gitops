@@ -52,7 +52,7 @@ metadata:
   name: paperless-mcp
   namespace: default
 spec:
-  loadBalancerIP: 10.10.10.66
+  loadBalancerIP: 10.10.10.72
   selector:
     app: paperless-mcp
   type: LoadBalancer
