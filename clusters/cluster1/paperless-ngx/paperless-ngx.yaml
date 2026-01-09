@@ -279,8 +279,8 @@ spec:
               value: http://paperless-gotenberg:3000
             - name: PAPERLESS_TIKA_ENDPOINT
               value: http://paperless-tika:9998
-            - name: PAPERLESS_LOGGING_DIR
-              value: ""
+            - name: PAPERLESS_CONSUMPTION_DIR
+              value: /usr/src/paperless/media/consume
           volumeMounts:
             # - name: paperless-data
             #   mountPath: /usr/src/paperless/data
@@ -383,8 +383,8 @@ spec:
               value: "1"
             - name: PAPERLESS_LOGGING_DIR
               value: ""
-            - name: PAPERLESS_SCRATCH_DIR
-              value: "/tmp"
+            - name: PAPERLESS_CONSUMPTION_DIR
+              value: /usr/src/paperless/media/consume
               
           command: 
             - /bin/bash
