@@ -383,6 +383,8 @@ spec:
               value: "1"
             - name: PAPERLESS_LOGGING_DIR
               value: ""
+            - name: PAPERLESS_SCRATCH_DIR
+              value: "/tmp"
               
           command: 
             - /bin/bash
