@@ -302,7 +302,6 @@ spec:
           emptyDir: {}
 
 ---
-# PAPERLESS WORKER (NEW - split from all-in-one)
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -321,7 +320,6 @@ spec:
       containers:
         - name: paperless-worker
           image: ghcr.io/paperless-ngx/paperless-ngx:2.20.3
-          command: ["/usr/local/bin/paperless-worker"]
           env:
             - name: PAPERLESS_REDIS
               value: redis://paperless-redis:6379
@@ -367,6 +365,11 @@ spec:
               value: "1"
             - name: PAPERLESS_THREADS_PER_WORKER
               value: "1"
+            # THIS IS THE KEY - Tell the container to run as worker only
+            - name: PAPERLESS_ENABLE_HTTP_REMOTE_USER
+              value: "false"
+          command: ["/sbin/docker-entrypoint.sh"]
+          args: ["/usr/local/bin/celery", "--app", "paperless", "worker", "--loglevel", "INFO"]
           volumeMounts:
             - name: paperless-data
               mountPath: /usr/src/paperless/data
@@ -390,7 +393,7 @@ spec:
           emptyDir: {}
 
 ---
-# PAPERLESS BEAT (NEW - split from all-in-one)
+# PAPERLESS BEAT (CORRECTED)
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -409,7 +412,6 @@ spec:
       containers:
         - name: paperless-beat
           image: ghcr.io/paperless-ngx/paperless-ngx:2.20.3
-          command: ["/usr/local/bin/paperless-beat"]
           env:
             - name: PAPERLESS_REDIS
               value: redis://paperless-redis:6379
@@ -434,6 +436,8 @@ spec:
                 secretKeyRef:
                   name: paperless-secret
                   key: secret-key
+          command: ["/sbin/docker-entrypoint.sh"]
+          args: ["/usr/local/bin/celery", "--app", "paperless", "beat", "--loglevel", "INFO"]
           volumeMounts:
             - name: beat-schedule
               mountPath: /usr/src/paperless/data
@@ -444,7 +448,6 @@ spec:
           emptyDir: {}
         - name: logs
           emptyDir: {}
-
 ---
 # SERVICE - Updated to point to webserver
 apiVersion: v1
