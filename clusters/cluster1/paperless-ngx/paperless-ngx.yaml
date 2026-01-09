@@ -302,97 +302,20 @@ spec:
           emptyDir: {}
 
 ---
-apiVersion: apps/v1
-kind: Deployment
+# SERVICE - Updated to point to webserver
+apiVersion: v1
+kind: Service
 metadata:
-  name: paperless-worker
+  name: paperless-ngx
   namespace: default
 spec:
-  replicas: 1
   selector:
-    matchLabels:
-      app: paperless-worker
-  template:
-    metadata:
-      labels:
-        app: paperless-worker
-    spec:
-      containers:
-        - name: paperless-worker
-          image: ghcr.io/paperless-ngx/paperless-ngx:2.20.3
-          env:
-            - name: PAPERLESS_REDIS
-              value: redis://paperless-redis:6379
-            - name: PAPERLESS_DBHOST
-              value: paperless-postgresql
-            - name: PAPERLESS_DBUSER
-              valueFrom:
-                secretKeyRef:
-                  name: paperless-secret
-                  key: db-user
-            - name: PAPERLESS_DBPASS
-              valueFrom:
-                secretKeyRef:
-                  name: paperless-secret
-                  key: db-pass
-            - name: PAPERLESS_DBNAME
-              value: paperless
-            - name: PAPERLESS_TIME_ZONE
-              value: America/Toronto
-            - name: PAPERLESS_OCR_LANGUAGE
-              value: eng
-            - name: PAPERLESS_SECRET_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: paperless-secret
-                  key: secret-key
-            - name: PAPERLESS_TIKA_ENABLED
-              value: "true"
-            - name: PAPERLESS_TIKA_GOTENBERG_ENDPOINT
-              value: http://paperless-gotenberg:3000
-            - name: PAPERLESS_TIKA_ENDPOINT
-              value: http://paperless-tika:9998
-            # Mobile upload timeout fixes
-            - name: PAPERLESS_WORKER_TIMEOUT
-              value: "3600"
-            - name: PAPERLESS_OCR_IMAGE_DPI
-              value: "300"
-            - name: PAPERLESS_OCR_ROTATE_PAGES
-              value: "false"
-            - name: PAPERLESS_OCR_DESKEW
-              value: "false"
-            - name: PAPERLESS_TASK_WORKERS
-              value: "1"
-            - name: PAPERLESS_THREADS_PER_WORKER
-              value: "1"
-            # THIS IS THE KEY - Tell the container to run as worker only
-            - name: PAPERLESS_ENABLE_HTTP_REMOTE_USER
-              value: "false"
-          command: ["/sbin/docker-entrypoint.sh"]
-          args: ["/usr/local/bin/celery", "--app", "paperless", "worker", "--loglevel", "INFO"]
-          volumeMounts:
-            - name: paperless-data
-              mountPath: /usr/src/paperless/data
-            - name: paperless-media
-              mountPath: /usr/src/paperless/media
-            - name: paperless-export
-              mountPath: /usr/src/paperless/export
-            - name: logs
-              mountPath: /usr/src/paperless/log
-      volumes:
-        - name: paperless-data
-          persistentVolumeClaim:
-            claimName: paperless-data-pvc
-        - name: paperless-media
-          persistentVolumeClaim:
-            claimName: paperless-media-pvc
-        - name: paperless-export
-          persistentVolumeClaim:
-            claimName: paperless-export-pvc
-        - name: logs
-          emptyDir: {}
-
+    app: paperless-webserver
+  ports:
+    - port: 8000
+      targetPort: 8000
 ---
+
 # PAPERLESS WORKER
 apiVersion: apps/v1
 kind: Deployment
@@ -542,19 +465,6 @@ spec:
           emptyDir: {}
         - name: logs
           emptyDir: {}
----
-# SERVICE - Updated to point to webserver
-apiVersion: v1
-kind: Service
-metadata:
-  name: paperless-ngx
-  namespace: default
-spec:
-  selector:
-    app: paperless-webserver
-  ports:
-    - port: 8000
-      targetPort: 8000
 
 ---
 apiVersion: networking.k8s.io/v1
