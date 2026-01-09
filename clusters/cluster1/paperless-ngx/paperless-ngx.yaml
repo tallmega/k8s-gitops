@@ -279,6 +279,8 @@ spec:
               value: http://paperless-gotenberg:3000
             - name: PAPERLESS_TIKA_ENDPOINT
               value: http://paperless-tika:9998
+            - name: PAPERLESS_LOGGING_DIR
+              value: ""
           volumeMounts:
             - name: paperless-data
               mountPath: /usr/src/paperless/data
@@ -379,6 +381,8 @@ spec:
               value: "1"
             - name: PAPERLESS_THREADS_PER_WORKER
               value: "1"
+            - name: PAPERLESS_LOGGING_DIR
+              value: ""
           command: 
             - /bin/bash
             - -c
@@ -450,6 +454,8 @@ spec:
                 secretKeyRef:
                   name: paperless-secret
                   key: secret-key
+            - name: PAPERLESS_LOGGING_DIR
+              value: ""
           command:
             - /bin/bash
             - -c
