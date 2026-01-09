@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: stirling
-        image: stirlingtools/stirling-pdf:2.1.5 # {"$imagepolicy": "flux-system:stirling"}
+        image: stirlingtools/stirling-pdf:2.2.0 # {"$imagepolicy": "flux-system:stirling"}
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8080
@@ -45,7 +45,6 @@ spec:
     port: 8080
     targetPort: 8080
   type: ClusterIP
-
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
