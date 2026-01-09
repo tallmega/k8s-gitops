@@ -192,6 +192,10 @@ spec:
               value: http://paperless-gotenberg:3000
             - name: PAPERLESS_TIKA_ENDPOINT
               value: http://paperless-tika:9998
+            - name: PAPERLESS_WORKER_TIMEOUT
+              value: "3600"
+            - name: PAPERLESS_OCR_IMAGE_DPI
+              value: "300"
           volumeMounts:
             - name: paperless-data
               mountPath: /usr/src/paperless/data
