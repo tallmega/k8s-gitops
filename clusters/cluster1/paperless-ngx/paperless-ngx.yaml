@@ -1,150 +1,23 @@
-apiVersion: bitnami.com/v1alpha1
-kind: SealedSecret
-metadata:
-  creationTimestamp: null
-  name: paperless-secret
-  namespace: default
-spec:
-  encryptedData:
-    db-pass: AgDCqO+p7i5N/BibPNSy0Hw5j86+4DijMhrvuJiLJkylSGWJX/y3GLo8HkE0epwtPjD5x4NBW5//ktjxpGW076ZWINkwV3Bnllfo5kk0vmu98vC5L5NW7hxiEHGFnnYZRazLfSxftapMs/6Q0+b7Hw+uakLaktduQHVN/Z6nfvVV4xEVDbOSkJ6Wp0vmIYxPlQxoWRce69/VqU7W8bWTGVJDx+3eUm/MfKQg+ILfaFOHoNB/Ga4iwrUKTqSYyF2omAjcZhg6aRvX31edt7gzfmXs8SF2HArrDvajjmqa6Od6PAJdl+o8EeWh47UZCNUPej6QBC5Nxj7hDvikN3QZBM0+YKaWgMd/xB2Ldx10aeiISOveVr1CVgHy58AnzJlMZSpwd7x2I/PsLEhVA2TC/4Y8W/K+LdewQDGoNtGs69uFbIpAYDAjHSceUvslYe99klmwCm7bSxt3CD+6e0zPznMPxgKcVXWX94cQ9ZD7PtXefcXLaHMXmKKgJtfs/PC+RxW0YujRxW9FcBGgJ9IbJbNmdNQZyW3Kns4jCxal5L8hldkbOenI2Hf4rhsR+sIR+MXAEsmlGSdQab6iudcvnKECkC3QX6EqwrTB5aqbYKkGl1iPI9vpFI0kTQYYXJiqocL/AD0NnFpybY0Fdw/NuFQ1Hep3JP8IFlmyZGF35AzjMWVgWIeWWLcBiD0KE+/+AgDpHU297gyunf4qxOjdkQ==
-    db-user: AgA7A/oyurGYaDMiGkLUn8v4yffycmB+b+gwav7P+g01dZrp1p+sYclrx1PZZhXKX5NzyRJtUsJlRp3DpQRNeZ+/tPOzpt9ejor7PhG3atHTmOZZRjvqdSSfv6V3kC1qdTy6P5kKXGJryC9g/+uMk5BQZsdqekgox6A4uxxjlCemqIFP2JKQHhO+d83ccYLFgUMJZbVgic48wf8E1Qa4JrTJJ+JCLRs0m60wZuGZJNMDRMhCAmQCaLzkyvoIPL+ky7ypAc/zci2nWt6o2Vtt7CTswxhaZDZ1HZKlzRQXuKs26dtCC43orDsrWSedESvVGWtngpjVrTXjwm8r60YJYQThupOrAlNdcSc2iusxeNLTY3XHdyk3plXNau2jT25GlR2hE/85cFMruWBEppJyZr8MLIq6nSmsfMfHH7wRKlh2NFzIfVUoSbgpZvudjWLagod43dxT9h5nX6UKOOljGmGDUBVQq/sJ4aF8hmiKpmh5hFG4qNjinIs2t59A769159q6fYOYVfkrj9Z1AsBsw0a2fldwoybqJNt0kL4eWs1CekKPCwaXXZqRCQuQKpjU2bUz+MDyDo35NxwpYUJzwF/qH4QjOxq1Ylgt2cRL24gVLKUAnbHhuzDqoxT+OLiK/avJmBkJjlFTsd73ajVmHZJqBxMPoPNUv+3sMuspxSJyoknGHSY6qFWEG7vCYxI2XM9z6xu6rNN1jGk=
-    secret-key: AgBHUSGn15rZGstmFgJU+zk7AED3DUi5CCBmvQRELNZMghjRmV/H51Vl/CD1w2FRWEXk5xINBy6hHkPv/Hs81qHMLJqYPmnPAHbRbUcmwJoCYyY9OPsZk67omorpOG5rXM1Nf/Rd+/mevVdaEuND3rNyJhr1RC15Sn2Lu3x0Mp29AUY1Bl2Ik577tVH1EHGIimnH3XeUco48coIAgI8a23R4W1ebgaYPTvhjTXswxMn7FERWwlRlTcXXu6kxkULkeGh1zrvZs4iQ1EflLe/oyxPAhA7u7eB7GioF8PakfmEsvoDqrHk+VeyP5nkGZMhxafbKFCzYpqYQPt0DMLFRjamfyleoq513d1NVy2n5dMvng+0W4GfXyToT4RjsCP1b+gd9VN5MtML8Cd/ngl3J5VLOyuQQhSKrVfOv728ZGi7t8UzM7nDpzmupUaJDAlqhcP4zj9fIWtN5uz/qWzPb9mkrtgZlcC5h7QmXLCIwJhwhyzWvTyOaJk/EIK7yIL4VWzbVkgAnOGAPqa6T5nIiFTAaX+6XDlgs5bArXGADrDui8bRURKLYlRM6bqSpoEGPQTXY5TG56kmYGFDBrdjma0SdGRnkUqby7PhVQ6jjoy5bS/1H+INF9QFYxwCd5VD/w8FkuNYDWKSazzyorYOm9mJpPr4ONeasi9T+ztO5/khwRTtXKrWZFQb8V+Uz5CDrSmon0DoLPmMef7+WLxCxC+L0gfmBkrHMSk0cIqZLfGaaQrHQ1sd3qMIa3O9dYg==
-  template:
-    metadata:
-      creationTimestamp: null
-      name: paperless-secret
-      namespace: default
-    type: Opaque
 ---
-apiVersion: bitnami.com/v1alpha1
-kind: SealedSecret
-metadata:
-  creationTimestamp: null
-  name: paperless-socialaccount
-  namespace: default
-spec:
-  encryptedData:
-    PAPERLESS_SOCIALACCOUNT_PROVIDERS: AgCXFlix36aVcHN2mRIHzXpcbc0b1d+P0FM2/6xUP1282DpGfq5zGE5O+LiANSwUhmx7UCkR1R8E8TAEzpApQtiUrT1nxBA2KnQv3XIkVRGmOP3cqi9jsAgJGO6zfQvG71lQpZ4O4b66ThUdD03+A3A0SebXxVE2U3n/thppEaLXi0efTsA9vrwuQe0YCU7230Ku6OceUQrrxJx+QqYjNA0665rxhhUSiXcU309ZmYhy/gFJ1VJrEXhALePVpVKVan4/YMbibMX+92CNr7wp8HJwPqgh74DVq+5DeXhfHAXp8DzI7b7tsXhNzFiGKZXHINGEbCx17daebkGRLQUSbTwYW52JfZmo2Uvo5BmBM1/c/Guw3t4lf8WK/Rlo5uyUofQ40ZCBBQEXxoQzct3B2lr8d3UuURMbx/obIzk7iAnjG8AuAVaNvOv6C7S34b/3PhpcRdbaqeGiaM2lClq10HpJBREcdJQjxkvPAGM5UQs5Eo/AEdHudIskbL8+mDR2O0nj4pPldCGmEwLGabGUlvDTTlR4xXGGUgtcLluo9ibYPjWhGFwHY2Vr54T08DTFi28j3+WyNFkYTywThmTZ2ZUs7cMxeXZZM9Lk9pqiSObbfQpb7ZhdBoqgcRXmjEFFbwNFZ4X3bGqVDg6+QM3QIG6dk9qlfLnOifR+X8b6Ib4ga6MfGO3BeX4p09HuLOHwC+9lWj3z27DCl4sKu8+IPyrP7fepLg/o2szjkG4wXyzlDqWli1OIkAyVVBCMuwo+NoOyLmiaL58oVRQtc/3rcT72SejyTVDrgkbLf8Bry6ZnQNGvSdw1v8WavKuxge31GWU6Z080eXFveSO6RfXiaebIAamB6Fzddp8HHXQwc45/C16Py6o3l5QdxM70KJNyL+na7R3BoWhlkoUk7xjrq5eHxi79uXoVGzeOe7KCu5/uqUL/r5S7wofLl9aNOBh9NaGYbNpe39kQJ6nPIFrK5Ij8je4QCL+OSaPEAMN+U9d89cLTed5meAJp7Z/w6XIpwk8+5NWaRCrTLtctMEe+Q0kEFiVSs6Sl+mhWk1sFb0KALVkAphqoCV8KkOrhf/ICC/b6UhUB4JjyAuN3+cewZ30W0Fsgkw7wlnGDwoUU3j8a4oSyGuEU0ckcrrMPRKgGLCj8rEuZifL7tP9kCJkM28H1tkKCEGN2NScBSJnetrPErxMyVdITku2IW1nrIMHvJSxrYozaKrrodreViCotJRoloHOya4W4
-  template:
-    metadata:
-      creationTimestamp: null
-      name: paperless-socialaccount
-      namespace: default
----
+# 1. WEBSERVER - Handles HTTP requests only
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: paperless-postgres
+  name: paperless-webserver
   namespace: default
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: paperless-postgres
+      app: paperless-webserver
   template:
     metadata:
       labels:
-        app: paperless-postgres
+        app: paperless-webserver
     spec:
       containers:
-        - name: paperless-postgres
-          image: docker.io/library/postgres:17
-          env:
-            - name: PGDATA
-              value: '/var/lib/postgresql/data/pgdata'
-            - name: POSTGRES_DB
-              value: paperless
-            - name: POSTGRES_USER
-              valueFrom:
-                secretKeyRef:
-                  name: paperless-secret
-                  key: db-user
-            - name: POSTGRES_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: paperless-secret
-                  key: db-pass
-          ports:
-            - containerPort: 5432
-          volumeMounts:
-            - mountPath: /var/lib/postgresql/data
-              name: paperless-postgres-storage
-      volumes:
-        - name: paperless-postgres-storage
-          persistentVolumeClaim:
-            claimName: paperless-postgres-data-pvc
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: paperless-postgresql
-  namespace: default
-spec:
-  selector:
-    app: paperless-postgres
-  ports:
-    - port: 5432
-      targetPort: 5432
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: paperless-redis
-  namespace: default
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: paperless-redis
-  template:
-    metadata:
-      labels:
-        app: paperless-redis
-    spec:
-      containers:
-        - name: paperless-redis
-          image: docker.io/library/redis:8
-          ports:
-            - containerPort: 6379
-          volumeMounts:
-            - mountPath: /data
-              name: paperless-redis-storage
-          args: ["--save", "", "--appendonly", "no"]
-      volumes:
-        - name: paperless-redis-storage
-          persistentVolumeClaim:
-            claimName: paperless-redis-data-pvc
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: paperless-redis
-  namespace: default
-spec:
-  selector:
-    app: paperless-redis
-  ports:
-    - port: 6379
-      targetPort: 6379
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: paperless-ngx
-  namespace: default
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: paperless-ngx
-  template:
-    metadata:
-      labels:
-        app: paperless-ngx
-    spec:
-      containers:
-        - name: paperless-ngx
-          image: ghcr.io/paperless-ngx/paperless-ngx:2.20.3 # {"$imagepolicy": "flux-system:paperless-ngx"}
+        - name: paperless-webserver
+          image: ghcr.io/paperless-ngx/paperless-ngx:2.20.3
           ports:
             - containerPort: 8000
           env:
@@ -192,10 +65,9 @@ spec:
               value: http://paperless-gotenberg:3000
             - name: PAPERLESS_TIKA_ENDPOINT
               value: http://paperless-tika:9998
-            - name: PAPERLESS_WORKER_TIMEOUT
-              value: "3600"
-            - name: PAPERLESS_OCR_IMAGE_DPI
-              value: "300"
+            # Disable worker and consumer in webserver
+            - name: PAPERLESS_WEBSERVER_WORKERS
+              value: "2"
           volumeMounts:
             - name: paperless-data
               mountPath: /usr/src/paperless/data
@@ -203,6 +75,9 @@ spec:
               mountPath: /usr/src/paperless/media
             - name: paperless-export
               mountPath: /usr/src/paperless/export
+            # Use emptyDir for logs to avoid NFS lock issues
+            - name: logs
+              mountPath: /usr/src/paperless/log
       volumes:
         - name: paperless-data
           persistentVolumeClaim:
@@ -213,39 +88,156 @@ spec:
         - name: paperless-export
           persistentVolumeClaim:
             claimName: paperless-export-pvc
+        - name: logs
+          emptyDir: {}
+
 ---
-apiVersion: v1
-kind: PersistentVolumeClaim
+# 2. WORKER - Processes documents (can scale)
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: paperless-export-pvc
+  name: paperless-worker
   namespace: default
 spec:
-  accessModes:
-    - ReadWriteMany
-  storageClassName: syno-nfs
-  volumeName: paperless-export-pv
-  resources:
-    requests:
-      storage: 8Gi
+  replicas: 1  # Can increase if needed
+  selector:
+    matchLabels:
+      app: paperless-worker
+  template:
+    metadata:
+      labels:
+        app: paperless-worker
+    spec:
+      containers:
+        - name: paperless-worker
+          image: ghcr.io/paperless-ngx/paperless-ngx:2.20.3
+          command: ["/usr/local/bin/paperless-worker"]
+          env:
+            - name: PAPERLESS_REDIS
+              value: redis://paperless-redis:6379
+            - name: PAPERLESS_DBHOST
+              value: paperless-postgresql
+            - name: PAPERLESS_DBUSER
+              valueFrom:
+                secretKeyRef:
+                  name: paperless-secret
+                  key: db-user
+            - name: PAPERLESS_DBPASS
+              valueFrom:
+                secretKeyRef:
+                  name: paperless-secret
+                  key: db-pass
+            - name: PAPERLESS_DBNAME
+              value: paperless
+            - name: PAPERLESS_TIME_ZONE
+              value: America/Toronto
+            - name: PAPERLESS_OCR_LANGUAGE
+              value: eng
+            - name: PAPERLESS_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: paperless-secret
+                  key: secret-key
+            - name: PAPERLESS_TIKA_ENABLED
+              value: "true"
+            - name: PAPERLESS_TIKA_GOTENBERG_ENDPOINT
+              value: http://paperless-gotenberg:3000
+            - name: PAPERLESS_TIKA_ENDPOINT
+              value: http://paperless-tika:9998
+            # Mobile upload timeout fixes
+            - name: PAPERLESS_WORKER_TIMEOUT
+              value: "3600"
+            - name: PAPERLESS_OCR_IMAGE_DPI
+              value: "300"
+            - name: PAPERLESS_OCR_ROTATE_PAGES
+              value: "false"
+            - name: PAPERLESS_OCR_DESKEW
+              value: "false"
+            - name: PAPERLESS_TASK_WORKERS
+              value: "1"
+            - name: PAPERLESS_THREADS_PER_WORKER
+              value: "1"
+          volumeMounts:
+            - name: paperless-data
+              mountPath: /usr/src/paperless/data
+            - name: paperless-media
+              mountPath: /usr/src/paperless/media
+            - name: paperless-export
+              mountPath: /usr/src/paperless/export
+            - name: logs
+              mountPath: /usr/src/paperless/log
+      volumes:
+        - name: paperless-data
+          persistentVolumeClaim:
+            claimName: paperless-data-pvc
+        - name: paperless-media
+          persistentVolumeClaim:
+            claimName: paperless-media-pvc
+        - name: paperless-export
+          persistentVolumeClaim:
+            claimName: paperless-export-pvc
+        - name: logs
+          emptyDir: {}
+
 ---
-apiVersion: v1
-kind: PersistentVolume
+# 3. BEAT - Scheduler (MUST be exactly 1 replica)
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: paperless-export-pv
+  name: paperless-beat
+  namespace: default
 spec:
-  storageClassName: syno-nfs
-  capacity:
-    storage: 8Ti
-  accessModes:
-    - ReadWriteMany
-  persistentVolumeReclaimPolicy: Retain
-  mountOptions:
-    - hard
-    - nfsvers=4
-  nfs:
-    server: 10.10.10.110
-    path: "/volume1/paperless-backups"
+  replicas: 1  # CRITICAL: Must be exactly 1
+  selector:
+    matchLabels:
+      app: paperless-beat
+  template:
+    metadata:
+      labels:
+        app: paperless-beat
+    spec:
+      containers:
+        - name: paperless-beat
+          image: ghcr.io/paperless-ngx/paperless-ngx:2.20.3
+          command: ["/usr/local/bin/paperless-beat"]
+          env:
+            - name: PAPERLESS_REDIS
+              value: redis://paperless-redis:6379
+            - name: PAPERLESS_DBHOST
+              value: paperless-postgresql
+            - name: PAPERLESS_DBUSER
+              valueFrom:
+                secretKeyRef:
+                  name: paperless-secret
+                  key: db-user
+            - name: PAPERLESS_DBPASS
+              valueFrom:
+                secretKeyRef:
+                  name: paperless-secret
+                  key: db-pass
+            - name: PAPERLESS_DBNAME
+              value: paperless
+            - name: PAPERLESS_TIME_ZONE
+              value: America/Toronto
+            - name: PAPERLESS_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: paperless-secret
+                  key: secret-key
+          volumeMounts:
+            # Beat schedule on emptyDir to avoid NFS lock issues
+            - name: beat-schedule
+              mountPath: /usr/src/paperless/data
+            - name: logs
+              mountPath: /usr/src/paperless/log
+      volumes:
+        - name: beat-schedule
+          emptyDir: {}
+        - name: logs
+          emptyDir: {}
+
 ---
+# Update Service to point to webserver
 apiVersion: v1
 kind: Service
 metadata:
@@ -253,106 +245,7 @@ metadata:
   namespace: default
 spec:
   selector:
-    app: paperless-ngx
+    app: paperless-webserver  # Changed from paperless-ngx
   ports:
     - port: 8000
       targetPort: 8000
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: paperless-ingress
-  namespace: default
-  annotations:
-    cert-manager.io/cluster-issuer: "letsencrypt-prod"
-    nginx.ingress.kubernetes.io/proxy-body-size: 100000m
-    nginx.ingress.kubernetes.io/proxy-buffer-size: "256k"
-    nginx.ingress.kubernetes.io/proxy-buffers: "4 256k"
-    nginx.ingress.kubernetes.io/proxy-busy-buffers-size: "256k"
-spec:
-  ingressClassName: nginx
-  tls:
-  - hosts:
-    - "paperless.tallflix.ca"
-    secretName: paperless-tls-secret
-  rules:
-  - host: paperless.tallflix.ca
-    http:
-      paths:
-      - pathType: Prefix
-        path: "/"
-        backend:
-          service:
-            name: paperless-ngx
-            port:
-              number: 8000
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: paperless-gotenberg
-  namespace: default
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: paperless-gotenberg
-  template:
-    metadata:
-      labels:
-        app: paperless-gotenberg
-    spec:
-      containers:
-        - name: gotenberg
-          image: docker.io/gotenberg/gotenberg:8.20
-          args:
-            - "gotenberg"
-            - "--chromium-disable-javascript=true"
-            - "--chromium-allow-list=file:///tmp/.*"
-          ports:
-            - containerPort: 3000
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: paperless-gotenberg
-  namespace: default
-spec:
-  selector:
-    app: paperless-gotenberg
-  ports:
-    - port: 3000
-      targetPort: 3000
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: paperless-tika
-  namespace: default
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: paperless-tika
-  template:
-    metadata:
-      labels:
-        app: paperless-tika
-    spec:
-      containers:
-        - name: tika
-          image: docker.io/apache/tika:latest
-          ports:
-            - containerPort: 9998
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: paperless-tika
-  namespace: default
-spec:
-  selector:
-    app: paperless-tika
-  ports:
-    - port: 9998
-      targetPort: 9998
