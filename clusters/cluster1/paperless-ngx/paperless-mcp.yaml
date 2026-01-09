@@ -51,13 +51,38 @@ kind: Service
 metadata:
   name: paperless-mcp
   namespace: default
+  labels:
+    app: paperless-mcp
 spec:
-  loadBalancerIP: 10.10.10.72
   selector:
     app: paperless-mcp
-  type: LoadBalancer
   ports:
-    - name: mcp
-      port: 3000
-      protocol: TCP
-      targetPort: 3000
+  - name: paperless-mcp
+    port: 3000
+    targetPort: 3000
+  type: ClusterIP
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: paperless-mcp-ingress
+  namespace: default
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-dns01"
+spec:
+  ingressClassName: internal-nginx
+  tls:
+  - hosts:
+    - "paperless-mcp.tallflix.ca"
+    secretName: tls-secret-paperless-mcp
+  rules:
+  - host: paperless-mcp.tallflix.ca
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: paperless-mcp
+            port:
+              number: 3000
