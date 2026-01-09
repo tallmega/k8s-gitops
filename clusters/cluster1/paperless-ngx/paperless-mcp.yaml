@@ -1,0 +1,63 @@
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: paperless-apikey
+  namespace: default
+spec:
+  encryptedData:
+    PAPERLESS_API_KEY: AgCW1x/4LdwmVqYee85HBNfNaX3vnv4+7QPpsh4djSNfEEj1Bk+l3UGGl1cZSmaNciW2EtsgnTNCNkAnktNt9uLjI3g/SNoXsCeXbRYqe86lf5jPLBjxCfQy0v8YPL6E1Vk14wRo9J9VByCOinGPCAsIV5DsYOAQAEQvtc529jk4C5z2Nlj3tXr+9p/MuoIEJ0iS8TajL18e1f0F4+k/5pDz7JfgZ3yXPvYwoY1ebP+UQIAjzOfVvlCWfObgvq+n8PaGphHHf1bErR/PenCaBFS+ukPLKDIuJX9q8O6LvqZyYoSUjLUU3h86FhN7LXBgxFkfLtzfbQrrjQTTZFx0xncmkhJdwTQ/tcZG3NbKD7to5+hbZFGrvnm8sLf2jr0upX2vbXcpnQ0ZDn/F3U4tqPqwTqp2XElytjphQem/UDdrAYvsoQ552AOsJmz+EZ+Q1dcHvczf5B51A9oAwv6gX4EcwFg9uYn58cjlLF0iTcSitIyC6PQYp2PkZZ2A6AS4CQPdph3U4IACVqpx7mtwpmATZ1KbOJ7BDOJctxPHSHDTNJ7pIa/CihhTtlsrK3QQUGons8/WCfS9g5rCF0s0ZF3wihOurVidDQrgtJZU/idUzXcaFQfsFk1bTTxkYkoHBdskx7Pj4vvb3xzQt1k0lJL5wrcbXwPZJtJF+UG0sWjiSBb8IRzdE4uo5j3t98x3CeIlrDtWhyGORfv4M32gTlo5feamuir8kimbFGz7GXvLMd55R3jvwvcm
+  template:
+    metadata:
+      creationTimestamp: null
+      name: paperless-apikey
+      namespace: default
+    type: Opaque
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: paperless-mcp
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: paperless-mcp
+  template:
+    metadata:
+      labels:
+        app: paperless-mcp
+    spec:
+      containers:
+        - name: paperless-mcp
+          image: ghcr.io/baruchiro/paperless-mcp:pr-35
+          ports:
+            - containerPort: 3000
+          env:
+            - name: PAPERLESS_URL
+              value: https://paperless.tallflix.ca
+            - name: PAPERLESS_PUBLIC_URL
+              value: https://paperless.tallflix.ca
+            - name: PAPERLESS_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: paperless-apikey
+                  key: PAPERLESS_API_KEY
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: paperless-mcp
+  namespace: default
+spec:
+  loadBalancerIP: 10.10.10.66
+  selector:
+    app: paperless-mcp
+  type: LoadBalancer
+  ports:
+    - name: mcp
+      port: 3000
+      protocol: TCP
+      targetPort: 3000
