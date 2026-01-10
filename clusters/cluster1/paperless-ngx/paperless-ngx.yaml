@@ -292,6 +292,9 @@ spec:
               mountPath: /usr/src/paperless/export
             - name: logs
               mountPath: /usr/src/paperless/log
+            - name: paperless-data-tmp
+              mountPath: /tmp/paperless
+              subPath: tmp
       volumes:
         - name: paperless-data
           persistentVolumeClaim:
@@ -304,7 +307,9 @@ spec:
             claimName: paperless-export-pvc
         - name: logs
           emptyDir: {}
-
+        - name: paperless-data-tmp
+          persistentVolumeClaim:
+            claimName: paperless-data-pvc
 ---
 # SERVICE - Updated to point to webserver
 apiVersion: v1
@@ -391,8 +396,6 @@ spec:
             - /bin/bash
             - -c
             - |
-              mkdir -p /usr/src/paperless/data/tmp
-              ln -sf /usr/src/paperless/data/tmp /tmp/paperless
               /usr/local/bin/celery --app paperless worker --loglevel INFO
           volumeMounts:
             - name: paperless-data
@@ -403,6 +406,9 @@ spec:
               mountPath: /usr/src/paperless/export
             - name: logs
               mountPath: /usr/src/paperless/log
+            - name: paperless-data-tmp
+              mountPath: /tmp/paperless
+              subPath: tmp
       volumes:
         - name: paperless-data
           persistentVolumeClaim:
@@ -415,6 +421,10 @@ spec:
             claimName: paperless-export-pvc
         - name: logs
           emptyDir: {}
+        - name: paperless-data-tmp
+          persistentVolumeClaim:
+            claimName: paperless-data-pvc
+
 
 ---
 # PAPERLESS BEAT
