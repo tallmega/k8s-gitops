@@ -424,8 +424,6 @@ spec:
         - name: paperless-data-tmp
           persistentVolumeClaim:
             claimName: paperless-data-pvc
-
-
 ---
 # PAPERLESS BEAT
 apiVersion: apps/v1
