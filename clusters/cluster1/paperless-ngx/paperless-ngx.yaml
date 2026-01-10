@@ -285,8 +285,8 @@ spec:
               value: http://paperless-tika:9998
             - name: PAPERLESS_CONSUMPTION_DIR
               value: /usr/src/paperless/media/consume
-            - name: PAPERLESS_LOGGING_DIR
-              value: "/dev/null"
+            # - name: PAPERLESS_LOGGING_DIR
+            #   value: ""
           volumeMounts:
             - name: logs
               mountPath: /usr/src/paperless/log
@@ -397,8 +397,8 @@ spec:
               value: "1"
             - name: PAPERLESS_THREADS_PER_WORKER
               value: "1"
-            - name: PAPERLESS_LOGGING_DIR
-              value: "/dev/null"
+            # - name: PAPERLESS_LOGGING_DIR
+            #   value: ""
             - name: PAPERLESS_CONSUMPTION_DIR
               value: /usr/src/paperless/media/consume              
           command: 
