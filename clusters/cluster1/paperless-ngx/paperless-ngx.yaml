@@ -288,14 +288,15 @@ spec:
             - name: PAPERLESS_LOGGING_DIR
               value: ""
           volumeMounts:
+            - name: logs
+              mountPath: /usr/src/paperless/log
             - name: paperless-data
               mountPath: /usr/src/paperless/data
             - name: paperless-media
               mountPath: /usr/src/paperless/media
             - name: paperless-export
               mountPath: /usr/src/paperless/export
-            - name: logs
-              mountPath: /usr/src/paperless/log
+
             - name: paperless-data-tmp
               mountPath: /tmp/paperless
               subPath: tmp
@@ -406,14 +407,14 @@ spec:
             - |
               /usr/local/bin/celery --app paperless worker --loglevel INFO
           volumeMounts:
+            - name: logs
+              mountPath: /usr/src/paperless/log
             - name: paperless-data
               mountPath: /usr/src/paperless/data
             - name: paperless-media
               mountPath: /usr/src/paperless/media
             - name: paperless-export
               mountPath: /usr/src/paperless/export
-            - name: logs
-              mountPath: /usr/src/paperless/log
             - name: paperless-data-tmp
               mountPath: /tmp/paperless
               subPath: tmp
