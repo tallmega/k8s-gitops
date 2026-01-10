@@ -346,10 +346,10 @@ spec:
       labels:
         app: paperless-worker
     spec:
-      # securityContext:
-      #   runAsUser: 1000
-      #   runAsGroup: 1000
-      #   fsGroup: 1000
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
       containers:
         - name: paperless-worker
           image: ghcr.io/paperless-ngx/paperless-ngx:2.20.3
