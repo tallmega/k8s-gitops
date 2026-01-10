@@ -283,10 +283,6 @@ spec:
               value: /usr/src/paperless/media/consume
             - name: PAPERLESS_LOGGING_DIR
               value: ""
-            - name: PAPERLESS_WEBSERVER_WORKERS
-              value: "2"
-            - name: PAPERLESS_TASK_WORKERS
-              value: "0"
           volumeMounts:
             - name: paperless-data
               mountPath: /usr/src/paperless/data
