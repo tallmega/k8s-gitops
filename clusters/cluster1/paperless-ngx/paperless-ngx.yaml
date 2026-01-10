@@ -285,8 +285,8 @@ spec:
               value: http://paperless-tika:9998
             - name: PAPERLESS_CONSUMPTION_DIR
               value: /usr/src/paperless/media/consume
-            - name: PAPERLESS_ENABLE_CELERY_WORKERS
-              value: "false"
+            - name: PAPERLESS_LOGGING_DIR
+              value: "/dev/null"
           volumeMounts:
             - name: logs
               mountPath: /usr/src/paperless/log
@@ -346,10 +346,10 @@ spec:
       labels:
         app: paperless-worker
     spec:
-      securityContext:
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
+      # securityContext:
+      #   runAsUser: 1000
+      #   runAsGroup: 1000
+      #   fsGroup: 1000
       containers:
         - name: paperless-worker
           image: ghcr.io/paperless-ngx/paperless-ngx:2.20.3
@@ -398,7 +398,7 @@ spec:
             - name: PAPERLESS_THREADS_PER_WORKER
               value: "1"
             - name: PAPERLESS_LOGGING_DIR
-              value: ""
+              value: "/dev/null"
             - name: PAPERLESS_CONSUMPTION_DIR
               value: /usr/src/paperless/media/consume              
           command: 
