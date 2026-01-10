@@ -281,9 +281,11 @@ spec:
               value: http://paperless-tika:9998
             - name: PAPERLESS_CONSUMPTION_DIR
               value: /usr/src/paperless/media/consume
+            - name: PAPERLESS_LOGGING_DIR
+              value: ""
           volumeMounts:
-            # - name: paperless-data
-            #   mountPath: /usr/src/paperless/data
+            - name: paperless-data
+              mountPath: /usr/src/paperless/data
             - name: paperless-media
               mountPath: /usr/src/paperless/media
             - name: paperless-export
@@ -291,9 +293,9 @@ spec:
             - name: logs
               mountPath: /usr/src/paperless/log
       volumes:
-        # - name: paperless-data
-        #   persistentVolumeClaim:
-        #     claimName: paperless-data-pvc
+        - name: paperless-data
+          persistentVolumeClaim:
+            claimName: paperless-data-pvc
         - name: paperless-media
           persistentVolumeClaim:
             claimName: paperless-media-pvc
@@ -384,13 +386,11 @@ spec:
             - name: PAPERLESS_LOGGING_DIR
               value: ""
             - name: PAPERLESS_CONSUMPTION_DIR
-              value: /usr/src/paperless/media/consume
-              
+              value: /usr/src/paperless/media/consume              
           command: 
             - /bin/bash
             - -c
             - |
-              mkdir -p /tmp/paperless
               /usr/local/bin/celery --app paperless worker --loglevel INFO
           volumeMounts:
             - name: paperless-data
