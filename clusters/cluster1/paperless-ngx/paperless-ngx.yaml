@@ -391,6 +391,8 @@ spec:
             - /bin/bash
             - -c
             - |
+              mkdir -p /usr/src/paperless/data/tmp
+              ln -sf /usr/src/paperless/data/tmp /tmp/paperless
               /usr/local/bin/celery --app paperless worker --loglevel INFO
           volumeMounts:
             - name: paperless-data
