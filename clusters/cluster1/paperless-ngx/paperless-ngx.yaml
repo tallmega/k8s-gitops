@@ -309,7 +309,7 @@ spec:
           emptyDir: {}
         - name: paperless-data-tmp
           persistentVolumeClaim:
-            claimName: paperless-data-pvc
+            claimName: paperless-datatmp-pvc
 ---
 # SERVICE - Updated to point to webserver
 apiVersion: v1
@@ -423,7 +423,7 @@ spec:
           emptyDir: {}
         - name: paperless-data-tmp
           persistentVolumeClaim:
-            claimName: paperless-data-pvc
+            claimName: paperless-datatmp-pvc
 ---
 # PAPERLESS BEAT
 apiVersion: apps/v1
