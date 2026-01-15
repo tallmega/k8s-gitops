@@ -25,10 +25,10 @@ spec:
           containerPort: 8083
           protocol: TCP
         env:
-        - name: PGID
-          value: "1000"
-        - name: PUID
-          value: "1000"
+        # - name: PGID
+        #   value: "1000"
+        # - name: PUID
+        #   value: "1000"
         - name: TZ
           value: America/Toronto
         # - name: DOCKER_MODS
