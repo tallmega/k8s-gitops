@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
       - name: music-assistant
-        image: ghcr.io/music-assistant/server:2.7.3 # {"$imagepolicy": "flux-system:musicassistant"}
+        image: ghcr.io/music-assistant/server:2.7.4 # {"$imagepolicy": "flux-system:musicassistant"}
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8095
