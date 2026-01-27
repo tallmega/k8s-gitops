@@ -235,7 +235,7 @@ spec:
         fsGroup: 1000
       containers:
         - name: paperless-webserver
-          image: ghcr.io/paperless-ngx/paperless-ngx:2.20.3
+          image: ghcr.io/paperless-ngx/paperless-ngx:2.20.3  # {"$imagepolicy": "flux-system:paperless-ngx"}
           ports:
             - containerPort: 8000
           env:
@@ -352,7 +352,7 @@ spec:
         fsGroup: 1000
       containers:
         - name: paperless-worker
-          image: ghcr.io/paperless-ngx/paperless-ngx:2.20.3
+          image: ghcr.io/paperless-ngx/paperless-ngx:2.20.3  # {"$imagepolicy": "flux-system:paperless-ngx"}
           env:
             - name: PAPERLESS_REDIS
               value: redis://paperless-redis:6379
@@ -452,7 +452,7 @@ spec:
     spec:
       containers:
         - name: paperless-beat
-          image: ghcr.io/paperless-ngx/paperless-ngx:2.20.3
+          image: ghcr.io/paperless-ngx/paperless-ngx:2.20.3  # {"$imagepolicy": "flux-system:paperless-ngx"}
           env:
             - name: PAPERLESS_REDIS
               value: redis://paperless-redis:6379
