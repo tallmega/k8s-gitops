@@ -255,10 +255,10 @@ spec:
   imageRepositoryRef:
     name: plex
   filterTags:
-    pattern: '^\d+\.\d+\.\d+\.\d+-[a-z0-9]+$'
+    pattern: '^(\d+\.\d+\.\d+\.\d+-[a-z0-9]+)-amd64$'
   policy:
     semver:
-      range: '>=1.9.0 <2.0.0'
+      range: '>=1.43.0'
   digestReflectionPolicy: Never
 ---
 apiVersion: image.toolkit.fluxcd.io/v1beta1
