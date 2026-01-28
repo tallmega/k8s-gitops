@@ -231,7 +231,7 @@ spec:
     extract: '$version'
   policy:
     semver:
-      range: '*'
+      range: '>=1.0.0'
 ---
 apiVersion: image.toolkit.fluxcd.io/v1beta1
 kind: ImagePolicy
