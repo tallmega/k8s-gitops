@@ -227,11 +227,10 @@ spec:
   imageRepositoryRef:
     name: plex
   filterTags:
-    pattern: '^(?P<version>\d+\.\d+\.\d+\.\d+-[a-z0-9]+)-amd64$'
-    extract: '$version'
+    pattern: '^(\d+\.\d+\.\d+\.\d+-[a-z0-9]+)-amd64$'
   policy:
-    numerical:
-      order: asc
+    semver:
+      range: '>=1.43.0'
   digestReflectionPolicy: Never
 ---
 apiVersion: image.toolkit.fluxcd.io/v1beta1
@@ -246,20 +245,17 @@ spec:
     semver:
       range: '>= 5.12.0'
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta2
-kind: ImagePolicy
-metadata:
-  name: plex
-  namespace: flux-system
-spec:
-  imageRepositoryRef:
-    name: plex
-  filterTags:
-    pattern: '^(\d+\.\d+\.\d+\.\d+-[a-z0-9]+)-amd64$'
-  policy:
-    semver:
-      range: '>=1.43.0'
-  digestReflectionPolicy: Never
+# apiVersion: image.toolkit.fluxcd.io/v1beta1
+# kind: ImagePolicy
+# metadata:
+#   name: double-take
+#   namespace: flux-system
+# spec:
+#   imageRepositoryRef:
+#     name: double-take
+#   policy:
+#     semver:
+#       range: '>= 1.12.0'
 ---
 apiVersion: image.toolkit.fluxcd.io/v1beta1
 kind: ImagePolicy
