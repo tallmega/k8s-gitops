@@ -230,8 +230,8 @@ spec:
     pattern: '^(?P<version>\d+\.\d+\.\d+\.\d+-[a-z0-9]+)-amd64$'
     extract: '$version'
   policy:
-    semver:
-      range: '>=1.0.0'
+    alphabetical:
+      order: asc
 ---
 apiVersion: image.toolkit.fluxcd.io/v1beta1
 kind: ImagePolicy
