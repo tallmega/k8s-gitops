@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: stirling
-        image: stirlingtools/stirling-pdf:2.4.1 # {"$imagepolicy": "flux-system:stirling"}
+        image: stirlingtools/stirling-pdf:2.4.2 # {"$imagepolicy": "flux-system:stirling"}
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8080
