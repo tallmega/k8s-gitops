@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: calibreweb-downloader
-        image: ghcr.io/calibrain/calibre-web-automated-book-downloader:1.0.3 # {"$imagepolicy": "flux-system:calibre-web-automated-book-downloader"}
+        image: ghcr.io/calibrain/calibre-web-automated-book-downloader:1.0.4 # {"$imagepolicy": "flux-system:calibre-web-automated-book-downloader"}
         imagePullPolicy: Always
         ports:
         - name: "http-port"
