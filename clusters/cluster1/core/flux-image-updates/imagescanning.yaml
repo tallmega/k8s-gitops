@@ -1,4 +1,4 @@
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImageRepository
 metadata:
   name: sonarr
@@ -7,7 +7,7 @@ spec:
   image: linuxserver/sonarr
   interval: 30m0s
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImageRepository
 metadata:
   name: calibre-web-automated
@@ -16,7 +16,7 @@ spec:
   image: ghcr.io/crocodilestick/calibre-web-automated
   interval: 30m0s
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImageRepository
 metadata:
   name: calibre-web-automated-book-downloader
@@ -25,7 +25,7 @@ spec:
   image: ghcr.io/calibrain/calibre-web-automated-book-downloader
   interval: 30m0s
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImageRepository
 metadata:
   name: mealie
@@ -34,7 +34,7 @@ spec:
   image: ghcr.io/mealie-recipes/mealie
   interval: 30m0s
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImageRepository
 metadata:
   name: maintainerr
@@ -43,7 +43,7 @@ spec:
   image: ghcr.io/jorenn92/maintainerr
   interval: 30m0s
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImageRepository
 metadata:
   name: frigate
@@ -52,7 +52,7 @@ spec:
   image: ghcr.io/blakeblackshear/frigate
   interval: 30m0s
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImageRepository
 metadata:
   name: minecraft
@@ -61,7 +61,7 @@ spec:
   image: itzg/minecraft-bedrock-server
   interval: 30m0s
 # ---
-# apiVersion: image.toolkit.fluxcd.io/v1beta1
+# apiVersion: image.toolkit.fluxcd.io/v1beta2
 # kind: ImageRepository
 # metadata:
 #   name: calibre
@@ -70,7 +70,7 @@ spec:
 #   image: linuxserver/calibre
 #   interval: 30m0s
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImageRepository
 metadata:
   name: pinchflat
@@ -80,7 +80,7 @@ spec:
   interval: 30m0s
 ---
 # Commented out until stable builds are available.
-# apiVersion: image.toolkit.fluxcd.io/v1beta1
+# apiVersion: image.toolkit.fluxcd.io/v1beta2
 # kind: ImageRepository
 # metadata:
 #   name: readarr
@@ -89,7 +89,7 @@ spec:
 #   image: linuxserver/readarr
 #   interval: 30m0s
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImageRepository
 metadata:
   name: radarr
@@ -98,7 +98,7 @@ spec:
   image: linuxserver/radarr
   interval: 30m0s
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImageRepository
 metadata:
   name: overseerr
@@ -107,16 +107,16 @@ spec:
   image: linuxserver/overseerr
   interval: 30m0s
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImageRepository
 metadata:
   name: stirling
   namespace: flux-system
 spec:
-  image: stirlingtools/stirling-pdf
+  image: alam00000/bentopdf-simple
   interval: 30m0s
 # ---
-# apiVersion: image.toolkit.fluxcd.io/v1beta1
+# apiVersion: image.toolkit.fluxcd.io/v1beta2
 # kind: ImageRepository
 # metadata:
 #   name: ombi
@@ -125,7 +125,7 @@ spec:
 #   image: linuxserver/ombi
 #   interval: 30m0s
 # ---
-# apiVersion: image.toolkit.fluxcd.io/v1beta1
+# apiVersion: image.toolkit.fluxcd.io/v1beta2
 # kind: ImageRepository
 # metadata:
 #   name: tautulli
@@ -134,7 +134,7 @@ spec:
 #   image: linuxserver/tautulli
 #   interval: 30m0s
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImageRepository
 metadata:
   name: sabnzbd
@@ -143,7 +143,7 @@ spec:
   image: linuxserver/sabnzbd
   interval: 30m0s
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImageRepository
 metadata:
   name: homeassistant
@@ -152,7 +152,7 @@ spec:
   image: homeassistant/home-assistant
   interval: 30m0s
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImageRepository
 metadata:
   name: musicassistant
@@ -161,7 +161,7 @@ spec:
   image: ghcr.io/music-assistant/server
   interval: 30m0s
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImageRepository
 metadata:
   name: plex
@@ -170,7 +170,7 @@ spec:
   image: plexinc/pms-docker
   interval: 30m0s
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImageRepository
 metadata:
   name: unifi
@@ -179,7 +179,7 @@ spec:
   image: jacobalberty/unifi
   interval: 30m0s
 # ---
-# apiVersion: image.toolkit.fluxcd.io/v1beta1
+# apiVersion: image.toolkit.fluxcd.io/v1beta2
 # kind: ImageRepository
 # metadata:
 #   name: double-take
@@ -188,7 +188,7 @@ spec:
 #   image: jakowenko/double-take
 #   interval: 30m0s
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImageRepository
 metadata:
   name: zigbee2mqtt
@@ -197,7 +197,7 @@ spec:
   image: koenkk/zigbee2mqtt
   interval: 30m0s
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImageRepository
 metadata:
   name: eclipse-mosquitto
@@ -206,7 +206,7 @@ spec:
   image: eclipse-mosquitto
   interval: 30m0s
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImageRepository
 metadata:
   name: appdaemon
@@ -215,7 +215,7 @@ spec:
   image: acockburn/appdaemon
   interval: 30m0s
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImageRepository
 metadata:
   name: wyzebridge
@@ -224,7 +224,7 @@ spec:
   image: mrlt8/wyze-bridge
   interval: 30m0s  
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImageRepository
 metadata:
   name: jellyfin
@@ -233,7 +233,7 @@ spec:
   image: linuxserver/jellyfin
   interval: 30m0s  
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImageRepository
 metadata:
   name: qbittorrent
@@ -242,7 +242,7 @@ spec:
   image: linuxserver/qbittorrent
   interval: 30m0s  
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImageRepository
 metadata:
   name: prowlarr
@@ -251,7 +251,7 @@ spec:
   image: linuxserver/prowlarr
   interval: 30m0s  
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImageRepository
 metadata:
   name: sftpgo
@@ -260,7 +260,7 @@ spec:
   image: drakkan/sftpgo
   interval: 30m0s  
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImageRepository
 metadata:
   name: piper
@@ -269,7 +269,7 @@ spec:
   image: rhasspy/wyoming-piper
   interval: 30m0s  
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImageRepository
 metadata:
   name: whisper
@@ -278,7 +278,7 @@ spec:
   image: rhasspy/wyoming-whisper
   interval: 30m0s  
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImageRepository
 metadata:
   name: pot-provider
@@ -287,7 +287,7 @@ spec:
   image: brainicism/bgutil-ytdlp-pot-provider
   interval: 30m0s  
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImageRepository
 metadata:
   name: immich-server
@@ -296,7 +296,7 @@ spec:
   image: ghcr.io/immich-app/immich-server
   interval: 30m0s
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImageRepository
 metadata:
   name: immich-machine-learning
@@ -305,7 +305,7 @@ spec:
   image: ghcr.io/immich-app/immich-machine-learning
   interval: 30m0s
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImageRepository
 metadata:
   name: redis
@@ -314,7 +314,7 @@ spec:
   image: docker.io/redis
   interval: 30m0s
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImageRepository
 metadata:
   name: paperless-ngx
@@ -323,7 +323,7 @@ spec:
   image: ghcr.io/paperless-ngx/paperless-ngx
   interval: 30m0s
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImageRepository
 metadata:
   name: karakeep

@@ -1,4 +1,4 @@
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImagePolicy
 metadata:
   name: sonarr
@@ -10,7 +10,7 @@ spec:
     semver:
       range: '>= 3.0.0'
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImagePolicy
 metadata:
   name: calibre-web-automated
@@ -25,7 +25,7 @@ spec:
     semver:
       range: '>=3.0.0'
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImagePolicy
 metadata:
   name: calibre-web-automated-book-downloader
@@ -37,7 +37,7 @@ spec:
     semver:
       range: '>= 0.0.1 <1000.0.0'
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImagePolicy
 metadata:
   name: mealie
@@ -49,7 +49,7 @@ spec:
     semver:
       range: '>= 1.3.2'
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImagePolicy
 metadata:
   name: maintainerr
@@ -61,7 +61,7 @@ spec:
     semver:
       range: '>= 2.0.4'
 # ---
-# apiVersion: image.toolkit.fluxcd.io/v1beta1
+# apiVersion: image.toolkit.fluxcd.io/v1beta2
 # kind: ImagePolicy
 # metadata:
 #   name: calibre
@@ -73,7 +73,7 @@ spec:
 #     semver:
 #       range: '>= 7.7.0'
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImagePolicy
 metadata:
   name: minecraft
@@ -85,7 +85,7 @@ spec:
     semver:
       range: '>= 2021.12.0'
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImagePolicy
 metadata:
   name: frigate
@@ -97,7 +97,7 @@ spec:
     semver:
       range: '>= 0.12.0'
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImagePolicy
 metadata:
   name: pinchflat
@@ -110,7 +110,7 @@ spec:
       range: '>= 2021.12.0'
 ---
 # Commented out until stable builds are available.
-# apiVersion: image.toolkit.fluxcd.io/v1beta1
+# apiVersion: image.toolkit.fluxcd.io/v1beta2
 # kind: ImagePolicy
 # metadata:
 #   name: readarr
@@ -122,7 +122,7 @@ spec:
 #     semver:
 #       range: '>= 7.7.0'
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImagePolicy
 metadata:
   name: radarr
@@ -134,7 +134,7 @@ spec:
     semver:
       range: '>= 3.0.0'
 # ---
-# apiVersion: image.toolkit.fluxcd.io/v1beta1
+# apiVersion: image.toolkit.fluxcd.io/v1beta2
 # kind: ImagePolicy
 # metadata:
 #   name: ombi
@@ -146,7 +146,7 @@ spec:
 #     semver:
 #       range: '>= 4.0.0'
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImagePolicy
 metadata:
   name: overseerr
@@ -158,7 +158,7 @@ spec:
     semver:
       range: '>= 1.33.1 <1000.0.0'
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImagePolicy
 metadata:
   name: stirling
@@ -170,7 +170,7 @@ spec:
     semver:
       range: '>= 2.1.5'
 # ---
-# apiVersion: image.toolkit.fluxcd.io/v1beta1
+# apiVersion: image.toolkit.fluxcd.io/v1beta2
 # kind: ImagePolicy
 # metadata:
 #   name: tautulli
@@ -182,7 +182,7 @@ spec:
 #     semver:
 #       range: '>= 2.13.3 <1000.0.0'
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImagePolicy
 metadata:
   name: sabnzbd
@@ -194,7 +194,7 @@ spec:
     semver:
       range: '>= 3.0.0'
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImagePolicy
 metadata:
   name: homeassistant
@@ -206,7 +206,7 @@ spec:
     semver:
       range: '>= 2021.12.0'
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImagePolicy
 metadata:
   name: musicassistant
@@ -233,7 +233,7 @@ spec:
       order: desc
   digestReflectionPolicy: Never
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImagePolicy
 metadata:
   name: unifi
@@ -245,7 +245,7 @@ spec:
     semver:
       range: '>= 5.12.0'
 ---
-# apiVersion: image.toolkit.fluxcd.io/v1beta1
+# apiVersion: image.toolkit.fluxcd.io/v1beta2
 # kind: ImagePolicy
 # metadata:
 #   name: double-take
@@ -257,7 +257,7 @@ spec:
 #     semver:
 #       range: '>= 1.12.0'
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImagePolicy
 metadata:
   name: eclipse-mosquitto
@@ -269,7 +269,7 @@ spec:
     semver:
       range: '>= 2.0'
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImagePolicy
 metadata:
   name: zigbee2mqtt
@@ -281,7 +281,7 @@ spec:
     semver:
       range: '>= 1.26.0'
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImagePolicy
 metadata:
   name: appdaemon
@@ -293,7 +293,7 @@ spec:
     semver:
       range: '>= 4.2.0'
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImagePolicy
 metadata:
   name: wyzebridge
@@ -305,7 +305,7 @@ spec:
     semver:
       range: '>= 1.9.0'
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImagePolicy
 metadata:
   name: jellyfin
@@ -317,7 +317,7 @@ spec:
     semver:
       range: '>= 8.0.0 <1000.0.0'
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImagePolicy
 metadata:
   name: qbittorrent
@@ -329,7 +329,7 @@ spec:
     semver:
       range: '>= 5.0.0'
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImagePolicy
 metadata:
   name: prowlarr
@@ -341,7 +341,7 @@ spec:
     semver:
       range: '>= 1.0.0'
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImagePolicy
 metadata:
   name: sftpgo
@@ -353,7 +353,7 @@ spec:
     semver:
       range: '>= 2.5'
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImagePolicy
 metadata:
   name: piper
@@ -365,7 +365,7 @@ spec:
     semver:
       range: '>= 1.0.0'
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImagePolicy
 metadata:
   name: whisper
@@ -377,7 +377,7 @@ spec:
     semver:
       range: '>= 1.0.0'
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImagePolicy
 metadata:
   name: pot-provider
@@ -389,7 +389,7 @@ spec:
     semver:
       range: '>= 0.3.0'
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImagePolicy
 metadata:
   name: immich-server
@@ -401,7 +401,7 @@ spec:
     semver:
       range: '>= 1.0.0'
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImagePolicy
 metadata:
   name: immich-machine-learning
@@ -416,7 +416,7 @@ spec:
     semver:
       range: '>= 1.0.0'
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImagePolicy
 metadata:
   name: redis
@@ -431,7 +431,7 @@ spec:
     semver:
       range: '>= 6.2.0'
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImagePolicy
 metadata:
   name: paperless-ngx
@@ -443,7 +443,7 @@ spec:
     semver:
       range: '>= 2.16.1'
 ---
-apiVersion: image.toolkit.fluxcd.io/v1beta1
+apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImagePolicy
 metadata:
   name: karakeep
