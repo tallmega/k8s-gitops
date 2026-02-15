@@ -24,7 +24,7 @@ spec:
         args: [ "infinity" ]
         env:
         - name: TZ
-          value: America\Toronto
+          value: America/Toronto
         # volumeMounts:
         # - name: bbot
         #   mountPath: /root/.bbot

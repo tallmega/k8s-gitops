@@ -25,7 +25,7 @@ spec:
         - containerPort: 8945
         env:
         - name: TZ
-          value: America\Toronto
+          value: America/Toronto
         volumeMounts:
         - name: ytshows
           mountPath: /downloads

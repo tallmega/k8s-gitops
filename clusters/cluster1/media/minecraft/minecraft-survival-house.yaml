@@ -29,7 +29,7 @@
 #           protocol: UDP
 #         env:
 #         - name: TZ
-#           value: America\Toronto
+#           value: America/Toronto
 #         - name: SERVER_NAME
 #           value: "Finn and Kane"
 #         - name: LEVEL_NAME

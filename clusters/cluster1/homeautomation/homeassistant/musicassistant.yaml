@@ -32,7 +32,7 @@ spec:
         - containerPort: 8099
         env:
         - name: TZ
-          value: America\Toronto
+          value: America/Toronto
         volumeMounts:
         - mountPath: /data
           name: config

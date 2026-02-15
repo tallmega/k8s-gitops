@@ -17,7 +17,7 @@ spec:
       containers:
       - env:
         - name: TZ
-          value: America\Toronto
+          value: America/Toronto
         imagePullPolicy: IfNotPresent
         name: whisper-k8s
         image: rhasspy/wyoming-whisper:3.0.2 # {"$imagepolicy": "flux-system:whisper"}

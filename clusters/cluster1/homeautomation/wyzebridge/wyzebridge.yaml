@@ -30,7 +30,7 @@ spec:
         - containerPort: 5000
         env:
         - name: TZ
-          value: America\Toronto
+          value: America/Toronto
         - name: ENABLE_AUDIO
           value: 'true'
         - name: WB_AUTH

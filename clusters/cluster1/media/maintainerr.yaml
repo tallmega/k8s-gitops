@@ -28,7 +28,7 @@ spec:
         - name: PUID
           value: "1000"
         - name: TZ
-          value: America\Toronto
+          value: America/Toronto
         volumeMounts:
         - name: maintainerr-config
           mountPath: /opt/data

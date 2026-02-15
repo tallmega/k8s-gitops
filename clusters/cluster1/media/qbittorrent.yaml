@@ -56,7 +56,7 @@ spec:
                               - 'NET_ADMIN'
                   env:
                       - name: TZ
-                        value: America\Toronto
+                        value: America/Toronto
                       - name: FIREWALL_INPUT_PORTS
                         value: "8080"
                       - name: VPN_PORT_FORWARDING
@@ -90,7 +90,7 @@ spec:
               - name: PUID
                 value: "1000"
               - name: TZ
-                value: America\Toronto
+                value: America/Toronto
               - name: WEBUI_PORT
                 value: "8080"
               # - name: TORRENTING_PORT

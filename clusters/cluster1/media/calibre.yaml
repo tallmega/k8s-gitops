@@ -30,7 +30,7 @@
 #         - name: PUID
 #           value: "1000"
 #         - name: TZ
-#           value: America\Toronto
+#           value: America/Toronto
 #         volumeMounts:
 #         - name: calibre-config
 #           mountPath: /config

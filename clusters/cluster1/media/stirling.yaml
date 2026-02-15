@@ -28,7 +28,7 @@ spec:
         - name: SECURITY_ENABLELOGIN
           value: "false"
         - name: TZ
-          value: America\Toronto
+          value: America/Toronto
 ---
 apiVersion: v1
 kind: Service

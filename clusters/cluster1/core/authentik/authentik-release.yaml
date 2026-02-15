@@ -18,6 +18,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: authentik
+        namespace: flux-system
   install:
     crds: Create
   interval: 10m0s

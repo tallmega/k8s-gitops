@@ -24,7 +24,7 @@ spec:
         - containerPort: 5055
         env:
         - name: TZ
-          value: America\Toronto
+          value: America/Toronto
         volumeMounts:
         - name: overseerr-config
           mountPath: /config

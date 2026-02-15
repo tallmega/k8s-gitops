@@ -34,7 +34,7 @@ spec:
         - name: DISABLE_SIGNUPS
           value: "true"
         - name: TZ
-          value: America\Toronto
+          value: America/Toronto
         - name: OPENAI_API_KEY
           valueFrom:
             secretKeyRef:
