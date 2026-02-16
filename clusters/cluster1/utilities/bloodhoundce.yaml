@@ -101,6 +101,8 @@ spec:
         # command: [ "/bin/bash", "-c", "--" ]
         # args: [ "while true; do sleep 30; done;" ]
         env:
+        - name: PGDATA
+          value: /var/lib/postgresql/data/pgdata
         - name: POSTGRES_USER
           value: "bloodhound"
         - name: POSTGRES_PASSWORD
