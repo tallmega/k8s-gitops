@@ -4,8 +4,13 @@ metadata:
   name: frigate-outpost
   namespace: authentik
   annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
 spec:
   ingressClassName: nginx
+  tls:
+  - hosts:
+    - "frigate.tallflix.ca"
+    secretName: frigate-outpost-tls-secret
   rules:
   - host: frigate.tallflix.ca
     http:

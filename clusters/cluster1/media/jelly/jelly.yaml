@@ -61,6 +61,8 @@ spec:
           name: movies
         - mountPath: /data/music
           name: music
+        - mountPath: /data/ytshows
+          name: yt
           # Below are the path to mount devices for hardware acceleration
           # The settings below have been marked out and can be used when removing the "#"
           # - mountPath: /dev/vcsm
