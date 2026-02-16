@@ -18,8 +18,6 @@ spec:
         podtype: minecraft
     spec:
       hostNetwork: true
-      extraPodSpec:
-        hostNetwork: "{{ .Values.hostNetwork }}"
       containers:
       - name: minecraft-parkourspiral
         image: itzg/minecraft-bedrock-server:2026.2.0 # {"$imagepolicy": "flux-system:minecraft"}
@@ -91,13 +89,12 @@ metadata:
   namespace: default
 spec:
   externalTrafficPolicy: Cluster
-  loadBalancerIP: 10.10.10.70
+  loadBalancerIP: 10.10.10.71
   ports:
   - name: minecraft-parkourspiral
     port: 19132
     protocol: UDP
     targetPort: 19132
   selector:
-    app.kubernetes.io/instance: minecraft-parkourspiral
-    app.kubernetes.io/name: minecraft-parkourspiral
+    app: minecraft-parkourspiral
   type: LoadBalancer
