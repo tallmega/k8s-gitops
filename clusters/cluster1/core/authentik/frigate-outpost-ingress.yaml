@@ -4,7 +4,6 @@ metadata:
   name: frigate-outpost
   namespace: authentik
   annotations:
-    kubernetes.io/ingress.class: nginx   # must match the controller/class used
 spec:
   ingressClassName: nginx
   rules:
