@@ -458,20 +458,6 @@ spec:
 apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImagePolicy
 metadata:
-  name: bloodhound
-  namespace: flux-system
-spec:
-  imageRepositoryRef:
-    name: bloodhound
-  filterTags:
-    pattern: '^\d+\.\d+\.\d+$'
-  policy:
-    semver:
-      range: '>= 5.0.0'
----
-apiVersion: image.toolkit.fluxcd.io/v1beta2
-kind: ImagePolicy
-metadata:
   name: bbot
   namespace: flux-system
 spec:
