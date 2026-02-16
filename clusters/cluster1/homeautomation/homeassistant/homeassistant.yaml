@@ -64,12 +64,6 @@ kind: Ingress
 metadata:
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
-    nginx.ingress.kubernetes.io/server-snippet: |
-      location /api/websocket {
-          proxy_http_version 1.1;
-          proxy_set_header Upgrade $http_upgrade;
-          proxy_set_header Connection "upgrade";
-      }
   labels:
     app.kubernetes.io/name: hass
   name: hass-ingress
