@@ -121,7 +121,7 @@ spec:
           env:
             - name: MEILI_NO_ANALYTICS
               value: "true"
-            - name: MMEILI_MASTER_KEY
+            - name: MEILI_MASTER_KEY
               valueFrom:
                 secretKeyRef:
                   name: karakeep-secrets
