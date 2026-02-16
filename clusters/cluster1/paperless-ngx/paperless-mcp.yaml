@@ -35,6 +35,13 @@ spec:
           image: ghcr.io/baruchiro/paperless-mcp:pr-35
           ports:
             - containerPort: 3000
+          resources:
+            requests:
+              cpu: 5m
+              memory: 16Mi
+            limits:
+              cpu: 50m
+              memory: 128Mi
           env:
             - name: PAPERLESS_URL
               value: https://paperless.tallflix.ca

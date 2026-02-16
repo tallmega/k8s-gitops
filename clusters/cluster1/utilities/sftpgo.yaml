@@ -34,6 +34,13 @@ spec:
               value: America/Toronto
             - name: SFTPGO_WEBDAVD__BINDINGS__0__PORT
               value: "10080"
+          resources:
+            requests:
+              cpu: 5m
+              memory: 32Mi
+            limits:
+              cpu: 100m
+              memory: 256Mi
           volumeMounts:
             - name: sftpgodata
               mountPath: /srv/sftpgo/data

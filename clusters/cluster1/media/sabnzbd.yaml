@@ -29,6 +29,13 @@ spec:
           value: "1001"
         - name: TZ
           value: America/Toronto
+        resources:
+          requests:
+            cpu: 5m
+            memory: 128Mi
+          limits:
+            cpu: 400m
+            memory: 1Gi
         volumeMounts:
         - name: sabnzbd-config
           mountPath: /config

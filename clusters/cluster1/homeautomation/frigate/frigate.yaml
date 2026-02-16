@@ -70,11 +70,11 @@ spec:
           name: frigate-recording
         resources:
           requests:
-            memory: "2Gi"
-            cpu: "1000m"
+            cpu: 200m
+            memory: 2Gi
           limits:
-            memory: "8Gi"
-            cpu: "2000m"
+            cpu: "1"
+            memory: 12Gi
       restartPolicy: Always
       securityContext:
         supplementalGroups:

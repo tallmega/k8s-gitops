@@ -65,6 +65,13 @@ spec:
           value: "true"
         - name: OIDC_REMEMBER_ME
           value: "true"
+        resources:
+          requests:
+            cpu: 5m
+            memory: 256Mi
+          limits:
+            cpu: 200m
+            memory: 2Gi
         volumeMounts:
         - name: mealie-config
           mountPath: /app/data/

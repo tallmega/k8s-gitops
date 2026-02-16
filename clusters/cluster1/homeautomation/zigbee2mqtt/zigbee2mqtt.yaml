@@ -43,6 +43,13 @@ spec:
         - name: http
           containerPort: 8080
           protocol: TCP
+        resources:
+          requests:
+            cpu: 5m
+            memory: 64Mi
+          limits:
+            cpu: 100m
+            memory: 512Mi
         volumeMounts:
         - name: zigbee2mqtt-data
           mountPath: /app/data

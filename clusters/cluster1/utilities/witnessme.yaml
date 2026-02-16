@@ -22,6 +22,13 @@ spec:
         imagePullPolicy: IfNotPresent
         command: [ "sleep" ]
         args: [ "infinity" ]
+        resources:
+          requests:
+            cpu: 5m
+            memory: 4Mi
+          limits:
+            cpu: 50m
+            memory: 64Mi
         env:
         - name: TZ
           value: America/Toronto

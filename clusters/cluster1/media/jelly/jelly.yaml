@@ -45,8 +45,12 @@ spec:
           protocol: UDP
         resources:
           requests:
+            cpu: 5m
+            memory: 384Mi
             gpu.intel.com/i915: "1"
           limits:
+            cpu: 400m
+            memory: 2Gi
             gpu.intel.com/i915: "1"
         stdin: true
         tty: true

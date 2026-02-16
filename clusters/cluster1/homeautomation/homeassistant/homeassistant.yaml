@@ -30,6 +30,13 @@ spec:
         env:
         - name: TZ
           value: America/Toronto
+        resources:
+          requests:
+            cpu: 10m
+            memory: 384Mi
+          limits:
+            cpu: 200m
+            memory: 2Gi
         volumeMounts:
         - mountPath: /config
           name: config

@@ -55,11 +55,11 @@ spec:
           mountPath: /data
         resources:
           requests:
-            memory: "512Mi"
-            cpu: "500m"
+            cpu: 50m
+            memory: 256Mi
           limits:
-            memory: "1Gi"
-            cpu: "1"
+            cpu: 400m
+            memory: 2Gi
       volumes:
       - name: minecraft-config-luckyblockrace
         persistentVolumeClaim:

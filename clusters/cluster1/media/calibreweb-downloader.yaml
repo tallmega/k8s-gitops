@@ -43,6 +43,13 @@ spec:
           value: "/auth/app.db"
         - name: TZ
           value: America/Toronto
+        resources:
+          requests:
+            cpu: 5m
+            memory: 64Mi
+          limits:
+            cpu: 100m
+            memory: 512Mi
         volumeMounts:
         - name: db-volume
           mountPath: /auth/app.db

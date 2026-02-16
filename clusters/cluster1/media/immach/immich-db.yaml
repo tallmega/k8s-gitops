@@ -45,6 +45,13 @@ spec:
               value: 'HDD'
             - name: PGDATA
               value: '/var/lib/postgresql/data/pgdata'
+          resources:
+            requests:
+              cpu: 5m
+              memory: 384Mi
+            limits:
+              cpu: 100m
+              memory: 2Gi
           volumeMounts:
             - mountPath: /var/lib/postgresql/data
               name: immich-db

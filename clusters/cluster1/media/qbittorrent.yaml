@@ -61,6 +61,13 @@ spec:
                         value: "8080"
                       - name: VPN_PORT_FORWARDING
                         value: "on"
+                  resources:
+                    requests:
+                      cpu: 5m
+                      memory: 32Mi
+                    limits:
+                      cpu: 100m
+                      memory: 512Mi
                   envFrom:
                   - secretRef:
                      name: gluetun-secret
@@ -95,6 +102,13 @@ spec:
                 value: "8080"
               # - name: TORRENTING_PORT
               #   value: "26524"
+              resources:
+                requests:
+                  cpu: 5m
+                  memory: 64Mi
+                limits:
+                  cpu: 100m
+                  memory: 512Mi
               volumeMounts:
               - name: qbittorrent-config
                 mountPath: /config

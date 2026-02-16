@@ -37,10 +37,17 @@ spec:
         envFrom:
         - secretRef:
             name: wyzebridge-secret
+        resources:
+          requests:
+            cpu: 25m
+            memory: 128Mi
+          limits:
+            cpu: 200m
+            memory: 1Gi
         volumeMounts:
         - name: wyzebridge-config
           mountPath: /tokens
-      
+
       volumes:
       - name: wyzebridge-config
         persistentVolumeClaim:

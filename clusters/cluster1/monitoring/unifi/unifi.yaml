@@ -39,6 +39,13 @@ spec:
         #   value: "false"
         - name: TZ
           value: America/Toronto
+        resources:
+          requests:
+            cpu: 10m
+            memory: 1Gi
+          limits:
+            cpu: 200m
+            memory: 4Gi
         volumeMounts:
         - name: unifi-config
           mountPath: /unifi

@@ -28,6 +28,13 @@ spec:
         - containerPort: 1883
           name: mqtt
           protocol: TCP
+        resources:
+          requests:
+            cpu: 5m
+            memory: 4Mi
+          limits:
+            cpu: 50m
+            memory: 64Mi
         volumeMounts:
         - mountPath: /mosquitto/data
           name: data

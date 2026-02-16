@@ -50,6 +50,13 @@ spec:
             secretKeyRef:
               name: karakeep-secrets
               key: NEXT_PUBLIC_SECRET
+        resources:
+          requests:
+            cpu: 20m
+            memory: 256Mi
+          limits:
+            cpu: 200m
+            memory: 2Gi
         volumeMounts:
         - mountPath: /data
           name: karakeep-config
@@ -126,6 +133,13 @@ spec:
                 secretKeyRef:
                   name: karakeep-secrets
                   key: MMEILI_MASTER_KEY
+          resources:
+            requests:
+              cpu: 5m
+              memory: 8Mi
+            limits:
+              cpu: 100m
+              memory: 128Mi
           volumeMounts:
             - mountPath: /meili_data
               name: meilisearch
@@ -177,6 +191,13 @@ spec:
             - --remote-debugging-address=0.0.0.0
             - --remote-debugging-port=9222
             - --hide-scrollbars
+          resources:
+            requests:
+              cpu: 5m
+              memory: 64Mi
+            limits:
+              cpu: 200m
+              memory: 512Mi
 ---
 apiVersion: v1
 kind: Service

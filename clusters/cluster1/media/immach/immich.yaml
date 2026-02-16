@@ -50,6 +50,13 @@ spec:
                 secretKeyRef:
                   name: immich-db-secret
                   key: db_database_name
+          resources:
+            requests:
+              cpu: 5m
+              memory: 384Mi
+            limits:
+              cpu: 400m
+              memory: 2Gi
           readinessProbe:
             httpGet:
               path: /health
