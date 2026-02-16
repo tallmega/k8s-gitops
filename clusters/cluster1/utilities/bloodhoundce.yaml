@@ -258,3 +258,15 @@ metadata:
     "helm.sh/hook-weight": "-5" # ensures this is executed first
     "helm.sh/hook-delete-policy": before-hook-creation
 ---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: bloodhound-postgres-config-pvc
+  namespace: bloodhound
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+---
