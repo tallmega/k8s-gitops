@@ -186,7 +186,7 @@ spec:
     spec:
       containers:
         - name: tika
-          image: docker.io/apache/tika:latest
+          image: docker.io/apache/tika:3.2.3.0 # {"$imagepolicy": "flux-system:tika"}
           ports:
             - containerPort: 9998
 ---

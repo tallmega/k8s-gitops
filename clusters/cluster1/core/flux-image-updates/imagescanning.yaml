@@ -331,3 +331,39 @@ metadata:
 spec:
   image: ghcr.io/karakeep-app/karakeep
   interval: 30m0s
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: bloodhound
+  namespace: flux-system
+spec:
+  image: docker.io/specterops/bloodhound
+  interval: 30m0s
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: bbot
+  namespace: flux-system
+spec:
+  image: blacklanternsecurity/bbot
+  interval: 30m0s
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: gluetun
+  namespace: flux-system
+spec:
+  image: qmcgaw/gluetun
+  interval: 30m0s
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: tika
+  namespace: flux-system
+spec:
+  image: docker.io/apache/tika
+  interval: 30m0s

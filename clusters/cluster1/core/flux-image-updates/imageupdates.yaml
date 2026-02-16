@@ -455,3 +455,60 @@ spec:
     semver:
       range: '>= 0.24.0'
 ---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: bloodhound
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: bloodhound
+  filterTags:
+    pattern: '^\d+\.\d+\.\d+$'
+  policy:
+    semver:
+      range: '>= 5.0.0'
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: bbot
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: bbot
+  filterTags:
+    pattern: '^\d+\.\d+\.\d+$'
+  policy:
+    semver:
+      range: '>= 2.0.0'
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: gluetun
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: gluetun
+  filterTags:
+    pattern: '^v(?P<version>\d+\.\d+\.\d+)$'
+    extract: '$version'
+  policy:
+    semver:
+      range: '>= 3.0.0'
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: tika
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: tika
+  filterTags:
+    pattern: '^(?P<version>\d+\.\d+\.\d+)\.\d+$'
+    extract: '$version'
+  policy:
+    semver:
+      range: '>= 2.0.0'
