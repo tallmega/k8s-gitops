@@ -22,7 +22,6 @@ spec:
       - name: wyzebridge
         image: mrlt8/wyze-bridge:2.10.3 # {"$imagepolicy": "flux-system:wyzebridge"}
         imagePullPolicy: IfNotPresent
-        type: ClusterIP
         ports:
         - containerPort: 1935
         - containerPort: 8554
