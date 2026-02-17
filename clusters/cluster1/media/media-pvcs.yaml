@@ -10,7 +10,7 @@ spec:
   volumeName: tvshows-pv
   resources:
     requests:
-      storage: 8Ti
+      storage: 8Gi
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -80,7 +80,7 @@ spec:
   volumeName: music-pv
   resources:
     requests:
-      storage: 8Ti
+      storage: 8Gi
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -94,7 +94,7 @@ spec:
   volumeName: downloads-complete-pv
   resources:
     requests:
-      storage: 8Ti
+      storage: 8Gi
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -108,7 +108,7 @@ spec:
   volumeName: downloads-incomplete-pv
   resources:
     requests:
-      storage: 8Ti
+      storage: 8Gi
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -122,4 +122,4 @@ spec:
   volumeName: immich-data-pv
   resources:
     requests:
-      storage: 8Ti
+      storage: 8Gi

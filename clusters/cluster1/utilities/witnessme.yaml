@@ -70,4 +70,4 @@ spec:
   volumeName: screenshots-pv
   resources:
     requests:
-      storage: 17Ti
+      storage: 8Gi
