@@ -20,6 +20,19 @@ spec:
         name: grafana
         namespace: flux-system
   interval: 1m
+  valuesFrom:
+    - kind: Secret
+      name: graphanacloud-secret
+      valuesKey: token
+      targetPath: externalServices.prometheus.basicAuth.password
+    - kind: Secret
+      name: graphanacloud-secret
+      valuesKey: token
+      targetPath: externalServices.loki.basicAuth.password
+    - kind: Secret
+      name: graphanacloud-secret
+      valuesKey: token
+      targetPath: externalServices.tempo.basicAuth.password
   install:
     createNamespace: true
     remediation:
@@ -31,36 +44,15 @@ spec:
       prometheus:
         host: https://prometheus-prod-32-prod-ca-east-0.grafana.net
         basicAuth:
-          usernameFrom:
-            secretKeyRef:
-              name: graphanacloud-secret
-              key: prom-username
-          passwordFrom:
-            secretKeyRef:
-              name: graphanacloud-secret
-              key: token
+          username: "1065506"
       loki:
         host: https://logs-prod-018.grafana.net
         basicAuth:
-          usernameFrom:
-            secretKeyRef:
-              name: graphanacloud-secret
-              key: loki-username
-          passwordFrom:
-            secretKeyRef:
-              name: graphanacloud-secret
-              key: token
+          username: "634358"
       tempo:
         host: https://tempo-prod-13-prod-ca-east-0.grafana.net:443
         basicAuth:
-          usernameFrom:
-            secretKeyRef:
-              name: graphanacloud-secret
-              key: tempo-username
-          passwordFrom:
-            secretKeyRef:
-              name: graphanacloud-secret
-              key: token
+          username: "630862"
     metrics:
       enabled: true
       alloy:
