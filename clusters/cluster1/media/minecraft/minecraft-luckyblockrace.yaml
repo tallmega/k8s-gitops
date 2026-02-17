@@ -18,6 +18,13 @@ spec:
         podtype: minecraft
     spec:
       hostNetwork: true
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchLabels:
+                podtype: minecraft
+            topologyKey: kubernetes.io/hostname
       containers:
       - name: minecraft-luckyblockrace
         image: itzg/minecraft-bedrock-server:2026.2.0 # {"$imagepolicy": "flux-system:minecraft"}
