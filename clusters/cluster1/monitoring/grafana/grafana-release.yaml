@@ -31,18 +31,36 @@ spec:
       prometheus:
         host: https://prometheus-prod-32-prod-ca-east-0.grafana.net
         basicAuth:
-          username: "1065506"
-          password: "glc_eyJvIjoiODg5ODY4IiwibiI6InN0YWNrLTY4MTMxMS1pbnRlZ3JhdGlvbi1ncmFmYW5haGVsbXRva2VuLXRlc3QyIiwiayI6InhHN282NkNEODdBOHZRNDZiZjFlaTVCQyIsIm0iOnsiciI6InByb2QtY2EtZWFzdC0wIn19"
+          usernameFrom:
+            secretKeyRef:
+              name: graphanacloud-secret
+              key: prom-username
+          passwordFrom:
+            secretKeyRef:
+              name: graphanacloud-secret
+              key: token
       loki:
         host: https://logs-prod-018.grafana.net
         basicAuth:
-          username: "634358"
-          password: "glc_eyJvIjoiODg5ODY4IiwibiI6InN0YWNrLTY4MTMxMS1pbnRlZ3JhdGlvbi1ncmFmYW5haGVsbXRva2VuLXRlc3QyIiwiayI6InhHN282NkNEODdBOHZRNDZiZjFlaTVCQyIsIm0iOnsiciI6InByb2QtY2EtZWFzdC0wIn19"
+          usernameFrom:
+            secretKeyRef:
+              name: graphanacloud-secret
+              key: loki-username
+          passwordFrom:
+            secretKeyRef:
+              name: graphanacloud-secret
+              key: token
       tempo:
         host: https://tempo-prod-13-prod-ca-east-0.grafana.net:443
         basicAuth:
-          username: "630862"
-          password: "glc_eyJvIjoiODg5ODY4IiwibiI6InN0YWNrLTY4MTMxMS1pbnRlZ3JhdGlvbi1ncmFmYW5haGVsbXRva2VuLXRlc3QyIiwiayI6InhHN282NkNEODdBOHZRNDZiZjFlaTVCQyIsIm0iOnsiciI6InByb2QtY2EtZWFzdC0wIn19"
+          usernameFrom:
+            secretKeyRef:
+              name: graphanacloud-secret
+              key: tempo-username
+          passwordFrom:
+            secretKeyRef:
+              name: graphanacloud-secret
+              key: token
     metrics:
       enabled: true
       alloy:
