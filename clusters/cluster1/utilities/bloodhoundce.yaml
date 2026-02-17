@@ -224,6 +224,12 @@ spec:
           value: "neo4j/bloodhoundcommunityedition"
         - name: NEO4J_dbms_allow__upgrade
           value: "true"
+        - name: NEO4J_dbms_memory_heap_initial__size
+          value: "512m"
+        - name: NEO4J_dbms_memory_heap_max__size
+          value: "1g"
+        - name: NEO4J_dbms_memory_pagecache_size
+          value: "512m"
         ports:
         - containerPort: 7687
         - containerPort: 7474
@@ -242,10 +248,10 @@ spec:
             - /dev/null
             - -q
             - http://127.0.0.1:7474
-          initialDelaySeconds: 30
+          initialDelaySeconds: 60
           periodSeconds: 10
           timeoutSeconds: 5
-          failureThreshold: 5
+          failureThreshold: 6
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
