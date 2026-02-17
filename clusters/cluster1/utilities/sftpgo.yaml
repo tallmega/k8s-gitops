@@ -167,4 +167,4 @@ spec:
   volumeName: uploads-pv
   resources:
     requests:
-      storage: 8Gi
+      storage: 17Ti

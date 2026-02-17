@@ -575,7 +575,7 @@ spec:
   volumeName: paperless-export-pv
   resources:
     requests:
-      storage: 8Gi
+      storage: 8Ti
 ---
 apiVersion: v1
 kind: PersistentVolume
