@@ -67,6 +67,8 @@ spec:
           name: music
         - mountPath: /data/ytshows
           name: yt
+        - mountPath: /config/transcodes
+          name: transcode
           # Below are the path to mount devices for hardware acceleration
           # The settings below have been marked out and can be used when removing the "#"
           # - mountPath: /dev/vcsm
@@ -134,7 +136,7 @@ metadata:
   namespace: default # < namespace where to place service
   annotations:
     metallb.universe.tf/allow-shared-ip: jellyfin # < annotation name to combine the Service IP, make sure it's same name as in the service UDP yaml
-    #metallb.universe.tf/ip-allocated-from-pool: myipaddresspool
+    metallb.universe.tf/ip-allocated-from-pool: myipaddresspool
 spec:
   selector:
     app: jellyfin # < reference to the deployment (connects the service with the deployment)

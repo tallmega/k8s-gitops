@@ -26,11 +26,11 @@ spec:
         - name: MEILI_ADDR
           value: http://meilisearch:7700
         - name: BROWSER_WEB_URL
-          value: https://karakeep-chrome:9222
+          value: http://karakeep-chrome:9222
         - name: DATA_DIR
           value: /data
         - name: NEXTAUTH_URL
-          value: http://karakeep.tallflix.ca
+          value: https://karakeep.tallflix.ca
         - name: DISABLE_SIGNUPS
           value: "true"
         - name: TZ
