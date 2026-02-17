@@ -43,4 +43,3 @@ spec:
         compute-full-forwarded-for: "true"
         proxy-body-size: "500m"
         client-body-buffer-size: 500M
-    spec.controller: nginx.org/internal-nginx
