@@ -45,11 +45,11 @@ spec:
           protocol: UDP
         resources:
           requests:
-            cpu: 5m
+            cpu: 50m
             memory: 384Mi
             gpu.intel.com/i915: "1"
           limits:
-            cpu: 400m
+            cpu: "2"
             memory: 2Gi
             gpu.intel.com/i915: "1"
         stdin: true

@@ -129,10 +129,10 @@ spec:
           failureThreshold: 5
         resources:
           requests:
-            cpu: 10m
+            cpu: 25m
             memory: 32Mi
           limits:
-            cpu: 100m
+            cpu: 500m
             memory: 512Mi
         volumeMounts:
         - name: bloodhound-postgres-config
