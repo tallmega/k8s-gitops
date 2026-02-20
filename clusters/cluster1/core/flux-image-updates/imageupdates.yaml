@@ -28,11 +28,11 @@ spec:
 apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImagePolicy
 metadata:
-  name: calibre-web-automated-book-downloader
+  name: shelfmark
   namespace: flux-system
 spec:
   imageRepositoryRef:
-    name: calibre-web-automated-book-downloader
+    name: shelfmark
   policy:
     semver:
       range: '>= 0.0.1 <1000.0.0'
