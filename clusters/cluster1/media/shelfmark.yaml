@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: shelfmark
-        image: ghcr.io/calibrain/shelfmark:1.1.0 # {"$imagepolicy": "flux-system:shelfmark"}
+        image: ghcr.io/calibrain/shelfmark:1.1.1 # {"$imagepolicy": "flux-system:shelfmark"}
         imagePullPolicy: Always
         ports:
         - name: "http-port"
