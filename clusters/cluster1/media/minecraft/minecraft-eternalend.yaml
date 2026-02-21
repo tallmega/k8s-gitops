@@ -1,0 +1,103 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: minecraft-eternalend
+  namespace: default
+spec:
+  replicas: 1
+  strategy:
+    rollingUpdate: null
+    type: Recreate
+  selector:
+    matchLabels:
+      app: minecraft-eternalend
+  template:
+    metadata:
+      labels:
+        app: minecraft-eternalend
+        podtype: minecraft
+    spec:
+      hostNetwork: true
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchLabels:
+                podtype: minecraft
+            topologyKey: kubernetes.io/hostname
+      containers:
+      - name: minecraft-eternalend
+        image: itzg/minecraft-bedrock-server:2026.2.0 # {"$imagepolicy": "flux-system:minecraft"}
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 19132
+          protocol: UDP
+        env:
+        - name: TZ
+          value: America/Toronto
+        - name: SERVER_NAME
+          value: "Finn and Kane"
+        - name: LEVEL_NAME
+          value: "EternalEnd"
+        - name: ENABLE_LAN_VISIBILITY
+          value: "true"
+        - name: GAMEMODE
+          value: "survival"
+        - name: EULA
+          value: "true"
+        - name: ALLOW_CHEATS
+          value: "true"
+        - name: OPS
+          value: "2533274835894189"
+        - name: ENABLE_COMMAND_BLOCK
+          value: "true"
+        - name: DIFFICULTY
+          value: "easy"
+        - name: ONLINE_MODE
+          value: "true"
+        - name: SERVER_PORT
+          value: "19132"
+        volumeMounts:
+        - name: minecraft-config-eternalend
+          mountPath: /data
+        resources:
+          requests:
+            cpu: 50m
+            memory: 256Mi
+          limits:
+            cpu: 400m
+            memory: 2Gi
+      volumes:
+      - name: minecraft-config-eternalend
+        persistentVolumeClaim:
+          claimName: minecraft-eternalend-config-pvc
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+
+## Installing the addon:
+##  1. Wait for the pod to start and generate the world
+##  2. kubectl cp 'Eternal-End-1-1-Addon-MCPE-1.21.mcaddon' <pod-name>:/data/
+##  3. Unzip the .mcaddon in /data - it contains behavior_packs and/or resource_packs
+##  4. Copy pack folders into /data/behavior_packs/ and /data/resource_packs/
+##  5. Edit /data/worlds/EternalEnd/world_behavior_packs.json and world_resource_packs.json
+##     to reference the pack UUIDs from each pack's manifest.json
+##  6. Restart the pod
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: minecraft-eternalend
+  namespace: default
+spec:
+  externalTrafficPolicy: Cluster
+  loadBalancerIP: 10.10.10.75
+  ports:
+  - name: minecraft-eternalend
+    port: 19132
+    protocol: UDP
+    targetPort: 19132
+  selector:
+    app: minecraft-eternalend
+  type: LoadBalancer

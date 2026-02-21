@@ -12,7 +12,6 @@ spec:
   - hosts:
     - "sonarr.tallflix.ca"
     - "sab.tallflix.ca"
-    - "q.tallflix.ca"
     - "prowlarr.tallflix.ca"
     secretName: tls-secret 
   rules:
@@ -34,16 +33,6 @@ spec:
         backend:
           service:
             name: sabnzbd
-            port:
-              number: 8080
-  - host: "q.tallflix.ca"
-    http:
-      paths:
-      - pathType: Prefix
-        path: "/"
-        backend:
-          service:
-            name: qbittorrent
             port:
               number: 8080
   - host: "prowlarr.tallflix.ca"
