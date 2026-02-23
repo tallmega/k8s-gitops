@@ -71,8 +71,8 @@ spec:
             cpu: 25m
             memory: 256Mi
           limits:
-            cpu: 400m
-            memory: 2Gi
+            cpu: 800m
+            memory: 4Gi
       volumes:
       - name: minecraft-config-parkourspiral
         persistentVolumeClaim:
