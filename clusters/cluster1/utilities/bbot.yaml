@@ -18,10 +18,10 @@ spec:
     spec:
       containers:
       - name: bbot
-        image: blacklanternsecurity/bbot:2.8.2 # {"$imagepolicy": "flux-system:bbot"}
+        image: blacklanternsecurity/bbot:2.8.3 # {"$imagepolicy": "flux-system:bbot"}
         imagePullPolicy: IfNotPresent
-        command: [ "sleep" ]
-        args: [ "infinity" ]
+        command: ["sleep"]
+        args: ["infinity"]
         resources:
           requests:
             cpu: 5m
@@ -32,15 +32,10 @@ spec:
         env:
         - name: TZ
           value: America/Toronto
-        # volumeMounts:
-        # - name: bbot
-        #   mountPath: /root/.bbot
-        # - name: bbot-config
-        #   mountPath: /root/.config/bbot
-      # volumes:
-      # - name: bbot
-      #   persistentVolumeClaim:
-      #     claimName: screenshots-pvc
-      # - name: bbot-config
-      #   persistentVolumeClaim:
-      #     claimName: bbot-config-pvc
+          # volumes:
+          # - name: bbot
+          #   persistentVolumeClaim:
+          #     claimName: screenshots-pvc
+          # - name: bbot-config
+          #   persistentVolumeClaim:
+          #     claimName: bbot-config-pvc
