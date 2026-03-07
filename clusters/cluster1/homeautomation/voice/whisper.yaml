@@ -22,17 +22,17 @@ spec:
         name: whisper-k8s
         image: rhasspy/wyoming-whisper:3.1.0 # {"$imagepolicy": "flux-system:whisper"}
         args:
-        - --model=base
+        - --model=tiny
         - --language=en
         ports:
         - containerPort: 10300
           protocol: TCP
         resources:
           requests:
-            cpu: 5m
+            cpu: 500m
             memory: 512Mi
           limits:
-            cpu: 200m
+            cpu: "2"
             memory: 2Gi
         volumeMounts:
         - mountPath: /data

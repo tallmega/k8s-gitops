@@ -22,18 +22,18 @@ spec:
         name: piper-k8s
         image: rhasspy/wyoming-piper:2.2.2 # {"$imagepolicy": "flux-system:piper"}
         args:
-        - --voice=en_GB-cori-high
+        - --voice=en_GB-cori-medium
         - --update-voices
         ports:
         - containerPort: 10200
           protocol: TCP
         resources:
           requests:
-            cpu: 5m
+            cpu: 250m
             memory: 128Mi
           limits:
-            cpu: 100m
-            memory: 512Mi
+            cpu: "1"
+            memory: 1Gi
         volumeMounts:
         - mountPath: /data
           name: piper-data
