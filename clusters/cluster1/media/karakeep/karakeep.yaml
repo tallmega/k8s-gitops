@@ -52,10 +52,10 @@ spec:
               key: NEXT_PUBLIC_SECRET
         resources:
           requests:
-            cpu: 20m
+            cpu: 250m
             memory: 256Mi
           limits:
-            cpu: 200m
+            cpu: "1"
             memory: 2Gi
         volumeMounts:
         - mountPath: /data
@@ -193,10 +193,10 @@ spec:
             - --hide-scrollbars
           resources:
             requests:
-              cpu: 5m
+              cpu: 250m
               memory: 64Mi
             limits:
-              cpu: 200m
+              cpu: "1"
               memory: 512Mi
 ---
 apiVersion: v1
