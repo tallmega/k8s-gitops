@@ -34,8 +34,8 @@ spec:
             cpu: 5m
             memory: 256Mi
           limits:
-            cpu: 200m
-            memory: 2Gi
+            cpu: 500m
+            memory: 4Gi
         volumeMounts:
         - name: radarr-config1
           mountPath: /config
