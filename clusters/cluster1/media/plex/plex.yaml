@@ -57,8 +57,8 @@ spec:
             memory: 2Gi
             gpu.intel.com/i915: "1"
           limits:
-            cpu: "4"
-            memory: 8Gi
+            cpu: "6"
+            memory: 12Gi
             gpu.intel.com/i915: "1"
         startupProbe:
           failureThreshold: 30
