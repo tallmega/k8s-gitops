@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: bbot
-        image: blacklanternsecurity/bbot:2.8.3 # {"$imagepolicy": "flux-system:bbot"}
+        image: blacklanternsecurity/bbot:2.8.4 # {"$imagepolicy": "flux-system:bbot"}
         imagePullPolicy: IfNotPresent
         command: ["sleep"]
         args: ["infinity"]
