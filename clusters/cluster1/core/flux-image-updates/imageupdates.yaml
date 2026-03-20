@@ -40,6 +40,21 @@ spec:
 apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImagePolicy
 metadata:
+  name: silverbullet
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: silverbullet
+  filterTags:
+    pattern: '^(?P<version>\d+\.\d+\.\d+)$'
+    extract: '$version'
+  policy:
+    semver:
+      range: '>= 2.0.0 <1000.0.0'
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
   name: mealie
   namespace: flux-system
 spec:
