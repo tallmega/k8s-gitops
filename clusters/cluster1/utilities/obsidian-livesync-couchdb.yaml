@@ -28,11 +28,20 @@ spec:
         - name: SERVER_DOMAIN
           value: obsidian-livesync.tallflix.ca
         - name: COUCHDB_USER
-          value: obsidian
+          valueFrom:
+            secretKeyRef:
+              name: obsidian-livesync-couchdb-secret
+              key: COUCHDB_USER
         - name: COUCHDB_PASSWORD
-          value: change-me
+          valueFrom:
+            secretKeyRef:
+              name: obsidian-livesync-couchdb-secret
+              key: COUCHDB_PASSWORD
         - name: COUCHDB_DATABASE
-          value: obsidian
+          valueFrom:
+            secretKeyRef:
+              name: obsidian-livesync-couchdb-secret
+              key: COUCHDB_DATABASE
         resources:
           requests:
             cpu: 25m
