@@ -1,0 +1,104 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: obsidian-livesync-couchdb
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: obsidian-livesync-couchdb
+  strategy:
+    rollingUpdate: null
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: obsidian-livesync-couchdb
+    spec:
+      containers:
+      - name: obsidian-livesync-couchdb
+        image: docker.io/oleduc/docker-obsidian-livesync-couchdb:latest # {"$imagepolicy": "flux-system:obsidian-livesync-couchdb"}
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 5984
+        env:
+        - name: TZ
+          value: America/Toronto
+        - name: SERVER_DOMAIN
+          value: obsidian-livesync.tallflix.ca
+        - name: COUCHDB_USER
+          value: obsidian
+        - name: COUCHDB_PASSWORD
+          value: change-me
+        - name: COUCHDB_DATABASE
+          value: obsidian
+        resources:
+          requests:
+            cpu: 25m
+            memory: 256Mi
+          limits:
+            cpu: 500m
+            memory: 2Gi
+        volumeMounts:
+        - name: obsidian-livesync-couchdb-data
+          mountPath: /opt/couchdb/data
+      volumes:
+      - name: obsidian-livesync-couchdb-data
+        persistentVolumeClaim:
+          claimName: obsidian-livesync-couchdb-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: obsidian-livesync-couchdb
+  namespace: default
+  labels:
+    app: obsidian-livesync-couchdb
+spec:
+  selector:
+    app: obsidian-livesync-couchdb
+  ports:
+  - name: couchdb
+    port: 5984
+    targetPort: 5984
+  type: ClusterIP
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: obsidian-livesync-couchdb-ingress
+  namespace: default
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-dns01"
+    nginx.ingress.kubernetes.io/proxy-body-size: "0"
+spec:
+  ingressClassName: internal-nginx
+  tls:
+  - hosts:
+    - "obsidian-livesync.tallflix.ca"
+    secretName: obsidian-livesync-tls-secret
+  rules:
+  - host: obsidian-livesync.tallflix.ca
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: obsidian-livesync-couchdb
+            port:
+              number: 5984
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: obsidian-livesync-couchdb-pvc
+  namespace: default
+spec:
+  accessModes:
+  - ReadWriteOnce
+  storageClassName: longhorn
+  resources:
+    requests:
+      storage: 10Gi
