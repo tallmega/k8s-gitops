@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: obsidian-livesync-couchdb
-        image: docker.io/oleduc/docker-obsidian-livesync-couchdb:latest # {"$imagepolicy": "flux-system:obsidian-livesync-couchdb"}
+        image: docker.io/oleduc/docker-obsidian-livesync-couchdb:1.0.1 # {"$imagepolicy": "flux-system:obsidian-livesync-couchdb"}
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 5984
