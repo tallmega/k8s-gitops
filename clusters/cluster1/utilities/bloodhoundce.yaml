@@ -15,7 +15,7 @@ data:
       "log_level": "INFO",
       "log_path": "bloodhound.log",
       "database": {
-        "connection": "user=bloodhound password=bloodhoundcommunityedition dbname=bloodhound host=app-db"
+        "connection": "user=bloodhound password=bloodhoundcommunityedition dbname=bloodhound host=app-db sslmode=disable"
       },
       "neo4j": {
         "connection": "neo4j://neo4j:bloodhoundcommunityedition@graph-db:7687/"
