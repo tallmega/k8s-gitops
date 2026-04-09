@@ -59,9 +59,9 @@ spec:
         metricsTuning:
           useIntegrationAllowList: true
       cost:
-        enabled: true
+        enabled: false
       kepler:
-        enabled: true
+        enabled: false
       node-exporter:
         enabled: true
     logs:
@@ -82,7 +82,7 @@ spec:
       grafanaCloudMetrics:
         enabled: false
     opencost:
-      enabled: true
+      enabled: false
       opencost:
         exporter:
           defaultClusterId: cluster1
@@ -96,7 +96,7 @@ spec:
     prometheus-operator-crds:
       enabled: true
     kepler:
-      enabled: true
+      enabled: false
     alloy: {}
     alloy-events: {}
     alloy-logs: {}
