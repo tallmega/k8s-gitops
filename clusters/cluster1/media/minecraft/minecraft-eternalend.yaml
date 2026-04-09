@@ -27,7 +27,7 @@ spec:
             topologyKey: kubernetes.io/hostname
       containers:
       - name: minecraft-eternalend
-        image: itzg/minecraft-bedrock-server:2026.4.0 # {"$imagepolicy": "flux-system:minecraft"}
+        image: itzg/minecraft-bedrock-server:2026.4.1 # {"$imagepolicy": "flux-system:minecraft"}
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 19132
