@@ -110,10 +110,10 @@ spec:
 apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImageRepository
 metadata:
-  name: stirling
+  name: bento
   namespace: flux-system
 spec:
-  image: stirlingtools/stirling-pdf
+  image: ghcr.io/alam00000/bentopdf
   interval: 30m0s
 # ---
 # apiVersion: image.toolkit.fluxcd.io/v1beta2
