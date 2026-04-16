@@ -91,6 +91,32 @@ spec:
             url: https://prometheus-prod-32-prod-ca-east-0.grafana.net/api/prom
     kube-state-metrics:
       enabled: true
+      collectors:
+        - certificatesigningrequests
+        - cronjobs
+        - daemonsets
+        - deployments
+        - endpointslices
+        - horizontalpodautoscalers
+        - ingresses
+        - jobs
+        - leases
+        - limitranges
+        - mutatingwebhookconfigurations
+        - namespaces
+        - networkpolicies
+        - nodes
+        - persistentvolumeclaims
+        - persistentvolumes
+        - poddisruptionbudgets
+        - pods
+        - replicationcontrollers
+        - resourcequotas
+        - services
+        - statefulsets
+        - storageclasses
+        - validatingwebhookconfigurations
+        - volumeattachments
     prometheus-node-exporter:
       enabled: true
     prometheus-operator-crds:
