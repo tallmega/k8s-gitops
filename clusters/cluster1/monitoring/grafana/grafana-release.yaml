@@ -57,13 +57,27 @@ spec:
       enabled: true
       alloy:
         metricsTuning:
-          useIntegrationAllowList: true
+          useIntegrationAllowList: false
       cost:
         enabled: false
       kepler:
         enabled: false
+      kube-state-metrics:
+        metricsTuning:
+          excludeMetrics:
+            - kube_deployment_status_condition
+            - kube_persistentvolume_status_phase
+            - kube_persistentvolumeclaim_status_phase
+            - kube_pod_container_info
+            - kube_pod_info
+            - kube_pod_restart_policy
+            - kube_pod_start_time
+            - kube_pod_status_reason
       node-exporter:
         enabled: true
+        metricsTuning:
+          excludeMetrics:
+            - node_filesystem_mount_info
     logs:
       enabled: true
       pod_logs:
@@ -92,31 +106,19 @@ spec:
     kube-state-metrics:
       enabled: true
       collectors:
-        - certificatesigningrequests
         - cronjobs
         - daemonsets
         - deployments
-        - endpointslices
         - horizontalpodautoscalers
         - ingresses
         - jobs
-        - leases
-        - limitranges
-        - mutatingwebhookconfigurations
         - namespaces
-        - networkpolicies
         - nodes
         - persistentvolumeclaims
-        - persistentvolumes
-        - poddisruptionbudgets
         - pods
-        - replicationcontrollers
-        - resourcequotas
         - services
         - statefulsets
         - storageclasses
-        - validatingwebhookconfigurations
-        - volumeattachments
     prometheus-node-exporter:
       enabled: true
     prometheus-operator-crds:
