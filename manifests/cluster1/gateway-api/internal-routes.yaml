@@ -1,0 +1,191 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: appdaemon-http-redirect
+  namespace: default
+spec:
+  hostnames:
+  - appdaemon.tallflix.ca
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: internal-gateway
+    namespace: gateway-system
+    sectionName: http
+  rules:
+  - filters:
+    - type: RequestRedirect
+      requestRedirect:
+        scheme: https
+        statusCode: 301
+    matches:
+    - path:
+        type: PathPrefix
+        value: /
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: appdaemon-https
+  namespace: default
+spec:
+  hostnames:
+  - appdaemon.tallflix.ca
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: internal-gateway
+    namespace: gateway-system
+    sectionName: https
+  rules:
+  - backendRefs:
+    - name: appdaemon
+      port: 5050
+    matches:
+    - path:
+        type: PathPrefix
+        value: /
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: bento-http-redirect
+  namespace: default
+spec:
+  hostnames:
+  - bento.tallflix.ca
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: internal-gateway
+    namespace: gateway-system
+    sectionName: http
+  rules:
+  - filters:
+    - type: RequestRedirect
+      requestRedirect:
+        scheme: https
+        statusCode: 301
+    matches:
+    - path:
+        type: PathPrefix
+        value: /
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: bento-https
+  namespace: default
+spec:
+  hostnames:
+  - bento.tallflix.ca
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: internal-gateway
+    namespace: gateway-system
+    sectionName: https
+  rules:
+  - backendRefs:
+    - name: bento
+      port: 8080
+    matches:
+    - path:
+        type: PathPrefix
+        value: /
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: pinchflat-http-redirect
+  namespace: default
+spec:
+  hostnames:
+  - pinchflat.tallflix.ca
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: internal-gateway
+    namespace: gateway-system
+    sectionName: http
+  rules:
+  - filters:
+    - type: RequestRedirect
+      requestRedirect:
+        scheme: https
+        statusCode: 301
+    matches:
+    - path:
+        type: PathPrefix
+        value: /
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: pinchflat-https
+  namespace: default
+spec:
+  hostnames:
+  - pinchflat.tallflix.ca
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: internal-gateway
+    namespace: gateway-system
+    sectionName: https
+  rules:
+  - backendRefs:
+    - name: pinchflat
+      port: 8945
+    matches:
+    - path:
+        type: PathPrefix
+        value: /
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: zigbee2mqtt-http-redirect
+  namespace: default
+spec:
+  hostnames:
+  - zigbee2mqtt.tallflix.ca
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: internal-gateway
+    namespace: gateway-system
+    sectionName: http
+  rules:
+  - filters:
+    - type: RequestRedirect
+      requestRedirect:
+        scheme: https
+        statusCode: 301
+    matches:
+    - path:
+        type: PathPrefix
+        value: /
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: zigbee2mqtt-https
+  namespace: default
+spec:
+  hostnames:
+  - zigbee2mqtt.tallflix.ca
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: internal-gateway
+    namespace: gateway-system
+    sectionName: https
+  rules:
+  - backendRefs:
+    - name: zigbee2mqtt
+      port: 8080
+    matches:
+    - path:
+        type: PathPrefix
+        value: /

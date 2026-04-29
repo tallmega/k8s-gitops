@@ -20,6 +20,9 @@ spec:
     ipam:
       mode: kubernetes
     kubeProxyReplacement: false
+    gatewayAPI:
+      enabled: true
+      externalTrafficPolicy: Cluster
     securityContext:
       capabilities:
         ciliumAgent: 

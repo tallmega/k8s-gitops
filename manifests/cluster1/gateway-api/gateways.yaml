@@ -1,0 +1,80 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: gateway-system
+  labels:
+    managed-by: flux
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: tallflix-wildcard
+  namespace: gateway-system
+spec:
+  commonName: "*.tallflix.ca"
+  dnsNames:
+  - "*.tallflix.ca"
+  issuerRef:
+    kind: ClusterIssuer
+    name: letsencrypt-dns01
+  secretName: tallflix-wildcard-tls
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: public-gateway
+  namespace: gateway-system
+spec:
+  gatewayClassName: cilium
+  infrastructure:
+    annotations:
+      # Spare MetalLB IP while ext-ingress-nginx still owns 10.10.10.60.
+      metallb.io/loadBalancerIPs: 10.10.10.73
+  listeners:
+  - allowedRoutes:
+      namespaces:
+        from: All
+    hostname: "*.tallflix.ca"
+    name: http
+    port: 80
+    protocol: HTTP
+  - allowedRoutes:
+      namespaces:
+        from: All
+    hostname: "*.tallflix.ca"
+    name: https
+    port: 443
+    protocol: HTTPS
+    tls:
+      certificateRefs:
+      - name: tallflix-wildcard-tls
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: internal-gateway
+  namespace: gateway-system
+spec:
+  gatewayClassName: cilium
+  infrastructure:
+    annotations:
+      # Spare MetalLB IP while int-ingress-nginx still owns 10.10.10.65.
+      metallb.io/loadBalancerIPs: 10.10.10.74
+  listeners:
+  - allowedRoutes:
+      namespaces:
+        from: All
+    hostname: "*.tallflix.ca"
+    name: http
+    port: 80
+    protocol: HTTP
+  - allowedRoutes:
+      namespaces:
+        from: All
+    hostname: "*.tallflix.ca"
+    name: https
+    port: 443
+    protocol: HTTPS
+    tls:
+      certificateRefs:
+      - name: tallflix-wildcard-tls
