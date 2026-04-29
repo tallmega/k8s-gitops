@@ -1,38 +1,38 @@
----
-apiVersion: helm.toolkit.fluxcd.io/v2
-kind: HelmRelease
-metadata:
-  name: ext-ingress-nginx
-  namespace: flux-system
-spec:
-  targetNamespace: ext-ingress-nginx
-  chart:
-    spec:
-      chart: ingress-nginx
-      sourceRef:
-        kind: HelmRepository
-        name: ingress-nginx
-        namespace: flux-system
-  install:
-    crds: Create
-  interval: 10m0s
-  releaseName: ext-ingress-nginx
-  upgrade:
-    crds: CreateReplace
-  values:
-    controller:
-      allowSnippetAnnotations: true
-      replicaCount: 2
-      # autoscaling:
-      #   enabled: true
-      #   minReplicas: 2
-      #   maxReplicas: 3
-      service:
-        loadBalancerIP: "10.10.10.73"
-        #externalTrafficPolicy: Local
-        externalTrafficPolicy: Cluster
-      config:
-        use-forwarded-headers: "true"
-        compute-full-forwarded-for: "true"
-        annotations-risk-level: "Critical"
+# ---
+# apiVersion: helm.toolkit.fluxcd.io/v2
+# kind: HelmRelease
+# metadata:
+#   name: ext-ingress-nginx
+#   namespace: flux-system
+# spec:
+#   targetNamespace: ext-ingress-nginx
+#   chart:
+#     spec:
+#       chart: ingress-nginx
+#       sourceRef:
+#         kind: HelmRepository
+#         name: ingress-nginx
+#         namespace: flux-system
+#   install:
+#     crds: Create
+#   interval: 10m0s
+#   releaseName: ext-ingress-nginx
+#   upgrade:
+#     crds: CreateReplace
+#   values:
+#     controller:
+#       allowSnippetAnnotations: true
+#       replicaCount: 2
+#       # autoscaling:
+#       #   enabled: true
+#       #   minReplicas: 2
+#       #   maxReplicas: 3
+#       service:
+#         loadBalancerIP: "10.10.10.73"
+#         #externalTrafficPolicy: Local
+#         externalTrafficPolicy: Cluster
+#       config:
+#         use-forwarded-headers: "true"
+#         compute-full-forwarded-for: "true"
+#         annotations-risk-level: "Critical"
 
