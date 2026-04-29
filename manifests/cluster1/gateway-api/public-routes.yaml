@@ -511,3 +511,99 @@ spec:
     - path:
         type: PathPrefix
         value: /
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: webdav-http-redirect
+  namespace: default
+spec:
+  hostnames:
+  - webdav.tallflix.ca
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: public-gateway
+    namespace: gateway-system
+    sectionName: http
+  rules:
+  - filters:
+    - type: RequestRedirect
+      requestRedirect:
+        scheme: https
+        statusCode: 301
+    matches:
+    - path:
+        type: PathPrefix
+        value: /
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: webdav-https
+  namespace: default
+spec:
+  hostnames:
+  - webdav.tallflix.ca
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: public-gateway
+    namespace: gateway-system
+    sectionName: https
+  rules:
+  - backendRefs:
+    - name: sftpgo-httpdav
+      port: 10080
+    matches:
+    - path:
+        type: PathPrefix
+        value: /
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: immich-http-redirect
+  namespace: default
+spec:
+  hostnames:
+  - immich.tallflix.ca
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: public-gateway
+    namespace: gateway-system
+    sectionName: http
+  rules:
+  - filters:
+    - type: RequestRedirect
+      requestRedirect:
+        scheme: https
+        statusCode: 301
+    matches:
+    - path:
+        type: PathPrefix
+        value: /
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: immich-https
+  namespace: default
+spec:
+  hostnames:
+  - immich.tallflix.ca
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: public-gateway
+    namespace: gateway-system
+    sectionName: https
+  rules:
+  - backendRefs:
+    - name: immich-server
+      port: 2283
+    matches:
+    - path:
+        type: PathPrefix
+        value: /
