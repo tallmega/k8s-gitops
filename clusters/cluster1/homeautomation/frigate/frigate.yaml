@@ -42,6 +42,9 @@ spec:
         - containerPort: 5000
           name: http
           protocol: TCP
+        - containerPort: 8971
+          name: auth-ui
+          protocol: TCP
         - containerPort: 8554
           name: rtsp
           protocol: TCP
@@ -130,6 +133,21 @@ spec:
   selector:
     app.kubernetes.io/name: frigate
   type: LoadBalancer
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frigate-auth
+  namespace: default
+spec:
+  ports:
+  - name: frigate-8971
+    port: 8971
+    protocol: TCP
+    targetPort: 8971
+  selector:
+    app.kubernetes.io/name: frigate
+  type: ClusterIP
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
