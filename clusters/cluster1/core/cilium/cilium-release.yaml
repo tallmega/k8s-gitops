@@ -22,6 +22,8 @@ spec:
     kubeProxyReplacement: false
     gatewayAPI:
       enabled: true
+      gatewayClass:
+        create: "true"
       externalTrafficPolicy: Cluster
     securityContext:
       capabilities:
