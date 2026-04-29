@@ -525,3 +525,51 @@ spec:
     - path:
         type: PathPrefix
         value: /
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: longhorn-http-redirect
+  namespace: longhorn-system
+spec:
+  hostnames:
+  - longhorn.tallflix.ca
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: internal-gateway
+    namespace: gateway-system
+    sectionName: http
+  rules:
+  - filters:
+    - type: RequestRedirect
+      requestRedirect:
+        scheme: https
+        statusCode: 301
+    matches:
+    - path:
+        type: PathPrefix
+        value: /
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: longhorn-https
+  namespace: longhorn-system
+spec:
+  hostnames:
+  - longhorn.tallflix.ca
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: internal-gateway
+    namespace: gateway-system
+    sectionName: https
+  rules:
+  - backendRefs:
+    - name: longhorn-frontend
+      port: 80
+    matches:
+    - path:
+        type: PathPrefix
+        value: /
