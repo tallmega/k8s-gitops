@@ -43,7 +43,6 @@ spec:
   gatewayClassName: cilium
   infrastructure:
     annotations:
-      # Cutover target: reclaim the legacy public ingress VIP.
       metallb.io/loadBalancerIPs: 10.10.10.60
   listeners:
   - allowedRoutes:
@@ -90,7 +89,6 @@ spec:
   gatewayClassName: cilium
   infrastructure:
     annotations:
-      # Cutover target: reclaim the legacy internal ingress VIP.
       metallb.io/loadBalancerIPs: 10.10.10.65
   listeners:
   - allowedRoutes:
