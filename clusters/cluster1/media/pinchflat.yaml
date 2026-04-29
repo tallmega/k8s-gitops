@@ -61,28 +61,3 @@ spec:
     port: 8945
     targetPort: 8945
   type: ClusterIP
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: pinchflat-ingress
-  namespace: default
-  annotations:
-    cert-manager.io/cluster-issuer: "letsencrypt-dns01"
-spec:
-  ingressClassName: internal-nginx
-  tls:
-  - hosts:
-    - "pinchflat.tallflix.ca"
-    secretName: pinchflat-tls-secret
-  rules:
-  - host: pinchflat.tallflix.ca
-    http:
-      paths:
-      - pathType: Prefix
-        path: "/"
-        backend:
-          service:
-            name: pinchflat
-            port:
-              number: 8945

@@ -29,18 +29,7 @@ spec:
   values:
     server:
       ingress:
-        ingressClassName: nginx
-        enabled: true
-        annotations:
-          cert-manager.io/cluster-issuer: "letsencrypt-prod"
-          # optional, but handy on some setups:
-          nginx.ingress.kubernetes.io/ssl-redirect: "true"
-        hosts:
-          - sso.tallflix.ca
-        tls:
-        - hosts:
-            - sso.tallflix.ca
-          secretName: sso-tallflix-tls
+        enabled: false
         
       env:
         - name: AUTHENTIK_POSTGRESQL__PASSWORD

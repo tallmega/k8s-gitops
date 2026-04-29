@@ -95,30 +95,3 @@ spec:
     port: 9000
     targetPort: 9000
   type: ClusterIP
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: mealie-ingress
-  namespace: default
-  annotations:
-    cert-manager.io/cluster-issuer: "letsencrypt-prod"
-    nginx.ingress.kubernetes.io/proxy-body-size: "0"
-    #kubernetes.io/ingress.class: nginx
-spec:
-  ingressClassName: nginx
-  tls:
-  - hosts:
-    - "mealie.tallflix.ca"
-    secretName: tls-secret-mealie
-  rules:
-  - host: "mealie.tallflix.ca"
-    http:
-      paths:
-      - pathType: Prefix
-        path: "/"
-        backend:
-          service:
-            name: mealie
-            port:
-              number: 9000

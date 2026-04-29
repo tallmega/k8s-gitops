@@ -79,31 +79,6 @@ spec:
     targetPort: 3000
   type: ClusterIP
 ---
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: karakeep-ingress
-  namespace: default
-  annotations:
-    cert-manager.io/cluster-issuer: "letsencrypt-prod"
-spec:
-  ingressClassName: nginx
-  tls:
-  - hosts:
-    - "karakeep.tallflix.ca"
-    secretName: karakeep-tls-secret
-  rules:
-  - host: karakeep.tallflix.ca
-    http:
-      paths:
-      - pathType: Prefix
-        path: "/"
-        backend:
-          service:
-            name: karakeep-web
-            port:
-              number: 3000
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:

@@ -66,30 +66,3 @@ spec:
     app.kubernetes.io/instance: home-assistant
     app.kubernetes.io/name: home-assistant
   type: LoadBalancer
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  annotations:
-    cert-manager.io/cluster-issuer: "letsencrypt-prod"
-  labels:
-    app.kubernetes.io/name: hass
-  name: hass-ingress
-  namespace: default
-spec:
-  ingressClassName: nginx
-  rules:
-  - host: hass.tallflix.ca
-    http:
-      paths:
-      - backend:
-          service:
-            name: home-assistant
-            port:
-              number: 8123
-        path: /
-        pathType: Prefix
-  tls:
-  - hosts:
-    - hass.tallflix.ca
-    secretName: hass-secret

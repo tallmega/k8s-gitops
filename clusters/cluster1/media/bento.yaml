@@ -45,28 +45,3 @@ spec:
     port: 8080
     targetPort: 8080
   type: ClusterIP
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: bento-ingress
-  namespace: default
-  annotations:
-    cert-manager.io/cluster-issuer: "letsencrypt-dns01"
-spec:
-  ingressClassName: internal-nginx
-  tls:
-  - hosts:
-    - "bento.tallflix.ca"
-    secretName: tls-secret-bento
-  rules:
-  - host: bento.tallflix.ca
-    http:
-      paths:
-      - pathType: Prefix
-        path: "/"
-        backend:
-          service:
-            name: bento
-            port:
-              number: 8080
