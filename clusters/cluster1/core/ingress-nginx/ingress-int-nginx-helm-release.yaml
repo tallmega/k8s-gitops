@@ -35,7 +35,7 @@ spec:
         ingressClassByName: true
         controllerValue: "k8s.io/internal-nginx"
       service:
-        loadBalancerIP: "10.10.10.65"
+        loadBalancerIP: "10.10.10.74"
         #externalTrafficPolicy: Local
         externalTrafficPolicy: Cluster
       config:

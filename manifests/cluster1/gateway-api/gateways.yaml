@@ -90,8 +90,8 @@ spec:
   gatewayClassName: cilium
   infrastructure:
     annotations:
-      # Spare MetalLB IP while int-ingress-nginx still owns 10.10.10.65.
-      metallb.io/loadBalancerIPs: 10.10.10.74
+      # Cutover target: reclaim the legacy internal ingress VIP.
+      metallb.io/loadBalancerIPs: 10.10.10.65
   listeners:
   - allowedRoutes:
       namespaces:
