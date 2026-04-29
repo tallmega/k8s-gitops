@@ -315,3 +315,151 @@ spec:
       - type: Exact
         name: Host
         value: prowlarr.tallflix.ca
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: paperless-http-redirect
+  namespace: default
+spec:
+  hostnames:
+  - paperless.tallflix.ca
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: public-gateway
+    namespace: gateway-system
+    sectionName: http
+  rules:
+  - filters:
+    - type: RequestRedirect
+      requestRedirect:
+        scheme: https
+        statusCode: 301
+    matches:
+    - path:
+        type: PathPrefix
+        value: /
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: paperless-https
+  namespace: default
+spec:
+  hostnames:
+  - paperless.tallflix.ca
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: public-gateway
+    namespace: gateway-system
+    sectionName: https
+  rules:
+  - backendRefs:
+    - name: paperless-ngx
+      port: 8000
+    matches:
+    - path:
+        type: PathPrefix
+        value: /
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: overseerr-http-redirect
+  namespace: default
+spec:
+  hostnames:
+  - www.tallflix.ca
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: public-gateway
+    namespace: gateway-system
+    sectionName: http
+  rules:
+  - filters:
+    - type: RequestRedirect
+      requestRedirect:
+        scheme: https
+        statusCode: 301
+    matches:
+    - path:
+        type: PathPrefix
+        value: /
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: overseerr-https
+  namespace: default
+spec:
+  hostnames:
+  - www.tallflix.ca
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: public-gateway
+    namespace: gateway-system
+    sectionName: https
+  rules:
+  - backendRefs:
+    - name: overseerr
+      port: 5055
+    matches:
+    - path:
+        type: PathPrefix
+        value: /
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: tallflix-root-http-redirect
+  namespace: default
+spec:
+  hostnames:
+  - tallflix.ca
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: public-gateway
+    namespace: gateway-system
+    sectionName: http-root
+  rules:
+  - filters:
+    - type: RequestRedirect
+      requestRedirect:
+        hostname: www.tallflix.ca
+        scheme: https
+        statusCode: 301
+    matches:
+    - path:
+        type: PathPrefix
+        value: /
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: tallflix-root-https-redirect
+  namespace: default
+spec:
+  hostnames:
+  - tallflix.ca
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: public-gateway
+    namespace: gateway-system
+    sectionName: https-root
+  rules:
+  - filters:
+    - type: RequestRedirect
+      requestRedirect:
+        hostname: www.tallflix.ca
+        scheme: https
+        statusCode: 301
+    matches:
+    - path:
+        type: PathPrefix
+        value: /

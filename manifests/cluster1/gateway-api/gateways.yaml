@@ -19,6 +19,21 @@ spec:
     name: letsencrypt-dns01
   secretName: tallflix-wildcard-tls
 ---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: tallflix-root
+  namespace: gateway-system
+spec:
+  commonName: tallflix.ca
+  dnsNames:
+  - tallflix.ca
+  - www.tallflix.ca
+  issuerRef:
+    kind: ClusterIssuer
+    name: letsencrypt-dns01
+  secretName: tallflix-root-tls
+---
 apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
 metadata:
@@ -48,6 +63,23 @@ spec:
     tls:
       certificateRefs:
       - name: tallflix-wildcard-tls
+  - allowedRoutes:
+      namespaces:
+        from: All
+    hostname: tallflix.ca
+    name: http-root
+    port: 80
+    protocol: HTTP
+  - allowedRoutes:
+      namespaces:
+        from: All
+    hostname: tallflix.ca
+    name: https-root
+    port: 443
+    protocol: HTTPS
+    tls:
+      certificateRefs:
+      - name: tallflix-root-tls
 ---
 apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
