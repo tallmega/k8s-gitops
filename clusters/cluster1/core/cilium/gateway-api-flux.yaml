@@ -19,6 +19,8 @@ spec:
   interval: 24h0m0s
   path: ./config/crd/standard
   patches:
+  # Temporary compat shim: Cilium 1.19.3 still initializes TLSRoute via v1alpha2.
+  # Remove this once the cluster moves to a Cilium release that consumes TLSRoute v1.
   - patch: |
       - op: replace
         path: /spec/versions/1/served
