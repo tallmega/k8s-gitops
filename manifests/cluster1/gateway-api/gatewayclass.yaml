@@ -15,7 +15,7 @@ metadata:
   name: cilium-l2
 spec:
   controllerName: io.cilium/gateway-controller
-  description: Cilium GatewayClass backed by Cilium LB-IPAM and L2 announcements
+  description: Cilium L2 Gateway
   parametersRef:
     group: cilium.io
     kind: CiliumGatewayClassConfig
