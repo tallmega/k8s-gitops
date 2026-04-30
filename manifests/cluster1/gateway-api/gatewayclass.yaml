@@ -50,6 +50,4 @@ spec:
       values:
       - default
       - gateway-system
-  interfaces:
-  - ^enp88s0$
   loadBalancerIPs: true
