@@ -490,9 +490,9 @@ spec:
         value: /
 ---
 apiVersion: gateway.networking.k8s.io/v1
-kind: HTTPRoute
+kind: TLSRoute
 metadata:
-  name: unifi-https
+  name: unifi-tls
   namespace: default
 spec:
   hostnames:
@@ -502,15 +502,11 @@ spec:
     kind: Gateway
     name: public-gateway
     namespace: gateway-system
-    sectionName: https
+    sectionName: tls-unifi
   rules:
   - backendRefs:
     - name: unifi
       port: 8443
-    matches:
-    - path:
-        type: PathPrefix
-        value: /
 ---
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
