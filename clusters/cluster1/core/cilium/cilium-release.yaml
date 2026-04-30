@@ -20,6 +20,9 @@ spec:
     ipam:
       mode: kubernetes
     kubeProxyReplacement: true
+    defaultLBServiceIPAM: none
+    l2announcements:
+      enabled: true
     gatewayAPI:
       enabled: true
       gatewayClass:

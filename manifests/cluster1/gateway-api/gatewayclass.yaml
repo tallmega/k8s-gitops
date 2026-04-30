@@ -1,0 +1,63 @@
+apiVersion: cilium.io/v2alpha1
+kind: CiliumGatewayClassConfig
+metadata:
+  name: cilium-l2-config
+  namespace: gateway-system
+spec:
+  service:
+    type: LoadBalancer
+    externalTrafficPolicy: Cluster
+    loadBalancerClass: io.cilium/l2-announcer
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: GatewayClass
+metadata:
+  name: cilium-l2
+spec:
+  controllerName: io.cilium/gateway-controller
+  description: Cilium GatewayClass backed by Cilium LB-IPAM and L2 announcements
+  parametersRef:
+    group: cilium.io
+    kind: CiliumGatewayClassConfig
+    name: cilium-l2-config
+    namespace: gateway-system
+---
+apiVersion: cilium.io/v2
+kind: CiliumLoadBalancerIPPool
+metadata:
+  name: gateway-vips
+spec:
+  blocks:
+  - start: 10.10.10.60
+    stop: 10.10.10.78
+  serviceSelector:
+    matchExpressions:
+    - key: io.kubernetes.service.namespace
+      operator: In
+      values:
+      - gateway-system
+    - key: gateway.networking.k8s.io/gateway-name
+      operator: In
+      values:
+      - public-gateway
+      - internal-gateway
+---
+apiVersion: cilium.io/v2alpha1
+kind: CiliumL2AnnouncementPolicy
+metadata:
+  name: gateway-vips
+spec:
+  serviceSelector:
+    matchExpressions:
+    - key: io.kubernetes.service.namespace
+      operator: In
+      values:
+      - gateway-system
+    - key: gateway.networking.k8s.io/gateway-name
+      operator: In
+      values:
+      - public-gateway
+      - internal-gateway
+  interfaces:
+  - ^enp88s0$
+  loadBalancerIPs: true

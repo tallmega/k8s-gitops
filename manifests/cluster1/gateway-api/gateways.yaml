@@ -40,10 +40,10 @@ metadata:
   name: public-gateway
   namespace: gateway-system
 spec:
-  gatewayClassName: cilium
-  infrastructure:
-    annotations:
-      metallb.io/loadBalancerIPs: 10.10.10.60
+  gatewayClassName: cilium-l2
+  addresses:
+  - type: IPAddress
+    value: 10.10.10.60
   listeners:
   - allowedRoutes:
       namespaces:
@@ -86,10 +86,10 @@ metadata:
   name: internal-gateway
   namespace: gateway-system
 spec:
-  gatewayClassName: cilium
-  infrastructure:
-    annotations:
-      metallb.io/loadBalancerIPs: 10.10.10.65
+  gatewayClassName: cilium-l2
+  addresses:
+  - type: IPAddress
+    value: 10.10.10.65
   listeners:
   - allowedRoutes:
       namespaces:
