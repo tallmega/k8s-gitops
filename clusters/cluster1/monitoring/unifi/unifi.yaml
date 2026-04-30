@@ -63,7 +63,6 @@ metadata:
     lbipam.cilium.io/ips: 10.10.10.62
 spec:
   externalTrafficPolicy: Cluster
-  loadBalancerClass: io.cilium/l2-announcer
   ports:
   - name: http
     protocol: TCP

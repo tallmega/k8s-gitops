@@ -62,7 +62,6 @@ metadata:
   annotations:
     lbipam.cilium.io/ips: 10.10.10.64
 spec:
-  loadBalancerClass: io.cilium/l2-announcer
   ports:
   - name: mqtt
     nodePort: 32091

@@ -126,7 +126,6 @@ spec:
     name: discovery-udp
     protocol: UDP
   type: LoadBalancer
-  loadBalancerClass: io.cilium/l2-announcer
   sessionAffinity: ClientIP # This is necessary for multi-replica deployments
 ---
 kind: Service
@@ -149,5 +148,4 @@ spec:
     targetPort: 8920
     name: https-tcp
   type: LoadBalancer
-  loadBalancerClass: io.cilium/l2-announcer
   sessionAffinity: ClientIP # This is necessary for multi-replica deployments

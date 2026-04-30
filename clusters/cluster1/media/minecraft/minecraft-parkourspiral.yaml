@@ -98,7 +98,6 @@ metadata:
     lbipam.cilium.io/ips: 10.10.10.72
 spec:
   externalTrafficPolicy: Cluster
-  loadBalancerClass: io.cilium/l2-announcer
   ports:
   - name: minecraft-parkourspiral
     port: 19132

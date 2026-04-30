@@ -63,4 +63,3 @@ spec:
     app: whisper
   externalTrafficPolicy: Cluster
   type: LoadBalancer
-  loadBalancerClass: io.cilium/l2-announcer

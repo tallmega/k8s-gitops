@@ -117,7 +117,6 @@ metadata:
   namespace: default
 spec:
   externalTrafficPolicy: Cluster
-  loadBalancerClass: io.cilium/l2-announcer
   ports:
   - name: http
     nodePort: 32534

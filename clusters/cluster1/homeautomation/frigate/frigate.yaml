@@ -114,7 +114,6 @@ metadata:
   annotations:
     lbipam.cilium.io/ips: 10.10.10.66
 spec:
-  loadBalancerClass: io.cilium/l2-announcer
   ports:
   - name: frigate-5000
     port: 5000
