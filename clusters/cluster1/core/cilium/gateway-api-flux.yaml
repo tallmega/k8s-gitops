@@ -7,7 +7,7 @@ metadata:
 spec:
   interval: 24h0m0s
   ref:
-    tag: v1.4.1
+    tag: v1.5.1
   url: https://github.com/kubernetes-sigs/gateway-api
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -18,23 +18,14 @@ metadata:
 spec:
   interval: 24h0m0s
   path: ./config/crd/standard
-  prune: true
-  sourceRef:
-    kind: GitRepository
-    name: gateway-api-upstream
-  timeout: 5m0s
-  wait: true
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: gateway-api-experimental-crds
-  namespace: flux-system
-spec:
-  dependsOn:
-  - name: gateway-api-crds
-  interval: 24h0m0s
-  path: ./config/crd/experimental
+  patches:
+  - patch: |
+      - op: replace
+        path: /spec/versions/1/served
+        value: true
+    target:
+      kind: CustomResourceDefinition
+      name: tlsroutes.gateway.networking.k8s.io
   prune: true
   sourceRef:
     kind: GitRepository
@@ -50,7 +41,6 @@ metadata:
 spec:
   dependsOn:
   - name: gateway-api-crds
-  - name: gateway-api-experimental-crds
   interval: 10m0s
   path: ./manifests/cluster1/gateway-api
   prune: true
