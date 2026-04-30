@@ -89,9 +89,11 @@ kind: Service
 metadata:
   name: minecraft-eternalend
   namespace: default
+  annotations:
+    lbipam.cilium.io/ips: 10.10.10.75
 spec:
   externalTrafficPolicy: Cluster
-  loadBalancerIP: 10.10.10.75
+  loadBalancerClass: io.cilium/l2-announcer
   ports:
   - name: minecraft-eternalend
     port: 19132

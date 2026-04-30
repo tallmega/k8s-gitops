@@ -59,8 +59,10 @@ metadata:
     app.kubernetes.io/name: mosquitto
   name: mosquitto
   namespace: default
+  annotations:
+    lbipam.cilium.io/ips: 10.10.10.64
 spec:
-  loadBalancerIP: 10.10.10.64
+  loadBalancerClass: io.cilium/l2-announcer
   ports:
   - name: mqtt
     nodePort: 32091

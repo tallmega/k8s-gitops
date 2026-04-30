@@ -112,13 +112,12 @@ apiVersion: v1
 kind: Service
 metadata:
   annotations:
-    metallb.universe.tf/allow-shared-ip: plex
-    metallb.universe.tf/ip-allocated-from-pool: myipaddresspool
+    lbipam.cilium.io/ips: 10.10.10.61
   name: plex
   namespace: default
 spec:
   externalTrafficPolicy: Cluster
-  loadBalancerIP: 10.10.10.61
+  loadBalancerClass: io.cilium/l2-announcer
   ports:
   - name: http
     nodePort: 32534

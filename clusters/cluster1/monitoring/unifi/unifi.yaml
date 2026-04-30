@@ -60,11 +60,10 @@ metadata:
   name: unifi
   namespace: default
   annotations:
-    metallb.universe.tf/allow-shared-ip: unifi
-    metallb.universe.tf/ip-allocated-from-pool: myipaddresspool
+    lbipam.cilium.io/ips: 10.10.10.62
 spec:
   externalTrafficPolicy: Cluster
-  loadBalancerIP: 10.10.10.62
+  loadBalancerClass: io.cilium/l2-announcer
   ports:
   - name: http
     protocol: TCP

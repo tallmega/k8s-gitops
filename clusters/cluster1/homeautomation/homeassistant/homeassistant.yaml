@@ -54,9 +54,11 @@ kind: Service
 metadata:
   name: home-assistant
   namespace: default
+  annotations:
+    lbipam.cilium.io/ips: 10.10.10.63
 spec:
   externalTrafficPolicy: Cluster
-  loadBalancerIP: 10.10.10.63
+  loadBalancerClass: io.cilium/l2-announcer
   ports:
   - name: http
     protocol: TCP

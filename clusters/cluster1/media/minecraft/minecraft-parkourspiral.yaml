@@ -94,9 +94,11 @@ kind: Service
 metadata:
   name: minecraft-parkourspiral
   namespace: default
+  annotations:
+    lbipam.cilium.io/ips: 10.10.10.72
 spec:
   externalTrafficPolicy: Cluster
-  loadBalancerIP: 10.10.10.71
+  loadBalancerClass: io.cilium/l2-announcer
   ports:
   - name: minecraft-parkourspiral
     port: 19132

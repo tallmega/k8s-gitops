@@ -111,8 +111,8 @@ metadata:
   name: jellyfin-udp # < name of the service
   namespace: default # < namespace where to place service
   annotations:
-    metallb.universe.tf/allow-shared-ip: jellyfin
-    metallb.universe.tf/ip-allocated-from-pool: myipaddresspool
+    lbipam.cilium.io/ips: 10.10.10.68
+    lbipam.cilium.io/sharing-key: jellyfin
 spec:
   selector:
     app: jellyfin # < reference to the deployment (connects the service with the deployment)
@@ -126,7 +126,7 @@ spec:
     name: discovery-udp
     protocol: UDP
   type: LoadBalancer
-  loadBalancerIP: 10.10.10.68 # < IP to access your jellyfinserver. Should be one from the MetalLB range and the same as the UDP yaml
+  loadBalancerClass: io.cilium/l2-announcer
   sessionAffinity: ClientIP # This is necessary for multi-replica deployments
 ---
 kind: Service
@@ -135,8 +135,8 @@ metadata:
   name: jellyfin-tcp # < name of the service
   namespace: default # < namespace where to place service
   annotations:
-    metallb.universe.tf/allow-shared-ip: jellyfin # < annotation name to combine the Service IP, make sure it's same name as in the service UDP yaml
-    metallb.universe.tf/ip-allocated-from-pool: myipaddresspool
+    lbipam.cilium.io/ips: 10.10.10.68
+    lbipam.cilium.io/sharing-key: jellyfin
 spec:
   selector:
     app: jellyfin # < reference to the deployment (connects the service with the deployment)
@@ -149,5 +149,5 @@ spec:
     targetPort: 8920
     name: https-tcp
   type: LoadBalancer
-  loadBalancerIP: 10.10.10.68 # < IP to access your jellyfinserver. Should be one from the MetalLB range and the same as the TCP yaml
+  loadBalancerClass: io.cilium/l2-announcer
   sessionAffinity: ClientIP # This is necessary for multi-replica deployments
