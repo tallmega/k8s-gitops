@@ -44,7 +44,7 @@ spec:
   dependsOn:
   - name: gateway-api-crds
   interval: 10m0s
-  path: ./manifests/cluster1/gateway-api
+  path: ./clusters/cluster1/core/cilium/gateway-api
   prune: true
   sourceRef:
     kind: GitRepository
