@@ -506,7 +506,7 @@ spec:
   rules:
   - backendRefs:
     - name: unifi
-      port: 8080
+      port: 8443
     matches:
     - path:
         type: PathPrefix

@@ -39,6 +39,8 @@ spec:
         #   value: "false"
         - name: TZ
           value: America/Toronto
+        - name: CERT_IS_CHAIN
+          value: "true"
         resources:
           requests:
             cpu: 10m
@@ -49,10 +51,23 @@ spec:
         volumeMounts:
         - name: unifi-config
           mountPath: /unifi
+        - name: unifi-cert
+          mountPath: /unifi/cert
+          readOnly: true
       volumes:
       - name: unifi-config
         persistentVolumeClaim:
           claimName: unifi-config-pvc
+      - name: unifi-cert
+        secret:
+          secretName: unifi-tls
+          items:
+          - key: tls.crt
+            path: cert.pem
+          - key: tls.crt
+            path: chain.pem
+          - key: tls.key
+            path: privkey.pem
 ---
 apiVersion: v1
 kind: Service
@@ -88,3 +103,16 @@ spec:
     app.kubernetes.io/instance: unifi
     app.kubernetes.io/name: unifi
   type: LoadBalancer
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: unifi-tls
+  namespace: default
+spec:
+  secretName: unifi-tls
+  dnsNames:
+  - unifi.tallflix.ca
+  issuerRef:
+    kind: ClusterIssuer
+    name: letsencrypt-dns01

@@ -4,5 +4,6 @@ resources:
 - gatewayclass.yaml
 - gateways.yaml
 - gateway-referencegrants.yaml
+- unifi-backend-tls.yaml
 - public-routes.yaml
 - internal-routes.yaml
