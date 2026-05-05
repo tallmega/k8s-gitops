@@ -428,11 +428,11 @@ spec:
   imageRepositoryRef:
     name: redis
   filterTags:
-    pattern: '^(\d+\.\d+\.\d+)-alpine$'
+    pattern: '^(\d+\.\d+\.\d+)-alpine3\.\d+$'
     extract: '$1'
   policy:
     semver:
-      range: '>= 6.2.0'
+      range: '>= 6.2.0 < 1000.0.0'
 ---
 apiVersion: image.toolkit.fluxcd.io/v1
 kind: ImagePolicy
