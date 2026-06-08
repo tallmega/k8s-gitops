@@ -376,3 +376,12 @@ metadata:
 spec:
   image: docker.io/specterops/bloodhound
   interval: 30m0s
+---
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImageRepository
+metadata:
+  name: thirteen-ft
+  namespace: flux-system
+spec:
+  image: ghcr.io/wasi-master/13ft
+  interval: 30m0s

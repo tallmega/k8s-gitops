@@ -531,3 +531,18 @@ spec:
   policy:
     semver:
       range: '>= 8.4.1 < 9.0.0'
+---
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImagePolicy
+metadata:
+  name: thirteen-ft
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: thirteen-ft
+  filterTags:
+    pattern: '^(?P<version>\d+\.\d+\.\d+)$'
+    extract: '$version'
+  policy:
+    semver:
+      range: '>= 0.4.0 < 1.0.0'

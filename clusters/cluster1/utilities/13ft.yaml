@@ -1,0 +1,88 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: thirteen-ft
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: thirteen-ft
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: thirteen-ft
+    spec:
+      automountServiceAccountToken: false
+      containers:
+      - name: thirteen-ft
+        image: ghcr.io/wasi-master/13ft:0.4.0 # {"$imagepolicy": "flux-system:thirteen-ft"}
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: SERVER_PORT
+          value: "5000"
+        - name: REQUEST_TIMEOUT
+          value: "30"
+        - name: PROCESSING_TIMEOUT
+          value: "60"
+        - name: MAX_CONTENT_LENGTH
+          value: "10485760"
+        - name: MAX_REDIRECTS
+          value: "5"
+        - name: CORS_ORIGINS
+          value: https://ladder.tallflix.ca
+        ports:
+        - name: http
+          containerPort: 5000
+          protocol: TCP
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: http
+          initialDelaySeconds: 5
+          periodSeconds: 10
+          timeoutSeconds: 3
+          failureThreshold: 3
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: http
+          initialDelaySeconds: 15
+          periodSeconds: 20
+          timeoutSeconds: 3
+          failureThreshold: 3
+        resources:
+          requests:
+            cpu: 25m
+            memory: 128Mi
+          limits:
+            cpu: 500m
+            memory: 512Mi
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          runAsNonRoot: true
+          seccompProfile:
+            type: RuntimeDefault
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: thirteen-ft
+  namespace: default
+spec:
+  selector:
+    app: thirteen-ft
+  ports:
+  - name: http
+    port: 5000
+    targetPort: http
+    protocol: TCP
+  type: ClusterIP
