@@ -28,11 +28,11 @@ spec:
           #     key: IMMICH_VERSION
           resources:
             requests:
-              cpu: 5m
+              cpu: 250m
               memory: 128Mi
               gpu.intel.com/i915: "1"
             limits:
-              cpu: 400m
+              cpu: "1"
               memory: 2Gi
               gpu.intel.com/i915: "1"
 ---
