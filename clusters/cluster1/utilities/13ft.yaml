@@ -21,7 +21,7 @@ spec:
       automountServiceAccountToken: false
       containers:
       - name: thirteen-ft
-        image: ghcr.io/wasi-master/13ft:0.4.0 # {"$imagepolicy": "flux-system:thirteen-ft"}
+        image: ghcr.io/wasi-master/13ft:0.4.1 # {"$imagepolicy": "flux-system:thirteen-ft"}
         imagePullPolicy: IfNotPresent
         env:
         - name: SERVER_PORT
