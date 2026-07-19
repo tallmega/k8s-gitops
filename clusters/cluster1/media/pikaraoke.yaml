@@ -1,0 +1,89 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pikaraoke
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pikaraoke
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: pikaraoke
+    spec:
+      containers:
+      - name: pikaraoke
+        image: vicwomg/pikaraoke:1.20.0 # {"$imagepolicy": "flux-system:pikaraoke"}
+        imagePullPolicy: IfNotPresent
+        args:
+        - --url
+        - https://kareokee.tallflix.ca
+        ports:
+        - name: http
+          containerPort: 5555
+          protocol: TCP
+        resources:
+          requests:
+            cpu: 100m
+            memory: 512Mi
+          limits:
+            cpu: "2"
+            memory: 4Gi
+        volumeMounts:
+        - name: config
+          mountPath: /home/pikaraoke/.pikaraoke
+        - name: songs
+          mountPath: /app/pikaraoke-songs
+      volumes:
+      - name: config
+        persistentVolumeClaim:
+          claimName: pikaraoke-config-pvc
+      - name: songs
+        persistentVolumeClaim:
+          claimName: pikaraoke-songs-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pikaraoke
+  namespace: default
+  labels:
+    app: pikaraoke
+spec:
+  selector:
+    app: pikaraoke
+  ports:
+  - name: http
+    port: 5555
+    targetPort: http
+  type: ClusterIP
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pikaraoke-config-pvc
+  namespace: default
+spec:
+  accessModes:
+  - ReadWriteOnce
+  storageClassName: longhorn
+  resources:
+    requests:
+      storage: 2Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pikaraoke-songs-pvc
+  namespace: default
+spec:
+  accessModes:
+  - ReadWriteOnce
+  storageClassName: longhorn
+  resources:
+    requests:
+      storage: 50Gi

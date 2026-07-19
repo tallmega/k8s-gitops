@@ -115,6 +115,15 @@ metadata:
 spec:
   image: ghcr.io/alam00000/bentopdf
   interval: 30m0s
+---
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImageRepository
+metadata:
+  name: pikaraoke
+  namespace: flux-system
+spec:
+  image: vicwomg/pikaraoke
+  interval: 30m0s
 # ---
 # apiVersion: image.toolkit.fluxcd.io/v1
 # kind: ImageRepository

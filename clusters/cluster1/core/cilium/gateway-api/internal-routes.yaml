@@ -621,3 +621,51 @@ spec:
     - path:
         type: PathPrefix
         value: /
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: pikaraoke-http-redirect
+  namespace: default
+spec:
+  hostnames:
+  - kareokee.tallflix.ca
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: internal-gateway
+    namespace: gateway-system
+    sectionName: http
+  rules:
+  - filters:
+    - type: RequestRedirect
+      requestRedirect:
+        scheme: https
+        statusCode: 301
+    matches:
+    - path:
+        type: PathPrefix
+        value: /
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: pikaraoke-https
+  namespace: default
+spec:
+  hostnames:
+  - kareokee.tallflix.ca
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: internal-gateway
+    namespace: gateway-system
+    sectionName: https
+  rules:
+  - backendRefs:
+    - name: pikaraoke
+      port: 5555
+    matches:
+    - path:
+        type: PathPrefix
+        value: /
