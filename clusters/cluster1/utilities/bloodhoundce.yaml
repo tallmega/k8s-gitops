@@ -226,11 +226,11 @@ spec:
         - name: NEO4J_dbms_allow__upgrade
           value: "true"
         - name: NEO4J_dbms_memory_heap_initial__size
-          value: "512m"
+          value: "4g"
         - name: NEO4J_dbms_memory_heap_max__size
-          value: "1g"
+          value: "4g"
         - name: NEO4J_dbms_memory_pagecache_size
-          value: "512m"
+          value: "2g"
         ports:
         - containerPort: 7687
         - containerPort: 7474
