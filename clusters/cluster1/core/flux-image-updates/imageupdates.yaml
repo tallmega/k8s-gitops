@@ -444,7 +444,7 @@ spec:
     name: paperless-ngx
   policy:
     semver:
-      range: '=3.0.1'
+      range: '>=3.0.1 <4.0.0'
 ---
 apiVersion: image.toolkit.fluxcd.io/v1
 kind: ImagePolicy
