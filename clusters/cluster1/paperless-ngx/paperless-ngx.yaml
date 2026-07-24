@@ -252,7 +252,7 @@ spec:
         fsGroup: 1000
       containers:
         - name: paperless-webserver
-          image: ghcr.io/paperless-ngx/paperless-ngx:3.0.1 # {"$imagepolicy": "flux-system:paperless-ngx"}
+          image: ghcr.io/paperless-ngx/paperless-ngx:3.0.2 # {"$imagepolicy": "flux-system:paperless-ngx"}
           resources:
             requests:
               cpu: 100m
@@ -376,7 +376,7 @@ spec:
         fsGroup: 1000
       containers:
         - name: paperless-worker
-          image: ghcr.io/paperless-ngx/paperless-ngx:3.0.1 # {"$imagepolicy": "flux-system:paperless-ngx"}
+          image: ghcr.io/paperless-ngx/paperless-ngx:3.0.2 # {"$imagepolicy": "flux-system:paperless-ngx"}
           resources:
             requests:
               cpu: 5m
@@ -485,7 +485,7 @@ spec:
     spec:
       containers:
         - name: paperless-beat
-          image: ghcr.io/paperless-ngx/paperless-ngx:3.0.1 # {"$imagepolicy": "flux-system:paperless-ngx"}
+          image: ghcr.io/paperless-ngx/paperless-ngx:3.0.2 # {"$imagepolicy": "flux-system:paperless-ngx"}
           resources:
             requests:
               cpu: 5m
