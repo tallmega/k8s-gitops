@@ -19,6 +19,8 @@ spec:
                   value: redis://paperless-redis:6379
                 - name: PAPERLESS_DBHOST
                   value: paperless-postgresql
+                - name: PAPERLESS_DBENGINE
+                  value: postgresql
                 - name: PAPERLESS_DBUSER
                   valueFrom:
                     secretKeyRef:
