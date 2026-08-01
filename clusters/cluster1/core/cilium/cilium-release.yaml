@@ -13,7 +13,7 @@ spec:
         kind: HelmRepository
         name: cilium
         namespace: flux-system
-      #version: 1.17.4
+      #version: 1.20.0
   interval: 1h0m0s
   targetNamespace: kube-system
   values:
