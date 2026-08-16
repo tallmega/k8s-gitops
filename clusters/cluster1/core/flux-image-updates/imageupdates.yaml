@@ -461,6 +461,18 @@ spec:
 apiVersion: image.toolkit.fluxcd.io/v1
 kind: ImagePolicy
 metadata:
+  name: meilisearch
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: meilisearch
+  policy:
+    semver:
+      range: '>= 1.11.1 < 2.0.0'
+---
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImagePolicy
+metadata:
   name: bbot
   namespace: flux-system
 spec:
