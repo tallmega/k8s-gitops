@@ -25,6 +25,11 @@ spec:
         env:
         - name: MEILI_ADDR
           value: http://meilisearch:7700
+        - name: MEILI_MASTER_KEY
+          valueFrom:
+            secretKeyRef:
+              name: karakeep-secrets
+              key: MMEILI_MASTER_KEY
         - name: BROWSER_WEB_URL
           value: http://karakeep-chrome:9222
         - name: DATA_DIR
@@ -103,6 +108,8 @@ spec:
           env:
             - name: MEILI_NO_ANALYTICS
               value: "true"
+            - name: MEILI_UPGRADE_DB
+              value: "true"
             - name: MEILI_MASTER_KEY
               valueFrom:
                 secretKeyRef:
@@ -110,11 +117,11 @@ spec:
                   key: MMEILI_MASTER_KEY
           resources:
             requests:
-              cpu: 5m
-              memory: 8Mi
-            limits:
               cpu: 100m
-              memory: 128Mi
+              memory: 256Mi
+            limits:
+              cpu: "1"
+              memory: 1Gi
           volumeMounts:
             - mountPath: /meili_data
               name: meilisearch
