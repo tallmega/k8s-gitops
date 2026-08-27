@@ -71,7 +71,7 @@ spec:
 
                   # Run the export to daily backup
                   if python3 /usr/src/paperless/src/manage.py document_exporter "$EXPORT_DIR" \
-                    --no-progress-bar --compare-checksums --zip \
+                    --no-progress-bar --zip \
                     --zip-name "$(basename "$DAILY_ZIP")"; then
 
                     echo "Daily export completed: $DAILY_ZIP"
