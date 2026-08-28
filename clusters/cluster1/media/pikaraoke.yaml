@@ -22,7 +22,7 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
       containers:
       - name: pikaraoke
-        image: vicwomg/pikaraoke:1.22.0 # {"$imagepolicy": "flux-system:pikaraoke"}
+        image: vicwomg/pikaraoke:1.23.0 # {"$imagepolicy": "flux-system:pikaraoke"}
         imagePullPolicy: IfNotPresent
         args:
         - --url
