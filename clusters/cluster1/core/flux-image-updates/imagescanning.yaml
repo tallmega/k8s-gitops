@@ -403,3 +403,12 @@ metadata:
 spec:
   image: ghcr.io/wasi-master/13ft
   interval: 30m0s
+---
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImageRepository
+metadata:
+  name: openclaw
+  namespace: flux-system
+spec:
+  image: ghcr.io/openclaw/openclaw
+  interval: 30m0s

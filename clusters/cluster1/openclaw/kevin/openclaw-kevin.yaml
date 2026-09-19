@@ -1,0 +1,219 @@
+# OpenClaw gateway for Kevin. One cell per person: own namespace, secrets,
+# sandbox pod and network policy. Config is declarative: the init container
+# re-applies openclaw.json from the ConfigMap on every start.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: openclaw-kevin
+  namespace: openclaw-kevin
+  annotations:
+    reloader.stakater.com/auto: "true"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: openclaw-kevin
+  strategy:
+    rollingUpdate: null
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: openclaw-kevin
+    spec:
+      automountServiceAccountToken: false
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        runAsNonRoot: true
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+        seccompProfile:
+          type: RuntimeDefault
+      initContainers:
+      - name: seed-config
+        image: ghcr.io/openclaw/openclaw:2026.9.5-browser # {"$imagepolicy": "flux-system:openclaw"}
+        imagePullPolicy: IfNotPresent
+        command: ["/bin/sh", "-ec"]
+        args:
+        - |
+          STATE=/home/node/.openclaw
+          mkdir -p "$STATE/workspace" "$STATE/ssh"
+          # Fail fast on a broken ConfigMap instead of booting a gateway with defaults.
+          node -e 'JSON.parse(require("fs").readFileSync("/seed/openclaw.json","utf8"))'
+          cp /seed/openclaw.json "$STATE/openclaw.json"
+          echo "openclaw.json written from ConfigMap"
+          # Workspace files are owned by the PVC: seed only when missing.
+          [ -f "$STATE/workspace/AGENTS.md" ] || cp /seed/AGENTS.md "$STATE/workspace/AGENTS.md"
+          # Sandbox host key: pinned value from the ConfigMap when present, otherwise
+          # trust-on-first-boot via ssh-keyscan (pin it once the sandbox is stable).
+          if [ -s /seed/sandbox_known_hosts ]; then
+            cp /seed/sandbox_known_hosts "$STATE/ssh/known_hosts"
+            echo "known_hosts pinned from ConfigMap"
+          else
+            i=0
+            until ssh-keyscan -p 2222 -T 5 openclaw-kevin-sandbox > "$STATE/ssh/known_hosts" 2>/dev/null && [ -s "$STATE/ssh/known_hosts" ]; do
+              i=$((i+1)); [ $i -ge 24 ] && { echo "WARNING: sandbox not reachable, known_hosts left empty"; break; }
+              sleep 5
+            done
+            echo "known_hosts from ssh-keyscan ($(wc -l < "$STATE/ssh/known_hosts") keys)"
+          fi
+          chmod 700 "$STATE/ssh"
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities:
+            drop:
+            - ALL
+        resources:
+          requests:
+            cpu: 50m
+            memory: 64Mi
+          limits:
+            cpu: 500m
+            memory: 256Mi
+        volumeMounts:
+        - name: state
+          mountPath: /home/node/.openclaw
+        - name: seed
+          mountPath: /seed
+          readOnly: true
+      containers:
+      - name: openclaw
+        image: ghcr.io/openclaw/openclaw:2026.9.5-browser # {"$imagepolicy": "flux-system:openclaw"}
+        imagePullPolicy: IfNotPresent
+        command:
+        - node
+        - /app/dist/index.js
+        - gateway
+        - run
+        ports:
+        - name: gateway
+          containerPort: 18789
+          protocol: TCP
+        env:
+        - name: TZ
+          value: America/Toronto
+        - name: HOME
+          value: /home/node
+        - name: OPENCLAW_CONFIG_DIR
+          value: /home/node/.openclaw
+        - name: NODE_ENV
+          value: production
+        - name: OPENCLAW_GATEWAY_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: openclaw-kevin-secrets
+              key: OPENCLAW_GATEWAY_TOKEN
+        - name: ANTHROPIC_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: openclaw-kevin-secrets
+              key: ANTHROPIC_API_KEY
+        - name: OPENAI_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: openclaw-kevin-secrets
+              key: OPENAI_API_KEY
+        # Probes assert the JSON probe contract, not just the status code: the
+        # Control UI answers 200 for unknown paths.
+        startupProbe:
+          exec:
+            command:
+            - node
+            - -e
+            - "require('http').get('http://127.0.0.1:18789/startupz', r => { let b = ''; r.on('data', d => b += d); r.on('end', () => { try { process.exit(r.statusCode < 400 && JSON.parse(b).ok !== false ? 0 : 1); } catch { process.exit(1); } }); }).on('error', () => process.exit(1))"
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 30
+        readinessProbe:
+          exec:
+            command:
+            - node
+            - -e
+            - "require('http').get('http://127.0.0.1:18789/readyz', r => { let b = ''; r.on('data', d => b += d); r.on('end', () => { try { process.exit(r.statusCode < 400 && JSON.parse(b).ready === true ? 0 : 1); } catch { process.exit(1); } }); }).on('error', () => process.exit(1))"
+          periodSeconds: 10
+          timeoutSeconds: 5
+        livenessProbe:
+          exec:
+            command:
+            - node
+            - -e
+            - "require('http').get('http://127.0.0.1:18789/healthz', r => { let b = ''; r.on('data', d => b += d); r.on('end', () => { try { process.exit(r.statusCode < 400 && JSON.parse(b).ok === true ? 0 : 1); } catch { process.exit(1); } }); }).on('error', () => process.exit(1))"
+          periodSeconds: 30
+          timeoutSeconds: 10
+          failureThreshold: 3
+        resources:
+          requests:
+            cpu: 250m
+            memory: 1Gi
+          limits:
+            cpu: "2"
+            memory: 4Gi
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities:
+            drop:
+            - ALL
+        volumeMounts:
+        - name: state
+          mountPath: /home/node/.openclaw
+        - name: sandbox-key
+          mountPath: /home/node/.openclaw/ssh/id_ed25519
+          subPath: SANDBOX_SSH_KEY
+          readOnly: true
+        - name: tmp
+          mountPath: /tmp
+        - name: cache
+          mountPath: /home/node/.cache
+      volumes:
+      - name: state
+        persistentVolumeClaim:
+          claimName: openclaw-kevin-pvc
+      - name: seed
+        configMap:
+          name: openclaw-kevin-config
+          defaultMode: 0444
+      - name: sandbox-key
+        secret:
+          secretName: openclaw-kevin-secrets
+          defaultMode: 0400
+          items:
+          - key: SANDBOX_SSH_KEY
+            path: SANDBOX_SSH_KEY
+      - name: tmp
+        emptyDir:
+          sizeLimit: 2Gi
+      - name: cache
+        emptyDir:
+          sizeLimit: 2Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: openclaw-kevin
+  namespace: openclaw-kevin
+  labels:
+    app: openclaw-kevin
+spec:
+  selector:
+    app: openclaw-kevin
+  ports:
+  - name: gateway
+    port: 18789
+    targetPort: 18789
+  type: ClusterIP
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: openclaw-kevin-pvc
+  namespace: openclaw-kevin
+spec:
+  accessModes:
+  - ReadWriteOnce
+  storageClassName: longhorn
+  resources:
+    requests:
+      storage: 20Gi

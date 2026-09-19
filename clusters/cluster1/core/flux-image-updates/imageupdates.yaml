@@ -573,3 +573,19 @@ spec:
   policy:
     semver:
       range: '>= 1.0.0 < 2.0.0'
+---
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImagePolicy
+metadata:
+  name: openclaw
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: openclaw
+  filterTags:
+    # Date-versioned releases, -browser variant only (bundles Chromium for the browser tool).
+    pattern: '^[vV]?(?P<version>\d{4}\.\d{1,2}\.\d{1,2})-browser$'
+    extract: '$version'
+  policy:
+    semver:
+      range: '>= 2026.9.0 < 2027.0.0'

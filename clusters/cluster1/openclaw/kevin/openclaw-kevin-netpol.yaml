@@ -1,0 +1,76 @@
+# Network policy for Kevin's cell. Both pods may reach DNS and the public
+# internet only; the gateway may additionally reach its own sandbox over SSH.
+# Ingress to the gateway comes only from the Cilium Gateway API proxy (Envoy).
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: openclaw-kevin-gateway
+  namespace: openclaw-kevin
+spec:
+  endpointSelector:
+    matchLabels:
+      app: openclaw-kevin
+  ingress:
+  - fromEntities:
+    - ingress
+    toPorts:
+    - ports:
+      - port: "18789"
+        protocol: TCP
+  egress:
+  - toEndpoints:
+    - matchLabels:
+        k8s:io.kubernetes.pod.namespace: kube-system
+        k8s-app: kube-dns
+    toPorts:
+    - ports:
+      - port: "53"
+        protocol: UDP
+      - port: "53"
+        protocol: TCP
+      rules:
+        dns:
+        - matchPattern: "*"
+  - toEndpoints:
+    - matchLabels:
+        app: openclaw-kevin-sandbox
+    toPorts:
+    - ports:
+      - port: "2222"
+        protocol: TCP
+  - toEntities:
+    - world
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: openclaw-kevin-sandbox
+  namespace: openclaw-kevin
+spec:
+  endpointSelector:
+    matchLabels:
+      app: openclaw-kevin-sandbox
+  ingress:
+  - fromEndpoints:
+    - matchLabels:
+        app: openclaw-kevin
+    toPorts:
+    - ports:
+      - port: "2222"
+        protocol: TCP
+  egress:
+  - toEndpoints:
+    - matchLabels:
+        k8s:io.kubernetes.pod.namespace: kube-system
+        k8s-app: kube-dns
+    toPorts:
+    - ports:
+      - port: "53"
+        protocol: UDP
+      - port: "53"
+        protocol: TCP
+      rules:
+        dns:
+        - matchPattern: "*"
+  - toEntities:
+    - world

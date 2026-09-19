@@ -1,0 +1,134 @@
+# SSH sandbox host for Kyrie's agent. OpenClaw's SSH sandbox backend runs exec and
+# file tools here, so this pod holds no LLM keys or gateway token. Network policy
+# limits it to DNS and the public internet.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: openclaw-kyrie-sandbox
+  namespace: openclaw-kyrie
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: openclaw-kyrie-sandbox
+  strategy:
+    rollingUpdate: null
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: openclaw-kyrie-sandbox
+    spec:
+      automountServiceAccountToken: false
+      securityContext:
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+      - name: sshd
+        image: lscr.io/linuxserver/openssh-server:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: ssh
+          containerPort: 2222
+          protocol: TCP
+        env:
+        - name: TZ
+          value: America/Toronto
+        - name: PUID
+          value: "1000"
+        - name: PGID
+          value: "1000"
+        - name: USER_NAME
+          value: sandbox
+        - name: PUBLIC_KEY_FILE
+          value: /run/sandbox-auth/authorized_key
+        - name: SUDO_ACCESS
+          value: "false"
+        - name: PASSWORD_ACCESS
+          value: "false"
+        - name: LOG_STDOUT
+          value: "true"
+        # OpenClaw's SSH backend needs python3 plus GNU-compatible stat/readlink.
+        - name: DOCKER_MODS
+          value: linuxserver/mods:universal-package-install
+        - name: INSTALL_PACKAGES
+          value: python3|coreutils|bash|git|curl|jq|ripgrep
+        readinessProbe:
+          tcpSocket:
+            port: ssh
+          initialDelaySeconds: 15
+          periodSeconds: 10
+        livenessProbe:
+          tcpSocket:
+            port: ssh
+          initialDelaySeconds: 60
+          periodSeconds: 30
+        resources:
+          requests:
+            cpu: 100m
+            memory: 256Mi
+          limits:
+            cpu: "2"
+            memory: 2Gi
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+            add:
+            - CHOWN
+            - SETUID
+            - SETGID
+            - DAC_OVERRIDE
+            - FOWNER
+        volumeMounts:
+        - name: sandbox
+          mountPath: /sandbox
+        - name: sshd-config
+          mountPath: /config
+          subPath: sshd-config
+        - name: auth
+          mountPath: /run/sandbox-auth
+          readOnly: true
+      volumes:
+      - name: sandbox
+        persistentVolumeClaim:
+          claimName: openclaw-kyrie-sandbox-pvc
+      # sshd host keys live on the same PVC so the gateway's known_hosts stays valid.
+      - name: sshd-config
+        persistentVolumeClaim:
+          claimName: openclaw-kyrie-sandbox-pvc
+      - name: auth
+        secret:
+          secretName: openclaw-kyrie-sandbox-authorized-key
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: openclaw-kyrie-sandbox
+  namespace: openclaw-kyrie
+  labels:
+    app: openclaw-kyrie-sandbox
+spec:
+  selector:
+    app: openclaw-kyrie-sandbox
+  ports:
+  - name: ssh
+    port: 2222
+    targetPort: 2222
+  type: ClusterIP
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: openclaw-kyrie-sandbox-pvc
+  namespace: openclaw-kyrie
+spec:
+  accessModes:
+  - ReadWriteOnce
+  storageClassName: longhorn
+  resources:
+    requests:
+      storage: 20Gi
