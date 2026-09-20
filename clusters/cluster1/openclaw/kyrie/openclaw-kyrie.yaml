@@ -62,7 +62,6 @@ spec:
             echo "known_hosts from ssh-keyscan ($(wc -l < "$STATE/ssh/known_hosts") keys)"
           fi
           chmod 700 "$STATE/ssh"
-          chmod 1777 /tmp
           # External plugins live on the PVC; install once, idempotently.
           export npm_config_cache=/tmp/npm-cache npm_config_update_notifier=false
           if node /app/dist/index.js plugins list 2>/dev/null | grep -q '│ brave '; then
