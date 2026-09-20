@@ -1,0 +1,120 @@
+# One-way exporter: reconstructs Kevin's Obsidian LiveSync vault (plaintext CouchDB)
+# into the shared workspace at /vault so the agent and Control UI can read notes as
+# Markdown. Read-only from CouchDB; write-back is intentionally not done to avoid
+# corrupting the live vault. Kevin's cell only.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: openclaw-kevin-vault-sync
+  namespace: openclaw-kevin
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: openclaw-kevin-vault-sync
+  strategy:
+    rollingUpdate: null
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: openclaw-kevin-vault-sync
+    spec:
+      automountServiceAccountToken: false
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        runAsNonRoot: true
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+      - name: sync
+        image: docker.io/library/python:3.13-slim
+        imagePullPolicy: IfNotPresent
+        command: ["python3", "/app/sync.py"]
+        env:
+        - name: TZ
+          value: America/Toronto
+        - name: COUCHDB_URL
+          value: http://obsidian-livesync-couchdb.default.svc.cluster.local:5984/obsidian
+        - name: OUT_DIR
+          value: /vault-out/vault
+        - name: INTERVAL
+          value: "900"
+        - name: VAULT_COUCHDB_USER
+          valueFrom:
+            secretKeyRef:
+              name: openclaw-kevin-secrets
+              key: VAULT_COUCHDB_USER
+        - name: VAULT_COUCHDB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: openclaw-kevin-secrets
+              key: VAULT_COUCHDB_PASSWORD
+        resources:
+          requests:
+            cpu: 25m
+            memory: 128Mi
+          limits:
+            cpu: 500m
+            memory: 512Mi
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities:
+            drop:
+            - ALL
+        volumeMounts:
+        - name: script
+          mountPath: /app
+          readOnly: true
+        - name: workspace
+          mountPath: /vault-out
+        - name: tmp
+          mountPath: /tmp
+      volumes:
+      - name: script
+        configMap:
+          name: openclaw-kevin-vault-sync
+          defaultMode: 0444
+      - name: workspace
+        persistentVolumeClaim:
+          claimName: openclaw-kevin-workspace-pvc
+      - name: tmp
+        emptyDir:
+          sizeLimit: 256Mi
+---
+# Vault exporter may reach only CouchDB and DNS.
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: openclaw-kevin-vault-sync
+  namespace: openclaw-kevin
+spec:
+  endpointSelector:
+    matchLabels:
+      app: openclaw-kevin-vault-sync
+  egress:
+  - toEndpoints:
+    - matchLabels:
+        k8s:io.kubernetes.pod.namespace: kube-system
+        k8s-app: kube-dns
+    toPorts:
+    - ports:
+      - port: "53"
+        protocol: UDP
+      - port: "53"
+        protocol: TCP
+      rules:
+        dns:
+        - matchPattern: "*"
+  - toEndpoints:
+    - matchLabels:
+        k8s:io.kubernetes.pod.namespace: default
+        app: obsidian-livesync-couchdb
+    toPorts:
+    - ports:
+      - port: "5984"
+        protocol: TCP

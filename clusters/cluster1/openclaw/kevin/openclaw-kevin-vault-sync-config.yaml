@@ -1,0 +1,51 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: openclaw-kevin-vault-sync
+  namespace: openclaw-kevin
+data:
+  sync.py: |
+    import os, json, base64, urllib.request, pathlib, time, sys
+    BASE = os.environ["COUCHDB_URL"].rstrip("/")
+    USER = os.environ["VAULT_COUCHDB_USER"]; PW = os.environ["VAULT_COUCHDB_PASSWORD"]
+    OUT = pathlib.Path(os.environ.get("OUT_DIR", "/vault-out/vault"))
+    INTERVAL = int(os.environ.get("INTERVAL", "900"))
+    auth = base64.b64encode(f"{USER}:{PW}".encode()).decode()
+
+    def get(path):
+        req = urllib.request.Request(BASE + path, headers={"Authorization": f"Basic {auth}"})
+        with urllib.request.urlopen(req, timeout=120) as r:
+            return json.load(r)
+
+    def sync():
+        data = get("/_all_docs?include_docs=true")
+        chunks, files = {}, []
+        for row in data.get("rows", []):
+            d = row.get("doc") or {}
+            i = d.get("_id", "")
+            if i.startswith("_design"):
+                continue
+            if i.startswith("h:"):
+                chunks[i] = d.get("data", "")
+            elif d.get("type") == "plain" and d.get("path") and not d.get("deleted") and not d.get("_deleted"):
+                files.append(d)
+        written = 0
+        OUT.mkdir(parents=True, exist_ok=True)
+        for d in files:
+            rel = d["path"].lstrip("/")
+            # keep the agent inside the vault dir
+            target = (OUT / rel).resolve()
+            if not str(target).startswith(str(OUT.resolve())):
+                continue
+            content = "".join(chunks.get(c, "") for c in d.get("children", [])).encode()
+            target.parent.mkdir(parents=True, exist_ok=True)
+            if not target.exists() or target.read_bytes() != content:
+                target.write_bytes(content); written += 1
+        print(f"[vault-sync] files={len(files)} chunks={len(chunks)} written={written}", flush=True)
+
+    while True:
+        try:
+            sync()
+        except Exception as e:
+            print("[vault-sync] error:", repr(e), file=sys.stderr, flush=True)
+        time.sleep(INTERVAL)
