@@ -38,8 +38,15 @@ spec:
     - ports:
       - port: "2222"
         protocol: TCP
-  - toEntities:
-    - world
+  # Public internet only. Cilium classifies the home LAN as "world", so exclude
+  # all private ranges explicitly (this also covers pod and service CIDRs).
+  - toCIDRSet:
+    - cidr: 0.0.0.0/0
+      except:
+      - 10.0.0.0/8
+      - 172.16.0.0/12
+      - 192.168.0.0/16
+      - 169.254.0.0/16
 ---
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
@@ -72,5 +79,12 @@ spec:
       rules:
         dns:
         - matchPattern: "*"
-  - toEntities:
-    - world
+  # Public internet only. Cilium classifies the home LAN as "world", so exclude
+  # all private ranges explicitly (this also covers pod and service CIDRs).
+  - toCIDRSet:
+    - cidr: 0.0.0.0/0
+      except:
+      - 10.0.0.0/8
+      - 172.16.0.0/12
+      - 192.168.0.0/16
+      - 169.254.0.0/16
