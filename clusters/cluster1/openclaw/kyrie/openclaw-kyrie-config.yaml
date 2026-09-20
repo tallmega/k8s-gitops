@@ -19,7 +19,7 @@ data:
           "token": "${OPENCLAW_GATEWAY_TOKEN}"
         },
         "publicOrigin": "https://claw-kyrie.tallflix.ca",
-        "trustedProxies": ["10.244.0.123", "10.244.1.25", "10.244.2.239"],
+        "trustedProxies": ["10.244.0.0/16"],
         "controlUi": {
           "enabled": true,
           "allowedOrigins": ["https://claw-kyrie.tallflix.ca"]
