@@ -64,7 +64,8 @@ spec:
           chmod 700 "$STATE/ssh"
           # External plugins live on the PVC; install once, idempotently.
           export npm_config_cache=/tmp/npm-cache npm_config_update_notifier=false
-          if node /app/dist/index.js plugins list 2>/dev/null | grep -q '│ brave '; then
+          set -x
+          if node /app/dist/index.js plugins list 2>&1 | tee /tmp/plugins-list.txt | grep -q '│ brave '; then
             echo "brave plugin present"
           else
             node /app/dist/index.js plugins install @openclaw/brave-plugin && echo "brave plugin installed"
