@@ -24,7 +24,7 @@ data:
         BASE="https://github.com/openclaw/gogcli/releases/download/${TAG}"
         curl -fsSL --max-time 120 -o "$TGZ.part" "$BASE/gogcli_${VER}_linux_amd64.tar.gz"
         SHA=$(curl -fsSL --max-time 30 "$BASE/checksums.txt" | awk '/linux_amd64.tar.gz/{print $1}')
-        echo "$SHA  $TGZ.part" | sha256sum -c -s - && mv "$TGZ.part" "$TGZ"
+        echo "$SHA  $TGZ.part" | sha256sum -c - >/dev/null && mv "$TGZ.part" "$TGZ"
         ls -1t "$TOOLS"/gogcli_*_linux_amd64.tar.gz | tail -n +3 | xargs -r rm -f
       fi
     else
