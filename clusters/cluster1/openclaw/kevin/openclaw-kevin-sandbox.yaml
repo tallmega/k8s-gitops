@@ -75,6 +75,11 @@ spec:
           value: linuxserver/mods:universal-package-install
         - name: INSTALL_PACKAGES
           value: python3|coreutils|bash|git|curl|jq|ripgrep
+        - name: GOG_KEYRING_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: openclaw-kevin-secrets
+              key: GOG_KEYRING_PASSWORD
         readinessProbe:
           tcpSocket:
             port: ssh
@@ -116,6 +121,9 @@ spec:
         - name: auth
           mountPath: /run/sandbox-auth
           readOnly: true
+        - name: custom-init
+          mountPath: /custom-cont-init.d
+          readOnly: true
       volumes:
       - name: sandbox
         persistentVolumeClaim:
@@ -127,6 +135,10 @@ spec:
       - name: workspace
         persistentVolumeClaim:
           claimName: openclaw-kevin-workspace-pvc
+      - name: custom-init
+        configMap:
+          name: openclaw-kevin-sandbox-init
+          defaultMode: 0755
       - name: auth
         secret:
           secretName: openclaw-kevin-sandbox-authorized-key

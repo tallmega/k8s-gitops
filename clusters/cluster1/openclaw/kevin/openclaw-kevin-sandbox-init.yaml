@@ -1,0 +1,46 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: openclaw-kevin-sandbox-init
+  namespace: openclaw-kevin
+data:
+  # Runs as root at sandbox container start (linuxserver custom-cont-init.d).
+  # Installs the Google Workspace CLI "gog" for the bundled gog skill and wraps it so
+  # agent SSH sessions get a persistent, file-keyring-backed GOG_HOME on the sandbox
+  # volume (kept off the shared workspace the Control UI can browse).
+  10-install-gog.sh: |
+    #!/bin/bash
+    # Installs the latest gog release (Google Workspace CLI for the bundled gog skill),
+    # verified against the release's published checksums; falls back to the newest cached
+    # copy when GitHub is unreachable.
+    set -euo pipefail
+    TOOLS=/sandbox/.tools; mkdir -p "$TOOLS" /sandbox/gog
+    API=https://api.github.com/repos/openclaw/gogcli/releases/latest
+    TAG=$(curl -fsSL --max-time 20 "$API" 2>/dev/null | sed -n 's/.*"tag_name": *"\([^"]*\)".*/\1/p' | head -1 || true)
+    if [ -n "$TAG" ]; then
+      VER=${TAG#v}
+      TGZ="$TOOLS/gogcli_${VER}_linux_amd64.tar.gz"
+      if [ ! -f "$TGZ" ]; then
+        BASE="https://github.com/openclaw/gogcli/releases/download/${TAG}"
+        curl -fsSL --max-time 120 -o "$TGZ.part" "$BASE/gogcli_${VER}_linux_amd64.tar.gz"
+        SHA=$(curl -fsSL --max-time 30 "$BASE/checksums.txt" | awk '/linux_amd64.tar.gz/{print $1}')
+        echo "$SHA  $TGZ.part" | sha256sum -c -s - && mv "$TGZ.part" "$TGZ"
+        ls -1t "$TOOLS"/gogcli_*_linux_amd64.tar.gz | tail -n +3 | xargs -r rm -f
+      fi
+    else
+      TGZ=$(ls -1t "$TOOLS"/gogcli_*_linux_amd64.tar.gz 2>/dev/null | head -1 || true)
+      [ -n "$TGZ" ] || { echo "[gog] no network and no cached release; skipping"; exit 0; }
+      echo "[gog] GitHub unreachable, using cached $TGZ"
+    fi
+    tar -xzf "$TGZ" -C /tmp gog && install -m 0755 /tmp/gog /usr/local/bin/gog.bin
+    printf '%s' "${GOG_KEYRING_PASSWORD:-}" > /sandbox/gog/.keyring-pass
+    chown -R 1000:1000 /sandbox/gog && chmod 700 /sandbox/gog && chmod 600 /sandbox/gog/.keyring-pass
+    cat > /usr/local/bin/gog <<'WRAP'
+    #!/bin/sh
+    export GOG_HOME=/sandbox/gog
+    export GOG_KEYRING_BACKEND=file
+    export GOG_KEYRING_PASSWORD="$(cat /sandbox/gog/.keyring-pass 2>/dev/null)"
+    exec /usr/local/bin/gog.bin "$@"
+    WRAP
+    chmod 0755 /usr/local/bin/gog
+    echo "[gog] installed $(/usr/local/bin/gog.bin --version 2>/dev/null | head -1)"
