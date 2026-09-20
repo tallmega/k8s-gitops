@@ -32,7 +32,7 @@ data:
       [ -n "$TGZ" ] || { echo "[gog] no network and no cached release; skipping"; exit 0; }
       echo "[gog] GitHub unreachable, using cached $TGZ"
     fi
-    tar -xzf "$TGZ" -C /tmp gog && install -m 0755 /tmp/gog /usr/local/bin/gog.bin
+    rm -rf /tmp/gog-extract && mkdir -p /tmp/gog-extract && tar -xzf "$TGZ" -C /tmp/gog-extract && install -m 0755 /tmp/gog-extract/gog /usr/local/bin/gog.bin
     printf '%s' "${GOG_KEYRING_PASSWORD:-}" > /sandbox/gog/.keyring-pass
     chown -R 1000:1000 /sandbox/gog && chmod 700 /sandbox/gog && chmod 600 /sandbox/gog/.keyring-pass
     cat > /usr/local/bin/gog <<'WRAP'
