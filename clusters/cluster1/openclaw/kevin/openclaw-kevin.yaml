@@ -62,6 +62,19 @@ spec:
             echo "known_hosts from ssh-keyscan ($(wc -l < "$STATE/ssh/known_hosts") keys)"
           fi
           chmod 700 "$STATE/ssh"
+          chmod 1777 /tmp
+          # External plugins live on the PVC; install once, idempotently.
+          export npm_config_cache=/tmp/npm-cache npm_config_update_notifier=false
+          if node /app/dist/index.js plugins list 2>/dev/null | grep -q '│ brave '; then
+            echo "brave plugin present"
+          else
+            node /app/dist/index.js plugins install @openclaw/brave-plugin && echo "brave plugin installed"
+          fi
+        env:
+        - name: HOME
+          value: /home/node
+        - name: OPENCLAW_CONFIG_DIR
+          value: /home/node/.openclaw
         securityContext:
           allowPrivilegeEscalation: false
           readOnlyRootFilesystem: true
@@ -73,14 +86,16 @@ spec:
             cpu: 50m
             memory: 64Mi
           limits:
-            cpu: 500m
-            memory: 256Mi
+            cpu: "1"
+            memory: 1Gi
         volumeMounts:
         - name: state
           mountPath: /home/node/.openclaw
         - name: seed
           mountPath: /seed
           readOnly: true
+        - name: tmp
+          mountPath: /tmp
       containers:
       - name: openclaw
         image: ghcr.io/openclaw/openclaw:2026.9.5-browser # {"$imagepolicy": "flux-system:openclaw"}
@@ -103,6 +118,8 @@ spec:
           value: /home/node/.openclaw
         - name: NODE_ENV
           value: production
+        - name: npm_config_cache
+          value: /tmp/npm-cache
         - name: OPENCLAW_GATEWAY_TOKEN
           valueFrom:
             secretKeyRef:
