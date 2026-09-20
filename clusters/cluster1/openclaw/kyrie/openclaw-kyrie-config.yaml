@@ -29,7 +29,8 @@ data:
         "defaults": {
           "workspace": "/home/node/.openclaw/workspace",
           "model": {
-            "primary": "openai/gpt-5"
+            "primary": "openai/gpt-5.6-sol",
+            "fallbacks": ["openai/gpt-5.4-mini"]
           },
           "sandbox": {
             "mode": "all",
