@@ -6,7 +6,7 @@ metadata:
   labels:
     app: openclaw-kyrie
 data:
-  # First-boot seed only: cluster plumbing (ingress, auth, sandbox SSH).
+  # First-boot seed only: cluster plumbing (ingress, auth, pairing URL, sandbox SSH).
   # Model, tools, plugins, skills and AGENTS.md are managed by OpenClaw and its user on the volume.
   # ${VAR} is substituted by OpenClaw at load time from the pod environment.
   openclaw.json: |
@@ -42,6 +42,15 @@ data:
               "identityFile": "/home/node/.openclaw/ssh/id_ed25519",
               "knownHostsFile": "/home/node/.openclaw/ssh/known_hosts",
               "strictHostKeyChecking": true
+            }
+          }
+        }
+      },
+      "plugins": {
+        "entries": {
+          "device-pair": {
+            "config": {
+              "publicUrl": "wss://claw-kyrie.tallflix.ca"
             }
           }
         }
