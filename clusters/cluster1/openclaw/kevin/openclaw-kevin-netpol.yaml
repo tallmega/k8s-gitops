@@ -88,11 +88,10 @@ spec:
       - 172.16.0.0/12
       - 192.168.0.0/16
       - 169.254.0.0/16
-  # Home Assistant REST API (in-cluster).
-  - toEndpoints:
-    - matchLabels:
-        k8s:io.kubernetes.pod.namespace: default
-        app: home-assistant
+  # Home Assistant runs on the host network (node IP on the LAN), so allow the node
+  # subnet on its port only. Nothing else on the LAN listens on 8123.
+  - toCIDRSet:
+    - cidr: 10.10.10.0/24
     toPorts:
     - ports:
       - port: "8123"
