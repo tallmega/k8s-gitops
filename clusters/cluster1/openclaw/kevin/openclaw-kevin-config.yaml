@@ -69,7 +69,8 @@ data:
     }
   # Pinned sandbox host key in known_hosts format ("openclaw-kevin-sandbox ssh-ed25519 AAAA...").
   # Empty means the init container trusts the key it sees on first boot (ssh-keyscan).
-  sandbox_known_hosts: ""
+  sandbox_known_hosts: |
+    [openclaw-kevin-sandbox]:2222 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMlED679+pSH+ZpERrb/BTi2QGovelhMb5Wm4IA4I579
   AGENTS.md: |
     # Kevin's assistant
 
