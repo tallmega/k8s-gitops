@@ -88,10 +88,12 @@ spec:
       - 172.16.0.0/12
       - 192.168.0.0/16
       - 169.254.0.0/16
-  # Home Assistant runs on the host network (node IP on the LAN), so allow the node
-  # subnet on its port only. Nothing else on the LAN listens on 8123.
-  - toCIDRSet:
-    - cidr: 10.10.10.0/24
+  # Home Assistant runs on the host network, so Cilium classifies it as a node
+  # (host/remote-node) identity, not a pod endpoint or CIDR. Allow those on 8123 only;
+  # nothing else on the nodes listens there.
+  - toEntities:
+    - host
+    - remote-node
     toPorts:
     - ports:
       - port: "8123"
