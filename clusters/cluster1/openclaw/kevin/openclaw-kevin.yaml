@@ -100,6 +100,27 @@ spec:
             echo "known_hosts from ssh-keyscan ($(wc -l < "$STATE/ssh/known_hosts") keys)"
           fi
           chmod 700 "$STATE/ssh"
+          # Skill requirement checks look for binaries on the gateway PATH even though
+          # execution happens in the sandbox. Keep the same tools available here.
+          mkdir -p "$STATE/bin" "$STATE/tools"
+          TAG=$(curl -fsSL --max-time 20 https://api.github.com/repos/openclaw/gogcli/releases/latest 2>/dev/null | sed -n 's/.*"tag_name": *"\([^"]*\)".*/\1/p' | head -1 || true)
+          if [ -n "$TAG" ]; then
+            VER=${TAG#v}; TGZ="$STATE/tools/gogcli_${VER}_linux_amd64.tar.gz"
+            if [ ! -f "$TGZ" ]; then
+              BASE="https://github.com/openclaw/gogcli/releases/download/${TAG}"
+              curl -fsSL --max-time 120 -o "$TGZ.part" "$BASE/gogcli_${VER}_linux_amd64.tar.gz"
+              SHA=$(curl -fsSL --max-time 30 "$BASE/checksums.txt" | awk '/linux_amd64.tar.gz/{print $1}')
+              echo "$SHA  $TGZ.part" | sha256sum -c - >/dev/null && mv "$TGZ.part" "$TGZ"
+              ls -1t "$STATE"/tools/gogcli_*_linux_amd64.tar.gz | tail -n +3 | xargs -r rm -f
+            fi
+          else
+            TGZ=$(ls -1t "$STATE"/tools/gogcli_*_linux_amd64.tar.gz 2>/dev/null | head -1 || true)
+          fi
+          if [ -n "$TGZ" ] && [ -f "$TGZ" ]; then
+            rm -rf /tmp/gog-x && mkdir -p /tmp/gog-x && tar -xzf "$TGZ" -C /tmp/gog-x && install -m 0755 /tmp/gog-x/gog "$STATE/bin/gog" && echo "gog on gateway PATH: $("$STATE/bin/gog" --version 2>/dev/null | head -1)"
+          else
+            echo "WARNING: gog not available for gateway PATH"
+          fi
         env:
         - name: HOME
           value: /home/node
@@ -150,6 +171,8 @@ spec:
           value: America/Toronto
         - name: HOME
           value: /home/node
+        - name: PATH
+          value: /home/node/.openclaw/bin:/home/node/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
         - name: OPENCLAW_CONFIG_DIR
           value: /home/node/.openclaw
         - name: NODE_ENV
