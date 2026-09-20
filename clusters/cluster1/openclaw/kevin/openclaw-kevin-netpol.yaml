@@ -88,3 +88,13 @@ spec:
       - 172.16.0.0/12
       - 192.168.0.0/16
       - 169.254.0.0/16
+  # Home Assistant REST API (in-cluster).
+  - toEndpoints:
+    - matchLabels:
+        k8s:io.kubernetes.pod.namespace: default
+        app: home-assistant
+    toPorts:
+    - ports:
+      - port: "8123"
+        protocol: TCP
+

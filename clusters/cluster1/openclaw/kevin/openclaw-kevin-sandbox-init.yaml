@@ -44,3 +44,8 @@ data:
     WRAP
     chmod 0755 /usr/local/bin/gog
     echo "[gog] installed $(/usr/local/bin/gog.bin --version 2>/dev/null | head -1)"
+    # Home Assistant long-lived token for the home-assistant skill (agent SSH sessions read this file).
+    mkdir -p /sandbox/.secrets
+    printf '%s' "${HASS_TOKEN:-}" > /sandbox/.secrets/hass_token
+    chown -R 1000:1000 /sandbox/.secrets && chmod 700 /sandbox/.secrets && chmod 600 /sandbox/.secrets/hass_token
+    echo "[hass] token file $( [ -s /sandbox/.secrets/hass_token ] && echo present || echo empty )"

@@ -80,6 +80,11 @@ spec:
             secretKeyRef:
               name: openclaw-kevin-secrets
               key: GOG_KEYRING_PASSWORD
+        - name: HASS_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: openclaw-kevin-secrets
+              key: HASS_TOKEN
         readinessProbe:
           tcpSocket:
             port: ssh
