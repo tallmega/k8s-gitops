@@ -25,6 +25,26 @@ spec:
       securityContext:
         seccompProfile:
           type: RuntimeDefault
+      initContainers:
+      # sshd refuses host keys that are group-readable; make sure they are 0600 whatever
+      # a previous run or volume ownership pass left behind.
+      - name: fix-keys
+        image: lscr.io/linuxserver/openssh-server:latest
+        imagePullPolicy: IfNotPresent
+        command: ["/bin/sh", "-c", "if [ -d /config/ssh_host_keys ]; then chmod 700 /config/ssh_host_keys; chmod 600 /config/ssh_host_keys/*_key; chmod 644 /config/ssh_host_keys/*.pub; ls -l /config/ssh_host_keys; else echo 'no host keys yet'; fi"]
+        securityContext:
+          runAsUser: 0
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+            add:
+            - FOWNER
+            - DAC_OVERRIDE
+        volumeMounts:
+        - name: sshd-config
+          mountPath: /config
+          subPath: sshd-config
       containers:
       - name: sshd
         image: lscr.io/linuxserver/openssh-server:latest
