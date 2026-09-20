@@ -45,7 +45,16 @@ data:
         }
       },
       "tools": {
-        "profile": "full"
+        "profile": "full",
+        "web": {
+          "search": {
+            "enabled": true,
+            "provider": "brave"
+          },
+          "fetch": {
+            "enabled": true
+          }
+        }
       },
       "cron": {
         "enabled": false

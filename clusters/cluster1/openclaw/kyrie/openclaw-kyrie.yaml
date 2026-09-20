@@ -115,6 +115,11 @@ spec:
             secretKeyRef:
               name: openclaw-kyrie-secrets
               key: OPENAI_API_KEY
+        - name: BRAVE_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: openclaw-kyrie-secrets
+              key: BRAVE_API_KEY
         # Probes assert the JSON probe contract, not just the status code: the
         # Control UI answers 200 for unknown paths.
         startupProbe:

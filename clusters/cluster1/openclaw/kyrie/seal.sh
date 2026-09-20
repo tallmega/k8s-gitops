@@ -10,6 +10,8 @@ SEAL="kubeseal --controller-name sealed-secrets-controller --controller-namespac
 read -r -s -p "Anthropic API key for Kyrie (optional, Enter to skip): " ANTHROPIC; echo
 read -r -s -p "OpenAI API key for Kyrie: " OPENAI; echo
 [ -n "$OPENAI" ] || { echo "OpenAI key is required for this cell"; exit 1; }
+read -r -s -p "Brave Search API key for Kyrie (free tier at brave.com/search/api): " BRAVE; echo
+[ -n "$BRAVE" ] || { echo "Brave key is required for web search"; exit 1; }
 TOKEN=$(openssl rand -hex 32)
 
 TMP=$(mktemp -d)
@@ -20,6 +22,7 @@ kubectl -n "$NS" create secret generic openclaw-kyrie-secrets --dry-run=client -
   --from-literal=OPENCLAW_GATEWAY_TOKEN="$TOKEN" \
   --from-literal=ANTHROPIC_API_KEY="$ANTHROPIC" \
   --from-literal=OPENAI_API_KEY="$OPENAI" \
+  --from-literal=BRAVE_API_KEY="$BRAVE" \
   --from-file=SANDBOX_SSH_KEY="$TMP/id_ed25519" \
   | $SEAL > openclaw-kyrie-sealed-secret.yaml
 
