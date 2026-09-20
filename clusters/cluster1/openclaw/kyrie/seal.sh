@@ -8,7 +8,7 @@ NS=openclaw-kyrie
 SEAL="kubeseal --controller-name sealed-secrets-controller --controller-namespace kube-system --format yaml"
 
 read -r -s -p "Anthropic API key for Kyrie: " ANTHROPIC; echo
-read -r -s -p "OpenAI API key for Kyrie: " OPENAI; echo
+read -r -s -p "OpenAI API key for Kyrie (optional fallback, Enter to skip): " OPENAI; echo
 TOKEN=$(openssl rand -hex 32)
 
 TMP=$(mktemp -d)

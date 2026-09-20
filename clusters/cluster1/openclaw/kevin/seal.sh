@@ -8,7 +8,7 @@ NS=openclaw-kevin
 SEAL="kubeseal --controller-name sealed-secrets-controller --controller-namespace kube-system --format yaml"
 
 read -r -s -p "Anthropic API key for Kevin: " ANTHROPIC; echo
-read -r -s -p "OpenAI API key for Kevin: " OPENAI; echo
+read -r -s -p "OpenAI API key for Kevin (optional fallback, Enter to skip): " OPENAI; echo
 TOKEN=$(openssl rand -hex 32)
 
 TMP=$(mktemp -d)
