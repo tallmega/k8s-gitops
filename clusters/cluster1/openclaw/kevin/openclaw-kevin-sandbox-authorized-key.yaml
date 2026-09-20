@@ -1,0 +1,7 @@
+apiVersion: v1
+data:
+  authorized_key: c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUdUMEcrTE55aWFFVytVcWtDS0RzYVBiTjVSRU1nZW02dFdNanZrNmM1Zkwgb3BlbmNsYXcta2V2aW4tZ2F0ZXdheQo=
+kind: Secret
+metadata:
+  name: openclaw-kevin-sandbox-authorized-key
+  namespace: openclaw-kevin

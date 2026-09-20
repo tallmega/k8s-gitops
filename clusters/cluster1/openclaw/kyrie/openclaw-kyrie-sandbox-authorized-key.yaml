@@ -1,0 +1,7 @@
+apiVersion: v1
+data:
+  authorized_key: c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUZFcW9LcWd5cXJjODVyOHVQa1EzVi9mR0haZHAwTDBPMmtKcW5QSlp5R1ogb3BlbmNsYXcta3lyaWUtZ2F0ZXdheQo=
+kind: Secret
+metadata:
+  name: openclaw-kyrie-sandbox-authorized-key
+  namespace: openclaw-kyrie
