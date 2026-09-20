@@ -22,6 +22,9 @@ spec:
         app: openclaw-kevin
     spec:
       automountServiceAccountToken: false
+      # OpenClaw drains sessions for up to ~5.5 min on shutdown and holds an owner lease
+      # on the state volume; killing it early leaves a stale lease that blocks the next start.
+      terminationGracePeriodSeconds: 360
       securityContext:
         runAsUser: 1000
         runAsGroup: 1000
