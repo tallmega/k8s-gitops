@@ -41,6 +41,9 @@ spec:
           mkdir -p "$STATE/workspace" "$STATE/ssh"
           # Fail fast on a broken ConfigMap instead of booting a gateway with defaults.
           node -e 'JSON.parse(require("fs").readFileSync("/seed/openclaw.json","utf8"))'
+          # The gateway tightens file modes on first start; remove before copy so a
+          # read-only file does not block the re-apply.
+          rm -f "$STATE/openclaw.json" "$STATE/ssh/known_hosts"
           cp /seed/openclaw.json "$STATE/openclaw.json"
           echo "openclaw.json written from ConfigMap"
           # Workspace files are owned by the PVC: seed only when missing.
