@@ -28,8 +28,7 @@ data:
         "defaults": {
           "workspace": "/home/node/.openclaw/workspace",
           "model": {
-            "primary": "anthropic/claude-opus-5",
-            "fallbacks": ["openai/gpt-5.4-mini"]
+            "primary": "openai/gpt-5"
           },
           "sandbox": {
             "mode": "all",

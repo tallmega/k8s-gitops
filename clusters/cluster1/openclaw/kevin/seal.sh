@@ -7,8 +7,9 @@ cd "$(dirname "$0")"
 NS=openclaw-kevin
 SEAL="kubeseal --controller-name sealed-secrets-controller --controller-namespace kube-system --format yaml"
 
-read -r -s -p "Anthropic API key for Kevin: " ANTHROPIC; echo
-read -r -s -p "OpenAI API key for Kevin (optional fallback, Enter to skip): " OPENAI; echo
+read -r -s -p "Anthropic API key for Kevin (optional, Enter to skip): " ANTHROPIC; echo
+read -r -s -p "OpenAI API key for Kevin: " OPENAI; echo
+[ -n "$OPENAI" ] || { echo "OpenAI key is required for this cell"; exit 1; }
 TOKEN=$(openssl rand -hex 32)
 
 TMP=$(mktemp -d)
