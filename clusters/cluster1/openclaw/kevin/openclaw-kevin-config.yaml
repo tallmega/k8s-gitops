@@ -47,6 +47,11 @@ data:
       },
       "tools": {
         "profile": "full",
+        "sandbox": {
+          "tools": {
+            "alsoAllow": ["web_search", "web_fetch", "browser", "memory_search", "memory_get", "group:plugins"]
+          }
+        },
         "web": {
           "search": {
             "enabled": true,
