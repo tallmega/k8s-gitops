@@ -1,6 +1,6 @@
 # OpenClaw gateway for Kyrie. One cell per person: own namespace, secrets,
-# sandbox pod and network policy. Config is declarative: the init container
-# re-applies openclaw.json from the ConfigMap on every start.
+# sandbox pod and network policy. The ConfigMap seeds openclaw.json on first boot;
+# afterwards the copy on the volume is UI-editable (see OPENCLAW_CONFIG_OVERWRITE).
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -69,11 +69,18 @@ spec:
           mkdir -p "$STATE/workspace" "$STATE/ssh"
           # Fail fast on a broken ConfigMap instead of booting a gateway with defaults.
           node -e 'JSON.parse(require("fs").readFileSync("/seed/openclaw.json","utf8"))'
-          # The gateway tightens file modes on first start; remove before copy so a
-          # read-only file does not block the re-apply.
-          rm -f "$STATE/openclaw.json" "$STATE/ssh/known_hosts"
-          cp /seed/openclaw.json "$STATE/openclaw.json"
-          echo "openclaw.json written from ConfigMap"
+          # Config ownership: the ConfigMap seeds openclaw.json on first boot only; after
+          # that the copy on the volume is the source of truth and the Control UI may edit
+          # it. Set OPENCLAW_CONFIG_OVERWRITE=true to force a re-seed from git.
+          if [ "${OPENCLAW_CONFIG_OVERWRITE:-false}" = "true" ] || [ ! -f "$STATE/openclaw.json" ]; then
+            rm -f "$STATE/openclaw.json"
+            cp /seed/openclaw.json "$STATE/openclaw.json"
+            chmod 600 "$STATE/openclaw.json"
+            echo "openclaw.json written from ConfigMap"
+          else
+            echo "openclaw.json exists on volume; left untouched (UI-owned)"
+          fi
+          rm -f "$STATE/ssh/known_hosts"
           # Workspace files are owned by the PVC: seed only when missing.
           [ -f "$STATE/workspace/AGENTS.md" ] || cp /seed/AGENTS.md "$STATE/workspace/AGENTS.md"
           # Sandbox host key: pinned value from the ConfigMap when present, otherwise
@@ -102,6 +109,8 @@ spec:
           value: /home/node
         - name: OPENCLAW_CONFIG_DIR
           value: /home/node/.openclaw
+        - name: OPENCLAW_CONFIG_OVERWRITE
+          value: "false"
         securityContext:
           allowPrivilegeEscalation: false
           readOnlyRootFilesystem: true
