@@ -121,8 +121,10 @@ spec:
         - name: auth
           mountPath: /run/sandbox-auth
           readOnly: true
+        # subPath so the script is a regular file; the image ignores symlinked entries.
         - name: custom-init
-          mountPath: /custom-cont-init.d
+          mountPath: /custom-cont-init.d/10-install-gog.sh
+          subPath: 10-install-gog.sh
           readOnly: true
       volumes:
       - name: sandbox
