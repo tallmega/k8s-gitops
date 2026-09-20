@@ -81,8 +81,6 @@ spec:
             echo "openclaw.json exists on volume; left untouched (UI-owned)"
           fi
           rm -f "$STATE/ssh/known_hosts"
-          # Workspace files are owned by the PVC: seed only when missing.
-          [ -f "$STATE/workspace/AGENTS.md" ] || cp /seed/AGENTS.md "$STATE/workspace/AGENTS.md"
           # Sandbox host key: pinned value from the ConfigMap when present, otherwise
           # trust-on-first-boot via ssh-keyscan (pin it once the sandbox is stable).
           if [ -s /seed/sandbox_known_hosts ]; then
@@ -97,13 +95,6 @@ spec:
             echo "known_hosts from ssh-keyscan ($(wc -l < "$STATE/ssh/known_hosts") keys)"
           fi
           chmod 700 "$STATE/ssh"
-          # External plugins live on the PVC; install once, idempotently.
-          export npm_config_cache=/tmp/npm-cache npm_config_update_notifier=false
-          if node /app/dist/index.js plugins list 2>&1 | grep -q '│ brave '; then
-            echo "brave plugin present"
-          else
-            node /app/dist/index.js plugins install @openclaw/brave-plugin && echo "brave plugin installed"
-          fi
         env:
         - name: HOME
           value: /home/node
