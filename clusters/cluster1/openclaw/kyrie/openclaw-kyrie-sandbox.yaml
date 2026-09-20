@@ -86,6 +86,10 @@ spec:
         volumeMounts:
         - name: sandbox
           mountPath: /sandbox
+        # OpenClaw's SSH backend materialises the agent workspace at this fixed path
+        # (hash is derived from the agent workspace path); share it with the gateway.
+        - name: workspace
+          mountPath: /sandbox/workspaces/openclaw-ssh-workspace-eb9d37a6c621e2e1f238273cb9e0d535/workspace
         - name: sshd-config
           mountPath: /config
           subPath: sshd-config
@@ -100,6 +104,9 @@ spec:
       - name: sshd-config
         persistentVolumeClaim:
           claimName: openclaw-kyrie-sandbox-pvc
+      - name: workspace
+        persistentVolumeClaim:
+          claimName: openclaw-kyrie-workspace-pvc
       - name: auth
         secret:
           secretName: openclaw-kyrie-sandbox-authorized-key

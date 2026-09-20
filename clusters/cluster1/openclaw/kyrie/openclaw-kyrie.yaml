@@ -39,7 +39,7 @@ spec:
       - name: fix-perms
         image: ghcr.io/openclaw/openclaw:2026.9.5-browser # {"$imagepolicy": "flux-system:openclaw"}
         imagePullPolicy: IfNotPresent
-        command: ["/bin/sh", "-ec", "chown 1000:1000 /home/node/.openclaw && chmod 2770 /home/node/.openclaw"]
+        command: ["/bin/sh", "-ec", "chown 1000:1000 /home/node/.openclaw /home/node/.openclaw/workspace && chmod 2770 /home/node/.openclaw && chmod 2775 /home/node/.openclaw/workspace"]
         securityContext:
           runAsUser: 0
           runAsGroup: 0
@@ -62,6 +62,8 @@ spec:
         volumeMounts:
         - name: state
           mountPath: /home/node/.openclaw
+        - name: workspace
+          mountPath: /home/node/.openclaw/workspace
       - name: seed-config
         image: ghcr.io/openclaw/openclaw:2026.9.5-browser # {"$imagepolicy": "flux-system:openclaw"}
         imagePullPolicy: IfNotPresent
@@ -121,6 +123,8 @@ spec:
         volumeMounts:
         - name: state
           mountPath: /home/node/.openclaw
+        - name: workspace
+          mountPath: /home/node/.openclaw/workspace
         - name: seed
           mountPath: /seed
           readOnly: true
@@ -224,6 +228,11 @@ spec:
           mountPath: /tmp
         - name: cache
           mountPath: /home/node/.cache
+        - name: codex
+          mountPath: /home/node/.codex
+        # Shared with the sandbox pod so the Control UI and the agent see one workspace.
+        - name: workspace
+          mountPath: /home/node/.openclaw/workspace
       volumes:
       - name: state
         persistentVolumeClaim:
@@ -245,6 +254,12 @@ spec:
       - name: cache
         emptyDir:
           sizeLimit: 2Gi
+      - name: codex
+        emptyDir:
+          sizeLimit: 1Gi
+      - name: workspace
+        persistentVolumeClaim:
+          claimName: openclaw-kyrie-workspace-pvc
 ---
 apiVersion: v1
 kind: Service
@@ -274,3 +289,18 @@ spec:
   resources:
     requests:
       storage: 20Gi
+---
+# Agent workspace shared by the gateway (Control UI file view, memory) and the sandbox
+# (where the agent's exec/file tools actually run). Longhorn RWX (share-manager NFS).
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: openclaw-kyrie-workspace-pvc
+  namespace: openclaw-kyrie
+spec:
+  accessModes:
+  - ReadWriteMany
+  storageClassName: longhorn
+  resources:
+    requests:
+      storage: 10Gi
