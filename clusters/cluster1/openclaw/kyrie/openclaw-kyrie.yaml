@@ -31,6 +31,34 @@ spec:
         seccompProfile:
           type: RuntimeDefault
       initContainers:
+      # Longhorn hands over the volume root owned by root; the gateway chmods its state
+      # directory on config writes, which needs ownership. Chown the mount root once.
+      - name: fix-perms
+        image: ghcr.io/openclaw/openclaw:2026.9.5-browser # {"$imagepolicy": "flux-system:openclaw"}
+        imagePullPolicy: IfNotPresent
+        command: ["/bin/sh", "-ec", "chown 1000:1000 /home/node/.openclaw && chmod 2770 /home/node/.openclaw"]
+        securityContext:
+          runAsUser: 0
+          runAsGroup: 0
+          runAsNonRoot: false
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities:
+            drop:
+            - ALL
+            add:
+            - CHOWN
+            - FOWNER
+        resources:
+          requests:
+            cpu: 10m
+            memory: 16Mi
+          limits:
+            cpu: 100m
+            memory: 64Mi
+        volumeMounts:
+        - name: state
+          mountPath: /home/node/.openclaw
       - name: seed-config
         image: ghcr.io/openclaw/openclaw:2026.9.5-browser # {"$imagepolicy": "flux-system:openclaw"}
         imagePullPolicy: IfNotPresent
