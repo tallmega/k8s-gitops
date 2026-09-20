@@ -56,6 +56,13 @@ data:
           }
         }
       },
+      "plugins": {
+        "entries": {
+          "brave": {
+            "enabled": true
+          }
+        }
+      },
       "cron": {
         "enabled": false
       }
