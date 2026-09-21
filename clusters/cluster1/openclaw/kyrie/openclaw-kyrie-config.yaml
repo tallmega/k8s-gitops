@@ -17,7 +17,13 @@ data:
         "port": 18789,
         "auth": {
           "mode": "token",
-          "token": "${OPENCLAW_GATEWAY_TOKEN}"
+          "token": "${OPENCLAW_GATEWAY_TOKEN}",
+          "rateLimit": {
+            "maxAttempts": 20,
+            "windowMs": 60000,
+            "lockoutMs": 300000,
+            "exemptLoopback": true
+          }
         },
         "publicOrigin": "https://claw-kyrie.tallflix.ca",
         "trustedProxies": [
