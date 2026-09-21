@@ -104,7 +104,7 @@ spec:
     spec:
       containers:
         - name: meilisearch
-          image: docker.io/getmeili/meilisearch:v1.53.2 # {"$imagepolicy": "flux-system:meilisearch"}
+          image: docker.io/getmeili/meilisearch:v1.54.0 # {"$imagepolicy": "flux-system:meilisearch"}
           env:
             - name: MEILI_NO_ANALYTICS
               value: "true"
