@@ -49,3 +49,20 @@ data:
     printf '%s' "${HASS_TOKEN:-}" > /sandbox/.secrets/hass_token
     chown -R 1000:1000 /sandbox/.secrets && chmod 700 /sandbox/.secrets && chmod 600 /sandbox/.secrets/hass_token
     echo "[hass] token file $( [ -s /sandbox/.secrets/hass_token ] && echo present || echo empty )"
+    # Home Assistant helper so the agent never handles the token itself.
+    #   ha /api/states                         -> GET
+    #   ha /api/states/light.kitchen           -> GET one entity
+    #   ha POST /api/services/light/turn_on '{"entity_id":"light.kitchen"}'
+    cat > /usr/local/bin/ha <<'WRAP'
+    #!/bin/sh
+    T=$(cat /sandbox/.secrets/hass_token 2>/dev/null)
+    [ -n "$T" ] || { echo "ha: no token" >&2; exit 3; }
+    B=http://home-assistant.default.svc.cluster.local:8123
+    H="Authorization: Bearer $T"
+    if [ "$1" = "POST" ]; then
+      exec curl -s -H "$H" -H "Content-Type: application/json" -X POST -d "$3" "$B$2"
+    fi
+    exec curl -s -H "$H" "$B$1"
+    WRAP
+    chmod 0755 /usr/local/bin/ha
+    echo "[ha] wrapper installed"
