@@ -189,11 +189,6 @@ spec:
             secretKeyRef:
               name: openclaw-kevin-secrets
               key: ANTHROPIC_API_KEY
-        - name: OPENAI_API_KEY
-          valueFrom:
-            secretKeyRef:
-              name: openclaw-kevin-secrets
-              key: OPENAI_API_KEY
         - name: BRAVE_API_KEY
           valueFrom:
             secretKeyRef:
