@@ -62,6 +62,13 @@ spec:
         volumeMounts:
         - name: minecraft-config-eternalend
           mountPath: /data
+        livenessProbe:
+          exec:
+            command: ["mc-monitor", "status-bedrock", "--host", "127.0.0.1", "--port", "19132"]
+          initialDelaySeconds: 120
+          periodSeconds: 30
+          timeoutSeconds: 10
+          failureThreshold: 4
         resources:
           requests:
             cpu: 50m
