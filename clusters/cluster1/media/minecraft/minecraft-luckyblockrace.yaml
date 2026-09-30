@@ -51,6 +51,8 @@ spec:
           value: "2533274835894189"
         - name: ENABLE_COMMAND_BLOCK
           value: "true"
+        - name: ENABLE_SCRIPT_ENGINE
+          value: "true"
         - name: DIFFICULTY
           value: "easy"
         - name: ONLINE_MODE
