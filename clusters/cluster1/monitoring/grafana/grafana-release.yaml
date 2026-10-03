@@ -62,22 +62,60 @@ spec:
         enabled: false
       kepler:
         enabled: false
+      # Grafana Cloud free tier caps at 10k active series; entries below are regexes
+      cadvisor:
+        metricsTuning:
+          excludeMetrics:
+            - container_network_.*_packets.*
+            - container_fs_(reads|writes)_total
+            - container_memory_(cache|swap)
+      kubelet:
+        metricsTuning:
+          excludeMetrics:
+            - kubelet_.*_duration_seconds_bucket
+            - kubelet_runtime_operations_total
+            - kubelet_volume_stats_inodes.*
+            - rest_client_requests_total
+            - storage_operation_duration_seconds_count
       kube-state-metrics:
         metricsTuning:
           excludeMetrics:
+            - kube_deployment_metadata_generation
             - kube_deployment_status_condition
+            - kube_deployment_status_observed_generation
             - kube_persistentvolume_status_phase
+            - kube_persistentvolumeclaim_access_mode
             - kube_persistentvolumeclaim_status_phase
             - kube_pod_container_info
+            - kube_pod_container_status_last_terminated_timestamp
             - kube_pod_info
+            - kube_pod_init_container_.*
             - kube_pod_restart_policy
+            - kube_pod_spec_volumes_persistentvolumeclaims_info
             - kube_pod_start_time
             - kube_pod_status_reason
       node-exporter:
         enabled: true
         metricsTuning:
           excludeMetrics:
-            - node_filesystem_mount_info
+            - node_cpu_(guest_seconds|core_throttles|package_throttles)_total
+            - node_cpu_(frequency|scaling)_.*
+            - node_filesystem_(device_error|readonly|mount_info)
+            - node_network_(receive|transmit)_drop_total
+        # Per-pod kubelet mounts and veth/cilium interfaces churn with every pod restart
+        extraMetricRelabelingRules: |-
+          rule {
+            source_labels = ["__name__", "mountpoint"]
+            separator = "@"
+            regex = "node_filesystem_.*@/var/lib/kubelet/.*"
+            action = "drop"
+          }
+          rule {
+            source_labels = ["__name__", "device"]
+            separator = "@"
+            regex = "node_network_.*@(lo|lxc.*|cilium_.*|tunl.*|teql.*|sit.*|ip6tnl.*|dummy.*)"
+            action = "drop"
+          }
     logs:
       enabled: true
       pod_logs:
