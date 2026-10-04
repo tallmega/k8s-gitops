@@ -1,0 +1,60 @@
+# Network policy for Kevin's Hermes cell. Tools run inside the pod, so this is the
+# boundary: DNS, the public internet, Home Assistant and CouchDB (vault-sync) only.
+# Ingress comes only from the Cilium Gateway API proxy (Envoy) to the dashboard.
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: hermes-kevin
+  namespace: hermes-kevin
+spec:
+  endpointSelector:
+    matchLabels:
+      app: hermes-kevin
+  ingress:
+  - fromEntities:
+    - ingress
+    toPorts:
+    - ports:
+      - port: "9119"
+        protocol: TCP
+  egress:
+  - toEndpoints:
+    - matchLabels:
+        k8s:io.kubernetes.pod.namespace: kube-system
+        k8s-app: kube-dns
+    toPorts:
+    - ports:
+      - port: "53"
+        protocol: UDP
+      - port: "53"
+        protocol: TCP
+      rules:
+        dns:
+        - matchPattern: "*"
+  # Public internet only. Cilium classifies the home LAN as "world", so exclude
+  # all private ranges explicitly (this also covers pod and service CIDRs).
+  - toCIDRSet:
+    - cidr: 0.0.0.0/0
+      except:
+      - 10.0.0.0/8
+      - 172.16.0.0/12
+      - 192.168.0.0/16
+      - 169.254.0.0/16
+  # Home Assistant runs hostNetwork, so its endpoints are node IPs: only entity
+  # selectors match it, not pod labels or CIDRs.
+  - toEntities:
+    - host
+    - remote-node
+    toPorts:
+    - ports:
+      - port: "8123"
+        protocol: TCP
+  # Obsidian LiveSync CouchDB, read by the vault-sync sidecar with a read-only member user.
+  - toEndpoints:
+    - matchLabels:
+        k8s:io.kubernetes.pod.namespace: default
+        app: obsidian-livesync-couchdb
+    toPorts:
+    - ports:
+      - port: "5984"
+        protocol: TCP

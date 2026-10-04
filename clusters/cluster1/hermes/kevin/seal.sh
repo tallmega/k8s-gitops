@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+# Seals one key at a time into hermes-kevin-sealed-secret.yaml (created on first use,
+# merged afterwards). The value is read silently and only ever passed to kubeseal, which
+# fetches the controller's public cert. Commit the YAML afterwards.
+#
+#   ./seal.sh TELEGRAM_BOT_TOKEN
+#
+# Keys used by the cell:
+#   HASS_TOKEN               Home Assistant long-lived token
+#   BRAVE_SEARCH_API_KEY     Brave Search API key (web search)
+#   VAULT_COUCHDB_USER       CouchDB read-only member user (oc-vault-ro)
+#   VAULT_COUCHDB_PASSWORD
+#   GOG_KEYRING_PASSWORD     passphrase for gog's file keyring (any random string)
+#   TELEGRAM_BOT_TOKEN       from @BotFather
+#   TELEGRAM_ALLOWED_USERS   Kevin's numeric Telegram user ID (also the cron home chat)
+set -euo pipefail
+cd "$(dirname "$0")"
+KEY=${1:?usage: $0 KEY}
+NS=hermes-kevin NAME=hermes-kevin-secrets OUT=hermes-kevin-sealed-secret.yaml
+SEAL="kubeseal --controller-name sealed-secrets-controller --controller-namespace kube-system --format yaml"
+read -r -s -p "$KEY: " VALUE; echo
+[ -n "$VALUE" ] || { echo "empty value, nothing sealed"; exit 1; }
+SECRET=$(kubectl -n "$NS" create secret generic "$NAME" --dry-run=client -o yaml --from-literal="$KEY=$VALUE")
+if [ -f "$OUT" ]; then
+  echo "$SECRET" | $SEAL --merge-into "$OUT"
+else
+  echo "$SECRET" | $SEAL > "$OUT"
+fi
+echo "sealed $KEY into $OUT"
