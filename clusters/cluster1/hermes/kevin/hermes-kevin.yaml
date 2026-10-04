@@ -146,6 +146,10 @@ spec:
         - name: vault
           mountPath: /vault
           readOnly: true
+        - name: gog-wrapper
+          mountPath: /usr/local/bin/gog
+          subPath: gog-wrapper
+          readOnly: true
       # One-way exporter: rebuilds the plaintext Obsidian LiveSync vault from CouchDB
       # (scoped read-only user) into the shared emptyDir every 15 min.
       - name: vault-sync
@@ -208,6 +212,13 @@ spec:
             path: seed.sh
           - key: google-readonly.md
             path: skills/google-readonly.md
+      - name: gog-wrapper
+        configMap:
+          name: hermes-kevin-seed
+          defaultMode: 0555
+          items:
+          - key: gog-wrapper
+            path: gog-wrapper
       - name: vault-sync
         configMap:
           name: hermes-kevin-vault-sync

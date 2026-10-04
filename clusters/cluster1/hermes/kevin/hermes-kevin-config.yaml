@@ -4,15 +4,15 @@ metadata:
   name: hermes-kevin-seed
   namespace: hermes-kevin
 data:
-  # Runs as the hermes UID before the gateway starts. Installs the gog Google CLI onto the
-  # data volume (latest release, checksum-verified, cached copy if GitHub is unreachable)
+  # Runs as the hermes UID before the gateway starts. Installs the gog Google CLI binary
+  # onto the data volume (latest release, checksum-verified, cached copy if GitHub is unreachable)
   # and seeds workspace skills only when missing: after first boot, skills on the volume
   # belong to Kevin and the agent. HERMES_SEED_OVERWRITE=true forces a re-seed.
   seed.sh: |
     #!/bin/sh
     set -eu
     D=/opt/data
-    mkdir -p "$D/.local/bin" "$D/.local/lib/gog" "$D/gog" "$D/skills"
+    mkdir -p "$D/.local/lib/gog" "$D/gog" "$D/skills"
     TOOLS="$D/.local/lib/gog"
     TAG=$(curl -fsSL --max-time 20 https://api.github.com/repos/openclaw/gogcli/releases/latest 2>/dev/null \
       | sed -n 's/.*"tag_name": *"\([^"]*\)".*/\1/p' | head -1 || true)
@@ -33,17 +33,10 @@ data:
     if [ -n "${TGZ:-}" ]; then
       rm -rf /tmp/gog && mkdir -p /tmp/gog && tar -xzf "$TGZ" -C /tmp/gog
       install -m 0755 /tmp/gog/gog "$TOOLS/gog.bin"
-      # Wrapper so the agent never handles the keyring passphrase itself.
+      # The keyring passphrase file is read by the gog wrapper (key gog-wrapper below).
       printf '%s' "${GOG_KEYRING_PASSWORD:-}" > "$D/gog/.keyring-pass"
       chmod 700 "$D/gog" && chmod 600 "$D/gog/.keyring-pass"
-      cat > "$D/.local/bin/gog" <<'WRAP'
-    #!/bin/sh
-    export GOG_HOME=/opt/data/gog
-    export GOG_KEYRING_BACKEND=file
-    export GOG_KEYRING_PASSWORD="$(cat /opt/data/gog/.keyring-pass 2>/dev/null)"
-    exec /opt/data/.local/lib/gog/gog.bin "$@"
-    WRAP
-      chmod 0755 "$D/.local/bin/gog"
+      rm -f "$D/.local/bin/gog"
       echo "[gog] installed $("$TOOLS/gog.bin" --version 2>/dev/null | head -1)"
     else
       echo "[gog] no network and no cached release; skipping"
@@ -55,6 +48,14 @@ data:
         mkdir -p "$(dirname "$dest")" && cp "$s" "$dest" && echo "[seed] skill $name"
       fi
     done
+  # Mounted at /usr/local/bin/gog: the agent's terminal runs a login shell whose
+  # /etc/profile resets PATH to the system dirs, so the wrapper must live there.
+  gog-wrapper: |
+    #!/bin/sh
+    export GOG_HOME=/opt/data/gog
+    export GOG_KEYRING_BACKEND=file
+    export GOG_KEYRING_PASSWORD="$(cat /opt/data/gog/.keyring-pass 2>/dev/null)"
+    exec /opt/data/.local/lib/gog/gog.bin "$@"
   google-readonly.md: |
     ---
     name: google-readonly
