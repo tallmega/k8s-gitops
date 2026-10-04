@@ -1,11 +1,10 @@
 # Hermes Agent (Nous Research) for Kevin. One cell per person: own namespace, secrets,
-# volume and network policy. Tools run locally in the gateway container (terminal
-# backend "local"); the network policy is the boundary. Layout follows upstream's
-# docker-compose: one image, a "gateway run" container and a "dashboard" container
-# sharing HERMES_HOME. Both start as root under s6-overlay, which chowns the volume and
-# drops every Hermes process to the hermes user (UID 10000); only the capabilities that
-# needs are granted. config.yaml, SOUL.md, memories and skills on the volume are owned by
-# Kevin and the agent (edit them in the dashboard), not by git.
+# volume and network policy. Tools run locally in the hermes container (terminal
+# backend "local"); the network policy is the boundary. The container starts as root
+# under s6-overlay, which chowns the volume and drops the gateway and dashboard to the
+# hermes user (UID 10000); only the capabilities that needs are granted. config.yaml,
+# SOUL.md, memories and skills on the volume are owned by Kevin and the agent (edit
+# them in the dashboard), not by git.
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -61,12 +60,29 @@ spec:
         - name: tmp
           mountPath: /tmp
       containers:
-      - name: gateway
+      - name: hermes
         image: docker.io/nousresearch/hermes-agent:v2026.9.24 # {"$imagepolicy": "flux-system:hermes-agent"}
         args: ["gateway", "run"]
+        ports:
+        - name: http
+          containerPort: 9119
+          protocol: TCP
         env:
         - name: TZ
           value: America/Toronto
+        # s6 supervises the dashboard next to the gateway (same PID namespace, so the
+        # dashboard can see and manage the gateway process).
+        - name: HERMES_DASHBOARD
+          value: "1"
+        - name: HERMES_DASHBOARD_PUBLIC_URL
+          value: https://hermes-kevin.tallflix.ca
+        # Authentik public (PKCE) client; Hermes does not support a client secret yet.
+        - name: HERMES_DASHBOARD_OIDC_ISSUER
+          value: https://sso.tallflix.ca/application/o/hermes-kevin/
+        - name: HERMES_DASHBOARD_OIDC_CLIENT_ID
+          value: hermes-kevin
+        - name: HERMES_DASHBOARD_OIDC_SCOPES
+          value: openid profile email
         - name: HASS_URL
           value: http://home-assistant.default.svc.cluster.local:8123
         - name: OBSIDIAN_VAULT_PATH
@@ -100,6 +116,10 @@ spec:
               name: hermes-kevin-secrets
               key: TELEGRAM_ALLOWED_USERS
               optional: true
+        readinessProbe:
+          tcpSocket:
+            port: 9119
+          periodSeconds: 10
         resources:
           requests:
             cpu: 100m
@@ -126,51 +146,6 @@ spec:
         - name: vault
           mountPath: /vault
           readOnly: true
-      - name: dashboard
-        image: docker.io/nousresearch/hermes-agent:v2026.9.24 # {"$imagepolicy": "flux-system:hermes-agent"}
-        args: ["dashboard", "--host", "0.0.0.0", "--port", "9119", "--no-open"]
-        ports:
-        - name: http
-          containerPort: 9119
-          protocol: TCP
-        env:
-        - name: TZ
-          value: America/Toronto
-        - name: HERMES_DASHBOARD_PUBLIC_URL
-          value: https://hermes-kevin.tallflix.ca
-        # Authentik public (PKCE) client; Hermes does not support a client secret yet.
-        - name: HERMES_DASHBOARD_OIDC_ISSUER
-          value: https://sso.tallflix.ca/application/o/hermes-kevin/
-        - name: HERMES_DASHBOARD_OIDC_CLIENT_ID
-          value: hermes-kevin
-        - name: HERMES_DASHBOARD_OIDC_SCOPES
-          value: openid profile email
-        readinessProbe:
-          tcpSocket:
-            port: 9119
-          periodSeconds: 10
-        resources:
-          requests:
-            cpu: 25m
-            memory: 256Mi
-          limits:
-            cpu: "1"
-            memory: 1Gi
-        securityContext:
-          allowPrivilegeEscalation: false
-          capabilities:
-            drop:
-            - ALL
-            add:
-            - CHOWN
-            - DAC_OVERRIDE
-            - FOWNER
-            - SETUID
-            - SETGID
-            - KILL
-        volumeMounts:
-        - name: data
-          mountPath: /opt/data
       # One-way exporter: rebuilds the plaintext Obsidian LiveSync vault from CouchDB
       # (scoped read-only user) into the shared emptyDir every 15 min.
       - name: vault-sync
