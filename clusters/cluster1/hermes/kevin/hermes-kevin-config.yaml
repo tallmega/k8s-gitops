@@ -12,7 +12,7 @@ data:
     #!/bin/sh
     set -eu
     D=/opt/data
-    mkdir -p "$D/.local/lib/gog" "$D/gog" "$D/skills"
+    mkdir -p "$D/.local/bin" "$D/.local/lib/gog" "$D/gog" "$D/skills" "$D/home"
     TOOLS="$D/.local/lib/gog"
     TAG=$(curl -fsSL --max-time 20 https://api.github.com/repos/openclaw/gogcli/releases/latest 2>/dev/null \
       | sed -n 's/.*"tag_name": *"\([^"]*\)".*/\1/p' | head -1 || true)
@@ -36,10 +36,16 @@ data:
       # The keyring passphrase file is read by the gog wrapper (key gog-wrapper below).
       printf '%s' "${GOG_KEYRING_PASSWORD:-}" > "$D/gog/.keyring-pass"
       chmod 700 "$D/gog" && chmod 600 "$D/gog/.keyring-pass"
-      rm -f "$D/.local/bin/gog"
+      install -m 0755 /seed/gog-wrapper "$D/.local/bin/gog"
       echo "[gog] installed $("$TOOLS/gog.bin" --version 2>/dev/null | head -1)"
     else
       echo "[gog] no network and no cached release; skipping"
+    fi
+    # The agent's terminal snapshots its env with a login shell; Debian's /etc/profile
+    # resets PATH there, then Hermes sources ~/.profile (HOME=/opt/data/home). Restore
+    # the tool dirs on the volume so anything a skill installs stays on PATH.
+    if [ ! -f "$D/home/.profile" ] || [ "${HERMES_SEED_OVERWRITE:-false}" = true ]; then
+      cp /seed/profile "$D/home/.profile" && echo "[seed] home/.profile"
     fi
     for s in /seed/skills/*; do
       name=$(basename "$s" .md)
@@ -48,8 +54,11 @@ data:
         mkdir -p "$(dirname "$dest")" && cp "$s" "$dest" && echo "[seed] skill $name"
       fi
     done
-  # Mounted at /usr/local/bin/gog: the agent's terminal runs a login shell whose
-  # /etc/profile resets PATH to the system dirs, so the wrapper must live there.
+  profile: |
+    # Re-add the Hermes tool dirs that Debian's /etc/profile resets (seeded once;
+    # edit freely). Covers pip --user / uv tool installs and /opt/data/.local/bin.
+    export PATH="$HOME/.local/bin:/opt/data/.local/bin:/opt/data/bin:$PATH"
+  # Installed at /opt/data/.local/bin/gog on every start.
   gog-wrapper: |
     #!/bin/sh
     export GOG_HOME=/opt/data/gog
