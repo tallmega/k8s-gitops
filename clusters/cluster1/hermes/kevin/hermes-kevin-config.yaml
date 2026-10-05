@@ -4,15 +4,15 @@ metadata:
   name: hermes-kevin-seed
   namespace: hermes-kevin
 data:
-  # Runs as the hermes UID before the gateway starts. Installs the gog Google CLI binary
-  # onto the data volume (latest release, checksum-verified, cached copy if GitHub is unreachable)
-  # and seeds workspace skills only when missing: after first boot, skills on the volume
-  # belong to Kevin and the agent. HERMES_SEED_OVERWRITE=true forces a re-seed.
+  # Plumbing only. Runs as the hermes UID before the gateway starts: installs the gog
+  # Google CLI (latest release, checksum-verified, cached copy if GitHub is unreachable)
+  # and its keyring passphrase from the sealed secret. Skills, ~/.profile, notes and all
+  # other Hermes content live on the volume and are edited inside Hermes, not here.
   seed.sh: |
     #!/bin/sh
     set -eu
     D=/opt/data
-    mkdir -p "$D/.local/bin" "$D/.local/lib/gog" "$D/gog" "$D/skills" "$D/home"
+    mkdir -p "$D/.local/bin" "$D/.local/lib/gog" "$D/gog"
     TOOLS="$D/.local/lib/gog"
     TAG=$(curl -fsSL --max-time 20 https://api.github.com/repos/openclaw/gogcli/releases/latest 2>/dev/null \
       | sed -n 's/.*"tag_name": *"\([^"]*\)".*/\1/p' | head -1 || true)
@@ -41,23 +41,6 @@ data:
     else
       echo "[gog] no network and no cached release; skipping"
     fi
-    # The agent's terminal snapshots its env with a login shell; Debian's /etc/profile
-    # resets PATH there, then Hermes sources ~/.profile (HOME=/opt/data/home). Restore
-    # the tool dirs on the volume so anything a skill installs stays on PATH.
-    if [ ! -f "$D/home/.profile" ] || [ "${HERMES_SEED_OVERWRITE:-false}" = true ]; then
-      install -m 0644 /seed/profile "$D/home/.profile" && echo "[seed] home/.profile"
-    fi
-    for s in /seed/skills/*; do
-      name=$(basename "$s" .md)
-      dest="$D/skills/productivity/$name/SKILL.md"
-      if [ ! -f "$dest" ] || [ "${HERMES_SEED_OVERWRITE:-false}" = true ]; then
-        mkdir -p "$(dirname "$dest")" && install -m 0664 "$s" "$dest" && echo "[seed] skill $name"
-      fi
-    done
-  profile: |
-    # Re-add the Hermes tool dirs that Debian's /etc/profile resets (seeded once;
-    # edit freely). Covers pip --user / uv tool installs and /opt/data/.local/bin.
-    export PATH="$HOME/.local/bin:/opt/data/.local/bin:/opt/data/bin:$PATH"
   # Installed at /opt/data/.local/bin/gog on every start.
   gog-wrapper: |
     #!/bin/sh
@@ -65,41 +48,3 @@ data:
     export GOG_KEYRING_BACKEND=file
     export GOG_KEYRING_PASSWORD="$(cat /opt/data/gog/.keyring-pass 2>/dev/null)"
     exec /opt/data/.local/lib/gog/gog.bin "$@"
-  obsidian-readonly.md: |
-    ---
-    name: obsidian-readonly
-    description: Search and read Kevin's Obsidian vault at /vault as reference material. Read-only - use this instead of the obsidian skill; never create or edit notes there.
-    ---
-    # Obsidian vault (read-only reference)
-
-    `/vault` is a read-only mirror of Kevin's Obsidian vault, refreshed every 15 minutes.
-    Use it to look things up: `search_files` / `read_file` on `/vault`, or `rg` in the
-    terminal. Paths contain spaces, so quote them.
-
-    - Never write, create, move or delete anything under `/vault` (it is mounted
-      read-only and writes will fail). Do not use the bundled `obsidian` skill.
-    - Documents worth keeping (trip plans, checklists, research) go in
-      `/opt/data/notes/` as Markdown; tell Kevin the path. Put the key facts (dates,
-      bookings, people) in memory too. Don't save routine chat as files.
-    - If Kevin explicitly asks for a note in Obsidian, give him the Markdown in chat to
-      paste into Obsidian himself.
-  google-readonly.md: |
-    ---
-    name: google-readonly
-    description: Read Kevin's Gmail and Google Calendar (kmcbride@gmail.com) with the gog CLI. Read-only - use this instead of the google-workspace skill.
-    ---
-    # Google (read-only) via gog
-
-    `gog` is on PATH and already authorized for kmcbride@gmail.com with **read-only**
-    Gmail and Calendar scopes. Run it directly; do not look for credentials, do not run
-    `gog auth`, and do not use the bundled google-workspace skill (it requests write scopes).
-
-    - Search mail with Gmail query syntax: `gog gmail search 'newer_than:2d is:unread'`
-    - Discover the rest from the CLI itself: `gog --help`, `gog gmail --help`,
-      `gog calendar --help` (subcommand flags change between releases).
-
-    Sending, replying, archiving, labelling and creating or changing events are **not
-    possible** (the token has no write scopes). When Kevin wants an email sent or an event
-    created, draft the text or event details in chat and let him do it himself.
-
-    Kevin's wife Kyrie's invites go to kyrie.hillier@gmail.com.
