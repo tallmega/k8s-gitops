@@ -45,13 +45,13 @@ data:
     # resets PATH there, then Hermes sources ~/.profile (HOME=/opt/data/home). Restore
     # the tool dirs on the volume so anything a skill installs stays on PATH.
     if [ ! -f "$D/home/.profile" ] || [ "${HERMES_SEED_OVERWRITE:-false}" = true ]; then
-      cp /seed/profile "$D/home/.profile" && echo "[seed] home/.profile"
+      install -m 0644 /seed/profile "$D/home/.profile" && echo "[seed] home/.profile"
     fi
     for s in /seed/skills/*; do
       name=$(basename "$s" .md)
       dest="$D/skills/productivity/$name/SKILL.md"
       if [ ! -f "$dest" ] || [ "${HERMES_SEED_OVERWRITE:-false}" = true ]; then
-        mkdir -p "$(dirname "$dest")" && cp "$s" "$dest" && echo "[seed] skill $name"
+        mkdir -p "$(dirname "$dest")" && install -m 0664 "$s" "$dest" && echo "[seed] skill $name"
       fi
     done
   profile: |
@@ -78,9 +78,10 @@ data:
 
     - Never write, create, move or delete anything under `/vault` (it is mounted
       read-only and writes will fail). Do not use the bundled `obsidian` skill.
-    - Do not save conversations, plans or summaries as files on your own. Things worth
-      remembering go into your memory; the conversation itself is already searchable.
-    - If Kevin explicitly asks for a note for Obsidian, give him the Markdown in chat to
+    - Documents worth keeping (trip plans, checklists, research) go in
+      `/opt/data/notes/` as Markdown; tell Kevin the path. Put the key facts (dates,
+      bookings, people) in memory too. Don't save routine chat as files.
+    - If Kevin explicitly asks for a note in Obsidian, give him the Markdown in chat to
       paste into Obsidian himself.
   google-readonly.md: |
     ---
