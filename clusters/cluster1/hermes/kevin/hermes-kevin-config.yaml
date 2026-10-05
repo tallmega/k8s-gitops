@@ -65,6 +65,23 @@ data:
     export GOG_KEYRING_BACKEND=file
     export GOG_KEYRING_PASSWORD="$(cat /opt/data/gog/.keyring-pass 2>/dev/null)"
     exec /opt/data/.local/lib/gog/gog.bin "$@"
+  obsidian-readonly.md: |
+    ---
+    name: obsidian-readonly
+    description: Search and read Kevin's Obsidian vault at /vault as reference material. Read-only - use this instead of the obsidian skill; never create or edit notes there.
+    ---
+    # Obsidian vault (read-only reference)
+
+    `/vault` is a read-only mirror of Kevin's Obsidian vault, refreshed every 15 minutes.
+    Use it to look things up: `search_files` / `read_file` on `/vault`, or `rg` in the
+    terminal. Paths contain spaces, so quote them.
+
+    - Never write, create, move or delete anything under `/vault` (it is mounted
+      read-only and writes will fail). Do not use the bundled `obsidian` skill.
+    - Do not save conversations, plans or summaries as files on your own. Things worth
+      remembering go into your memory; the conversation itself is already searchable.
+    - If Kevin explicitly asks for a note for Obsidian, give him the Markdown in chat to
+      paste into Obsidian himself.
   google-readonly.md: |
     ---
     name: google-readonly

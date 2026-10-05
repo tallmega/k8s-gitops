@@ -212,6 +212,8 @@ spec:
             path: profile
           - key: google-readonly.md
             path: skills/google-readonly.md
+          - key: obsidian-readonly.md
+            path: skills/obsidian-readonly.md
       - name: vault-sync
         configMap:
           name: hermes-kevin-vault-sync
