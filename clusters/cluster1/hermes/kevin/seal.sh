@@ -3,7 +3,7 @@
 # merged afterwards). The value is read silently and only ever passed to kubeseal, which
 # fetches the controller's public cert. Commit the YAML afterwards.
 #
-#   ./seal.sh SIGNAL_ACCOUNT
+#   ./seal.sh HASS_TOKEN
 #
 # Keys used by the cell:
 #   HASS_TOKEN               Home Assistant long-lived token
@@ -11,9 +11,6 @@
 #   VAULT_COUCHDB_USER       CouchDB read-only member user (oc-vault-ro)
 #   VAULT_COUCHDB_PASSWORD
 #   GOG_KEYRING_PASSWORD     passphrase for gog's file keyring (any random string)
-#   SIGNAL_ACCOUNT           the bot's numberless Signal Account Key (ACI)
-#   SIGNAL_ALLOWED_USERS     optional: Kevin's own Signal ID (also the cron home chat);
-#                            without it, Kevin pairs once via a code instead
 set -euo pipefail
 cd "$(dirname "$0")"
 KEY=${1:?usage: $0 KEY}

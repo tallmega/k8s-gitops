@@ -144,29 +144,10 @@ spec:
             secretKeyRef:
               name: hermes-kevin-secrets
               key: BRAVE_SEARCH_API_KEY
-        # Signal via the signal-cli sidecar (localhost only). Stays off until SIGNAL_ACCOUNT
-        # (the bot's numberless Account Key / ACI) is sealed in (see seal.sh). Without
-        # SIGNAL_ALLOWED_USERS, unknown senders get a pairing code to approve.
+        # Signal bridge: the signal-cli sidecar (localhost only). Account and allowed users
+        # are set in the dashboard (Messaging > Signal), stored in Hermes' own .env.
         - name: SIGNAL_HTTP_URL
           value: http://127.0.0.1:8080
-        - name: SIGNAL_ACCOUNT
-          valueFrom:
-            secretKeyRef:
-              name: hermes-kevin-secrets
-              key: SIGNAL_ACCOUNT
-              optional: true
-        - name: SIGNAL_ALLOWED_USERS
-          valueFrom:
-            secretKeyRef:
-              name: hermes-kevin-secrets
-              key: SIGNAL_ALLOWED_USERS
-              optional: true
-        - name: SIGNAL_HOME_CHANNEL
-          valueFrom:
-            secretKeyRef:
-              name: hermes-kevin-secrets
-              key: SIGNAL_ALLOWED_USERS
-              optional: true
         readinessProbe:
           tcpSocket:
             port: 9119
@@ -216,21 +197,16 @@ spec:
           fi
           echo "$BIN" > /tmp/signal-bin
           echo "[signal] using $("$BIN" --version)"
-          until [ -n "${SIGNAL_ACCOUNT:-}" ] && [ -n "$("$BIN" --config="$CFG" listAccounts 2>/dev/null)" ]; do
-            echo "[signal] waiting for a registered account (see seal.sh / register step)"; sleep 60
+          until [ -n "$("$BIN" --config="$CFG" listAccounts 2>/dev/null)" ]; do
+            echo "[signal] waiting for a registered account (run the register step)"; sleep 60
           done
-          exec "$BIN" --config="$CFG" -a "$SIGNAL_ACCOUNT" daemon --http=127.0.0.1:8080
+          # No -a: serves every registered account; Hermes names its account per request.
+          exec "$BIN" --config="$CFG" daemon --http=127.0.0.1:8080
         env:
         - name: SIGNAL_CLI_COMMIT  # TEMPORARY
           value: 13d603d3b5898d7b3b527305afc23c9c7ba84c5b
         - name: JAVA_OPTS
           value: -Xmx384m
-        - name: SIGNAL_ACCOUNT
-          valueFrom:
-            secretKeyRef:
-              name: hermes-kevin-secrets
-              key: SIGNAL_ACCOUNT
-              optional: true
         resources:
           requests:
             cpu: 25m
