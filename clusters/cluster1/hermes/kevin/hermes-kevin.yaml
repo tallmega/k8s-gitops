@@ -134,6 +134,12 @@ spec:
           value: http://home-assistant.default.svc.cluster.local:8123
         - name: OBSIDIAN_VAULT_PATH
           value: /vault
+        # Browser tool (agent-browser -> headless Chromium). Chromium's own sandbox needs user
+        # namespaces, which the RuntimeDefault seccomp profile blocks ("No usable sandbox!");
+        # the locked-down container and network policy are the sandbox instead. /dev/shm is
+        # only 64Mi, so Chromium uses /tmp for shared memory.
+        - name: AGENT_BROWSER_ARGS
+          value: --no-sandbox,--disable-dev-shm-usage
         - name: HASS_TOKEN
           valueFrom:
             secretKeyRef:
