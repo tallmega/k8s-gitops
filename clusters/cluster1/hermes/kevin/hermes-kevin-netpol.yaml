@@ -57,6 +57,16 @@ spec:
     - ports:
       - port: "8765"
         protocol: TCP
+  # Karakeep (bookmarks) API for the @karakeep/mcp server; delete/update tools are filtered
+  # out in Hermes' mcp_servers config.
+  - toEndpoints:
+    - matchLabels:
+        k8s:io.kubernetes.pod.namespace: default
+        app: karakeep-web
+    toPorts:
+    - ports:
+      - port: "3000"
+        protocol: TCP
   # Obsidian LiveSync CouchDB, read by the vault-sync sidecar with a read-only member user.
   - toEndpoints:
     - matchLabels:
