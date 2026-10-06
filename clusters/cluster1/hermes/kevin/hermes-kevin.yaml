@@ -178,6 +178,9 @@ spec:
         env:
         - name: TZ
           value: America/Toronto
+        # Hermes' own secrets and service settings (HASS_*, BRAVE_SEARCH_API_KEY, FIRECRAWL_API_KEY,
+        # KARAKEEP_API_KEY, SIGNAL_ACCOUNT, ...) live in Hermes' .env on the volume, set in the
+        # dashboard: some gateway code paths don't see container env vars. Env here is plumbing only.
         # s6 supervises the dashboard next to the gateway (same PID namespace, so the
         # dashboard can see and manage the gateway process).
         - name: HERMES_DASHBOARD
@@ -191,8 +194,6 @@ spec:
           value: hermes-kevin
         - name: HERMES_DASHBOARD_OIDC_SCOPES
           value: openid profile email offline_access
-        - name: HASS_URL
-          value: http://home-assistant.default.svc.cluster.local:8123
         - name: OBSIDIAN_VAULT_PATH
           value: /vault
         # Browser tool (agent-browser -> headless Chromium). Chromium's own sandbox needs user
@@ -201,16 +202,6 @@ spec:
         # only 64Mi, so Chromium uses /tmp for shared memory.
         - name: AGENT_BROWSER_ARGS
           value: --no-sandbox,--disable-dev-shm-usage
-        - name: HASS_TOKEN
-          valueFrom:
-            secretKeyRef:
-              name: hermes-kevin-secrets
-              key: HASS_TOKEN
-        - name: BRAVE_SEARCH_API_KEY
-          valueFrom:
-            secretKeyRef:
-              name: hermes-kevin-secrets
-              key: BRAVE_SEARCH_API_KEY
         # Signal bridge: the signal-cli sidecar (localhost only). Account and allowed users
         # are set in the dashboard (Messaging > Signal), stored in Hermes' own .env.
         - name: SIGNAL_HTTP_URL

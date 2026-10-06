@@ -3,11 +3,9 @@
 # merged afterwards). The value is read silently and only ever passed to kubeseal, which
 # fetches the controller's public cert. Commit the YAML afterwards.
 #
-#   ./seal.sh HASS_TOKEN
+#   ./seal.sh GOG_KEYRING_PASSWORD
 #
-# Keys used by the cell:
-#   HASS_TOKEN               Home Assistant long-lived token
-#   BRAVE_SEARCH_API_KEY     Brave Search API key (web search)
+# Keys used by the cell (non-Hermes containers only; Hermes' own keys go in its .env via the dashboard):
 #   VAULT_COUCHDB_USER       CouchDB read-only member user (oc-vault-ro)
 #   VAULT_COUCHDB_PASSWORD
 #   GOG_KEYRING_PASSWORD     passphrase for gog's file keyring (any random string)
