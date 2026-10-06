@@ -49,6 +49,14 @@ spec:
     - ports:
       - port: "8123"
         protocol: TCP
+  # ada-bridge on Kevin's PC (RICKENBACKER): read-only Outlook mail/calendar over HTTP with a
+  # bearer token. The only LAN host Hermes may reach.
+  - toCIDR:
+    - 10.10.10.201/32
+    toPorts:
+    - ports:
+      - port: "8765"
+        protocol: TCP
   # Obsidian LiveSync CouchDB, read by the vault-sync sidecar with a read-only member user.
   - toEndpoints:
     - matchLabels:
