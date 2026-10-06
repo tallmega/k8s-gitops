@@ -59,6 +59,53 @@ spec:
           readOnly: true
         - name: tmp
           mountPath: /tmp
+      # TEMPORARY (remove once ghcr.io/asamk/signal-cli >= 0.14.9 is running): builds
+      # signal-cli from a pinned master commit for numberless-account recovery
+      # (--recovery-key, AsamK/signal-cli dac64f7), which no release has yet. Cached on the
+      # signal volume per commit, so only the first start builds. To undo: delete this init
+      # container, the SIGNAL_CLI_COMMIT env on signal-cli, and /signal/build on the volume.
+      - name: signal-cli-build
+        image: docker.io/library/gradle:9.8.0-jdk25-noble
+        command:
+        - /bin/sh
+        - -c
+        - |
+          set -eu
+          OUT="/signal/build/$SIGNAL_CLI_COMMIT"
+          if [ -x "$OUT/bin/signal-cli" ]; then echo "[signal-build] cached $SIGNAL_CLI_COMMIT"; exit 0; fi
+          git clone --quiet https://github.com/AsamK/signal-cli.git /tmp/src
+          git -C /tmp/src checkout --quiet "$SIGNAL_CLI_COMMIT"
+          cd /tmp/src && gradle --no-daemon --quiet installDist
+          rm -rf /signal/build && mkdir -p /signal/build && cp -a build/install/signal-cli "$OUT"
+          echo "[signal-build] built $("$OUT/bin/signal-cli" --version)"
+        env:
+        - name: SIGNAL_CLI_COMMIT
+          value: 13d603d3b5898d7b3b527305afc23c9c7ba84c5b
+        - name: HOME
+          value: /tmp
+        - name: GRADLE_USER_HOME
+          value: /tmp/gradle
+        resources:
+          requests:
+            cpu: 500m
+            memory: 1Gi
+          limits:
+            cpu: "2"
+            memory: 3Gi
+        securityContext:
+          runAsUser: 10000
+          runAsGroup: 10000
+          runAsNonRoot: true
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities:
+            drop:
+            - ALL
+        volumeMounts:
+        - name: signal
+          mountPath: /signal
+        - name: signal-build-tmp
+          mountPath: /tmp
       containers:
       - name: hermes
         image: docker.io/nousresearch/hermes-agent:v2026.9.24 # {"$imagepolicy": "flux-system:hermes-agent"}
@@ -97,24 +144,28 @@ spec:
             secretKeyRef:
               name: hermes-kevin-secrets
               key: BRAVE_SEARCH_API_KEY
-        # Telegram stays off until the bot token is sealed in (see seal.sh).
-        - name: TELEGRAM_BOT_TOKEN
+        # Signal via the signal-cli sidecar (localhost only). Stays off until SIGNAL_ACCOUNT
+        # (the bot's numberless Account Key / ACI) is sealed in (see seal.sh). Without
+        # SIGNAL_ALLOWED_USERS, unknown senders get a pairing code to approve.
+        - name: SIGNAL_HTTP_URL
+          value: http://127.0.0.1:8080
+        - name: SIGNAL_ACCOUNT
           valueFrom:
             secretKeyRef:
               name: hermes-kevin-secrets
-              key: TELEGRAM_BOT_TOKEN
+              key: SIGNAL_ACCOUNT
               optional: true
-        - name: TELEGRAM_ALLOWED_USERS
+        - name: SIGNAL_ALLOWED_USERS
           valueFrom:
             secretKeyRef:
               name: hermes-kevin-secrets
-              key: TELEGRAM_ALLOWED_USERS
+              key: SIGNAL_ALLOWED_USERS
               optional: true
-        - name: TELEGRAM_HOME_CHANNEL
+        - name: SIGNAL_HOME_CHANNEL
           valueFrom:
             secretKeyRef:
               name: hermes-kevin-secrets
-              key: TELEGRAM_ALLOWED_USERS
+              key: SIGNAL_ALLOWED_USERS
               optional: true
         readinessProbe:
           tcpSocket:
@@ -146,6 +197,61 @@ spec:
         - name: vault
           mountPath: /vault
           readOnly: true
+      # Signal for Hermes: the bot's own numberless account, daemon on localhost only. Its
+      # keys live on a separate volume the hermes container does not mount. Uses the image's
+      # own signal-cli once it is >= 0.14.9 (image policy bumps it), otherwise the build above.
+      - name: signal-cli
+        image: ghcr.io/asamk/signal-cli:0.14.8 # {"$imagepolicy": "flux-system:signal-cli"}
+        command:
+        - /bin/sh
+        - -c
+        - |
+          set -eu
+          CFG=/signal/data
+          OFFICIAL=$(/opt/signal-cli/bin/signal-cli --version 2>/dev/null | awk '{print $2}')
+          if [ "$(printf '0.14.9\n%s\n' "$OFFICIAL" | sort -V | head -1)" = "0.14.9" ]; then
+            BIN=/opt/signal-cli/bin/signal-cli
+          else
+            BIN="/signal/build/$SIGNAL_CLI_COMMIT/bin/signal-cli"  # TEMPORARY
+          fi
+          echo "$BIN" > /tmp/signal-bin
+          echo "[signal] using $("$BIN" --version)"
+          until [ -n "${SIGNAL_ACCOUNT:-}" ] && [ -n "$("$BIN" --config="$CFG" listAccounts 2>/dev/null)" ]; do
+            echo "[signal] waiting for a registered account (see seal.sh / register step)"; sleep 60
+          done
+          exec "$BIN" --config="$CFG" -a "$SIGNAL_ACCOUNT" daemon --http=127.0.0.1:8080
+        env:
+        - name: SIGNAL_CLI_COMMIT  # TEMPORARY
+          value: 13d603d3b5898d7b3b527305afc23c9c7ba84c5b
+        - name: JAVA_OPTS
+          value: -Xmx384m
+        - name: SIGNAL_ACCOUNT
+          valueFrom:
+            secretKeyRef:
+              name: hermes-kevin-secrets
+              key: SIGNAL_ACCOUNT
+              optional: true
+        resources:
+          requests:
+            cpu: 25m
+            memory: 256Mi
+          limits:
+            cpu: "1"
+            memory: 768Mi
+        securityContext:
+          runAsUser: 10000
+          runAsGroup: 10000
+          runAsNonRoot: true
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities:
+            drop:
+            - ALL
+        volumeMounts:
+        - name: signal
+          mountPath: /signal
+        - name: signal-tmp
+          mountPath: /tmp
       # One-way exporter: rebuilds the plaintext Obsidian LiveSync vault from CouchDB
       # (scoped read-only user) into the shared emptyDir every 15 min.
       - name: vault-sync
@@ -218,6 +324,15 @@ spec:
       - name: tmp
         emptyDir:
           sizeLimit: 512Mi
+      - name: signal
+        persistentVolumeClaim:
+          claimName: hermes-kevin-signal-pvc
+      - name: signal-tmp
+        emptyDir:
+          sizeLimit: 256Mi
+      - name: signal-build-tmp  # TEMPORARY (signal-cli-build)
+        emptyDir:
+          sizeLimit: 4Gi
 ---
 apiVersion: v1
 kind: Service
@@ -248,3 +363,18 @@ spec:
   resources:
     requests:
       storage: 20Gi
+---
+# signal-cli account keys and message store for the bot's Signal account. Mounted only in
+# the signal-cli containers, never in hermes, so the agent cannot read the keys.
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: hermes-kevin-signal-pvc
+  namespace: hermes-kevin
+spec:
+  accessModes:
+  - ReadWriteOnce
+  storageClassName: longhorn
+  resources:
+    requests:
+      storage: 2Gi

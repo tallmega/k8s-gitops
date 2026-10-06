@@ -589,3 +589,19 @@ spec:
   policy:
     semver:
       range: '>= 2026.9.0'
+---
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImagePolicy
+metadata:
+  name: signal-cli
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: signal-cli
+  filterTags:
+    # Release tags only (JVM image); skips commit-hash and -native/-client tags.
+    pattern: '^(?P<version>\d+\.\d+\.\d+)$'
+    extract: '$version'
+  policy:
+    semver:
+      range: '>= 0.14.8'

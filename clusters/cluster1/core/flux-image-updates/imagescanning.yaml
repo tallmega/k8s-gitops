@@ -412,3 +412,12 @@ metadata:
 spec:
   image: docker.io/nousresearch/hermes-agent
   interval: 30m0s
+---
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImageRepository
+metadata:
+  name: signal-cli
+  namespace: flux-system
+spec:
+  image: ghcr.io/asamk/signal-cli
+  interval: 6h0m0s
