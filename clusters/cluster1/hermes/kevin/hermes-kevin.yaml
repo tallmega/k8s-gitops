@@ -106,6 +106,67 @@ spec:
           mountPath: /signal
         - name: signal-build-tmp
           mountPath: /tmp
+      # Signal for Hermes: the bot's own numberless account. Its keys live on a separate volume
+      # the hermes container does not mount. Native sidecar (restartPolicy: Always): it is
+      # running and probed before hermes starts and stops after hermes, so the gateway never
+      # races its startup or loses sends on shutdown. receive-mode=on-connection: messages are
+      # only pulled from Signal while Hermes is listening, so none are dropped during restarts.
+      # Listens on the pod IP for the startup probe; the network policy admits no other client.
+      # Uses the image's own signal-cli once it is >= 0.14.9 (image policy bumps it), otherwise
+      # the build above.
+      - name: signal-cli
+        restartPolicy: Always
+        image: ghcr.io/asamk/signal-cli:0.14.8 # {"$imagepolicy": "flux-system:signal-cli"}
+        command:
+        - /bin/sh
+        - -c
+        - |
+          set -eu
+          CFG=/signal/data
+          OFFICIAL=$(/opt/signal-cli/bin/signal-cli --version 2>/dev/null | awk '{print $2}')
+          if [ "$(printf '0.14.9\n%s\n' "$OFFICIAL" | sort -V | head -1)" = "0.14.9" ]; then
+            BIN=/opt/signal-cli/bin/signal-cli
+          else
+            BIN="/signal/build/$SIGNAL_CLI_COMMIT/bin/signal-cli"  # TEMPORARY
+          fi
+          echo "$BIN" > /tmp/signal-bin
+          echo "[signal] using $("$BIN" --version)"
+          until [ -n "$("$BIN" --config="$CFG" listAccounts 2>/dev/null)" ]; do
+            echo "[signal] waiting for a registered account (run the register step)"; sleep 60
+          done
+          # No -a: serves every registered account; Hermes names its account per request.
+          exec "$BIN" --config="$CFG" daemon --http=0.0.0.0:8080 --receive-mode=on-connection
+        env:
+        - name: SIGNAL_CLI_COMMIT  # TEMPORARY
+          value: 13d603d3b5898d7b3b527305afc23c9c7ba84c5b
+        - name: JAVA_OPTS
+          value: -Xmx384m
+        startupProbe:
+          tcpSocket:
+            port: 8080
+          periodSeconds: 5
+          failureThreshold: 120
+        resources:
+          requests:
+            cpu: 25m
+            memory: 256Mi
+          limits:
+            cpu: "1"
+            memory: 768Mi
+        securityContext:
+          runAsUser: 10000
+          runAsGroup: 10000
+          runAsNonRoot: true
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities:
+            drop:
+            - ALL
+        volumeMounts:
+        - name: signal
+          mountPath: /signal
+        - name: signal-tmp
+          mountPath: /tmp
       containers:
       - name: hermes
         image: docker.io/nousresearch/hermes-agent:v2026.9.24 # {"$imagepolicy": "flux-system:hermes-agent"}
@@ -184,56 +245,6 @@ spec:
         - name: vault
           mountPath: /vault
           readOnly: true
-      # Signal for Hermes: the bot's own numberless account, daemon on localhost only. Its
-      # keys live on a separate volume the hermes container does not mount. Uses the image's
-      # own signal-cli once it is >= 0.14.9 (image policy bumps it), otherwise the build above.
-      - name: signal-cli
-        image: ghcr.io/asamk/signal-cli:0.14.8 # {"$imagepolicy": "flux-system:signal-cli"}
-        command:
-        - /bin/sh
-        - -c
-        - |
-          set -eu
-          CFG=/signal/data
-          OFFICIAL=$(/opt/signal-cli/bin/signal-cli --version 2>/dev/null | awk '{print $2}')
-          if [ "$(printf '0.14.9\n%s\n' "$OFFICIAL" | sort -V | head -1)" = "0.14.9" ]; then
-            BIN=/opt/signal-cli/bin/signal-cli
-          else
-            BIN="/signal/build/$SIGNAL_CLI_COMMIT/bin/signal-cli"  # TEMPORARY
-          fi
-          echo "$BIN" > /tmp/signal-bin
-          echo "[signal] using $("$BIN" --version)"
-          until [ -n "$("$BIN" --config="$CFG" listAccounts 2>/dev/null)" ]; do
-            echo "[signal] waiting for a registered account (run the register step)"; sleep 60
-          done
-          # No -a: serves every registered account; Hermes names its account per request.
-          exec "$BIN" --config="$CFG" daemon --http=127.0.0.1:8080
-        env:
-        - name: SIGNAL_CLI_COMMIT  # TEMPORARY
-          value: 13d603d3b5898d7b3b527305afc23c9c7ba84c5b
-        - name: JAVA_OPTS
-          value: -Xmx384m
-        resources:
-          requests:
-            cpu: 25m
-            memory: 256Mi
-          limits:
-            cpu: "1"
-            memory: 768Mi
-        securityContext:
-          runAsUser: 10000
-          runAsGroup: 10000
-          runAsNonRoot: true
-          allowPrivilegeEscalation: false
-          readOnlyRootFilesystem: true
-          capabilities:
-            drop:
-            - ALL
-        volumeMounts:
-        - name: signal
-          mountPath: /signal
-        - name: signal-tmp
-          mountPath: /tmp
       # One-way exporter: rebuilds the plaintext Obsidian LiveSync vault from CouchDB
       # (scoped read-only user) into the shared emptyDir every 15 min.
       - name: vault-sync
