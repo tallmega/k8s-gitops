@@ -59,61 +59,13 @@ spec:
           readOnly: true
         - name: tmp
           mountPath: /tmp
-      # TEMPORARY (remove once ghcr.io/asamk/signal-cli >= 0.14.9 is running): builds
-      # signal-cli from a pinned master commit for numberless-account recovery
-      # (--recovery-key, AsamK/signal-cli dac64f7), which no release has yet. Cached on the
-      # signal volume per commit, so only the first start builds. To undo: delete this init
-      # container, the SIGNAL_CLI_COMMIT env on signal-cli, and /signal/build on the volume.
-      - name: signal-cli-build
-        image: docker.io/library/gradle:9.8.0-jdk25-noble
-        command:
-        - /bin/sh
-        - -c
-        - |
-          set -eu
-          OUT="/signal/build/$SIGNAL_CLI_COMMIT"
-          if [ -x "$OUT/bin/signal-cli" ]; then echo "[signal-build] cached $SIGNAL_CLI_COMMIT"; exit 0; fi
-          git clone --quiet https://github.com/AsamK/signal-cli.git /tmp/src
-          git -C /tmp/src checkout --quiet "$SIGNAL_CLI_COMMIT"
-          cd /tmp/src && gradle --no-daemon --quiet installDist
-          rm -rf /signal/build && mkdir -p /signal/build && cp -a build/install/signal-cli "$OUT"
-          echo "[signal-build] built $("$OUT/bin/signal-cli" --version)"
-        env:
-        - name: SIGNAL_CLI_COMMIT
-          value: 13d603d3b5898d7b3b527305afc23c9c7ba84c5b
-        - name: HOME
-          value: /tmp
-        - name: GRADLE_USER_HOME
-          value: /tmp/gradle
-        resources:
-          requests:
-            cpu: 500m
-            memory: 1Gi
-          limits:
-            cpu: "2"
-            memory: 3Gi
-        securityContext:
-          runAsUser: 10000
-          runAsGroup: 10000
-          runAsNonRoot: true
-          allowPrivilegeEscalation: false
-          readOnlyRootFilesystem: true
-          capabilities:
-            drop:
-            - ALL
-        volumeMounts:
-        - name: signal
-          mountPath: /signal
-        - name: signal-build-tmp
-          mountPath: /tmp
       # Signal for Hermes: the bot's own numberless account. Its keys live on a separate volume
       # the hermes container does not mount. Native sidecar (restartPolicy: Always): it is
       # running and probed before hermes starts and stops after hermes, so the gateway never
       # races its startup or loses sends on shutdown. receive-mode=on-connection: messages are
       # only pulled from Signal while Hermes is listening, so none are dropped during restarts.
       # Listens on the pod IP for the startup probe; the network policy admits no other client.
-      # Uses the image's own signal-cli once it is >= 0.14.9 (image policy bumps it), otherwise
-      # the build above.
+      # Needs signal-cli >= 0.14.9 (numberless-account support).
       - name: signal-cli
         restartPolicy: Always
         image: ghcr.io/asamk/signal-cli:0.14.9 # {"$imagepolicy": "flux-system:signal-cli"}
@@ -123,12 +75,7 @@ spec:
         - |
           set -eu
           CFG=/signal/data
-          OFFICIAL=$(/opt/signal-cli/bin/signal-cli --version 2>/dev/null | awk '{print $2}')
-          if [ "$(printf '0.14.9\n%s\n' "$OFFICIAL" | sort -V | head -1)" = "0.14.9" ]; then
-            BIN=/opt/signal-cli/bin/signal-cli
-          else
-            BIN="/signal/build/$SIGNAL_CLI_COMMIT/bin/signal-cli"  # TEMPORARY
-          fi
+          BIN=/opt/signal-cli/bin/signal-cli
           echo "$BIN" > /tmp/signal-bin
           echo "[signal] using $("$BIN" --version)"
           until [ -n "$("$BIN" --config="$CFG" listAccounts 2>/dev/null)" ]; do
@@ -137,8 +84,6 @@ spec:
           # No -a: serves every registered account; Hermes names its account per request.
           exec "$BIN" --config="$CFG" daemon --http=0.0.0.0:8080 --receive-mode=on-connection
         env:
-        - name: SIGNAL_CLI_COMMIT # TEMPORARY
-          value: 13d603d3b5898d7b3b527305afc23c9c7ba84c5b
         - name: JAVA_OPTS
           value: -Xmx384m
         startupProbe:
@@ -314,9 +259,6 @@ spec:
       - name: signal-tmp
         emptyDir:
           sizeLimit: 256Mi
-      - name: signal-build-tmp # TEMPORARY (signal-cli-build)
-        emptyDir:
-          sizeLimit: 4Gi
 ---
 apiVersion: v1
 kind: Service
