@@ -116,7 +116,7 @@ spec:
       # the build above.
       - name: signal-cli
         restartPolicy: Always
-        image: ghcr.io/asamk/signal-cli:0.14.8 # {"$imagepolicy": "flux-system:signal-cli"}
+        image: ghcr.io/asamk/signal-cli:0.14.9 # {"$imagepolicy": "flux-system:signal-cli"}
         command:
         - /bin/sh
         - -c
@@ -137,7 +137,7 @@ spec:
           # No -a: serves every registered account; Hermes names its account per request.
           exec "$BIN" --config="$CFG" daemon --http=0.0.0.0:8080 --receive-mode=on-connection
         env:
-        - name: SIGNAL_CLI_COMMIT  # TEMPORARY
+        - name: SIGNAL_CLI_COMMIT # TEMPORARY
           value: 13d603d3b5898d7b3b527305afc23c9c7ba84c5b
         - name: JAVA_OPTS
           value: -Xmx384m
@@ -314,7 +314,7 @@ spec:
       - name: signal-tmp
         emptyDir:
           sizeLimit: 256Mi
-      - name: signal-build-tmp  # TEMPORARY (signal-cli-build)
+      - name: signal-build-tmp # TEMPORARY (signal-cli-build)
         emptyDir:
           sizeLimit: 4Gi
 ---
