@@ -41,11 +41,11 @@ spec:
             - containerPort: 3000
           resources:
             requests:
-              cpu: 5m
-              memory: 16Mi
+              cpu: 25m
+              memory: 64Mi
             limits:
-              cpu: 50m
-              memory: 128Mi
+              cpu: 500m
+              memory: 256Mi
           env:
             - name: PAPERLESS_URL
               value: https://paperless.tallflix.ca
