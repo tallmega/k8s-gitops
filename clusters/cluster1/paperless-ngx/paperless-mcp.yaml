@@ -32,7 +32,11 @@ spec:
     spec:
       containers:
         - name: paperless-mcp
-          image: ghcr.io/baruchiro/paperless-mcp:pr-35
+          image: ghcr.io/baruchiro/paperless-mcp:2.2.1 # {"$imagepolicy": "flux-system:paperless-mcp"}
+          # v2+ rejects requests without a client token; --no-auth keeps anonymous clients working
+          # by falling back to PAPERLESS_API_KEY, which must be a VIEW-ONLY Paperless user's token
+          # (the endpoint is reachable on the LAN via the internal route).
+          args: ["--no-auth"]
           ports:
             - containerPort: 3000
           resources:

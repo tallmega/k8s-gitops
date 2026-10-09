@@ -605,3 +605,19 @@ spec:
   policy:
     semver:
       range: '>= 0.14.8'
+---
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImagePolicy
+metadata:
+  name: paperless-mcp
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: paperless-mcp
+  filterTags:
+    pattern: '^(?P<version>\d+\.\d+\.\d+)$'
+    extract: '$version'
+  policy:
+    semver:
+      # Stay on v2: a major bump may change auth/transport behaviour.
+      range: '>= 2.2.1 < 3.0.0'

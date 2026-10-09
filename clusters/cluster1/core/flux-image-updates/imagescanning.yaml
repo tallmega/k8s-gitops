@@ -421,3 +421,12 @@ metadata:
 spec:
   image: ghcr.io/asamk/signal-cli
   interval: 6h0m0s
+---
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImageRepository
+metadata:
+  name: paperless-mcp
+  namespace: flux-system
+spec:
+  image: ghcr.io/baruchiro/paperless-mcp
+  interval: 12h0m0s
