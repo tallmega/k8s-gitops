@@ -67,6 +67,16 @@ spec:
     - ports:
       - port: "3000"
         protocol: TCP
+  # Paperless-ngx API for the @baruchiro/paperless-mcp server, using Ada's own Paperless user
+  # (view-only permissions enforced by Paperless).
+  - toEndpoints:
+    - matchLabels:
+        k8s:io.kubernetes.pod.namespace: default
+        app: paperless-webserver
+    toPorts:
+    - ports:
+      - port: "8000"
+        protocol: TCP
   # Obsidian LiveSync CouchDB, read by the vault-sync sidecar with a read-only member user.
   - toEndpoints:
     - matchLabels:
