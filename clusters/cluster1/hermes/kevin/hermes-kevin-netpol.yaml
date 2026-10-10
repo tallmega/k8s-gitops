@@ -77,6 +77,16 @@ spec:
     - ports:
       - port: "3000"
         protocol: TCP
+  # Overseerr API for the @jhomen368/overseerr-mcp server (search + request tools only; the
+  # admin-level API key's manage/approve/delete tool is filtered out in Hermes' config).
+  - toEndpoints:
+    - matchLabels:
+        k8s:io.kubernetes.pod.namespace: default
+        app: overseerr
+    toPorts:
+    - ports:
+      - port: "5055"
+        protocol: TCP
   # Obsidian LiveSync CouchDB, read by the vault-sync sidecar with a read-only member user.
   - toEndpoints:
     - matchLabels:
