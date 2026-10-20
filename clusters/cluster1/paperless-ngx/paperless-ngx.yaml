@@ -40,6 +40,9 @@ metadata:
   namespace: default
 spec:
   replicas: 1
+  # RWO volume: never run old and new pods at once (Flux bumps the image).
+  strategy:
+    type: Recreate
   selector:
     matchLabels:
       app: paperless-postgres
@@ -103,6 +106,9 @@ metadata:
   namespace: default
 spec:
   replicas: 1
+  # RWO volume: never run old and new pods at once (Flux bumps the image).
+  strategy:
+    type: Recreate
   selector:
     matchLabels:
       app: paperless-redis
