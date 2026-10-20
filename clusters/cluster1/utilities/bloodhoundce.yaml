@@ -161,11 +161,12 @@ spec:
     spec:
       initContainers:
       - name: check-db-availability
-        image: docker.io/library/busybox:1.37.0 # {"$imagepolicy": "flux-system:busybox"}
+        image: docker.io/library/busybox:1.38.0 # {"$imagepolicy": "flux-system:busybox"}
         command: ['/bin/sh', '-c']
         args:
         - >
           until nc -z graph-db 7687 && nc -z app-db 5432; do
+
 
             echo "Waiting for databases to be ready";
             sleep 5;
