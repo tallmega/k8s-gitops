@@ -163,23 +163,22 @@ spec:
     spec:
       containers:
         - name: karakeep-chrome
-          image: gcr.io/zenika-hub/alpine-chrome:123
-          command:
-            - chromium-browser
-            - --headless
-            - --no-sandbox
+          image: ghcr.io/karakeep-app/karakeep-chrome:154.0.8037.57-r1 # {"$imagepolicy": "flux-system:karakeep-chrome"}
+          # The image's entrypoint runs headless Chrome and exposes DevTools
+          # on 9222; these are the extra flags from Karakeep's compose file.
+          args:
             - --disable-gpu
             - --disable-dev-shm-usage
-            - --remote-debugging-address=0.0.0.0
-            - --remote-debugging-port=9222
             - --hide-scrollbars
+            - --disable-blink-features=AutomationControlled
+            - --window-size=1440,900
           resources:
             requests:
               cpu: 250m
-              memory: 64Mi
+              memory: 128Mi
             limits:
               cpu: "1"
-              memory: 512Mi
+              memory: 1Gi
 ---
 apiVersion: v1
 kind: Service

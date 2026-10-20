@@ -229,11 +229,14 @@ metadata:
 spec:
   imageRepositoryRef:
     name: plex
+  # Sort on the monotonically increasing build number (1.43.5.11029 -> 11029).
+  # alphabetical/desc selects the *lowest* tag and pinned Plex to 1.43.0.
   filterTags:
-    pattern: '^(\d+\.\d+\.\d+\.\d+-[a-z0-9]+)-amd64$'
+    pattern: '^\d+\.\d+\.\d+\.(?P<build>\d+)-[0-9a-f]+-amd64$'
+    extract: '$build'
   policy:
-    alphabetical:
-      order: desc
+    numerical:
+      order: asc
   digestReflectionPolicy: Never
 ---
 apiVersion: image.toolkit.fluxcd.io/v1
@@ -330,7 +333,8 @@ spec:
     name: qbittorrent
   policy:
     semver:
-      range: '>= 5.0.0'
+      # Upper bound excludes stray legacy tags like 20.04.1.
+      range: '>= 5.0.0 < 20.0.0'
 ---
 apiVersion: image.toolkit.fluxcd.io/v1
 kind: ImagePolicy
@@ -621,3 +625,20 @@ spec:
     semver:
       # Stay on v2: a major bump may change auth/transport behaviour.
       range: '>= 2.2.1 < 3.0.0'
+---
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImagePolicy
+metadata:
+  name: karakeep-chrome
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: karakeep-chrome
+  filterTags:
+    # Tags are <chrome version>-r<rev> (154.0.8037.57-r1); Chrome's minor is
+    # always 0, so major.build.patch gives a sortable semver.
+    pattern: '^(?P<major>\d+)\.0\.(?P<build>\d+)\.(?P<patch>\d+)-r\d+$'
+    extract: '$major.$build.$patch'
+  policy:
+    semver:
+      range: '>= 154.0.0'
