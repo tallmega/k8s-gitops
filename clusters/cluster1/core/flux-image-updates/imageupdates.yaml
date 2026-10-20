@@ -333,8 +333,8 @@ spec:
     name: qbittorrent
   policy:
     semver:
-      # Upper bound excludes stray legacy tags like 20.04.1.
-      range: '>= 5.0.0 < 20.0.0'
+      # Upper bound excludes stray legacy tags like 14.3.9 and 20.04.1.
+      range: '>= 5.0.0 < 10.0.0'
 ---
 apiVersion: image.toolkit.fluxcd.io/v1
 kind: ImagePolicy
@@ -642,3 +642,112 @@ spec:
   policy:
     semver:
       range: '>= 154.0.0'
+---
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImagePolicy
+metadata:
+  name: postgres-17
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: postgres
+  filterTags:
+    # Minor releases only, and always the trixie base: the floating tag
+    # moved Paperless's DB from bookworm to trixie (glibc collation change).
+    pattern: '^(?P<major>\d+)\.(?P<minor>\d+)-trixie$'
+    extract: '$major.$minor.0'
+  policy:
+    semver:
+      range: '>= 17.0.0 < 18.0.0'
+---
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImagePolicy
+metadata:
+  name: postgres-16
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: postgres
+  filterTags:
+    # Minor releases only (BloodHound); a major upgrade needs dump/restore.
+    pattern: '^(?P<major>\d+)\.(?P<minor>\d+)-trixie$'
+    extract: '$major.$minor.0'
+  policy:
+    semver:
+      range: '>= 16.0.0 < 17.0.0'
+---
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImagePolicy
+metadata:
+  name: redis-8
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: redis-library
+  filterTags:
+    pattern: '^(?P<version>\d+\.\d+\.\d+)$'
+    extract: '$version'
+  policy:
+    semver:
+      range: '>= 8.0.0 < 9.0.0'
+---
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImagePolicy
+metadata:
+  name: gotenberg
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: gotenberg
+  filterTags:
+    pattern: '^(?P<version>\d+\.\d+\.\d+)$'
+    extract: '$version'
+  policy:
+    semver:
+      range: '>= 8.20.0 < 9.0.0'
+---
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImagePolicy
+metadata:
+  name: busybox
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: busybox
+  filterTags:
+    pattern: '^(?P<version>\d+\.\d+\.\d+)$'
+    extract: '$version'
+  policy:
+    semver:
+      range: '>= 1.37.0 < 2.0.0'
+---
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImagePolicy
+metadata:
+  name: python-3-13
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: python
+  filterTags:
+    pattern: '^(?P<version>3\.13\.\d+)-slim$'
+    extract: '$version'
+  policy:
+    semver:
+      range: '>= 3.13.0 < 3.14.0'
+---
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImagePolicy
+metadata:
+  name: kubectl
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: kubectl
+  filterTags:
+    pattern: '^v(?P<version>\d+\.\d+\.\d+)$'
+    extract: '$version'
+  policy:
+    semver:
+      # Match the cluster's minor (v1.36); bump alongside Talos/K8s upgrades.
+      range: '>= 1.36.0 < 1.37.0'

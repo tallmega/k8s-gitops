@@ -50,7 +50,7 @@ spec:
     spec:
       containers:
         - name: paperless-postgres
-          image: docker.io/library/postgres:17
+          image: docker.io/library/postgres:17.11-trixie # {"$imagepolicy": "flux-system:postgres-17"}
           env:
             - name: PGDATA
               value: '/var/lib/postgresql/data/pgdata'
@@ -113,7 +113,7 @@ spec:
     spec:
       containers:
         - name: paperless-redis
-          image: docker.io/library/redis:8
+          image: docker.io/library/redis:8.10.2 # {"$imagepolicy": "flux-system:redis-8"}
           ports:
             - containerPort: 6379
           resources:
@@ -162,7 +162,7 @@ spec:
     spec:
       containers:
         - name: gotenberg
-          image: docker.io/gotenberg/gotenberg:8.20
+          image: docker.io/gotenberg/gotenberg:8.38.1 # {"$imagepolicy": "flux-system:gotenberg"}
           args:
             - "gotenberg"
             - "--chromium-disable-javascript=true"

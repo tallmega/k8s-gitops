@@ -96,7 +96,7 @@ spec:
     spec:
       containers:
       - name: postgres
-        image: docker.io/library/postgres:16
+        image: docker.io/library/postgres:16.15-trixie # {"$imagepolicy": "flux-system:postgres-16"}
         # command: [ "/bin/bash", "-c", "--" ]
         # args: [ "while true; do sleep 30; done;" ]
         env:
@@ -161,7 +161,7 @@ spec:
     spec:
       initContainers:
       - name: check-db-availability
-        image: busybox
+        image: docker.io/library/busybox:1.37.0 # {"$imagepolicy": "flux-system:busybox"}
         command: ['/bin/sh', '-c']
         args:
         - >

@@ -439,3 +439,57 @@ metadata:
 spec:
   image: ghcr.io/karakeep-app/karakeep-chrome
   interval: 12h0m0s
+---
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImageRepository
+metadata:
+  name: postgres
+  namespace: flux-system
+spec:
+  image: docker.io/library/postgres
+  interval: 12h0m0s
+---
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImageRepository
+metadata:
+  name: redis-library
+  namespace: flux-system
+spec:
+  image: docker.io/library/redis
+  interval: 12h0m0s
+---
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImageRepository
+metadata:
+  name: gotenberg
+  namespace: flux-system
+spec:
+  image: docker.io/gotenberg/gotenberg
+  interval: 12h0m0s
+---
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImageRepository
+metadata:
+  name: busybox
+  namespace: flux-system
+spec:
+  image: docker.io/library/busybox
+  interval: 12h0m0s
+---
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImageRepository
+metadata:
+  name: python
+  namespace: flux-system
+spec:
+  image: docker.io/library/python
+  interval: 12h0m0s
+---
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImageRepository
+metadata:
+  name: kubectl
+  namespace: flux-system
+spec:
+  image: registry.k8s.io/kubectl
+  interval: 12h0m0s
