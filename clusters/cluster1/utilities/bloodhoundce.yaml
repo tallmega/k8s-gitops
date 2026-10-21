@@ -174,7 +174,7 @@ spec:
 
       containers:
       - name: bloodhound
-        image: docker.io/specterops/bloodhound:8.9.1 # {"$imagepolicy": "flux-system:bloodhound"}
+        image: docker.io/specterops/bloodhound:9.8.0 # {"$imagepolicy": "flux-system:bloodhound"}
         env:
         - name: bhe_disable_cypher_complexity_limit
           value: "false"

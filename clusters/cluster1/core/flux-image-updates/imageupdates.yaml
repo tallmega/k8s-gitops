@@ -546,7 +546,8 @@ spec:
     extract: '$version'
   policy:
     semver:
-      range: '>= 8.4.1 < 9.0.0'
+      # Stay on v9; neo4j stays pinned at BloodHound's 4.4.42.
+      range: '>= 9.8.0 < 10.0.0'
 ---
 apiVersion: image.toolkit.fluxcd.io/v1
 kind: ImagePolicy
