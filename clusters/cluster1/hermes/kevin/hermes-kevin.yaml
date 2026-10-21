@@ -184,7 +184,7 @@ spec:
       # One-way exporter: rebuilds the plaintext Obsidian LiveSync vault from CouchDB
       # (scoped read-only user) into the shared emptyDir every 15 min.
       - name: vault-sync
-        image: docker.io/library/python:3.13.16-slim # {"$imagepolicy": "flux-system:python-3-13"}
+        image: docker.io/library/python:3.13.17-slim # {"$imagepolicy": "flux-system:python-3-13"}
         imagePullPolicy: IfNotPresent
         command: ["python3", "/app/sync.py"]
         env:
