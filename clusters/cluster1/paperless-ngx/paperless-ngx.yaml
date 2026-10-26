@@ -121,7 +121,7 @@ spec:
     spec:
       containers:
         - name: paperless-redis
-          image: docker.io/library/redis:8.10.2 # {"$imagepolicy": "flux-system:redis-8"}
+          image: docker.io/library/redis:8.10.3 # {"$imagepolicy": "flux-system:redis-8"}
           ports:
             - containerPort: 6379
           resources:
