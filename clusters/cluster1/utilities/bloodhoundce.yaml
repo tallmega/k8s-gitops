@@ -168,13 +168,14 @@ spec:
           until nc -z graph-db 7687 && nc -z app-db 5432; do
 
 
+
             echo "Waiting for databases to be ready";
             sleep 5;
           done;
 
       containers:
       - name: bloodhound
-        image: docker.io/specterops/bloodhound:9.8.0 # {"$imagepolicy": "flux-system:bloodhound"}
+        image: docker.io/specterops/bloodhound:9.9.0 # {"$imagepolicy": "flux-system:bloodhound"}
         env:
         - name: bhe_disable_cypher_complexity_limit
           value: "false"
