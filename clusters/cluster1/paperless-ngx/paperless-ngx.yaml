@@ -170,7 +170,7 @@ spec:
     spec:
       containers:
         - name: gotenberg
-          image: docker.io/gotenberg/gotenberg:8.38.1 # {"$imagepolicy": "flux-system:gotenberg"}
+          image: docker.io/gotenberg/gotenberg:8.39.0 # {"$imagepolicy": "flux-system:gotenberg"}
           args:
             - "gotenberg"
             - "--chromium-disable-javascript=true"
