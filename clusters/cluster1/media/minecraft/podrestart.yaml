@@ -1,10 +1,8 @@
----
 kind: ServiceAccount
 apiVersion: v1
 metadata:
   name: deleting-pods
   namespace: default
-
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
@@ -15,7 +13,6 @@ rules:
   - apiGroups: [""]
     resources: ["pods"]
     verbs: ["get", "patch", "list", "watch", "delete"]
-
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
@@ -29,7 +26,6 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: deleting-pods
-
 ---
 apiVersion: batch/v1
 kind: CronJob
@@ -50,5 +46,5 @@ spec:
           containers:
             - name: kubectl
               # Entrypoint is kubectl (no shell in this image).
-              image: registry.k8s.io/kubectl:v1.36.5 # {"$imagepolicy": "flux-system:kubectl"}
-              args: [ "delete", "pod", "-l", "podtype=minecraft" ]
+              image: registry.k8s.io/kubectl:v1.36.6 # {"$imagepolicy": "flux-system:kubectl"}
+              args: ["delete", "pod", "-l", "podtype=minecraft"]
