@@ -68,7 +68,7 @@ spec:
       # Needs signal-cli >= 0.14.9 (numberless-account support).
       - name: signal-cli
         restartPolicy: Always
-        image: ghcr.io/asamk/signal-cli:0.14.9 # {"$imagepolicy": "flux-system:signal-cli"}
+        image: ghcr.io/asamk/signal-cli:0.14.10 # {"$imagepolicy": "flux-system:signal-cli"}
         command:
         - /bin/sh
         - -c
