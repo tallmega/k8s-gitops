@@ -70,8 +70,6 @@ spec:
         volumeMounts:
         - mountPath: /config
           name: config
-        - mountPath: /data/tvshows
-          name: tv1
         - mountPath: /data/tvshows3
           name: tv3
         - mountPath: /data/music
@@ -90,9 +88,6 @@ spec:
       - name: config
         persistentVolumeClaim:
           claimName: plex-config-pvc
-      - name: tv1
-        persistentVolumeClaim:
-          claimName: tvshows-pvc
       - name: tv3
         persistentVolumeClaim:
           claimName: tvshows3-pvc

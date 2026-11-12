@@ -181,4 +181,4 @@ spec:
     - nfsvers=4
   nfs:
     path: /volume1/frigate
-    server: 10.10.10.105
+    server: 10.10.10.110

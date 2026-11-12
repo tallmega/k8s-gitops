@@ -57,8 +57,6 @@ spec:
         volumeMounts:
         - mountPath: /config
           name: config
-        - mountPath: /data/tvshows
-          name: tv1
         - mountPath: /data/tvshows3
           name: tv3
         - mountPath: /data/movies3
@@ -87,9 +85,6 @@ spec:
       - name: config
         persistentVolumeClaim:
           claimName: jellyfin-config-pvc
-      - name: tv1
-        persistentVolumeClaim:
-          claimName: tvshows-pvc
       - name: tv3
         persistentVolumeClaim:
           claimName: tvshows3-pvc
