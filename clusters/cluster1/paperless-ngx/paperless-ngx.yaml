@@ -54,7 +54,7 @@ spec:
     spec:
       containers:
         - name: paperless-postgres
-          image: docker.io/library/postgres:17.11-trixie # {"$imagepolicy": "flux-system:postgres-17"}
+          image: docker.io/library/postgres:17.12-trixie # {"$imagepolicy": "flux-system:postgres-17"}
           env:
             - name: PGDATA
               value: '/var/lib/postgresql/data/pgdata'
