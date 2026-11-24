@@ -163,7 +163,7 @@ spec:
     spec:
       containers:
         - name: karakeep-chrome
-          image: ghcr.io/karakeep-app/karakeep-chrome:157.0.8103.78-r1 # {"$imagepolicy": "flux-system:karakeep-chrome"}
+          image: ghcr.io/karakeep-app/karakeep-chrome:158.0.8127.88-r1 # {"$imagepolicy": "flux-system:karakeep-chrome"}
           # The image's entrypoint runs headless Chrome and exposes DevTools
           # on 9222; these are the extra flags from Karakeep's compose file.
           args:
