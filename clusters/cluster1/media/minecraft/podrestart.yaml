@@ -46,5 +46,5 @@ spec:
           containers:
             - name: kubectl
               # Entrypoint is kubectl (no shell in this image).
-              image: registry.k8s.io/kubectl:v1.36.6 # {"$imagepolicy": "flux-system:kubectl"}
+              image: registry.k8s.io/kubectl:v1.36.7 # {"$imagepolicy": "flux-system:kubectl"}
               args: ["delete", "pod", "-l", "podtype=minecraft"]
