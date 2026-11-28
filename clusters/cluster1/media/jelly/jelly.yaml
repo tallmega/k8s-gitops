@@ -50,7 +50,7 @@ spec:
             gpu.intel.com/i915: "1"
           limits:
             cpu: "2"
-            memory: 2Gi
+            memory: 4Gi
             gpu.intel.com/i915: "1"
         stdin: true
         tty: true

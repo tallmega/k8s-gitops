@@ -9,6 +9,8 @@ spec:
   chart:
     spec:
       chart: intel-device-plugins-gpu
+      # Pinned with the operator below (upstream issue #2416). Unpin both together.
+      version: "0.37.1"
       reconcileStrategy: ChartVersion
       sourceRef:
         kind: HelmRepository
@@ -28,6 +30,10 @@ spec:
   chart:
     spec:
       chart: intel-device-plugins-operator
+      # Pinned: 0.37.2's operator adds -prefix=/host to the GPU plugin args but still mounts
+      # /dev/dri and /sys/class/drm at their old paths, so the plugin finds no GPUs and every
+      # node drops to gpu.intel.com/i915=0 (upstream issue #2416). Unpin once fixed upstream.
+      version: "0.37.1"
       reconcileStrategy: ChartVersion
       sourceRef:
         kind: HelmRepository
